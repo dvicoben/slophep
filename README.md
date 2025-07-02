@@ -16,12 +16,15 @@ To be used to generate bands from fit results and to generate predictions for fi
 - Additional FF schemes can be implemented - they need to inherit from `FormFactor` and implement the `get_ff(q2)` method, returning FFs in the lattice convention $V, A_0, A_1, A_{12}, T_1, T_2, T_{23}$. See existing schemes for examples.
 
 # TO DO
-- Clean-up FF implementations 
+
+- [x] Clean-up FF implementations 
     - There are a lot of values in these FF classes that are hidden underneath the `get_ff(q2)` computation - plan to change this to be grouped under some class attribute
-- Add bibliography
+- [x] Make documentation
+- [ ] Add bibliography 
     - Mainly for easy reference of implemented schemes, make it easier to cross-check/verify
-- Sampling
+    - Also add it to documentation
+- [ ] Sampling 
     - Ideally would provide some covariance matrix for FFs (and WCs) to resample from and generate confidence bands
-- Easier binning predictions
+- [ ] Easier binning predictions 
     - At moment need to provide boundaries for single bin to get prediction for that bin, plan to improve this to return predictions for all the range from a provided binning scheme
-- Add 1D projections
+- [ ] Add 1D projections
