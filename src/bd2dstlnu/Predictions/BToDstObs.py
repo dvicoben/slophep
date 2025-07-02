@@ -52,7 +52,7 @@ class BToDstEllNuPrediction:
         self._wc_obj.set_initial(wc_dict, self.scale, eft, basis)
 
     def set_ff(self, ffparams: dict):
-        self._FF.set_ff(ffparams)
+        self._FF.set_ff(**ffparams)
 
     def get_angularcoeff(self, q2: float) -> dict:
         mb = running.get_mb(self.par, self.scale)

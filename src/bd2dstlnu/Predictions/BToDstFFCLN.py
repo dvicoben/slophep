@@ -18,13 +18,13 @@ class CLN(FormFactor):
         }
         # HQET2:
         # self._ffpar = {
-        #     "RhoSq"   : 1.122,
-        #     "h_A1(1)" : 0.908,
-        #     "R1(1)"   : 1.270,
-        #     "R2(1)"   : 0.852,
-        #     "R0(1)"   : 1.15
+        #     "RhoSq" : 1.122,
+        #     "h_A1"  : 0.908,
+        #     "R1"    : 1.270,
+        #     "R2"    : 0.852,
+        #     "R0"    : 1.15
         # }
-        self._params = ["RhoSq", "h_A1", "R2", "R0"]
+        self._params = ["RhoSq", "h_A1", "R1", "R2", "R0"]
         self._process = 'B->D*'
         self._pd = {'B': 'B0', 'V': 'D*+', 'q': 'b->c'}
 
