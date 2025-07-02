@@ -16,17 +16,13 @@ class CLN(FormFactor):
             "R2"    : 0.854,
             "R0"    : 1.15
         }
-        # HQET2:
-        # self._ffpar = {
-        #     "RhoSq" : 1.122,
-        #     "h_A1"  : 0.908,
-        #     "R1"    : 1.270,
-        #     "R2"    : 0.852,
-        #     "R0"    : 1.15
-        # }
         self._params = ["RhoSq", "h_A1", "R1", "R2", "R0"]
         self._process = 'B->D*'
         self._pd = {'B': 'B0', 'V': 'D*+', 'q': 'b->c'}
+        self._internalparams = {
+            "Mb"        : self.par['m_'+self._pd['B']],
+            "Mc"        : self.par['m_'+self._pd['V']],
+        }
 
         print(f"WARNING: {self.name} Tensor FFs are set assuming eq. 11 in https://arxiv.org/pdf/1503.05534 is unity, use with care for BSM")
     
@@ -53,18 +49,19 @@ class CLN(FormFactor):
         dict
             FF dictionary with a tensor FFs
         """
-        mB = self.par['m_'+self._pd['B']]
-        mV = self.par['m_'+self._pd['V']]
+        mB = self.internalparams["Mb"]
+        mV = self.internalparams["Mc"]
         mb = running.get_mb_pole(self.par)
         if self._pd['q'] == 'b->c':
             mq = running.get_mc_pole(self.par)
         else:
             mq = 0 # neglect m_u,d,s
-        # power corrections
-        # NOTE: These are all zero
-        a_T1  = self.par[self._process + ' IW a_T1']
-        a_T2  = self.par[self._process + ' IW a_T2']
-        a_T23 = self.par[self._process + ' IW a_T23']
+        # # power corrections
+        # # NOTE: These are all zero
+        # a_T1  = self.par[self._process + ' IW a_T1']
+        # a_T2  = self.par[self._process + ' IW a_T2']
+        # a_T23 = self.par[self._process + ' IW a_T23']
+        a_T1, a_T2, a_T23 = 0.0, 0.0, 0.0
         # cf. eq. (11) of arXiv:1503.05534
         ff['T1'] = (mb + mq)/(mB + mV)*ff['V']  * ( 1 + a_T1 )
         ff['T2'] = (mb - mq)/(mB - mV)*ff['A1'] * ( 1 + a_T2 )
@@ -100,8 +97,8 @@ class CLN(FormFactor):
             FF dictionary
         """
 
-        mB = self.par[f'm_{self._pd["B"]}']
-        mV = self.par[f'm_{self._pd["V"]}']
+        mB = self.internalparams["Mb"]
+        mV = self.internalparams["Mc"]
         w = (mB**2 + mV**2 - q2) / (2*mB*mV)
         z = (sqrt(w+1)-sqrt(2))/(sqrt(w+1)+sqrt(2))
         RV = 2*sqrt(mB*mV)/(mB+mV)

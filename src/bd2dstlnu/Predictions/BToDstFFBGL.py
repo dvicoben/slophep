@@ -12,18 +12,6 @@ class BGL(FormFactor):
         super().__init__(par, scale)
         
         self._name = "BGL"
-        # self._ffpar = { # Hammer parameters, seem to absorb some factor of etaEW*Vcb
-        #     "a0" : 0.00038,
-        #     "a1" : 0.026905,
-        #     "a2" : 0.0,
-        #     "b0" : 0.00055,
-        #     "b1" : -0.0020370,
-        #     "b2" : 0.0,
-        #     "c1" : -0.000433,
-        #     "c2" : 0.005353,
-        #     "d0" : 0.007,
-        #     "d1" : -0.036
-        # }
         self._ffpar = { # https://arxiv.org/pdf/1707.09509 (Third column in table V)
             "a0" : 0.0209,
             "a1" : 0.33,
@@ -36,28 +24,26 @@ class BGL(FormFactor):
             "d0" : 0.0595,
             "d1" : -0.218
         }
-        # self._ffpar = { # from https://arxiv.org/pdf/2411.18639
-        #     "a0" : 0.0308,
-        #     "a1" : -0.0927,
-        #     "a2" : 0.0695,
-        #     "b0" : 0.0122,
-        #     "b1" : 0.0145,
-        #     "b2" : -0.4974,
-        #     "c1" : -0.0011,
-        #     "c2" : 0.0219,
-        #     "d0" : 0.0,
-        #     "d1" : 0.0
-        # }
         self._params = ["a0", "a1", "a2", "b0", "b1", "b2", "c1", "c2", "d0", "d1"]
         self._process = 'B->D*'
         self._pd = {'B': 'B0', 'V': 'D*+', 'q': 'b->c'}
 
+        self._internalparams = {
+            "Mb"         : self.par['m_'+self._pd['B']],
+            "Mc"         : self.par['m_'+self._pd['V']],
+            "nmax"       : 4,
+            "Vcb"        : 41.5e-3,                       
+            "chim"       : 3.068e-4, # GeV^-2
+            "chip"       : 5.280e-4, # GeV^-2
+            "chimL"      : 2.466e-3,
+            "nc"         : 2.6,
+            "etaEW"      : 1.0066,
+            "BcStatesf"  : np.array([6.730,6.736,7.135,7.142]),  # GeV
+            "BcStatesg"  : np.array([6.337,6.899,7.012,7.280]),  # GeV
+            "BcStatesP1" : np.array([6.275,6.842,7.250])         # GeV
+        }
+
         print(f"WARNING: {self.name} Tensor FFs are 0, SM only parameterisation")
-
-
-    def set_ff_fromlist(self, params: list[float]):
-        pass
-
 
     def blaschke(self, BcStates: list, z: float, Mb: float, Mc: float) -> float:
         """Calculate Blaschke factor P(t) from B_c-type resonances"""
@@ -87,8 +73,8 @@ class BGL(FormFactor):
             FF dictionary
         """
 
-        Mb = self.par['m_'+self._pd['B']]
-        Mc = self.par['m_'+self._pd['V']]
+        Mb = self.internalparams["Mb"]
+        Mc = self.internalparams["Mc"]
         Mb2 = Mb*Mb
         Mb3 = Mb2*Mb
         rC = Mc/Mb
@@ -96,32 +82,24 @@ class BGL(FormFactor):
         sqrC = np.sqrt(rC)
 
         w = max((Mb**2 + Mc**2 - q2) / (2 * Mb * Mc), 1)
-        nmax = 4
         z = (sqrt(w+1) - sqrt(2))/(sqrt(w+1) + sqrt(2))
-        zpow = np.array([z**ik for ik in range(nmax)])
+        zpow = np.array([z**ik for ik in range(int(self.internalparams["nmax"]))])
 
         ag  = np.array([self.ffpar["a0"], self.ffpar["a1"], self.ffpar["a2"]])
         af  = np.array([self.ffpar["b0"], self.ffpar["b1"], self.ffpar["b2"]])
         aF1 = np.array([self.ffpar["c1"], self.ffpar["c2"]])
         aP1 = np.array([self.ffpar["d0"], self.ffpar["d1"]])
 
-        Vcb = 41.5e-3
-        chim = 3.068e-4    # GeV^-2
-        chip = 5.280e-4    # GeV^-2
-        chimL = 2.466e-3
-
-        nc = 2.6
-        etaEWVcb = 1.0066*Vcb
-
-        BcStatesf = np.array([6.730,6.736,7.135,7.142])  # GeV
-        BcStatesg = np.array([6.337,6.899,7.012,7.280])  # GeV
-        BcStatesP1 = np.array([6.275,6.842,7.250])       # GeV
+        chim = self.internalparams["chim"]    # GeV^-2
+        chip = self.internalparams["chip"]    # GeV^-2
+        chimL = self.internalparams["chimL"]
+        nc = self.internalparams["nc"]
 
         # Blaschke factors
-        Pf = self.blaschke(BcStatesf, z, Mb, Mc)
+        Pf = self.blaschke(self.internalparams["BcStatesf"], z, Mb, Mc)
         PF1 = Pf
-        Pg = self.blaschke(BcStatesg, z, Mb, Mc)
-        PP1 = self.blaschke(BcStatesP1, z, Mb, Mc)
+        Pg = self.blaschke(self.internalparams["BcStatesg"], z, Mb, Mc)
+        PP1 = self.blaschke(self.internalparams["BcStatesP1"], z, Mb, Mc)
         
         phig = sqrt(256.*nc/(3*np.pi*chip))*((rC2*pow(1+z,2)*pow(1-z,-0.5))/pow(((1+rC)*(1-z)+2*sqrC*(1+z)),4))
         phif = (1./Mb2)*sqrt(16.*nc/(3*np.pi*chim))*((rC*(1+z)*pow(1-z,1.5))/pow(((1+rC)*(1-z)+2*sqrC*(1+z)),4))
@@ -148,4 +126,4 @@ class BGL(FormFactor):
         }
 
         return ff
-        # return {k : ff[k]/etaEWVcb for k in ff}
+        # return {k : ff[k]/(self.internalparams["etaEW"]*self.internalparams["Vcb"]) for k in ff} # This is what hammer seems to do

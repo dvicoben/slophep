@@ -24,6 +24,17 @@ class BLPR(FormFactor):
         self._params = ["RhoSq", "Chi21", "Chi2p", "Chi3p", "Eta1", "Etap", "dV20"]
         self._process = 'B->D*'
         self._pd = {'B': 'B0', 'V': 'D*+', 'q': 'b->c'}
+        self._internalparams = {
+            "Mb"        : self.par['m_'+self._pd['B']],
+            "Mc"        : self.par['m_'+self._pd['V']],
+            "ash"       : 0.26/np.pi,
+            "la"        : 0.57115,
+            "mb"        : 4.710,
+            "delta_mbc" : 3.4,
+            "ebReb"     : 0.861,
+            "ecRec"     : 0.822,
+            "rD"        : self.par['m_D0']/self.par['m_B0']
+        }
 
     def get_ff(self, q2: float) -> dict:
         """FF in BLPR parameterisation from https://arxiv.org/pdf/1703.05330 as in HAMMER v1.4.1
@@ -38,18 +49,18 @@ class BLPR(FormFactor):
         dict
             FF dictionary
         """
-        mB = self.par['m_'+self._pd['B']]
-        mV = self.par['m_'+self._pd['V']]
+        mB = self.internalparams["Mb"]
+        mV = self.internalparams["Mc"]
 
         w = max((mB**2 + mV**2 - q2) / (2 * mB * mV), 1)
-        ash = 0.26/np.pi
-        la = 0.57115
-        mb = 4.710
+        ash = self.internalparams["ash"]
+        la = self.internalparams["la"]
+        mb = self.internalparams["mb"]
         eb = la/(2*mb)
-        mc = mb - 3.4
+        mc = mb - self.internalparams["delta_mbc"]
         ec = la/(2*mc)
-        ebReb = 0.861
-        ecRec = 0.822
+        ebReb = self.internalparams["ebReb"]
+        ecRec = self.internalparams["ecRec"]
         corrb = eb*(1.-ebReb)
         corrc = ec*(1.-ecRec)
         zBC = mc/mb
@@ -84,7 +95,7 @@ class BLPR(FormFactor):
         Ct3 = hqet.CT3(w, zBC)
 
         # From Sec. III-A in https://arxiv.org/pdf/1703.05330 - Variables for leading IW function (derived from G(1))
-        rD = self.par['m_D0']/self.par['m_B0']
+        rD = self.internalparams["rD"]
         a = sqrt((1+rD)/(2*sqrt(rD)))
         V21 = 57.0
         V20 = 7.5 + self.ffpar["dV20"]

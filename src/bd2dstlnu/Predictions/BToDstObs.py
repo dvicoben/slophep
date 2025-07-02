@@ -19,7 +19,7 @@ class BToDstEllNuPrediction:
                  nu: str,
                  FF: FormFactor,
                  ffargs: list = [],
-                 par: dict = flavio.default_parameters.get_central_all(),
+                 par: dict = {},
                  scale: float = 4.8,
                  ):
         self._B: str = "B0"
@@ -29,32 +29,75 @@ class BToDstEllNuPrediction:
         self._nu: str = nu
         self._wc_obj: flavio.WilsonCoefficients = flavio.WilsonCoefficients()
 
-        self._par: dict = par
+        self._par: dict = par if len(par) > 0 else flavio.default_parameters.get_central_all()
         self._scale: float = scale
 
         self._FF: FormFactor = FF(par, scale, *ffargs)
         self.obslist = ['1s', '1c', '2s', '2c', '6s', '6c', 3, 4, 5, 7, 8, 9]
 
     @property
-    def scale(self) -> float: return self._scale
+    def scale(self) -> float: 
+        """Renorm scale"""
+        return self._scale
     @property
-    def par(self) -> dict: return self._par
+    def par(self) -> dict: 
+        """Dictionary of parameters, defaults to `flavio.default_parameters.get_central_all()`"""
+        return self._par
     @property
-    def lep(self) -> str: return self._lep
+    def lep(self) -> str: 
+        """Lepton flavour (mu/e/tau)"""
+        return self._lep
     @property
-    def nu(self) -> str: return self._nu
+    def nu(self) -> str: 
+        """Neutrino flavour (nu/e/tau)"""
+        return self._nu
     @property
-    def wc_obj(self) -> flavio.WilsonCoefficients: return self._wc_obj
+    def wc_obj(self) -> flavio.WilsonCoefficients: 
+        """Wilson coefficient object"""
+        return self._wc_obj
     @property
-    def FF(self) -> FormFactor: return self._FF
+    def FF(self) -> FormFactor: 
+        """Form factors"""
+        return self._FF
 
     def set_wc(self, wc_dict: dict, eft: str = 'WET', basis: str = 'flavio'):
+        """Set the wilson coefficients
+
+        Parameters
+        ----------
+        wc_dict : dict
+            Dictionary of wilson coefficients
+        eft : str, optional
+            EFT, by default 'WET'
+        basis : str, optional
+            WC basis (see https://wcxf.github.io/bases.html), by default 'flavio'
+        """
         self._wc_obj.set_initial(wc_dict, self.scale, eft, basis)
 
     def set_ff(self, ffparams: dict):
+        """Set form factor parameters
+
+        Parameters
+        ----------
+        ffparams : dict
+            Dictionary of form factor parameters, names should match FF.ffpars dictionary in the particular 
+            scheme being used
+        """
         self._FF.set_ff(**ffparams)
 
     def get_angularcoeff(self, q2: float) -> dict:
+        """Calculate angular coefficients, flavio is used for these calculations, method essentially follows
+        flavio.physics.bdecays.bvlnu._get_angularcoeff from https://flav-io.github.io/apidoc/flavio/physics/bdecays/bvlnu.m.html
+
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        dict
+            Dictionary of coefficents J_i
+        """
         mb = running.get_mb(self.par, self.scale)
         wc = get_wceff_fccc(self.wc_obj, self.par, self._qiqj, self.lep, self.nu, mb, self.scale, nf=5)
         if self.lep != self.nu and all(C == 0 for C in wc.values()):
@@ -72,29 +115,98 @@ class BToDstEllNuPrediction:
         return J
 
     def get_norm_coeff(self, q2: float) -> dict:
+        """Calculate rate normalised angular coefficients, flavio is used for these calculations, method essentially follows
+        flavio.physics.bdecays.bvlnu._get_angularcoeff from https://flav-io.github.io/apidoc/flavio/physics/bdecays/bvlnu.m.html
+
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        dict
+            Dictionary of coefficients J_i
+        """
         J = self.get_angularcoeff(q2)
         norm =  3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
         return {k : J[k]/norm for k in J}
     
     def dJ(self, q2: float) -> dict:
+        """Alias for get\_angularcoeff
+
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        dict
+            Dictionary of coefficents J_i
+        """
         return self.get_angularcoeff(q2)
 
     def J(self, q2: float) -> dict:
+        """Alias for get\_norm\_coeff
+
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        dict
+            Dictionary of coefficients J_i
+        """
         return self.get_norm_coeff(q2)
     
     def dGdq2(self, q2: float) -> float:
-        J = self.J(q2)
+        """Caclulate q2 distriution
+
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        float
+            dGamma/dq2 (up to normalisation)
+        """
+        J = self.dJ(q2)
         return 3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
 
-    def obsq2Bin(self, obs: str | int, q2min: float, q2max: float) -> float:
+    def _obsq2Bin(self, obs: str | int, q2min: float, q2max: float) -> float:
         def evalObs(q2):
             return self.dJ(q2)[obs]
         return flavio.math.integrate.nintegrate(evalObs, q2min, q2max)
 
     def dJ_bin(self, q2min: float, q2max: float) -> dict:
-        return {iobs: self.obsq2Bin(iobs, q2min, q2max) for iobs in self.obslist}
+        """Calculate binned angular observable
+
+        Parameters
+        ----------
+        q2min : float
+        q2max : float
+
+        Returns
+        -------
+        dict
+            Dictionary of observable <J_i>, integrated over q2min, q2max
+        """
+        return {iobs: self._obsq2Bin(iobs, q2min, q2max) for iobs in self.obslist}
 
     def J_bin(self, q2min: float, q2max: float) -> dict:
+        """Calculate rate normalised binned angular observable
+
+        Parameters
+        ----------
+        q2min : float
+        q2max : float
+
+        Returns
+        -------
+        dict
+            Dictionary of observable <J_i>, integrated over q2min, q2max
+        """
         J = self.dJ_bin(q2min, q2max)
         norm = 3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
         # den = flavio.math.integrate.nintegrate(self.dGdq2, q2min, q2max)
@@ -102,6 +214,13 @@ class BToDstEllNuPrediction:
         return {iobs : J[iobs]/norm for iobs in self.obslist}
 
     def dJ_q2int(self) -> dict:
+        """Calculate q2-integrated observable
+
+        Returns
+        -------
+        dict
+            Dictionary of observable <J_i>
+        """
         ml = self.par['m_'+self.lep]
         mB = self.par['m_'+self._B]
         mV = self.par['m_'+self._V]
@@ -110,15 +229,49 @@ class BToDstEllNuPrediction:
         return self.dJ_bin(q2min, q2max)
     
     def J_q2int(self) -> dict:
+        """Calculate rate-normalised q2-integrated observable
+
+        Returns
+        -------
+        dict
+            Dictionary of observable <J_i>
+        """
         J = self.dJ_q2int()
         norm = 3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
         return {iobs : J[iobs]/norm for iobs in self.obslist}
     
     def PDF(self, q2: float, ctx: float, ctl: float, chi: float) -> float:
+        """Evaluate 4D PDF (up to normalisation) at phase-space point
+
+        Parameters
+        ----------
+        q2 : float
+        ctx : float
+        ctl : float
+        chi : float
+
+        Returns
+        -------
+        float
+            pdf (up to normalisation)
+        """
         j = self.dJ(q2)
         return mt.angularPDF(ctx, ctl, chi, j)
     
     def PDF_norm(self, q2: float, ctx: float, ctl: float, chi: float) -> float:
+        """Evaluate 4D PDF at phase-space point, using rate-normalised observables
+
+        Parameters
+        ----------
+        q2 : float
+        ctx : float
+        ctl : float
+        chi : float
+
+        Returns
+        -------
+        float
+            pdf (up to normalisation)"""
         j = self.J(q2)
         return mt.angularPDF(ctx, ctl, chi, j)
     
@@ -126,6 +279,24 @@ class BToDstEllNuPrediction:
                 ctx_min: float, ctx_max: float,
                 ctl_min: float, ctl_max: float,
                 chi_min: float, chi_max: float) -> float:
+        """Evaluate 4D PDF integrated over phase-space bin
+
+        Parameters
+        ----------
+        q2_min : float
+        q2_max : float
+        ctx_min : float
+        ctx_max : float
+        ctl_min : float
+        ctl_max : float
+        chi_min : float
+        chi_max : float
+
+        Returns
+        -------
+        float
+            PDF in phase-space bin
+        """
         j = self.dJ_bin(q2_min, q2_max)
         
         return mt.angularPDF_binned(ctx_min, ctx_max, ctl_min, ctl_max, chi_min, chi_max, j)
@@ -134,13 +305,46 @@ class BToDstEllNuPrediction:
                      ctx_min: float, ctx_max: float,
                      ctl_min: float, ctl_max: float,
                      chi_min: float, chi_max: float) -> float:
+        """Evaluate 4D PDF integrated over phase-space bin, using rate-normalised angular observables
+
+        Parameters
+        ----------
+        q2_min : float
+        q2_max : float
+        ctx_min : float
+        ctx_max : float
+        ctl_min : float
+        ctl_max : float
+        chi_min : float
+        chi_max : float
+
+        Returns
+        -------
+        float
+            PDF in phase-space bin
+        """
         j = self.J_bin(q2_min, q2_max)
         return mt.angularPDF_binned(ctx_min, ctx_max, ctl_min, ctl_max, chi_min, chi_max, j)
 
     def PDF_angular_int(self, ctx_min: float, ctx_max: float,
                      ctl_min: float, ctl_max: float,
                      chi_min: float, chi_max: float) -> dict[float]:
-        "Get angular term integrated over a bin"
+        """Evaluate angular terms of PDF integrated over angular bin
+        
+        Parameters
+        ----------
+        ctx_min : float
+        ctx_max : float
+        ctl_min : float
+        ctl_max : float
+        chi_min : float
+        chi_max : float
+
+        Returns
+        -------
+        dict
+            Integrated angular term corresponding to each observable
+        """
         return mt.angular_integrals(ctx_min, ctx_max, ctl_min, ctl_max, chi_min, chi_max)
 
     def afb(self, q2: float) -> float:
@@ -152,6 +356,7 @@ class BToDstEllNuPrediction:
         return num/denom
     
     def afb_bin(self, q2min: float, q2max: float) -> float:
+        """Calculate binned AFB"""
         j = self.dJ_bin(q2min, q2max)
         num = (3.0/8)*(j["6c"] + 2*j["6s"])
         denom = 3/4. * (2 * j['1s'] + j['1c']) - 1/4. * (2 * j['2s'] + j['2c'])
@@ -165,16 +370,19 @@ class BToDstEllNuPrediction:
         return num/denom
     
     def fl_bin(self, q2min: float, q2max: float) -> float:
+        """Calculate binned FL"""
         j = self.dJ_bin(q2min, q2max)
         num = 3*j["1c"] - j["2c"]
         denom = 3*(j["1c"] + 2*j["1s"]) - (j["2c"] + 2*j["2s"])
         return num/denom
     
     def uniang_obs(self, q2: float) -> dict[float]:
+        """Calculate uniangular observables (FL, AFB, Flt, J3, J9)"""
         j = self.J(q2)
         return mt.calc_unaing_obs(j)
     
     def binuniang_obs(self, q2min: float, q2max: float) -> dict[float]:
+        """Calculate binned uniangular observables (FL, AFB, Flt, J3, J9)"""
         j = self.J_bin(q2min, q2max)
         return mt.calc_unaing_obs(j)
 

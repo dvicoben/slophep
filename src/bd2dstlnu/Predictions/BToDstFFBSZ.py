@@ -36,9 +36,16 @@ class BSZ(FormFactor):
 
         self._process = 'B->D*'
         self._pd = {'B': 'B0', 'V': 'D*+', 'q': 'b->c'}
+        self._internalparams = {
+            "Mb"  : self.par['m_'+self._pd['B']],
+            "Mc"  : self.par['m_'+self._pd['V']],
+            "m0"  : 6.275,
+            "m1m" : 6.330,
+            "m1p" : 6.767
+        }
 
     def z(self, mB: float, mM: float, q2: float, t0: float = None):
-        """Form factor expansion parameter $z$.
+        """Form factor expansion parameter z.
 
         Parameters
         ----------
@@ -48,12 +55,12 @@ class BSZ(FormFactor):
         mM : float
             final meson meson mass
         q2 : float
-            momentum transfer squared $q^2$
+            momentum transfer squared q2
         t0 : float
-            parameter $t_0$.
-            If not given, chosen as $t_0 = t_+ (1-\sqrt{1-t_-/t_+})$ where
-            $t_\pm = (m_B \pm m_M)^2$.
-            If equal to `'tm'`, set to $t_0=t_-$
+            parameter t_0.
+            If not given, chosen as t_0 = t_+ (1 - sqrt(1 - t\_-/t_+))$ where
+            t_+- = (m_B +- m_M)^2.
+            If equal to `tm`, set to t_0=t\_-
         """
         tm = (mB-mM)**2
         tp = (mB+mM)**2
@@ -88,13 +95,13 @@ class BSZ(FormFactor):
             FF dictionary
         """
         # Resonance masses used in arXiv:1811.00983
-        m0 =  6.275
-        m1m = 6.330
-        m1p = 6.767
+        m0  = self.internalparams["m0"]
+        m1m = self.internalparams["m1m"]
+        m1p = self.internalparams["m1p"]
         # mres = [m0, m1m, m1p]
 
-        mB = self.par['m_'+self._pd['B']]
-        mV = self.par['m_'+self._pd['V']]
+        mB = self.internalparams["Mb"]
+        mV = self.internalparams["Mc"]
 
 
         aA0 = np.array([self.ffpar["A0_0"], self.ffpar["A0_1"], self.ffpar["A0_2"]])
