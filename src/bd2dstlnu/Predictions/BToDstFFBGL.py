@@ -1,10 +1,6 @@
 from math import sqrt
 import numpy as np
 from bd2dstlnu.Predictions.BToDstFFBase import FormFactor
-from flavio.physics.running import running
-from flavio.physics.bdecays.formfactors import hqet
-from flavio.physics.bdecays.formfactors import common as ffcommon
-from flavio.physics.bdecays.formfactors.b_v.cln import h_to_A
 
 
 class BGL(FormFactor):

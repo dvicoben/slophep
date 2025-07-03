@@ -19,7 +19,7 @@ class BToDstEllNuPrediction:
                  nu: str,
                  FF: FormFactor,
                  ffargs: list = [],
-                 par: dict = {},
+                 par: dict = None,
                  scale: float = 4.8,
                  ):
         self._B: str = "B0"
@@ -29,7 +29,9 @@ class BToDstEllNuPrediction:
         self._nu: str = nu
         self._wc_obj: flavio.WilsonCoefficients = flavio.WilsonCoefficients()
 
-        self._par: dict = par if len(par) > 0 else flavio.default_parameters.get_central_all()
+        self._par: dict = flavio.default_parameters.get_central_all()
+        if type(par) == dict:
+            self._par = par
         self._scale: float = scale
 
         self._FF: FormFactor = FF(par, scale, *ffargs)
@@ -346,6 +348,52 @@ class BToDstEllNuPrediction:
             Integrated angular term corresponding to each observable
         """
         return mt.angular_integrals(ctx_min, ctx_max, ctl_min, ctl_max, chi_min, chi_max)
+
+    def PDF_hist(self, q2_bins: int | list, ctx_bins: int | list, ctl_bins: int | list, chi_bins: int | list):
+        ml = self.par['m_'+self.lep]
+        mB = self.par['m_'+self._B]
+        mV = self.par['m_'+self._V]
+        q2max = (mB-mV)**2
+        q2min = ml**2
+        
+        q2_edges = q2_bins if type(q2_bins) != int else np.linspace(q2min, q2max, q2_bins+1, endpoint=True)
+        ctx_edges = ctx_bins if type(ctx_bins) != int else np.linspace(-1.0, 1.0, ctx_bins+1, endpoint=True)
+        ctl_edges = ctl_bins if type(ctl_bins) != int else np.linspace(-1.0, 1.0, ctl_bins+1, endpoint=True)
+        chi_edges = chi_bins if type(chi_bins) != int else np.linspace(-np.pi, np.pi, chi_bins+1, endpoint=True)
+
+        h = np.zeros((len(q2_edges)-1, len(ctx_edges)-1, len(ctl_edges)-1, len(chi_edges)-1))
+        # Cache angular integrals to avoid recomputation for q2 angular bin
+        h_angintegrals = self.PDF_hist_angular_int(ctx_edges, ctl_edges, chi_edges)
+        for iq2 in range(len(q2_edges)-1):
+            for ictx in range(len(ctx_edges)-1):
+                for ictl in range(len(ctl_edges)-1):
+                    for ichi in range(len(chi_edges)-1):
+                        dJ = self.dJ_bin(q2_edges[iq2], q2_edges[iq2+1])
+                        J_vec = np.array([dJ[iobs] for iobs in h_angintegrals["order"]])
+                        h[iq2][ictx][ictl][ichi] = 9/(32*np.pi)*np.dot(J_vec, h_angintegrals[ictx][ictl][ichi])
+                        # This is inefficient as recomputes angular integrals for every calculation
+                        # h[iq2][ictx][ictl][ichi] = self.PDF_bin(q2_edges[iq2], q2_edges[iq2+1],
+                        #                                         ctx_edges[ictx], ctx_edges[ictx+1],
+                        #                                         ctl_edges[ictl], ctl_edges[ictl+1],
+                        #                                         chi_edges[ichi], chi_edges[ichi+1])
+                        
+        return h, [q2_edges, ctx_edges, ctl_edges, chi_edges], h_angintegrals
+
+    def PDF_hist_angular_int(self, ctx_bins: int | list, ctl_bins: int | list, chi_bins: int | list):
+        ctx_edges = ctx_bins if type(ctx_bins) != int else np.linspace(-1.0, 1.0, ctx_bins+1, endpoint=True)
+        ctl_edges = ctl_bins if type(ctl_bins) != int else np.linspace(-1.0, 1.0, ctl_bins+1, endpoint=True)
+        chi_edges = chi_bins if type(chi_bins) != int else np.linspace(-np.pi, np.pi, chi_bins+1, endpoint=True)
+        h_angintegrals = {jctx : {jctl : {} for jctl in range(len(ctl_edges)-1)} for jctx in range(len(ctx_edges)-1)}
+        for ictx in range(len(ctx_edges)-1):
+            for ictl in range(len(ctl_edges)-1):
+                for ichi in range(len(chi_edges)-1):
+                    h_ang_d = self.PDF_angular_int(ctx_edges[ictx], ctx_edges[ictx+1],
+                                                        ctl_edges[ictl], ctl_edges[ictl+1],
+                                                        chi_edges[ichi], chi_edges[ichi+1])
+                    h_angintegrals[ictx][ictl][ichi] = np.array([h_ang_d[k] for k in self.obslist])
+        h_angintegrals["order"] = self.obslist.copy()
+        return h_angintegrals
+
 
     def afb(self, q2: float) -> float:
         """ Calculate Afb
