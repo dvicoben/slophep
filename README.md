@@ -4,18 +4,19 @@ Repository for $B^0 \to D^*\mu\nu$ angular analysis predicitons.
 
 To be used to generate bands from fit results and to generate predictions for fits/fit models (e.g. for an unfolded fit).
 
+Predictions are made using `flavio` to compute the amplitudes and observables. ***Note that angular conventions may differ***. ***PDF/observable normalizations can also differ*** - literature and prediction tools vary in what factors are absorbed by the FFs, amplitudes, observables, decay rate and BR. For consistency it is best to look at rate-normalised observables.
 
 # Requirements
 
-- Predictions are made using `flavio` to compute the amplitudes and observables - note that angular convention may differ
+- Predictions use `flavio` to go from FFs and WCs to amplitudes and observables
 - Internally also uses standard libraries (`numpy`, `matplotlib`)
 
 
 # Usage
 
 - Some example scripts are in the `python` directory
-- Additional FF schemes can be implemented - they need to inherit from `FormFactor` and implement the `get_ff(q2)` method, returning FFs in the lattice convention $V, A_0, A_1, A_{12}, T_1, T_2, T_{23}$. See existing schemes for examples.
 - Generation of predictions with varying FFs and WCs is shown in `python/example.py`. You can find a comparison of FF schemes (with some example of plotting functionality) in `python/compare_FFschemes.py`.
+- Additional FF schemes can be implemented - they need to inherit from `FormFactor` and implement the `get_ff(q2)` method, returning FFs in the lattice convention $V, A_0, A_1, A_{12}, T_1, T_2, T_{23}$. See existing schemes for examples.
 - There are some preliminary scripts for fits (largely illustrative), `python/test_coef_fit.py` and `python/test_FF_fit.py`. Currently working on more optimised fitting interface.
 - Access (available) documentation in `docs/build/html`, open `index.html` in your preferred browser.
 
