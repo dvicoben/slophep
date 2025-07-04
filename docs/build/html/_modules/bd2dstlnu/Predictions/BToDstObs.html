@@ -93,7 +93,7 @@
                  <span class="n">nu</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                  <span class="n">FF</span><span class="p">:</span> <span class="n">FormFactor</span><span class="p">,</span>
                  <span class="n">ffargs</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span>
-                 <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{},</span>
+                 <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">4.8</span><span class="p">,</span>
                  <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;B0&quot;</span>
@@ -103,7 +103,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_nu</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">nu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_wc_obj</span><span class="p">:</span> <span class="n">flavio</span><span class="o">.</span><span class="n">WilsonCoefficients</span> <span class="o">=</span> <span class="n">flavio</span><span class="o">.</span><span class="n">WilsonCoefficients</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">par</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">par</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">flavio</span><span class="o">.</span><span class="n">default_parameters</span><span class="o">.</span><span class="n">get_central_all</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">flavio</span><span class="o">.</span><span class="n">default_parameters</span><span class="o">.</span><span class="n">get_central_all</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">par</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_par</span> <span class="o">=</span> <span class="n">par</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">scale</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_FF</span><span class="p">:</span> <span class="n">FormFactor</span> <span class="o">=</span> <span class="n">FF</span><span class="p">(</span><span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
@@ -154,7 +156,7 @@
 <div class="viewcode-block" id="BToDstEllNuPrediction.set_ff">
 <a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.set_ff">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_ff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ffparams</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set form factor parameters</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set form factor parameters. Can use None to leave a parameter unchanged.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -163,6 +165,20 @@
 <span class="sd">            scheme being used</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_FF</span><span class="o">.</span><span class="n">set_ff</span><span class="p">(</span><span class="o">**</span><span class="n">ffparams</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BToDstEllNuPrediction.set_ff_fromlist">
+<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.set_ff_fromlist">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_ff_fromlist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ffparams</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set form factor parameters in form of list. Must include all parameters in self.FF.params, in order.</span>
+<span class="sd">        Can use None to leave a parameter unchanged.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ffparams : list</span>
+<span class="sd">            All FF parameters, in appropiate order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_FF</span><span class="o">.</span><span class="n">set_ff_fromlist</span><span class="p">(</span><span class="n">ffparams</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BToDstEllNuPrediction.get_angularcoeff">
@@ -472,6 +488,106 @@
         <span class="k">return</span> <span class="n">mt</span><span class="o">.</span><span class="n">angular_integrals</span><span class="p">(</span><span class="n">ctx_min</span><span class="p">,</span> <span class="n">ctx_max</span><span class="p">,</span> <span class="n">ctl_min</span><span class="p">,</span> <span class="n">ctl_max</span><span class="p">,</span> <span class="n">chi_min</span><span class="p">,</span> <span class="n">chi_max</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="BToDstEllNuPrediction.PDF_hist">
+<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.PDF_hist">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">PDF_hist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">,</span> <span class="n">ctx_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">,</span> <span class="n">ctl_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">,</span> <span class="n">chi_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create 4D histogram of PDF. This computes J_i integrated over the bin and angular integrals.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2_bins : int | list</span>
+<span class="sd">            Binning in q2, specify either number of bins or bin edges</span>
+<span class="sd">        ctx_bins : int | list</span>
+<span class="sd">            Binning in ctd, specify either number of bins or bin edges</span>
+<span class="sd">        ctl_bins : int | list</span>
+<span class="sd">            Binning in ctl, specify either number of bins or bin edges</span>
+<span class="sd">        chi_bins : int | list</span>
+<span class="sd">            Binning in chi, specify either number of bins or bin edges</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        h : np.ndarray</span>
+<span class="sd">            PDF histogram</span>
+<span class="sd">        bin_edges : list</span>
+<span class="sd">            List of bin edges used, in form [q2_edges, ctd_edges, ctl_edges, chi_edges]</span>
+<span class="sd">        h_angint : dict</span>
+<span class="sd">            Angular integrals for angular bin</span>
+<span class="sd">        j_bins : dict</span>
+<span class="sd">            J_i observables computed to generate h</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ml</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">lep</span><span class="p">]</span>
+        <span class="n">mB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">]</span>
+        <span class="n">mV</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_V</span><span class="p">]</span>
+        <span class="n">q2max</span> <span class="o">=</span> <span class="p">(</span><span class="n">mB</span><span class="o">-</span><span class="n">mV</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">q2min</span> <span class="o">=</span> <span class="n">ml</span><span class="o">**</span><span class="mi">2</span>
+        
+        <span class="n">q2_edges</span> <span class="o">=</span> <span class="n">q2_bins</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">q2_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">,</span> <span class="n">q2_bins</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ctx_edges</span> <span class="o">=</span> <span class="n">ctx_bins</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">ctx_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">ctx_bins</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ctl_edges</span> <span class="o">=</span> <span class="n">ctl_bins</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">ctl_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">ctl_bins</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">chi_edges</span> <span class="o">=</span> <span class="n">chi_bins</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">chi_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">chi_bins</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">q2_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ctx_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ctl_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">chi_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="c1"># Cache angular integrals to avoid recomputation for q2 angular bin</span>
+        <span class="n">h_angintegrals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PDF_hist_angular_int</span><span class="p">(</span><span class="n">ctx_edges</span><span class="p">,</span> <span class="n">ctl_edges</span><span class="p">,</span> <span class="n">chi_edges</span><span class="p">)</span>
+        <span class="n">j_bins</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">iq2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">q2_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">ictx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ctx_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">ictl</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ctl_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">ichi</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chi_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                        <span class="n">dJ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ_bin</span><span class="p">(</span><span class="n">q2_edges</span><span class="p">[</span><span class="n">iq2</span><span class="p">],</span> <span class="n">q2_edges</span><span class="p">[</span><span class="n">iq2</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="n">j_bins</span><span class="p">[</span><span class="n">iq2</span><span class="p">]</span> <span class="o">=</span> <span class="n">dJ</span>
+                        <span class="n">J_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dJ</span><span class="p">[</span><span class="n">iobs</span><span class="p">]</span> <span class="k">for</span> <span class="n">iobs</span> <span class="ow">in</span> <span class="n">h_angintegrals</span><span class="p">[</span><span class="s2">&quot;order&quot;</span><span class="p">]])</span>
+                        <span class="n">h</span><span class="p">[</span><span class="n">iq2</span><span class="p">][</span><span class="n">ictx</span><span class="p">][</span><span class="n">ictl</span><span class="p">][</span><span class="n">ichi</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span><span class="o">/</span><span class="p">(</span><span class="mi">32</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">J_vec</span><span class="p">,</span> <span class="n">h_angintegrals</span><span class="p">[</span><span class="n">ictx</span><span class="p">][</span><span class="n">ictl</span><span class="p">][</span><span class="n">ichi</span><span class="p">])</span>
+                        <span class="c1"># This is inefficient as recomputes angular integrals for every calculation</span>
+                        <span class="c1"># h[iq2][ictx][ictl][ichi] = self.PDF_bin(q2_edges[iq2], q2_edges[iq2+1],</span>
+                        <span class="c1">#                                         ctx_edges[ictx], ctx_edges[ictx+1],</span>
+                        <span class="c1">#                                         ctl_edges[ictl], ctl_edges[ictl+1],</span>
+                        <span class="c1">#                                         chi_edges[ichi], chi_edges[ichi+1])</span>
+                        
+        <span class="k">return</span> <span class="n">h</span><span class="p">,</span> <span class="p">[</span><span class="n">q2_edges</span><span class="p">,</span> <span class="n">ctx_edges</span><span class="p">,</span> <span class="n">ctl_edges</span><span class="p">,</span> <span class="n">chi_edges</span><span class="p">],</span> <span class="n">h_angintegrals</span><span class="p">,</span> <span class="n">j_bins</span></div>
+
+
+<div class="viewcode-block" id="BToDstEllNuPrediction.PDF_hist_angular_int">
+<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.PDF_hist_angular_int">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">PDF_hist_angular_int</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">,</span> <span class="n">ctl_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">,</span> <span class="n">chi_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute angular integrals for provided binning scheme</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ctx_bins : int | list</span>
+<span class="sd">            Binning in ctd, specify either number of bins or bin edges</span>
+<span class="sd">        ctl_bins : int | list</span>
+<span class="sd">            Binning in ctl, specify either number of bins or bin edges</span>
+<span class="sd">        chi_bins : int | list</span>
+<span class="sd">            Binning in chi, specify either number of bins or bin edges</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            Angular integrals for angular bin, output is in the form dict[ctx bin][ctl bin][chi bin] = [angular integrals]</span>
+<span class="sd">            where [angular integrals] is a list of the integrated angular term corresponding to each observable in the order</span>
+<span class="sd">            stored in dict[&quot;order&quot;]. This is also returned as an array in dict[&quot;asarray&quot;] to use for easier multiplication with</span>
+<span class="sd">            numpy.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ctx_edges</span> <span class="o">=</span> <span class="n">ctx_bins</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">ctx_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">ctx_bins</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ctl_edges</span> <span class="o">=</span> <span class="n">ctl_bins</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">ctl_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">ctl_bins</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">chi_edges</span> <span class="o">=</span> <span class="n">chi_bins</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">chi_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">chi_bins</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">h_angintegrals</span> <span class="o">=</span> <span class="p">{</span><span class="n">jctx</span> <span class="p">:</span> <span class="p">{</span><span class="n">jctl</span> <span class="p">:</span> <span class="p">{}</span> <span class="k">for</span> <span class="n">jctl</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ctl_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)}</span> <span class="k">for</span> <span class="n">jctx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ctx_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)}</span>
+        <span class="n">angint_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">ctx_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ctl_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">chi_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">ictx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ctx_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">ictl</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ctl_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">ichi</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chi_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">h_ang_d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PDF_angular_int</span><span class="p">(</span><span class="n">ctx_edges</span><span class="p">[</span><span class="n">ictx</span><span class="p">],</span> <span class="n">ctx_edges</span><span class="p">[</span><span class="n">ictx</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span>
+                                                        <span class="n">ctl_edges</span><span class="p">[</span><span class="n">ictl</span><span class="p">],</span> <span class="n">ctl_edges</span><span class="p">[</span><span class="n">ictl</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span>
+                                                        <span class="n">chi_edges</span><span class="p">[</span><span class="n">ichi</span><span class="p">],</span> <span class="n">chi_edges</span><span class="p">[</span><span class="n">ichi</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="n">h_angintegrals</span><span class="p">[</span><span class="n">ictx</span><span class="p">][</span><span class="n">ictl</span><span class="p">][</span><span class="n">ichi</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">h_ang_d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">obslist</span><span class="p">])</span>
+                    <span class="n">angint_array</span><span class="p">[</span><span class="n">ictx</span><span class="p">][</span><span class="n">ictl</span><span class="p">][</span><span class="n">ichi</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">h_ang_d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">obslist</span><span class="p">])</span>
+        <span class="n">h_angintegrals</span><span class="p">[</span><span class="s2">&quot;order&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obslist</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">h_angintegrals</span><span class="p">[</span><span class="s2">&quot;asarray&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">angint_array</span>
+        <span class="k">return</span> <span class="n">h_angintegrals</span></div>
+
+
+
 <div class="viewcode-block" id="BToDstEllNuPrediction.afb">
 <a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.afb">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">afb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -534,7 +650,35 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">plot_obs_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
                             <span class="n">q2min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">q2max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
                             <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                            <span class="n">plot</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Figure</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">]:</span>
+                            <span class="n">plot</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Figure</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Figure</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plot prediction for a particular observable</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        obs : str</span>
+<span class="sd">            Desired observable, available are [&quot;1s&quot;, &quot;1c&quot;, &quot;2s&quot;, &quot;2c&quot;, &quot;6s&quot;, &quot;6c&quot;, 3, 4, 5, 7, 8, 9, &quot;FL&quot;, &quot;AFB&quot;, &quot;FLt&quot;]</span>
+<span class="sd">        q2min : float, optional</span>
+<span class="sd">            Min. value of q2 to plot, by default None which sets to physical minimum</span>
+<span class="sd">        q2max : float, optional</span>
+<span class="sd">            Max. value of q2 to plot, by default None which sets to physical maximum</span>
+<span class="sd">        label : str, optional</span>
+<span class="sd">            Label for legend, by default None</span>
+<span class="sd">        plot : tuple[plt.Figure, plt.Axes], optional</span>
+<span class="sd">            Figure and axes to plot on, by default None. This allows to plot multiple observables in same</span>
+<span class="sd">            axis or to change FFs/WCs and re-plot on same axes</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        fig : plt.Figure</span>
+<span class="sd">            The matplotlib figure, show with fig.show(), update drawing with fig.canvas.draw()</span>
+<span class="sd">        ax : plt.Axes</span>
+<span class="sd">            Matplotlib axes, add legend with ax.legend()</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            For unavailable observable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">ml</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">lep</span><span class="p">]</span>
         <span class="n">mB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">]</span>
         <span class="n">mV</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_V</span><span class="p">]</span>

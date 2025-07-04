@@ -77,7 +77,7 @@ class BToDstEllNuPrediction:
         self._wc_obj.set_initial(wc_dict, self.scale, eft, basis)
 
     def set_ff(self, ffparams: dict):
-        """Set form factor parameters
+        """Set form factor parameters. Can use None to leave a parameter unchanged.
 
         Parameters
         ----------
@@ -86,6 +86,17 @@ class BToDstEllNuPrediction:
             scheme being used
         """
         self._FF.set_ff(**ffparams)
+
+    def set_ff_fromlist(self, ffparams: list):
+        """Set form factor parameters in form of list. Must include all parameters in self.FF.params, in order.
+        Can use None to leave a parameter unchanged.
+
+        Parameters
+        ----------
+        ffparams : list
+            All FF parameters, in appropiate order
+        """
+        self._FF.set_ff_fromlist(ffparams)
 
     def get_angularcoeff(self, q2: float) -> dict:
         """Calculate angular coefficients, flavio is used for these calculations, method essentially follows
@@ -350,6 +361,30 @@ class BToDstEllNuPrediction:
         return mt.angular_integrals(ctx_min, ctx_max, ctl_min, ctl_max, chi_min, chi_max)
 
     def PDF_hist(self, q2_bins: int | list, ctx_bins: int | list, ctl_bins: int | list, chi_bins: int | list):
+        """Create 4D histogram of PDF. This computes J_i integrated over the bin and angular integrals.
+
+        Parameters
+        ----------
+        q2_bins : int | list
+            Binning in q2, specify either number of bins or bin edges
+        ctx_bins : int | list
+            Binning in ctd, specify either number of bins or bin edges
+        ctl_bins : int | list
+            Binning in ctl, specify either number of bins or bin edges
+        chi_bins : int | list
+            Binning in chi, specify either number of bins or bin edges
+
+        Returns
+        -------
+        h : np.ndarray
+            PDF histogram
+        bin_edges : list
+            List of bin edges used, in form [q2_edges, ctd_edges, ctl_edges, chi_edges]
+        h_angint : dict
+            Angular integrals for angular bin
+        j_bins : dict
+            J_i observables computed to generate h
+        """
         ml = self.par['m_'+self.lep]
         mB = self.par['m_'+self._B]
         mV = self.par['m_'+self._V]
@@ -364,11 +399,13 @@ class BToDstEllNuPrediction:
         h = np.zeros((len(q2_edges)-1, len(ctx_edges)-1, len(ctl_edges)-1, len(chi_edges)-1))
         # Cache angular integrals to avoid recomputation for q2 angular bin
         h_angintegrals = self.PDF_hist_angular_int(ctx_edges, ctl_edges, chi_edges)
+        j_bins = {}
         for iq2 in range(len(q2_edges)-1):
             for ictx in range(len(ctx_edges)-1):
                 for ictl in range(len(ctl_edges)-1):
                     for ichi in range(len(chi_edges)-1):
                         dJ = self.dJ_bin(q2_edges[iq2], q2_edges[iq2+1])
+                        j_bins[iq2] = dJ
                         J_vec = np.array([dJ[iobs] for iobs in h_angintegrals["order"]])
                         h[iq2][ictx][ictl][ichi] = 9/(32*np.pi)*np.dot(J_vec, h_angintegrals[ictx][ictl][ichi])
                         # This is inefficient as recomputes angular integrals for every calculation
@@ -377,13 +414,33 @@ class BToDstEllNuPrediction:
                         #                                         ctl_edges[ictl], ctl_edges[ictl+1],
                         #                                         chi_edges[ichi], chi_edges[ichi+1])
                         
-        return h, [q2_edges, ctx_edges, ctl_edges, chi_edges], h_angintegrals
+        return h, [q2_edges, ctx_edges, ctl_edges, chi_edges], h_angintegrals, j_bins
 
     def PDF_hist_angular_int(self, ctx_bins: int | list, ctl_bins: int | list, chi_bins: int | list):
+        """Compute angular integrals for provided binning scheme
+
+        Parameters
+        ----------
+        ctx_bins : int | list
+            Binning in ctd, specify either number of bins or bin edges
+        ctl_bins : int | list
+            Binning in ctl, specify either number of bins or bin edges
+        chi_bins : int | list
+            Binning in chi, specify either number of bins or bin edges
+
+        Returns
+        -------
+        dict
+            Angular integrals for angular bin, output is in the form dict[ctx bin][ctl bin][chi bin] = [angular integrals]
+            where [angular integrals] is a list of the integrated angular term corresponding to each observable in the order
+            stored in dict["order"]. This is also returned as an array in dict["asarray"] to use for easier multiplication with
+            numpy.
+        """
         ctx_edges = ctx_bins if type(ctx_bins) != int else np.linspace(-1.0, 1.0, ctx_bins+1, endpoint=True)
         ctl_edges = ctl_bins if type(ctl_bins) != int else np.linspace(-1.0, 1.0, ctl_bins+1, endpoint=True)
         chi_edges = chi_bins if type(chi_bins) != int else np.linspace(-np.pi, np.pi, chi_bins+1, endpoint=True)
         h_angintegrals = {jctx : {jctl : {} for jctl in range(len(ctl_edges)-1)} for jctx in range(len(ctx_edges)-1)}
+        angint_array = np.zeros((len(ctx_edges)-1, len(ctl_edges)-1, len(chi_edges)-1, 12))
         for ictx in range(len(ctx_edges)-1):
             for ictl in range(len(ctl_edges)-1):
                 for ichi in range(len(chi_edges)-1):
@@ -391,7 +448,9 @@ class BToDstEllNuPrediction:
                                                         ctl_edges[ictl], ctl_edges[ictl+1],
                                                         chi_edges[ichi], chi_edges[ichi+1])
                     h_angintegrals[ictx][ictl][ichi] = np.array([h_ang_d[k] for k in self.obslist])
+                    angint_array[ictx][ictl][ichi] = np.array([h_ang_d[k] for k in self.obslist])
         h_angintegrals["order"] = self.obslist.copy()
+        h_angintegrals["asarray"] = angint_array
         return h_angintegrals
 
 
@@ -437,7 +496,35 @@ class BToDstEllNuPrediction:
     def plot_obs_prediction(self, obs: str, 
                             q2min: float = None, q2max: float = None, 
                             label: str = None,
-                            plot = None) -> tuple[plt.Figure, plt.Axes]:
+                            plot: tuple[plt.Figure, plt.Axes] = None) -> tuple[plt.Figure, plt.Axes]:
+        """Plot prediction for a particular observable
+
+        Parameters
+        ----------
+        obs : str
+            Desired observable, available are ["1s", "1c", "2s", "2c", "6s", "6c", 3, 4, 5, 7, 8, 9, "FL", "AFB", "FLt"]
+        q2min : float, optional
+            Min. value of q2 to plot, by default None which sets to physical minimum
+        q2max : float, optional
+            Max. value of q2 to plot, by default None which sets to physical maximum
+        label : str, optional
+            Label for legend, by default None
+        plot : tuple[plt.Figure, plt.Axes], optional
+            Figure and axes to plot on, by default None. This allows to plot multiple observables in same
+            axis or to change FFs/WCs and re-plot on same axes
+
+        Returns
+        -------
+        fig : plt.Figure
+            The matplotlib figure, show with fig.show(), update drawing with fig.canvas.draw()
+        ax : plt.Axes
+            Matplotlib axes, add legend with ax.legend()
+
+        Raises
+        ------
+        ValueError
+            For unavailable observable
+        """
         ml = self.par['m_'+self.lep]
         mB = self.par['m_'+self._B]
         mV = self.par['m_'+self._V]

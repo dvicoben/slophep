@@ -55,6 +55,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.PDF"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction.PDF()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.PDF_angular_int"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction.PDF_angular_int()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.PDF_bin"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction.PDF_bin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.PDF_hist"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction.PDF_hist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.PDF_hist_angular_int"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction.PDF_hist_angular_int()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.PDF_norm"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction.PDF_norm()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.PDF_norm_bin"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction.PDF_norm_bin()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction._obsq2Bin"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction._obsq2Bin()</span></code></a></li>
@@ -75,6 +77,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.plot_obs_prediction"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction.plot_obs_prediction()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.scale"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction.scale</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.set_ff"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction.set_ff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.set_ff_fromlist"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction.set_ff_fromlist()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.set_wc"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction.set_wc()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.uniang_obs"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction.uniang_obs()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.wc_obj"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction.wc_obj</span></code></a></li>
@@ -121,7 +124,7 @@
 <span id="bd2dstlnu-predictions-btodstobs"></span><h1>bd2dstlnu.Predictions.BToDstObs<a class="headerlink" href="#module-bd2dstlnu.Predictions.BToDstObs" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bd2dstlnu.Predictions.BToDstObs.</span></span><span class="sig-name descname"><span class="pre">BToDstEllNuPrediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FF</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="bd2dstlnu.Predictions.BToDstFFBase.html#bd2dstlnu.Predictions.BToDstFFBase.FormFactor" title="bd2dstlnu.Predictions.BToDstFFBase.FormFactor"><span class="pre">FormFactor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ffargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4.8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/BToDstObs.html#BToDstEllNuPrediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bd2dstlnu.Predictions.BToDstObs.</span></span><span class="sig-name descname"><span class="pre">BToDstEllNuPrediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FF</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="bd2dstlnu.Predictions.BToDstFFBase.html#bd2dstlnu.Predictions.BToDstFFBase.FormFactor" title="bd2dstlnu.Predictions.BToDstFFBase.FormFactor"><span class="pre">FormFactor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ffargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4.8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/BToDstObs.html#BToDstEllNuPrediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.FF">
@@ -248,6 +251,55 @@
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.PDF_hist">
+<span class="sig-name descname"><span class="pre">PDF_hist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctl_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/BToDstObs.html#BToDstEllNuPrediction.PDF_hist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.PDF_hist" title="Link to this definition"></a></dt>
+<dd><p>Create 4D histogram of PDF. This computes J_i integrated over the bin and angular integrals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q2_bins</strong> (<em>int</em><em> | </em><em>list</em>) – Binning in q2, specify either number of bins or bin edges</p></li>
+<li><p><strong>ctx_bins</strong> (<em>int</em><em> | </em><em>list</em>) – Binning in ctd, specify either number of bins or bin edges</p></li>
+<li><p><strong>ctl_bins</strong> (<em>int</em><em> | </em><em>list</em>) – Binning in ctl, specify either number of bins or bin edges</p></li>
+<li><p><strong>chi_bins</strong> (<em>int</em><em> | </em><em>list</em>) – Binning in chi, specify either number of bins or bin edges</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>h</strong> (<em>np.ndarray</em>) – PDF histogram</p></li>
+<li><p><strong>bin_edges</strong> (<em>list</em>) – List of bin edges used, in form [q2_edges, ctd_edges, ctl_edges, chi_edges]</p></li>
+<li><p><strong>h_angint</strong> (<em>dict</em>) – Angular integrals for angular bin</p></li>
+<li><p><strong>j_bins</strong> (<em>dict</em>) – J_i observables computed to generate h</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.PDF_hist_angular_int">
+<span class="sig-name descname"><span class="pre">PDF_hist_angular_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctl_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chi_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/BToDstObs.html#BToDstEllNuPrediction.PDF_hist_angular_int"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.PDF_hist_angular_int" title="Link to this definition"></a></dt>
+<dd><p>Compute angular integrals for provided binning scheme</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ctx_bins</strong> (<em>int</em><em> | </em><em>list</em>) – Binning in ctd, specify either number of bins or bin edges</p></li>
+<li><p><strong>ctl_bins</strong> (<em>int</em><em> | </em><em>list</em>) – Binning in ctl, specify either number of bins or bin edges</p></li>
+<li><p><strong>chi_bins</strong> (<em>int</em><em> | </em><em>list</em>) – Binning in chi, specify either number of bins or bin edges</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Angular integrals for angular bin, output is in the form dict[ctx bin][ctl bin][chi bin] = [angular integrals]
+where [angular integrals] is a list of the integrated angular term corresponding to each observable in the order
+stored in dict[“order”]. This is also returned as an array in dict[“asarray”] to use for easier multiplication with
+numpy.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -460,8 +512,31 @@ flavio.physics.bdecays.bvlnu._get_angularcoeff from <a class="reference external
 
 <dl class="py method">
 <dt class="sig sig-object py" id="bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.plot_obs_prediction">
-<span class="sig-name descname"><span class="pre">plot_obs_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Figure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Axes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/BToDstObs.html#BToDstEllNuPrediction.plot_obs_prediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.plot_obs_prediction" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">plot_obs_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Figure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Axes</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Figure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Axes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/BToDstObs.html#BToDstEllNuPrediction.plot_obs_prediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.plot_obs_prediction" title="Link to this definition"></a></dt>
+<dd><p>Plot prediction for a particular observable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs</strong> (<em>str</em>) – Desired observable, available are [“1s”, “1c”, “2s”, “2c”, “6s”, “6c”, 3, 4, 5, 7, 8, 9, “FL”, “AFB”, “FLt”]</p></li>
+<li><p><strong>q2min</strong> (<em>float</em><em>, </em><em>optional</em>) – Min. value of q2 to plot, by default None which sets to physical minimum</p></li>
+<li><p><strong>q2max</strong> (<em>float</em><em>, </em><em>optional</em>) – Max. value of q2 to plot, by default None which sets to physical maximum</p></li>
+<li><p><strong>label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for legend, by default None</p></li>
+<li><p><strong>plot</strong> (<em>tuple</em><em>[</em><em>plt.Figure</em><em>, </em><em>plt.Axes</em><em>]</em><em>, </em><em>optional</em>) – Figure and axes to plot on, by default None. This allows to plot multiple observables in same
+axis or to change FFs/WCs and re-plot on same axes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>fig</strong> (<em>plt.Figure</em>) – The matplotlib figure, show with fig.show(), update drawing with fig.canvas.draw()</p></li>
+<li><p><strong>ax</strong> (<em>plt.Axes</em>) – Matplotlib axes, add legend with ax.legend()</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – For unavailable observable</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.scale">
@@ -472,11 +547,23 @@ flavio.physics.bdecays.bvlnu._get_angularcoeff from <a class="reference external
 <dl class="py method">
 <dt class="sig sig-object py" id="bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.set_ff">
 <span class="sig-name descname"><span class="pre">set_ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ffparams</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/BToDstObs.html#BToDstEllNuPrediction.set_ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.set_ff" title="Link to this definition"></a></dt>
-<dd><p>Set form factor parameters</p>
+<dd><p>Set form factor parameters. Can use None to leave a parameter unchanged.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>ffparams</strong> (<em>dict</em>) – Dictionary of form factor parameters, names should match FF.ffpars dictionary in the particular
 scheme being used</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.set_ff_fromlist">
+<span class="sig-name descname"><span class="pre">set_ff_fromlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ffparams</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/BToDstObs.html#BToDstEllNuPrediction.set_ff_fromlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.set_ff_fromlist" title="Link to this definition"></a></dt>
+<dd><p>Set form factor parameters in form of list. Must include all parameters in self.FF.params, in order.
+Can use None to leave a parameter unchanged.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ffparams</strong> (<em>list</em>) – All FF parameters, in appropiate order</p>
 </dd>
 </dl>
 </dd></dl>

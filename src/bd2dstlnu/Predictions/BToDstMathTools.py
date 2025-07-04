@@ -1,5 +1,9 @@
 import numpy as np
 
+def calc_norm_j(j: dict[float]) -> dict[float]:
+    norm = 3/4. * (2 * j['1s'] + j['1c']) - 1/4. * (2 * j['2s'] + j['2c'])
+    return {k : j[k]/norm for k in j}
+
 def calc_unaing_obs(j: dict[float]) -> float:
     norm = 3/4. * (2 * j['1s'] + j['1c']) - 1/4. * (2 * j['2s'] + j['2c'])
     obs = {
