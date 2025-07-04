@@ -15,8 +15,11 @@ To be used to generate bands from fit results and to generate predictions for fi
 
 - Some example scripts are in the `python` directory
 - Additional FF schemes can be implemented - they need to inherit from `FormFactor` and implement the `get_ff(q2)` method, returning FFs in the lattice convention $V, A_0, A_1, A_{12}, T_1, T_2, T_{23}$. See existing schemes for examples.
+- Generation of predictions with varying FFs and WCs is shown in `python/example.py`. You can find a comparison of FF schemes (with some example of plotting functionality) in `python/compare_FFschemes.py`.
+- There are some preliminary scripts for fits (largely illustrative), `python/test_coef_fit.py` and `python/test_FF_fit.py`. Currently working on more optimised fitting interface.
+- Access (available) documentation in `docs/build/html`, open `index.html` in your preferred browser.
 
-## Implemented FFs
+## Implemented FF Schemes
 
 | FF Scheme | Implementation | Notes | Refs. |
 |-----------|----------------|-------|-------|
@@ -28,18 +31,23 @@ To be used to generate bands from fit results and to generate predictions for fi
 
 # TO DO
 
-- [x] Clean-up FF implementations 
-    - There are a lot of values in these FF classes that are hidden underneath the `get_ff(q2)` computation - plan to change this to be grouped under some class attribute
-- [x] Make documentation
+- [ ] Sampling 
+    - Ideally should be able provide some covariance matrix for FFs (and WCs) to resample from and generate confidence bands
+- [ ] Fitting interface for $\langle J_i \rangle$ fits
+- [ ] Fitting interface for FF fits
+- [ ] For fitting: Optimise binned PDF predictions to avoid unnecessary re-calculations of angular integrals unless explicitly requested
+- [ ] Add 1D projections
 - [ ] Implement futher FF schemes
     - BGJvD (see [eos implementation](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgjvd2019-impl.hh), [arXiv:1912.09335](https://arxiv.org/abs/1912.09335)) and BLPRXP (see [hammer implementation](https://gitlab.com/mpapucci/Hammer/-/blob/v1.4.1/src/FormFactors/BLPRXP/FFBtoDstarBLPRXPVar.cc), [arXiv:2206.11281](https://arxiv.org/abs/2206.11281)), are BLPR-like schemes with subsubleading contributions ($\mathcal{O}(\varepsilon_c^2)$, $\mathcal{O}(\varepsilon_b\varepsilon_c)$)
     - `flavio` default FF is also BLPR-like and likely corresponds to [arXiv:1908.09398](https://arxiv.org/abs/1908.09398) - may be similar to EOS's BGJvD
+- [ ] Add ability to switch angular conventions
+- [x] Clean-up FF implementations 
+    - There are a lot of values in these FF classes that are hidden underneath the `get_ff(q2)` computation - plan to change this to be grouped under some class attribute
+- [x] Make documentation
 - [x] Add bibliography 
     - Mainly for easy reference of implemented schemes, make it easier to cross-check/verify
     - Also add it to FF implementation documentation/docstrings
-- [ ] Sampling 
-    - Ideally would provide some covariance matrix for FFs (and WCs) to resample from and generate confidence bands
-- [ ] Easier binning predictions 
+- [x] Easier binning predictions
     - At moment need to provide boundaries for single bin to get prediction for that bin, plan to improve this to return predictions for all the range from a provided binning scheme
-- [ ] Add 1D projections
+
 
