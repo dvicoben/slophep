@@ -23,17 +23,12 @@ def makeJfitres(res, cov, order):
     J['1c'] = I1c
     return J
 
-# wcoeffs = {
-#     'CVL_bcmunumu': 0.0, 
-#     'CVR_bcmunumu': 0.0,
-#     'CSL_bcmunumu': 0.0,
-#     'CSR_bcmunumu': 0.0,
-#     'CT_bcmunumu': 0.0
-# }
-
 obs = BToDstEllNuPrediction("mu", "mu", BLPR)
+ctd_bins = 4
+ctl_bins = 4
+chi_bins = 5
 # Gets a histogram of the PDF with specified binning
-h, b, angint, j_bins = obs.PDF_hist(10, 4, 4, 5)
+h, b, angint, j_bins = obs.PDF_hist(10, ctd_bins, ctl_bins, chi_bins)
 
 # Scale to approx expected yields
 N = 1e6
@@ -111,54 +106,16 @@ for ibin in range(len(h)):
     jres.append(makeJfitres(reslist, cov, fitobs))
 
 
-# Now plotting the results:
+# Now saving the results:
+j_val = {k : [] for k in jres[0]}
+j_err = {k : [] for k in jres[0]}
+for ires in jres:
+    for iobs, ival in ires.items():
+        j_val[iobs].append(ival.n)
+        j_err[iobs].append(ival.s)
 
-def setPlotParams(params = {}):
-    """Set of parameters for plots in matplotlib
-    """
-    if len(params) > 0:
-        plt.rcParams.update(params)
-    else:
-        font = {'family' : 'cmr10', #Or Times New Roman
-            'size'   : 14}
-        plt.rc('font', **font)
-        plt.rcParams['mathtext.fontset'] = 'cm'
-        plt.rcParams["axes.formatter.use_mathtext"] = True
-        plt.rcParams.update({'axes.labelsize': 14,
-                            'legend.fontsize': 10,
-                            'xtick.labelsize': 12,
-                            'ytick.labelsize': 12,
-                            'figure.figsize': [8, 8/1.618]})
-
-setPlotParams()
-
-
-def plotresults(j_dicts: list, q2_bins: list):
-    j_val = {k : [] for k in j_dicts[0]}
-    j_err = {k : [] for k in j_dicts[0]}
-    for ires in j_dicts:
-        for iobs, ival in ires.items():
-            j_val[iobs].append(ival.n)
-            j_err[iobs].append(ival.s)
-
-    bc = 0.5*(q2_bins[1:] + q2_bins[:-1])
-    bw = 0.5*(q2_bins[1:] - q2_bins[:-1])
-
-    fig, axes = plt.subplots(3, 4, figsize=(20, 12))
-    axs = axes.flat
-    ax_idx = 0
-    kwargs = {"fmt" : 'o', "capsize" : 2, "markersize" : 2, "color" : 'k'}
-
-    for iobs in j_val:
-        ax = axs[ax_idx]
-        ax.errorbar(bc, j_val[iobs], yerr=j_err[iobs], xerr=bw, **kwargs)
-        ax.set(xlabel = r"$q^2$ [GeV$^2$]", ylabel=r"$J_{" + str(iobs) + r"}$",
-               xlim=(q2_bins[0], q2_bins[-1]))
-        ax_idx += 1
-
-    fig.tight_layout()
-    return fig, axes
-
-
-p = plotresults(jres, b[0])
-p[0].savefig("output/Jfitres.png", bbox_inches='tight')
+import json
+outpath = f"output/fitres_N1e6_B{ctd_bins}_{ctl_bins}_{chi_bins}.json"
+J = {"val" : j_val, "err": j_err, "bins" : b[0].tolist()}
+with open(outpath, "w") as outfile:
+    json.dump(J, outfile, indent=2)
