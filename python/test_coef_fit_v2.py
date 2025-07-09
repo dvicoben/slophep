@@ -23,15 +23,23 @@ def makeJfitres(res, cov, order):
     J['1c'] = I1c
     return J
 
+wcoeffs = {
+    'CVL_bcmunumu': 0.0, 
+    'CVR_bcmunumu': 0.0,
+    'CSL_bcmunumu': 0.0,
+    'CSR_bcmunumu': 0.0,
+    'CT_bcmunumu': 0.5
+}
 obs = BToDstEllNuPrediction("mu", "mu", BLPR)
-ctd_bins = 4
-ctl_bins = 4
-chi_bins = 5
+obs.set_wc(wcoeffs)
+ctd_bins = 3
+ctl_bins = 3
+chi_bins = 3
 # Gets a histogram of the PDF with specified binning
 h, b, angint, j_bins = obs.PDF_hist(10, ctd_bins, ctl_bins, chi_bins)
 
 # Scale to approx expected yields
-N = 1e6
+N = 6e5
 h_norm = h/np.sum(h)
 h_scale = N*h_norm
 # Expect non-poisson errors + unfolding will increase uncertainty - set to 2*sigma_Poisson
@@ -66,7 +74,7 @@ for ires in jres:
         j_err[iobs].append(ival.s)
 
 
-# outpath = f"output/fitres_N1e6_B{ctd_bins}_{ctl_bins}_{chi_bins}.json"
-# J = {"val" : j_val, "err": j_err, "bins" : b[0].tolist()}
-# with open(outpath, "w") as outfile:
-#     json.dump(J, outfile, indent=2)
+outpath = f"output/fitresNPT05_N6e5_B{ctd_bins}_{ctl_bins}_{chi_bins}.json"
+J = {"val" : j_val, "err": j_err, "bins" : b[0].tolist()}
+with open(outpath, "w") as outfile:
+    json.dump(J, outfile, indent=2)

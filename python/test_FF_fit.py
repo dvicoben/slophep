@@ -13,41 +13,52 @@ import uncertainties as uncert
 from iminuit import Minuit
 
 from bd2dstlnu.Predictions.BToDstObs import BToDstEllNuPrediction
-from bd2dstlnu.Predictions.BToDstFFBLPR import BLPR
+# from bd2dstlnu.Predictions.BToDstFFBLPR import BLPR
+from bd2dstlnu.Predictions.BToDstFFBGL import BGL
 
-
-obs = BToDstEllNuPrediction("mu", "mu", BLPR)
+obs = BToDstEllNuPrediction("mu", "mu", BGL)
+{ # https://arxiv.org/pdf/1707.09509 (Third column in table V)
+    "a0" : 0.0209,
+    "a1" : 0.33,
+    "a2" : 0.6,
+    "b0" : 0.01218,
+    "b1" : 0.046,
+    "b2" : 0.48,
+    "c1" : 0.0063,
+    "c2" : 0.062,
+    "d0" : 0.0595,
+    "d1" : -0.218
+}
 # Gets a histogram of the PDF with specified binning
-h, b, angint, j_bins = obs.PDF_hist(10, 4, 4, 5)
+h, b, angint, j_bins = obs.PDF_hist(10, 3, 3, 5)
 
 
-N = 1e6
+N = 2e6
 h_norm = h/np.sum(h)
 h_data = N*h_norm
 # Expect non-poisson errors + unfolding will increase uncertainty - set to 2*sigma_Poisson
 h_data_err = 2.0*np.sqrt(h_data)
 
 
-pred = BToDstEllNuPrediction("mu", "mu", BLPR)
-# {
-#     "RhoSq" : 1.24,
-#     "Chi21" : -0.06,
-#     "Chi2p" : 0.0,
-#     "Chi3p" : 0.05,
-#     "Eta1"  : 0.30,
-#     "Etap"  : -0.05,
-#     "dV20"  : 0.0
-# }
+pred = BToDstEllNuPrediction("mu", "mu", BGL)
+
 
 def calc_pdf(ff: list[float]):
-    # This roundabout input is to fix Chi3p and dV20 for which there is no sensitivity
-    ffpars = np.concatenate((ff[:3], [0.05], ff[3:], [0.0]))
-    pred.set_ff_fromlist(ffpars)
+    ffd = {
+        "a0" : ff[0],
+        "a1" : ff[1],
+        "a2" : ff[2],
+        "b0" : 0.01218,
+        "b1" : ff[3],
+        "b2" : ff[4],
+        "c1" : ff[5],
+        "c2" : ff[6],
+        "d0" : ff[7],
+        "d1" : ff[8],
+    }
+    pred.set_ff(ffd)
     print(pred.FF.ffpar)
     hist, *_ = pred.PDF_hist(*b)
-    x = np.sum(np.where(hist < 0, 1, 0))
-    if x > 0:
-        print(f"{x} -ve bins from {ff}")
     return hist
 
 def fom(ff: list[float]):
@@ -61,7 +72,7 @@ def fom(ff: list[float]):
     return chiSq
 
 
-fitpars = ["RhoSq", "Chi21", "Chi2p", "Eta1", "Etap"]
+fitpars = ["a0", "a1", "a2", "b1", "b2", "c1", "c2", "d0", "d1"]
 init_vals = [obs.FF.ffpar[ipar] for ipar in fitpars]
 m = Minuit(fom, init_vals)
 m.migrad()
@@ -84,3 +95,13 @@ print(fitpars)
 print(init_vals)
 print(reslist)
 print(errlist)
+
+import json
+res = {
+    "val" : reslist,
+    "err" : errlist,
+    "pars" : fitpars
+}
+outpath = "output/FF_bgl_results.json"
+with open(outpath, "w") as outfile:
+    json.dump(res, outfile, indent=2)
