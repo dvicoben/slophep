@@ -12,7 +12,9 @@ class BSZ(FormFactor):
         super().__init__(par, scale)
         
         self._name = "BSZ"
-        self._ffpar = { # From EOS, see https://eoshep.org/doc/reference/parameters.html#parameters-in-b-to-v-form-factor-parametrizations
+        # Parameters from EOS, see https://eoshep.org/doc/reference/parameters.html#parameters-in-b-to-v-form-factor-parametrizations
+        # Should correspond to LCSR+Lattice fit from arXiv:1811.00983v2
+        self._ffpar = { 
             "A0_0"   : 0.6759274184148141,
             "A0_1"   : -2.6637000799846655,
             "A0_2"   : 9.24495323738047,
@@ -33,7 +35,13 @@ class BSZ(FormFactor):
             "T23_1"  : 0.5855443911134184,
             "T23_2"  : 4.667079193615467,
         }
-
+        self._params = ["A0_0", "A0_1", "A0_2", 
+                        "A1_0", "A1_1", "A1_2", 
+                        "A12_1", "A12_2",
+                        "V_0", "V_1", "V_2",
+                        "T1_0", "T1_1", "T1_2",
+                        "T2_1", "T2_2",
+                        "T23_0", "T23_1", "T23_2"]
         self._process = 'B->D*'
         self._pd = {'B': 'B0', 'V': 'D*+', 'q': 'b->c'}
         self._internalparams = {
