@@ -41,11 +41,21 @@ class FormFactor:
         so this is kept seperate"""
         return self._internalparams
 
+    def _fullsetter(self, params: dict):
+        """For usage with fluctuate - effectively alias of set_ff
+
+        Parameters
+        ----------
+        params : dict
+        """
+        self.set_ff(**params)
+
     def set_ff(self, **kwargs):
         """Set form factors - argument names should be as in FormFactor.params"""
         for elem in kwargs:
             if elem not in self.ffpar:
-                raise KeyError(f"{elem} is not a parameter for {self.name}")
+                print(f"{elem} is not a parameter for FF {self.name}")
+                continue
             if kwargs[elem] == None:
                 continue
             self._ffpar[elem] = kwargs[elem]

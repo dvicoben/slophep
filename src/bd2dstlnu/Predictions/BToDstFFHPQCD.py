@@ -105,7 +105,7 @@ class HPQCD(FormFactor):
             "Mc"  : self.par['m_'+self._pd['V']], # 2.010
             "lambdaqcdphys" : 0.5,
             "LambdaChi" : 1.0,
-            "maxorder" : 11,
+            "maxorder" : 10,
             "Mk" : 0.493677,
             "MPi" : 0.13957,
             "MEta" : 0.547862,
@@ -120,7 +120,7 @@ class HPQCD(FormFactor):
     def get_ff_h(self, q2: float, A: str) -> float:
         value = 0
         w = self.w(q2)
-        for order in range(self.internalparams["maxorder"]):
+        for order in range(int(self.internalparams["maxorder"]+1)):
             param_name = 'a^'+str(order)+'_'+A
             if param_name not in self.ffpar:
                 print(f"{self.name} FF parameter {param_name} not found, not contributing")

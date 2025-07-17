@@ -54,6 +54,19 @@ class BToDstEllNuPrediction:
         """Neutrino flavour (nu/e/tau)"""
         return self._nu
     @property
+    def q2min(self) -> float:
+        """Minimum physical q2"""
+        ml = self.par['m_'+self.lep]
+        q2min = ml**2
+        return q2min
+    @property
+    def q2max(self) -> float:
+        """Maximum physical q2"""
+        mB = self.par['m_'+self._B]
+        mV = self.par['m_'+self._V]
+        q2max = (mB-mV)**2
+        return q2max
+    @property
     def wc_obj(self) -> flavio.WilsonCoefficients: 
         """Wilson coefficient object"""
         return self._wc_obj
@@ -86,6 +99,46 @@ class BToDstEllNuPrediction:
             scheme being used
         """
         self._FF.set_ff(**ffparams)
+    
+    def _fullsetter(self, params: dict, constants: dict = {}):
+        """Set WCs and FF parameters, for usage with Fluctuate
+
+        FF parameters must follow naming in self.FF.params
+
+        WCs must be in the flavio basis, prepended with 'WCRe_' or 'WCIm_'
+        for the respective component
+
+        Parameters
+        ----------
+        params : dict
+            Dictionary of parameters to set
+        constants: dict
+            Dictinoary of parameters that are set constant - for specific use-cases with fluctuate
+            e.g. in case want to set a particular WC to some non-zero value for all fluctations. In
+            principle FF that are not in params should be kept the same so shouldn't need to
+            pass them here.
+        """
+        # Note no key checking performed! User must make sure these are set-up correctly!
+        par = {**params, **constants}
+        wc = {}
+        ff = {}
+        for ikey, ival in par.items():
+            # Handle Wilson Coefficients
+            if "WCRe_" in ikey or "WCIm_" in ikey:
+                name_wc = ikey[5:]
+                iwc = ival if "WCRe_" in ikey else 1.0j*ival
+                if name_wc not in wc:
+                    wc[name_wc] = 0.0
+                wc[name_wc] += iwc
+            # Everything else is considered a FF
+            else:
+                ff[ikey] = ival
+        
+        if len(wc) > 0:
+            self.set_wc(wc)
+        if len(ff) > 0:
+            self.set_ff(ff)
+
 
     def set_ff_fromlist(self, ffparams: list):
         """Set form factor parameters in form of list. Must include all parameters in self.FF.params, in order.
@@ -186,6 +239,21 @@ class BToDstEllNuPrediction:
         """
         J = self.dJ(q2)
         return 3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
+    
+    def dBRdq2(self, q2: float) -> float:
+        """Calculate differential BR, dBR/dq2
+        
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        float
+            dBR/dq2
+        """
+        dGdq2 = self.dGdq2(q2)
+        return self.par[f"tau_{self._B}"]*dGdq2
 
     def _obsq2Bin(self, obs: str | int, q2min: float, q2max: float) -> float:
         def evalObs(q2):
@@ -252,6 +320,45 @@ class BToDstEllNuPrediction:
         J = self.dJ_q2int()
         norm = 3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
         return {iobs : J[iobs]/norm for iobs in self.obslist}
+    
+    def afb(self, q2: float) -> float:
+        """ Calculate Afb
+            NOTE: angular convention for 6s and 6c means this may differ by a sign """
+        j = self.dJ(q2)
+        num = (3.0/8)*(j["6c"] + 2*j["6s"])
+        denom = 3/4. * (2 * j['1s'] + j['1c']) - 1/4. * (2 * j['2s'] + j['2c'])
+        return num/denom
+    
+    def afb_bin(self, q2min: float, q2max: float) -> float:
+        """Calculate binned AFB"""
+        j = self.dJ_bin(q2min, q2max)
+        num = (3.0/8)*(j["6c"] + 2*j["6s"])
+        denom = 3/4. * (2 * j['1s'] + j['1c']) - 1/4. * (2 * j['2s'] + j['2c'])
+        return num/denom
+
+    def fl(self, q2: float) -> float:
+        """ Calculate FL """
+        j = self.dJ(q2)
+        num = 3*j["1c"] - j["2c"]
+        denom = 3*(j["1c"] + 2*j["1s"]) - (j["2c"] + 2*j["2s"])
+        return num/denom
+    
+    def fl_bin(self, q2min: float, q2max: float) -> float:
+        """Calculate binned FL"""
+        j = self.dJ_bin(q2min, q2max)
+        num = 3*j["1c"] - j["2c"]
+        denom = 3*(j["1c"] + 2*j["1s"]) - (j["2c"] + 2*j["2s"])
+        return num/denom
+    
+    def uniang_obs(self, q2: float) -> dict[float]:
+        """Calculate uniangular observables (FL, AFB, Flt, J3, J9)"""
+        j = self.J(q2)
+        return mt.calc_unaing_obs(j)
+    
+    def binuniang_obs(self, q2min: float, q2max: float) -> dict[float]:
+        """Calculate binned uniangular observables (FL, AFB, Flt, J3, J9)"""
+        j = self.J_bin(q2min, q2max)
+        return mt.calc_unaing_obs(j)
     
     def PDF(self, q2: float, ctx: float, ctl: float, chi: float) -> float:
         """Evaluate 4D PDF (up to normalisation) at phase-space point
@@ -385,11 +492,8 @@ class BToDstEllNuPrediction:
         j_bins : dict
             J_i observables computed to generate h
         """
-        ml = self.par['m_'+self.lep]
-        mB = self.par['m_'+self._B]
-        mV = self.par['m_'+self._V]
-        q2max = (mB-mV)**2
-        q2min = ml**2
+        q2max = self.q2max
+        q2min = self.q2min
         
         q2_edges = q2_bins if type(q2_bins) != int else np.linspace(q2min, q2max, q2_bins+1, endpoint=True)
         ctx_edges = ctx_bins if type(ctx_bins) != int else np.linspace(-1.0, 1.0, ctx_bins+1, endpoint=True)
@@ -453,46 +557,6 @@ class BToDstEllNuPrediction:
         h_angintegrals["asarray"] = angint_array
         return h_angintegrals
 
-
-    def afb(self, q2: float) -> float:
-        """ Calculate Afb
-            NOTE: angular convention for 6s and 6c means this may differ by a sign """
-        j = self.dJ(q2)
-        num = (3.0/8)*(j["6c"] + 2*j["6s"])
-        denom = 3/4. * (2 * j['1s'] + j['1c']) - 1/4. * (2 * j['2s'] + j['2c'])
-        return num/denom
-    
-    def afb_bin(self, q2min: float, q2max: float) -> float:
-        """Calculate binned AFB"""
-        j = self.dJ_bin(q2min, q2max)
-        num = (3.0/8)*(j["6c"] + 2*j["6s"])
-        denom = 3/4. * (2 * j['1s'] + j['1c']) - 1/4. * (2 * j['2s'] + j['2c'])
-        return num/denom
-
-    def fl(self, q2: float) -> float:
-        """ Calculate FL """
-        j = self.dJ(q2)
-        num = 3*j["1c"] - j["2c"]
-        denom = 3*(j["1c"] + 2*j["1s"]) - (j["2c"] + 2*j["2s"])
-        return num/denom
-    
-    def fl_bin(self, q2min: float, q2max: float) -> float:
-        """Calculate binned FL"""
-        j = self.dJ_bin(q2min, q2max)
-        num = 3*j["1c"] - j["2c"]
-        denom = 3*(j["1c"] + 2*j["1s"]) - (j["2c"] + 2*j["2s"])
-        return num/denom
-    
-    def uniang_obs(self, q2: float) -> dict[float]:
-        """Calculate uniangular observables (FL, AFB, Flt, J3, J9)"""
-        j = self.J(q2)
-        return mt.calc_unaing_obs(j)
-    
-    def binuniang_obs(self, q2min: float, q2max: float) -> dict[float]:
-        """Calculate binned uniangular observables (FL, AFB, Flt, J3, J9)"""
-        j = self.J_bin(q2min, q2max)
-        return mt.calc_unaing_obs(j)
-
     def plot_obs_prediction(self, obs: str, 
                             q2min: float = None, q2max: float = None, 
                             label: str = None,
@@ -525,12 +589,8 @@ class BToDstEllNuPrediction:
         ValueError
             For unavailable observable
         """
-        ml = self.par['m_'+self.lep]
-        mB = self.par['m_'+self._B]
-        mV = self.par['m_'+self._V]
-        
-        q2max = q2max if q2max else (mB-mV)**2
-        q2min = q2min if q2min else ml**2
+        q2max = q2max if q2max else self.q2max
+        q2min = q2min if q2min else self.q2min
         q2 = np.linspace(q2min, q2max, 150, endpoint=True)
         obs_vals = []
         # Get the observable in q2
