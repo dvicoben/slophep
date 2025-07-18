@@ -6,7 +6,35 @@ def bifurcated_gaussian_sampler(mean : list[float],
                                 errhi: list[float], 
                                 correlation: np.ndarray,
                                 rng: np.random.Generator,
-                                cutoff: int = -1):
+                                cutoff: int = -1) -> list[float]:
+    """Generate a random sample from bifurcated gaussian using rejection method. 
+    For asymmetric errors.
+
+    Parameters
+    ----------
+    mean : list[float]
+        Nominal/mean values for the parameters
+    errlo : list[float]
+        Lower error
+    errhi : list[float]
+        Upper error
+    correlation : np.ndarray
+        Correlation matrix
+    rng : np.random.Generator
+        Numpy generator object
+    cutoff : int, optional
+        Number of attempts to cutoff at, by default -1. Negative means no cutoff.
+
+    Returns
+    -------
+    list[float]
+        Fluctuated parameters
+
+    Raises
+    ------
+    Exception
+        If cutoff is reached, raises exception and stops
+    """
     attempts = 0
     errlo = np.array(errlo)
     errhi = np.array(errhi)
@@ -22,5 +50,5 @@ def bifurcated_gaussian_sampler(mean : list[float],
             return mean+trial
         
         attempts += 1
-        if attempts >= cutoff:
+        if cutoff > 0 and attempts >= cutoff:
             raise Exception("Reached sampling cutoff for bifurcated gaussian")

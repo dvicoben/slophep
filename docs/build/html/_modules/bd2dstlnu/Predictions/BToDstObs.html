@@ -128,6 +128,19 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Neutrino flavour (nu/e/tau)&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nu</span>
     <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">q2min</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Minimum physical q2&quot;&quot;&quot;</span>
+        <span class="n">ml</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">lep</span><span class="p">]</span>
+        <span class="n">q2min</span> <span class="o">=</span> <span class="n">ml</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">return</span> <span class="n">q2min</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">q2max</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Maximum physical q2&quot;&quot;&quot;</span>
+        <span class="n">mB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">]</span>
+        <span class="n">mV</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_V</span><span class="p">]</span>
+        <span class="n">q2max</span> <span class="o">=</span> <span class="p">(</span><span class="n">mB</span><span class="o">-</span><span class="n">mV</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        <span class="k">return</span> <span class="n">q2max</span>
+    <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">wc_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">flavio</span><span class="o">.</span><span class="n">WilsonCoefficients</span><span class="p">:</span> 
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Wilson coefficient object&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wc_obj</span>
@@ -165,6 +178,49 @@
 <span class="sd">            scheme being used</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_FF</span><span class="o">.</span><span class="n">set_ff</span><span class="p">(</span><span class="o">**</span><span class="n">ffparams</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="BToDstEllNuPrediction._fullsetter">
+<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction._fullsetter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_fullsetter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">constants</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set WCs and FF parameters, for usage with Fluctuate</span>
+
+<span class="sd">        FF parameters must follow naming in self.FF.params</span>
+
+<span class="sd">        WCs must be in the flavio basis, prepended with &#39;WCRe\_&#39; or &#39;WCIm\_&#39;</span>
+<span class="sd">        for the respective component</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        params : dict</span>
+<span class="sd">            Dictionary of parameters to set</span>
+<span class="sd">        constants: dict</span>
+<span class="sd">            Dictinoary of parameters that are set constant - for specific use-cases with fluctuate</span>
+<span class="sd">            e.g. in case want to set a particular WC to some non-zero value for all fluctations. In</span>
+<span class="sd">            principle FF that are not in params should be kept the same so shouldn&#39;t need to</span>
+<span class="sd">            pass them here.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Note no key checking performed! User must make sure these are set-up correctly!</span>
+        <span class="n">par</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">constants</span><span class="p">}</span>
+        <span class="n">wc</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">ff</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">ikey</span><span class="p">,</span> <span class="n">ival</span> <span class="ow">in</span> <span class="n">par</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Handle Wilson Coefficients</span>
+            <span class="k">if</span> <span class="s2">&quot;WCRe_&quot;</span> <span class="ow">in</span> <span class="n">ikey</span> <span class="ow">or</span> <span class="s2">&quot;WCIm_&quot;</span> <span class="ow">in</span> <span class="n">ikey</span><span class="p">:</span>
+                <span class="n">name_wc</span> <span class="o">=</span> <span class="n">ikey</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span>
+                <span class="n">iwc</span> <span class="o">=</span> <span class="n">ival</span> <span class="k">if</span> <span class="s2">&quot;WCRe_&quot;</span> <span class="ow">in</span> <span class="n">ikey</span> <span class="k">else</span> <span class="mf">1.0</span><span class="n">j</span><span class="o">*</span><span class="n">ival</span>
+                <span class="k">if</span> <span class="n">name_wc</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">wc</span><span class="p">:</span>
+                    <span class="n">wc</span><span class="p">[</span><span class="n">name_wc</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+                <span class="n">wc</span><span class="p">[</span><span class="n">name_wc</span><span class="p">]</span> <span class="o">+=</span> <span class="n">iwc</span>
+            <span class="c1"># Everything else is considered a FF</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ff</span><span class="p">[</span><span class="n">ikey</span><span class="p">]</span> <span class="o">=</span> <span class="n">ival</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">wc</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_wc</span><span class="p">(</span><span class="n">wc</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ff</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_ff</span><span class="p">(</span><span class="n">ff</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="BToDstEllNuPrediction.set_ff_fromlist">
@@ -284,6 +340,24 @@
         <span class="n">J</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
         <span class="k">return</span> <span class="mi">3</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">J</span><span class="p">[</span><span class="s1">&#39;1s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">J</span><span class="p">[</span><span class="s1">&#39;1c&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">J</span><span class="p">[</span><span class="s1">&#39;2s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">J</span><span class="p">[</span><span class="s1">&#39;2c&#39;</span><span class="p">])</span></div>
 
+    
+<div class="viewcode-block" id="BToDstEllNuPrediction.dBRdq2">
+<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.dBRdq2">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dBRdq2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate differential BR, dBR/dq2</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2 : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            dBR/dq2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dGdq2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dGdq2</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;tau_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">dGdq2</span></div>
+
 
 <div class="viewcode-block" id="BToDstEllNuPrediction._obsq2Bin">
 <a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction._obsq2Bin">[docs]</a>
@@ -364,6 +438,63 @@
         <span class="n">J</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ_q2int</span><span class="p">()</span>
         <span class="n">norm</span> <span class="o">=</span> <span class="mi">3</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">J</span><span class="p">[</span><span class="s1">&#39;1s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">J</span><span class="p">[</span><span class="s1">&#39;1c&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">J</span><span class="p">[</span><span class="s1">&#39;2s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">J</span><span class="p">[</span><span class="s1">&#39;2c&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="p">{</span><span class="n">iobs</span> <span class="p">:</span> <span class="n">J</span><span class="p">[</span><span class="n">iobs</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span> <span class="k">for</span> <span class="n">iobs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">obslist</span><span class="p">}</span></div>
+
+    
+<div class="viewcode-block" id="BToDstEllNuPrediction.afb">
+<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.afb">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">afb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Calculate Afb</span>
+<span class="sd">            NOTE: angular convention for 6s and 6c means this may differ by a sign &quot;&quot;&quot;</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="p">(</span><span class="mf">3.0</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;6c&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;6s&quot;</span><span class="p">])</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="mi">3</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;1s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;1c&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;2s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;2c&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">num</span><span class="o">/</span><span class="n">denom</span></div>
+
+    
+<div class="viewcode-block" id="BToDstEllNuPrediction.afb_bin">
+<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.afb_bin">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">afb_bin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">q2max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate binned AFB&quot;&quot;&quot;</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ_bin</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">)</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="p">(</span><span class="mf">3.0</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;6c&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;6s&quot;</span><span class="p">])</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="mi">3</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;1s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;1c&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;2s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;2c&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">num</span><span class="o">/</span><span class="n">denom</span></div>
+
+
+<div class="viewcode-block" id="BToDstEllNuPrediction.fl">
+<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.fl">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Calculate FL &quot;&quot;&quot;</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;1c&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;2c&quot;</span><span class="p">]</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;1c&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;1s&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;2c&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;2s&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">num</span><span class="o">/</span><span class="n">denom</span></div>
+
+    
+<div class="viewcode-block" id="BToDstEllNuPrediction.fl_bin">
+<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.fl_bin">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fl_bin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">q2max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate binned FL&quot;&quot;&quot;</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ_bin</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">)</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;1c&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;2c&quot;</span><span class="p">]</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;1c&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;1s&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;2c&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;2s&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">num</span><span class="o">/</span><span class="n">denom</span></div>
+
+    
+<div class="viewcode-block" id="BToDstEllNuPrediction.uniang_obs">
+<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.uniang_obs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">uniang_obs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate uniangular observables (FL, AFB, Flt, J3, J9)&quot;&quot;&quot;</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">J</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mt</span><span class="o">.</span><span class="n">calc_unaing_obs</span><span class="p">(</span><span class="n">j</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="BToDstEllNuPrediction.binuniang_obs">
+<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.binuniang_obs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">binuniang_obs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">q2max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate binned uniangular observables (FL, AFB, Flt, J3, J9)&quot;&quot;&quot;</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">J_bin</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mt</span><span class="o">.</span><span class="n">calc_unaing_obs</span><span class="p">(</span><span class="n">j</span><span class="p">)</span></div>
 
     
 <div class="viewcode-block" id="BToDstEllNuPrediction.PDF">
@@ -515,11 +646,8 @@
 <span class="sd">        j_bins : dict</span>
 <span class="sd">            J_i observables computed to generate h</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">ml</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">lep</span><span class="p">]</span>
-        <span class="n">mB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">]</span>
-        <span class="n">mV</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_V</span><span class="p">]</span>
-        <span class="n">q2max</span> <span class="o">=</span> <span class="p">(</span><span class="n">mB</span><span class="o">-</span><span class="n">mV</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-        <span class="n">q2min</span> <span class="o">=</span> <span class="n">ml</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">q2max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2max</span>
+        <span class="n">q2min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2min</span>
         
         <span class="n">q2_edges</span> <span class="o">=</span> <span class="n">q2_bins</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">q2_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">,</span> <span class="n">q2_bins</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">ctx_edges</span> <span class="o">=</span> <span class="n">ctx_bins</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">ctx_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">ctx_bins</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -587,64 +715,6 @@
         <span class="k">return</span> <span class="n">h_angintegrals</span></div>
 
 
-
-<div class="viewcode-block" id="BToDstEllNuPrediction.afb">
-<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.afb">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">afb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Calculate Afb</span>
-<span class="sd">            NOTE: angular convention for 6s and 6c means this may differ by a sign &quot;&quot;&quot;</span>
-        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
-        <span class="n">num</span> <span class="o">=</span> <span class="p">(</span><span class="mf">3.0</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;6c&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;6s&quot;</span><span class="p">])</span>
-        <span class="n">denom</span> <span class="o">=</span> <span class="mi">3</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;1s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;1c&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;2s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;2c&#39;</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">num</span><span class="o">/</span><span class="n">denom</span></div>
-
-    
-<div class="viewcode-block" id="BToDstEllNuPrediction.afb_bin">
-<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.afb_bin">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">afb_bin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">q2max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate binned AFB&quot;&quot;&quot;</span>
-        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ_bin</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">)</span>
-        <span class="n">num</span> <span class="o">=</span> <span class="p">(</span><span class="mf">3.0</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;6c&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;6s&quot;</span><span class="p">])</span>
-        <span class="n">denom</span> <span class="o">=</span> <span class="mi">3</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;1s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;1c&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;2s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;2c&#39;</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">num</span><span class="o">/</span><span class="n">denom</span></div>
-
-
-<div class="viewcode-block" id="BToDstEllNuPrediction.fl">
-<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.fl">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">fl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Calculate FL &quot;&quot;&quot;</span>
-        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
-        <span class="n">num</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;1c&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;2c&quot;</span><span class="p">]</span>
-        <span class="n">denom</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;1c&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;1s&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;2c&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;2s&quot;</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">num</span><span class="o">/</span><span class="n">denom</span></div>
-
-    
-<div class="viewcode-block" id="BToDstEllNuPrediction.fl_bin">
-<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.fl_bin">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">fl_bin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">q2max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate binned FL&quot;&quot;&quot;</span>
-        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ_bin</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">)</span>
-        <span class="n">num</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;1c&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;2c&quot;</span><span class="p">]</span>
-        <span class="n">denom</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;1c&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;1s&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;2c&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;2s&quot;</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">num</span><span class="o">/</span><span class="n">denom</span></div>
-
-    
-<div class="viewcode-block" id="BToDstEllNuPrediction.uniang_obs">
-<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.uniang_obs">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">uniang_obs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate uniangular observables (FL, AFB, Flt, J3, J9)&quot;&quot;&quot;</span>
-        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">J</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">mt</span><span class="o">.</span><span class="n">calc_unaing_obs</span><span class="p">(</span><span class="n">j</span><span class="p">)</span></div>
-
-    
-<div class="viewcode-block" id="BToDstEllNuPrediction.binuniang_obs">
-<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.binuniang_obs">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">binuniang_obs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">q2max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate binned uniangular observables (FL, AFB, Flt, J3, J9)&quot;&quot;&quot;</span>
-        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">J_bin</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">mt</span><span class="o">.</span><span class="n">calc_unaing_obs</span><span class="p">(</span><span class="n">j</span><span class="p">)</span></div>
-
-
 <div class="viewcode-block" id="BToDstEllNuPrediction.plot_obs_prediction">
 <a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstObs.html#bd2dstlnu.Predictions.BToDstObs.BToDstEllNuPrediction.plot_obs_prediction">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">plot_obs_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
@@ -679,12 +749,8 @@
 <span class="sd">        ValueError</span>
 <span class="sd">            For unavailable observable</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">ml</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">lep</span><span class="p">]</span>
-        <span class="n">mB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">]</span>
-        <span class="n">mV</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_V</span><span class="p">]</span>
-        
-        <span class="n">q2max</span> <span class="o">=</span> <span class="n">q2max</span> <span class="k">if</span> <span class="n">q2max</span> <span class="k">else</span> <span class="p">(</span><span class="n">mB</span><span class="o">-</span><span class="n">mV</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-        <span class="n">q2min</span> <span class="o">=</span> <span class="n">q2min</span> <span class="k">if</span> <span class="n">q2min</span> <span class="k">else</span> <span class="n">ml</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">q2max</span> <span class="o">=</span> <span class="n">q2max</span> <span class="k">if</span> <span class="n">q2max</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2max</span>
+        <span class="n">q2min</span> <span class="o">=</span> <span class="n">q2min</span> <span class="k">if</span> <span class="n">q2min</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2min</span>
         <span class="n">q2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">obs_vals</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># Get the observable in q2</span>

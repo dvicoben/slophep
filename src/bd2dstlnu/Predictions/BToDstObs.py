@@ -105,7 +105,7 @@ class BToDstEllNuPrediction:
 
         FF parameters must follow naming in self.FF.params
 
-        WCs must be in the flavio basis, prepended with 'WCRe_' or 'WCIm_'
+        WCs must be in the flavio basis, prepended with 'WCRe\_' or 'WCIm\_'
         for the respective component
 
         Parameters

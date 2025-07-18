@@ -115,13 +115,27 @@
 <span class="sd">        so this is kept seperate&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internalparams</span>
 
+<div class="viewcode-block" id="FormFactor._fullsetter">
+<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstFFBase.html#bd2dstlnu.Predictions.BToDstFFBase.FormFactor._fullsetter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_fullsetter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">constants</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;For usage with fluctuate - effectively alias of set_ff</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        params : dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">constants</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_ff</span><span class="p">(</span><span class="o">**</span><span class="n">p</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="FormFactor.set_ff">
 <a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstFFBase.html#bd2dstlnu.Predictions.BToDstFFBase.FormFactor.set_ff">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_ff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set form factors - argument names should be as in FormFactor.params&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">elem</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">elem</span><span class="si">}</span><span class="s2"> is not a parameter for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">elem</span><span class="si">}</span><span class="s2"> is not a parameter for FF </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
             <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">elem</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_ffpar</span><span class="p">[</span><span class="n">elem</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">elem</span><span class="p">]</span></div>

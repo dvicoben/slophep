@@ -54,6 +54,7 @@ class SamplingHelper:
         return self._fluctuations
     @property
     def obs(self):
+        """Observable/FF object to fluctuate"""
         return self._obs_obj
 
     def set_params_symmetric(self, param_names: list[str], mean: dict, cov: list | np.ndarray, constants: dict = {}):
@@ -62,7 +63,7 @@ class SamplingHelper:
         Parameters
         ----------
         param_names : list[str]
-            "List of fluctuated params names, in order as they appear in cov matrix
+            List of fluctuated params names, in order as they appear in cov matrix
         mean : dict
             Nominal/mean values for the parameters
         cov : list | np.ndarray
@@ -134,6 +135,15 @@ class SamplingHelper:
         self._fluctuations = []
 
     def fluctuate(self, N: int, seed: int = None):
+        """Produce N gaussian/bifurcated gaussian fluctuations
+
+        Parameters
+        ----------
+        N : int
+            Number of fluctuations
+        seed : int, optional
+            numpy random seed, by default None
+        """
         rng = np.random.default_rng(seed)
         mean = np.array([self.mean[k] for k in self.params])
         fluct = []
