@@ -1,11 +1,15 @@
 import numpy as np
 import json
+from bd2dstlnu.Predictions.SamplingTools import bifurcated_gaussian_sampler
 
-class FluctuatePrediction:
+class SamplingHelper:
     def __init__(self, obs):
         self._params = []
+        self._errtype = "Symmetric"
         self._cov = None
+        self._corr = None
         self._mean = {}
+        self._err = {}
         self._fluctuations = []
         self._obs_obj = obs
         self._constants = {}
@@ -15,9 +19,21 @@ class FluctuatePrediction:
         """List of fluctuated params names, in order as they appear in cov matrix"""
         return self._params
     @property
+    def errtype(self) -> str:
+        """Error type, should be `Symmetric` or `Asymmetric`"""
+        return self._errtype
+    @property
+    def err(self) -> dict[float]:
+        """Error values for the parameters"""
+        return self._err
+    @property
     def cov(self) -> np.ndarray:
         """Covariance matrix of parameters"""
         return self._cov
+    @property
+    def corr(self) -> np.ndarray:
+        """Correlation matrix of parameters"""
+        return self._corr
     @property
     def mean(self) -> dict[float]:
         """Nominal/mean values for the parameters"""
@@ -40,8 +56,8 @@ class FluctuatePrediction:
     def obs(self):
         return self._obs_obj
 
-    def set_params(self, param_names: list[str], mean: dict, cov: list | np.ndarray, constants: dict = {}):
-        """Sets parameters necessary for fluctuation
+    def set_params_symmetric(self, param_names: list[str], mean: dict, cov: list | np.ndarray, constants: dict = {}):
+        """Sets parameters necessary for fluctuation, for symmetric gaussian errors
 
         Parameters
         ----------
@@ -51,10 +67,45 @@ class FluctuatePrediction:
             Nominal/mean values for the parameters
         cov : list | np.ndarray
             Covariance matrix
+        constants: dict, optional
+            Dictinoary of parameters that are set constant - for specific use-cases with fluctuate
+            e.g. in case want to set a particular WC to some non-zero value for all fluctations. In
+            principle FF that are not in params should be kept the same so shouldn't need to
+            pass them here.
         """
+        self._errtype = "Symmetric"
         self._mean = mean
         self._params = param_names
         self._cov = np.array(cov)
+        self._constants = constants
+
+    def set_params_asymmetric(self, param_names: list[str], mean: dict, errlo: dict, errhi: dict, corr: list | np.ndarray, constants: dict = {}):
+        """Sets parameters necessary for fluctuation, for asymmetric gaussian errors
+
+        Parameters
+        ----------
+        param_names : list[str]
+            "List of fluctuated params names, in order as they appear in cov matrix
+        mean : dict
+            Nominal/mean values for the parameters
+        errlo : dict
+            Size of lower error
+        errhi : dict
+            Size of upper error
+        corr : list | np.ndarray
+            Correlation matrix
+        constants: dict, optional
+            Dictinoary of parameters that are set constant - for specific use-cases with fluctuate
+            e.g. in case want to set a particular WC to some non-zero value for all fluctations. In
+            principle FF that are not in params should be kept the same so shouldn't need to
+            pass them here.
+        """
+        self._errtype = "Asymmetric"
+        self._params = param_names
+        self._mean = mean
+        self._err["lo"] = errlo
+        self._err["hi"] = errhi
+        self._corr = np.array(corr)
         self._constants = constants
     
     def set_params_from_configfile(self, inpath: str):
@@ -68,7 +119,15 @@ class FluctuatePrediction:
         with open(inpath) as f:
             config = json.load(f)
         constants = config["Constants"] if "Constants" in config else {}
-        self.set_params(config["Params"], config["Mean"], config["Cov"], constants)
+        if config["Type"] == "Asymmetric":
+            self.set_params_asymmetric(config["Params"], config["Mean"],
+                                       config["Error_lo"], config["Error_hi"], config["Corr"],
+                                       constants)
+        elif config["Type"] == "Symmetric":
+            self.set_params_symmetric(config["Params"], config["Mean"], config["Cov"], constants)
+        else:
+            print("Specified error type is not Asymmetric or Symmetric, assuming Symmetric")
+            self.set_params_symmetric(config["Params"], config["Mean"], config["Cov"], constants)
 
     def clear_fluctuations(self):
         """Clear produced fluctuations"""
@@ -76,9 +135,16 @@ class FluctuatePrediction:
 
     def fluctuate(self, N: int, seed: int = None):
         rng = np.random.default_rng(seed)
-        mean = [self.mean[k] for k in self.params]
-        fluct = rng.multivariate_normal(mean, self.cov, int(N))
-        self._fluctuations = fluct
+        mean = np.array([self.mean[k] for k in self.params])
+        fluct = []
+        if self.errtype == "Asymmetric":
+            errlo = np.array([self.err["lo"][k] for k in self.params])
+            errhi = np.array([self.err["hi"][k] for k in self.params])
+            fluct = [bifurcated_gaussian_sampler(mean, errlo, errhi, self.corr, rng) for isample in range(N)]
+        else:
+            fluct = rng.multivariate_normal(mean, self.cov, int(N))
+        
+        self._fluctuations = np.array(fluct)
     
     def get_error(self, attr: str, attr_args: list = [], cl: float = 0.683, return_all: bool = False):
         """Gets an error using produced fluctations for a spcified CL
@@ -103,12 +169,12 @@ class FluctuatePrediction:
         for ifluct in self.fluctuations:
             ipar = {self.params[k] : ifluct[k] for k in range(len(self.params))}
             # print(ipar)
-            self.obs._fullsetter(ipar)
+            self.obs._fullsetter(ipar, self.constants)
             feval = getattr(self.obs, attr)
             x = feval(*attr_args) if len(attr_args) > 0 else feval()
             res.append(x)
         
-        self.obs._fullsetter(self.mean)
+        self.obs._fullsetter(self.mean, self.constants)
 
         if return_all:
             return res

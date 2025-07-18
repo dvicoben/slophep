@@ -4,6 +4,7 @@
     "Parameters and uncertianties taken from BDstar_LCSR-Lattice.json in ancillary files in https://arxiv.org/abs/1811.00983",
     "Note that Lattice only provided input here at zero recoil"
   ],
+  "Type" : "Symmetric",
   "Params": [
     "A0_0", "A0_1", "A0_2", 
     "A1_0", "A1_1", "A1_2", 
@@ -55,6 +56,8 @@
     "T23_1": 3.644391367282415,
     "T23_2": 57.422246099903546
   },
+  "Error_lo" : {},
+  "Error_hi" : {},
   "Cov": [
     [
       0.006542809757807471,

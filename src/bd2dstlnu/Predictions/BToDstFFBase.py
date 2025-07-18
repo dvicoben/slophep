@@ -41,14 +41,15 @@ class FormFactor:
         so this is kept seperate"""
         return self._internalparams
 
-    def _fullsetter(self, params: dict):
+    def _fullsetter(self, params: dict, constants: dict):
         """For usage with fluctuate - effectively alias of set_ff
 
         Parameters
         ----------
         params : dict
         """
-        self.set_ff(**params)
+        p = {**params, **constants}
+        self.set_ff(**p)
 
     def set_ff(self, **kwargs):
         """Set form factors - argument names should be as in FormFactor.params"""

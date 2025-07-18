@@ -3,6 +3,7 @@
     "FF parameters and uncertainties from fit to Lattice in arXiv:2304.03137v2.",
     "Parameters and their uncertainties are extracted from hpqcd_BDstar.pydat in the ancillary files in https://arxiv.org/abs/2304.03137v2"
   ],
+  "Type" : "Symmetric",
   "Params": [
     "a^0_hA1", "a^1_hA1", "a^2_hA1", "a^3_hA1", "a^4_hA1", "a^5_hA1", "a^6_hA1", "a^7_hA1", "a^8_hA1", "a^9_hA1", "a^10_hA1", 
     "a^0_hA2", "a^1_hA2", "a^2_hA2", "a^3_hA2", "a^4_hA2", "a^5_hA2", "a^6_hA2", "a^7_hA2", "a^8_hA2", "a^9_hA2", "a^10_hA2", 
@@ -172,6 +173,9 @@
     "a^9_hT3": 19.999819449199666,
     "a^10_hT3": 19.99997040697782
   },
+  "Error_lo" : {},
+  "Error_hi" : {},
+  "Corr" : [],
   "Cov": [
     [
       0.0002085968791409233,
