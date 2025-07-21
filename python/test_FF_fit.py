@@ -13,8 +13,7 @@ import uncertainties as uncert
 from iminuit import Minuit
 
 from bd2dstlnu.Predictions.BToDstObs import BToDstEllNuPrediction
-# from bd2dstlnu.Predictions.BToDstFFBLPR import BLPR
-from bd2dstlnu.Predictions.BToDstFFBGL import BGL
+from bd2dstlnu.Predictions.FormFactorsBToDst import BGL
 
 obs = BToDstEllNuPrediction("mu", "mu", BGL)
 # { # https://arxiv.org/pdf/1707.09509 (Third column in table V)

@@ -167,7 +167,7 @@ class SamplingHelper:
             Arguments to be passed to that attribute, by default an empty
             list which means no arguments to pass
         cl : float, optional
-            CL to asses error for, by default 0.68
+            CL to asses error for, by default 0.683
         return_all : bool, optional
             Whether to return a list with all the fluctiations (only) 
             rather than the errors, by default False

@@ -1,6 +1,6 @@
 from math import sqrt
 import numpy as np
-from bd2dstlnu.Predictions.BToDstFFBase import FormFactor
+from bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase import FormFactor
 
 
 class BGL(FormFactor):

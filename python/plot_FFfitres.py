@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import json
+from bd2dstlnu.utils import setPlotParams
 
 def readres(inpath: str, label: str = None):
     with open(inpath) as f:
@@ -10,24 +11,6 @@ def readres(inpath: str, label: str = None):
     else:
         d["label"] = inpath
     return d
-
-def setPlotParams(params = {}):
-    """Set of parameters for plots in matplotlib
-    """
-    if len(params) > 0:
-        plt.rcParams.update(params)
-    else:
-        font = {'family' : 'cmr10', #Or Times New Roman
-            'size'   : 14}
-        plt.rc('font', **font)
-        plt.rcParams['mathtext.fontset'] = 'cm'
-        plt.rcParams["axes.formatter.use_mathtext"] = True
-        plt.rcParams.update({'axes.labelsize': 14,
-                            'legend.fontsize': 10,
-                            'xtick.labelsize': 12,
-                            'ytick.labelsize': 12,
-                            'figure.figsize': [8, 8/1.618]})
-
 
 
 def makePlotHorizontal(obsdicts_list, labels, obslist, errorsonly, savepath):

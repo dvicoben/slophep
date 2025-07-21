@@ -1,7 +1,6 @@
 from bd2dstlnu.Predictions.BToDstObs import BToDstEllNuPrediction
 from bd2dstlnu.Predictions.SamplingFluctuate import SamplingHelper
-from bd2dstlnu.Predictions.BToDstFFHPQCD import HPQCD
-from bd2dstlnu.Predictions.BToDstFFBSZ import BSZ
+from bd2dstlnu.Predictions.FormFactorsBToDst import HPQCD, BSZ
 
 from bd2dstlnu.utils import setPlotParams
 import numpy as np
@@ -70,9 +69,9 @@ def get_spectrum_dict(qsq, obs, attr, fluct):
             res[iobs]["hi"].append(o_err[iobs][1])
     return res
 
-def plot_spectrum_dict(qsq, obslist, res_list, label_list):
+def plot_spectrum_dict(qsq, obslist, res_list, label_list, obs_labels):
     
-    for iobs in obslist:
+    for iobs, ilobs in zip(obslist, obs_labels):
         for res, label in zip(res_list, label_list):
             if iobs not in res:
                 continue
@@ -81,7 +80,7 @@ def plot_spectrum_dict(qsq, obslist, res_list, label_list):
             fill = plt.fill_between(qsq, ires["lo"], ires["hi"], color=lines[0].get_color(), alpha=0.15, label=label)
         
         plt.xlabel(r"$q^2$")
-        plt.ylabel(iobs)
+        plt.ylabel(ilobs)
         plt.legend()
         plt.savefig(f"output/plot_q2sepctrum_{iobs}.png", bbox_inches='tight')
         plt.clf()
@@ -97,9 +96,13 @@ setPlotParams()
 hpqcd_ff_res = get_spectrum_dict(qsq, hpqcd, "get_ff", ff_hpqcd)
 bsz_ff_res = get_spectrum_dict(qsq, bsz, "get_ff", ff_bsz)
 plot_spectrum_dict(qsq, [ielem for ielem in hpqcd_ff_res], 
-                   [hpqcd_ff_res, bsz_ff_res], ["HPQCD arXiv:2304.03137", "BSZ arXiv:1811.00983"])
+                   [hpqcd_ff_res, bsz_ff_res], 
+                   ["HPQCD arXiv:2304.03137", "BSZ arXiv:1811.00983"],
+                   [r"$A_0$", r"$A_1$", r"$A_2$", r"$V$", r"$T_1$", r"$T_2$", r"$T_{23}$", r"$A_{12}$"])
 
 hpqcd_J_res = get_spectrum_dict(qsq, obs_hpqcd, "J", f_hpqcd)
 bsz_J_res = get_spectrum_dict(qsq, obs_bsz, "J", f_bsz)
 plot_spectrum_dict(qsq, [ielem for ielem in hpqcd_J_res], 
-                   [hpqcd_J_res, bsz_J_res], ["HPQCD arXiv:2304.03137", "BSZ arXiv:1811.00983"])
+                   [hpqcd_J_res, bsz_J_res], 
+                   ["HPQCD arXiv:2304.03137", "BSZ arXiv:1811.00983"],
+                   [r"$J_{"+str(ielem)+r"}$" for ielem in hpqcd_J_res])

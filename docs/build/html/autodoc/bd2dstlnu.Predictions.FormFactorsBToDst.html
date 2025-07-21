@@ -1,0 +1,446 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bd2dstlnu.Predictions.FormFactorsBToDst &mdash; bd2dstlnu v0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2fea6348"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="bd2dstlnu.Predictions.BToDstMathTools" href="bd2dstlnu.Predictions.BToDstMathTools.html" />
+    <link rel="prev" title="bd2dstlnu.Predictions.BToDstObs" href="bd2dstlnu.Predictions.BToDstObs.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            bd2dstlnu
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Angular Analysis</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../auto.html">bd2dstlnu.Predictions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bd2dstlnu.Predictions.BToDstObs.html">bd2dstlnu.Predictions.BToDstObs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">bd2dstlnu.Predictions.FormFactorsBToDst</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BGL"><code class="docutils literal notranslate"><span class="pre">BGL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BGL.blaschke"><code class="docutils literal notranslate"><span class="pre">BGL.blaschke()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BGL.get_ff"><code class="docutils literal notranslate"><span class="pre">BGL.get_ff()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BLPR"><code class="docutils literal notranslate"><span class="pre">BLPR</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BLPR.get_ff"><code class="docutils literal notranslate"><span class="pre">BLPR.get_ff()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BSZ"><code class="docutils literal notranslate"><span class="pre">BSZ</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BSZ.get_ff"><code class="docutils literal notranslate"><span class="pre">BSZ.get_ff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BSZ.pole"><code class="docutils literal notranslate"><span class="pre">BSZ.pole()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BSZ.z"><code class="docutils literal notranslate"><span class="pre">BSZ.z()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BSZ.zs"><code class="docutils literal notranslate"><span class="pre">BSZ.zs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.CLN"><code class="docutils literal notranslate"><span class="pre">CLN</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.CLN.get_ff"><code class="docutils literal notranslate"><span class="pre">CLN.get_ff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.CLN.isgur_wise"><code class="docutils literal notranslate"><span class="pre">CLN.isgur_wise()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor"><code class="docutils literal notranslate"><span class="pre">FormFactor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor._fullsetter"><code class="docutils literal notranslate"><span class="pre">FormFactor._fullsetter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.ffpar"><code class="docutils literal notranslate"><span class="pre">FormFactor.ffpar</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff"><code class="docutils literal notranslate"><span class="pre">FormFactor.get_ff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.internalparams"><code class="docutils literal notranslate"><span class="pre">FormFactor.internalparams</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.name"><code class="docutils literal notranslate"><span class="pre">FormFactor.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.par"><code class="docutils literal notranslate"><span class="pre">FormFactor.par</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.params"><code class="docutils literal notranslate"><span class="pre">FormFactor.params</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.scale"><code class="docutils literal notranslate"><span class="pre">FormFactor.scale</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.set_ff"><code class="docutils literal notranslate"><span class="pre">FormFactor.set_ff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.set_ff_fromlist"><code class="docutils literal notranslate"><span class="pre">FormFactor.set_ff_fromlist()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD"><code class="docutils literal notranslate"><span class="pre">HPQCD</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD.get_ff"><code class="docutils literal notranslate"><span class="pre">HPQCD.get_ff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD.get_ff_h"><code class="docutils literal notranslate"><span class="pre">HPQCD.get_ff_h()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD.w"><code class="docutils literal notranslate"><span class="pre">HPQCD.w()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bd2dstlnu.Predictions.BToDstMathTools.html">bd2dstlnu.Predictions.BToDstMathTools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bd2dstlnu.Predictions.SamplingTools.html">bd2dstlnu.Predictions.SamplingTools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bd2dstlnu.Predictions.SamplingFluctuate.html">bd2dstlnu.Predictions.SamplingFluctuate</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">bd2dstlnu</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../auto.html">bd2dstlnu.Predictions</a></li>
+      <li class="breadcrumb-item active">bd2dstlnu.Predictions.FormFactorsBToDst</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/autodoc/bd2dstlnu.Predictions.FormFactorsBToDst.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-bd2dstlnu.Predictions.FormFactorsBToDst">
+<span id="bd2dstlnu-predictions-formfactorsbtodst"></span><h1>bd2dstlnu.Predictions.FormFactorsBToDst<a class="headerlink" href="#module-bd2dstlnu.Predictions.FormFactorsBToDst" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.BGL">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bd2dstlnu.Predictions.FormFactorsBToDst.</span></span><span class="sig-name descname"><span class="pre">BGL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">ffargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBGL.html#BGL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BGL" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor" title="bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase.FormFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormFactor</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.BGL.blaschke">
+<span class="sig-name descname"><span class="pre">blaschke</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BcStates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Mb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Mc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBGL.html#BGL.blaschke"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BGL.blaschke" title="Link to this definition"></a></dt>
+<dd><p>Calculate Blaschke factor P(t) from B_c-type resonances</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.BGL.get_ff">
+<span class="sig-name descname"><span class="pre">get_ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBGL.html#BGL.get_ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BGL.get_ff" title="Link to this definition"></a></dt>
+<dd><p>Calculates BGL form factors (SM only) as in hammer <a class="reference external" href="https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBGL.cc?ref_type=tags">https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBGL.cc?ref_type=tags</a></p>
+<p>Could alternatively consider EOS implementation
+<a class="reference external" href="https://github.com/eos/eos/blob/master/eos/form-factors/parametric-bgl1997.hh">https://github.com/eos/eos/blob/master/eos/form-factors/parametric-bgl1997.hh</a>
+<a class="reference external" href="https://github.com/eos/eos/blob/master/eos/form-factors/parametric-bgl1997-impl.hh">https://github.com/eos/eos/blob/master/eos/form-factors/parametric-bgl1997-impl.hh</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>FF dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.BLPR">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bd2dstlnu.Predictions.FormFactorsBToDst.</span></span><span class="sig-name descname"><span class="pre">BLPR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">ffargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBLPR.html#BLPR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BLPR" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor" title="bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase.FormFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormFactor</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.BLPR.get_ff">
+<span class="sig-name descname"><span class="pre">get_ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBLPR.html#BLPR.get_ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BLPR.get_ff" title="Link to this definition"></a></dt>
+<dd><p>FF in BLPR parameterisation from <a class="reference external" href="https://arxiv.org/pdf/1703.05330">https://arxiv.org/pdf/1703.05330</a> as in HAMMER v1.4.1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>) – q2 value to calculate FF at</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>FF dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.BSZ">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bd2dstlnu.Predictions.FormFactorsBToDst.</span></span><span class="sig-name descname"><span class="pre">BSZ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">ffargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBSZ.html#BSZ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BSZ" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor" title="bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase.FormFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormFactor</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.BSZ.get_ff">
+<span class="sig-name descname"><span class="pre">get_ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBSZ.html#BSZ.get_ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BSZ.get_ff" title="Link to this definition"></a></dt>
+<dd><p>Calculates BSZ form factors, following <a class="reference external" href="https://arxiv.org/pdf/1503.05534">https://arxiv.org/pdf/1503.05534</a> and <a class="reference external" href="https://arxiv.org/pdf/1811.00983">https://arxiv.org/pdf/1811.00983</a>.
+Implementation lifted from flavio <a class="reference external" href="https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/bsz.py">https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/bsz.py</a>,
+and should be in line with EOS <a class="reference external" href="https://github.com/eos/eos/blob/master/eos/form-factors/parametric-bsz2015-impl.hh">https://github.com/eos/eos/blob/master/eos/form-factors/parametric-bsz2015-impl.hh</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>FF dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.BSZ.pole">
+<span class="sig-name descname"><span class="pre">pole</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mres</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBSZ.html#BSZ.pole"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BSZ.pole" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.BSZ.z">
+<span class="sig-name descname"><span class="pre">z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mB</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mM</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBSZ.html#BSZ.z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BSZ.z" title="Link to this definition"></a></dt>
+<dd><p>Form factor expansion parameter z.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mB</strong> (<em>float</em>) – initial pseudoscalar meson mass</p></li>
+<li><p><strong>mM</strong> (<em>float</em>) – final meson meson mass</p></li>
+<li><p><strong>q2</strong> (<em>float</em>) – momentum transfer squared q2</p></li>
+<li><p><strong>t0</strong> (<em>float</em>) – parameter t_0.
+If not given, chosen as t_0 = t_+ (1 - sqrt(1 - t_-/t_+))$ where
+t_+- = (m_B +- m_M)^2.
+If equal to <cite>tm</cite>, set to t_0=t_-</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.BSZ.zs">
+<span class="sig-name descname"><span class="pre">zs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mB</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mV</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBSZ.html#BSZ.zs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.BSZ.zs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.CLN">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bd2dstlnu.Predictions.FormFactorsBToDst.</span></span><span class="sig-name descname"><span class="pre">CLN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">ffargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFCLN.html#CLN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.CLN" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor" title="bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase.FormFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormFactor</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.CLN.get_ff">
+<span class="sig-name descname"><span class="pre">get_ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFCLN.html#CLN.get_ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.CLN.get_ff" title="Link to this definition"></a></dt>
+<dd><p>Central value of $B     o V$ form factors in the lattice convention
+CLN parametrization. See eqs. (B4)-(B7) of arXiv:1203.2654.</p>
+<p>Directly lifted from flavio, see <a class="reference external" href="https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/clnexp.py">https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/clnexp.py</a></p>
+<p>For SM, this behaviour should be the same as HQET2 in EvtGen and CLN in HAMMER (though haven’t verified throughly)</p>
+<p>For BSM, this follows flavio behaviour implementing eq. 11 in <a class="reference external" href="https://arxiv.org/pdf/1503.05534">https://arxiv.org/pdf/1503.05534</a> and assuming
+r(q2) = 1 for all three terms in the equation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>) – q2 value to calculate FF at</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>FF dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.CLN.isgur_wise">
+<span class="sig-name descname"><span class="pre">isgur_wise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFCLN.html#CLN.isgur_wise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.CLN.isgur_wise" title="Link to this definition"></a></dt>
+<dd><p>Isgur-Wise-like relations to obtain tensor
+form factors from vector form factors from the equations of motion
+in the heavy quark limit</p>
+<p>Implements eq. 11 in <a class="reference external" href="https://arxiv.org/pdf/1503.05534">https://arxiv.org/pdf/1503.05534</a> and assumes
+r(q2) = 1 for all three terms in the equation</p>
+<p>Directly lifted from flavio <a class="reference external" href="https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/isgurwise.py">https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/isgurwise.py</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q2</strong> (<em>float</em>) – q2 value to calculate FF at</p></li>
+<li><p><strong>ff</strong> (<em>dict</em>) – dictionary with other FFs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>FF dictionary with a tensor FFs</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bd2dstlnu.Predictions.FormFactorsBToDst.</span></span><span class="sig-name descname"><span class="pre">FormFactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBase.html#FormFactor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor._fullsetter">
+<span class="sig-name descname"><span class="pre">_fullsetter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constants</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBase.html#FormFactor._fullsetter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor._fullsetter" title="Link to this definition"></a></dt>
+<dd><p>For usage with fluctuate - effectively alias of set_ff</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>params</strong> (<em>dict</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.ffpar">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ffpar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.ffpar" title="Link to this definition"></a></dt>
+<dd><p>Form factor (floating) parameters, make sure to overwrite in derived classes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff">
+<span class="sig-name descname"><span class="pre">get_ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBase.html#FormFactor.get_ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff" title="Link to this definition"></a></dt>
+<dd><p>Calculate form factors at particular q2. To implement in derived class.
+Must return in basis V, A0, A1, A12, T1, T2, T23</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary with FFs V, A0, A1, A12, T1, T2, T23</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.internalparams">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">internalparams</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.internalparams" title="Link to this definition"></a></dt>
+<dd><p>Internal parameters used in FF computation (e.g. alpha_s, quark/meson masses),
+where possible take from FormFactor.par, but things may differ if an implementation is taken from HAMMER
+so this is kept seperate</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.name">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.name" title="Link to this definition"></a></dt>
+<dd><p>Name of FF scheme</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.par">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">par</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.par" title="Link to this definition"></a></dt>
+<dd><p>Dictionary of flavio parameters, defaults to <cite>flavio.default_parameters.get_central_all()</cite></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.params">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.params" title="Link to this definition"></a></dt>
+<dd><p>List of (floating) form factor parameters (the ones in ffpar), make sure to overwrite in derived classes</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.scale">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scale</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.scale" title="Link to this definition"></a></dt>
+<dd><p>Renorm scale</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.set_ff">
+<span class="sig-name descname"><span class="pre">set_ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBase.html#FormFactor.set_ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.set_ff" title="Link to this definition"></a></dt>
+<dd><p>Set form factors - argument names should be as in FormFactor.params</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.set_ff_fromlist">
+<span class="sig-name descname"><span class="pre">set_ff_fromlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBase.html#FormFactor.set_ff_fromlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.set_ff_fromlist" title="Link to this definition"></a></dt>
+<dd><p>Set form factors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>params</strong> (<em>list</em><em>[</em><em>float</em><em>]</em>) – Form factor parameters, in order as in FormFactor.params</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bd2dstlnu.Predictions.FormFactorsBToDst.</span></span><span class="sig-name descname"><span class="pre">HPQCD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">ffargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFHPQCD.html#HPQCD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor" title="bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase.FormFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormFactor</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD.get_ff">
+<span class="sig-name descname"><span class="pre">get_ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFHPQCD.html#HPQCD.get_ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD.get_ff" title="Link to this definition"></a></dt>
+<dd><p>Implements FF caclculation according to <a class="reference external" href="https://arxiv.org/abs/2304.03137">https://arxiv.org/abs/2304.03137</a>.
+Directly lifted from the ancillary files (LOAD_FIT.py)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>FF dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD.get_ff_h">
+<span class="sig-name descname"><span class="pre">get_ff_h</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFHPQCD.html#HPQCD.get_ff_h"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD.get_ff_h" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD.w">
+<span class="sig-name descname"><span class="pre">w</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFHPQCD.html#HPQCD.w"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD.w" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="bd2dstlnu.Predictions.BToDstObs.html" class="btn btn-neutral float-left" title="bd2dstlnu.Predictions.BToDstObs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bd2dstlnu.Predictions.BToDstMathTools.html" class="btn btn-neutral float-right" title="bd2dstlnu.Predictions.BToDstMathTools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, dvicoben.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

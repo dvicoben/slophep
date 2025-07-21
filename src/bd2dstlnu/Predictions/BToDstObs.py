@@ -2,7 +2,7 @@ from math import sqrt
 import numpy as np
 import matplotlib.pyplot as plt
 
-from bd2dstlnu.Predictions.BToDstFFBase import FormFactor
+from bd2dstlnu.Predictions.FormFactorsBToDst import FormFactor
 from bd2dstlnu.Predictions import BToDstMathTools as mt
 
 import flavio

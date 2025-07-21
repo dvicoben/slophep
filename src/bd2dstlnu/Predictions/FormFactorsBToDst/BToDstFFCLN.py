@@ -1,5 +1,5 @@
 from math import sqrt
-from bd2dstlnu.Predictions.BToDstFFBase import FormFactor
+from bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase import FormFactor
 from flavio.physics.running import running
 
 

@@ -33,8 +33,12 @@ Predictions are made using `flavio` to compute the amplitudes and observables. *
 
 # TO DO
 ### Priority:
-- [ ] Errorbands / Sampling 
-    - Ideally should be able provide some covariance matrix for FFs (and WCs) to resample from and generate confidence bands
+- [ ] Add base methods in `FormFactor` to obtain FFs in different basis from currently mandatory $A_i$, i.e.
+    - [ ] Common HQET basis $h_{A_i}$
+    - [ ] Usual BGL FFs $g/f/F_1/F_2$ 
+    - [ ] Standard CLN $h/R_1/R_2/R_0$
+- [ ] Homgenise nomenclature of FF parameters for parameterisations with polynomial expansions
+- [ ] Add ability to get $\langle J_i \rangle$ for a given binning scheme (as in the PDF methods) rather than need to get each individual bin
 - [ ] Maybe move FF param defaults to some `.json` files? In particular for HPQCD this is a lot of parameters - largely a cosmetic thing
 
 ### Others
@@ -57,5 +61,7 @@ Predictions are made using `flavio` to compute the amplitudes and observables. *
     - Also add it to FF implementation documentation/docstrings
 - [x] Easier binning predictions
     - At moment need to provide boundaries for single bin to get prediction for that bin, plan to improve this to return predictions for all the range from a provided binning scheme
+- [x] Errorbands / Sampling 
+    - Ideally should be able provide some covariance matrix for FFs (and WCs) to resample from and generate confidence bands
 
 

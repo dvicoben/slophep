@@ -1,23 +1,23 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../../">
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>bd2dstlnu.Predictions.BToDstFFHPQCD &mdash; bd2dstlnu v0.0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+  <title>bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFHPQCD &mdash; bd2dstlnu v0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
   
-      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
-      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=2fea6348"></script>
-      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=2fea6348"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -28,11 +28,11 @@
 
           
           
-          <a href="../../../index.html" class="icon icon-home">
+          <a href="../../../../index.html" class="icon icon-home">
             bd2dstlnu
           </a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -41,8 +41,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Angular Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../auto.html">bd2dstlnu.Predictions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../intro.html">Angular Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html">bd2dstlnu.Predictions</a></li>
 </ul>
 
         </div>
@@ -51,16 +51,16 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">bd2dstlnu</a>
+          <a href="../../../../index.html">bd2dstlnu</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">bd2dstlnu.Predictions.BToDstFFHPQCD</li>
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFHPQCD</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -69,13 +69,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for bd2dstlnu.Predictions.BToDstFFHPQCD</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">bd2dstlnu.Predictions.BToDstFFBase</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormFactor</span>
+  <h1>Source code for bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFHPQCD</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormFactor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
 
 
 <div class="viewcode-block" id="HPQCD">
-<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstFFHPQCD.html#bd2dstlnu.Predictions.BToDstFFHPQCD.HPQCD">[docs]</a>
+<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToDst.html#bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">HPQCD</span><span class="p">(</span><span class="n">FormFactor</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
@@ -187,7 +187,7 @@
         <span class="p">}</span>
     
 <div class="viewcode-block" id="HPQCD.w">
-<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstFFHPQCD.html#bd2dstlnu.Predictions.BToDstFFHPQCD.HPQCD.w">[docs]</a>
+<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToDst.html#bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD.w">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">w</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="n">mB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mb&quot;</span><span class="p">]</span>
         <span class="n">mV</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mc&quot;</span><span class="p">]</span>
@@ -195,7 +195,7 @@
 
 
 <div class="viewcode-block" id="HPQCD.get_ff_h">
-<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstFFHPQCD.html#bd2dstlnu.Predictions.BToDstFFHPQCD.HPQCD.get_ff_h">[docs]</a>
+<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToDst.html#bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD.get_ff_h">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_ff_h</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">A</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
@@ -214,7 +214,7 @@
 
     
 <div class="viewcode-block" id="HPQCD.get_ff">
-<a class="viewcode-back" href="../../../autodoc/bd2dstlnu.Predictions.BToDstFFHPQCD.html#bd2dstlnu.Predictions.BToDstFFHPQCD.HPQCD.get_ff">[docs]</a>
+<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToDst.html#bd2dstlnu.Predictions.FormFactorsBToDst.HPQCD.get_ff">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_ff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Implements FF caclculation according to https://arxiv.org/abs/2304.03137.</span>
 <span class="sd">        Directly lifted from the ancillary files (LOAD_FIT.py)</span>

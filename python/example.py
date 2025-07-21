@@ -1,7 +1,5 @@
 from bd2dstlnu.Predictions.BToDstObs import BToDstEllNuPrediction
-from bd2dstlnu.Predictions.BToDstFFCLN import CLN
-
-import matplotlib.pyplot as plt
+from bd2dstlnu.Predictions.FormFactorsBToDst import CLN
 
 
 obs_cln = BToDstEllNuPrediction("mu", "mu", CLN)

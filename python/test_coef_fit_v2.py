@@ -12,7 +12,7 @@ import uncertainties as uncert
 from bd2dstlnu.Fitting.PDFCoefSimple import PDFAngularCoef
 
 from bd2dstlnu.Predictions.BToDstObs import BToDstEllNuPrediction
-from bd2dstlnu.Predictions.BToDstFFBLPR import BLPR
+from bd2dstlnu.Predictions.FormFactorsBToDst import BLPR
 from bd2dstlnu.Predictions.BToDstMathTools import calc_norm_j
 import json
 
