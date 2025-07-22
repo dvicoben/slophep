@@ -106,3 +106,10 @@ plot_spectrum_dict(qsq, [ielem for ielem in hpqcd_J_res],
                    [hpqcd_J_res, bsz_J_res], 
                    ["HPQCD arXiv:2304.03137", "BSZ arXiv:1811.00983"],
                    [r"$J_{"+str(ielem)+r"}$" for ielem in hpqcd_J_res])
+
+hpqcd_Juni_res = get_spectrum_dict(qsq, obs_hpqcd, "uniang_obs", f_hpqcd)
+bsz_Juni_res = get_spectrum_dict(qsq, obs_bsz, "uniang_obs", f_bsz)
+plot_spectrum_dict(qsq, ["FL", "AFB", "FLt"], 
+                   [hpqcd_Juni_res, bsz_Juni_res], 
+                   ["HPQCD arXiv:2304.03137", "BSZ arXiv:1811.00983"],
+                   [r"$F_L$", r"$A_{FB}$", r"$\tilde{F}_L$"])
