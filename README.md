@@ -14,8 +14,9 @@ Predictions are made using `flavio` to compute the amplitudes and observables. *
 
 # Usage
 
-- Some example scripts are in the `python` directory
-- Generation of predictions with varying FFs and WCs is shown in `python/example.py`. You can find a comparison of FF schemes (with some example of plotting functionality) in `python/compare_FFschemes.py`.
+- Some example scripts are in the `python` directory.
+- Generation of predictions with varying FFs and WCs is shown in `python/example_minimal.py`. You can find a comparison of FF schemes (with some example of plotting functionality) in `python/compare_FFschemes.py`.
+- Examples for generating error bands can be found in `python/example_fluctuations_obs.py` and `python/example_fluctuations_BR.py`.
 - Additional FF schemes can be implemented - they need to inherit from `FormFactor` and implement the `get_ff(q2)` method, returning FFs in the lattice convention $V, A_0, A_1, A_{12}, T_1, T_2, T_{23}$. See existing schemes for examples.
 - There are some preliminary scripts for fits (largely illustrative), `python/test_coef_fit.py` and `python/test_FF_fit.py`. Currently working on more optimised fitting interface.
 - Access (available) documentation in `docs/build/html`, open `index.html` in your preferred browser.
@@ -26,20 +27,22 @@ Predictions are made using `flavio` to compute the amplitudes and observables. *
 |-----------|----------------|-------|-------|
 | CLN       | flavio based   | Tensor FFs are obtained as in flavio, using eqn. 11 in [arXiv:1503.05534](https://arxiv.org/abs/1503.05534). Use with care for BSM predictions. Defaults are set to HAMMER values. | [arXiv:hep-ph/9712417v1](https://arxiv.org/abs/hep-ph/9712417), [arXiv:1203.2654](https://arxiv.org/abs/1203.2654), [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [flavio source](https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/clnexp.py), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarCLN.cc?ref_type=tags)
 | BGL       | Hammer based   | Hammer divides by an additional factor of $\eta_{EW}V_{cb}$. Translation to $V, A_i$ obtained from EOS. Tensor FFs $T_i = 0$, use with care for BSM predictions. Defaults are set from [arXiv:1707.09509](https://arxiv.org/abs/1707.09509). |  [arXiv:hep-ph/9705252](https://arxiv.org/abs/hep-ph/9705252), [arXiv:1707.09509](https://arxiv.org/abs/1707.09509), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBGL.cc?ref_type=tags), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgl1997-impl.hh)|
-| BSZ       | flavio based   | Resonances used taken from [arXiv:1811.00983](https://arxiv.org/abs/1811.00983). Should match EOS implementation (`BSZ2015` which is default $B\to D^*$ FF scheme in EOS). Defaults are set to EOS values (see [EOS docs](https://eoshep.org/doc/reference/parameters.html#parameters-in-b-to-v-form-factor-parametrizations)). | [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [arXiv:1811.00983](https://arxiv.org/abs/1811.00983), [flavio source](https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/bsz.py), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bsz2015-impl.hh) |
+| BSZ       | flavio based   | FF from fit to LCSR + zero recoil lattice. Resonances used taken from [arXiv:1811.00983](https://arxiv.org/abs/1811.00983). Should match EOS implementation (`BSZ2015` which is default $B\to D^*$ FF scheme in EOS). Defaults are set to EOS values (see [EOS docs](https://eoshep.org/doc/reference/parameters.html#parameters-in-b-to-v-form-factor-parametrizations)). | [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [arXiv:1811.00983](https://arxiv.org/abs/1811.00983), [flavio source](https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/bsz.py), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bsz2015-impl.hh) |
 | BLPR      | Hammer based   | Correspondence to $V, A_i, T_i$ obtained from Appendix B in [arXiv:1908.09398](https://arxiv.org/abs/1908.09398) / Eqns. 38-39 in [arXiv:1309.0301](https://arxiv.org/abs/1309.0301) and similar parametrisation in eos (see [EOS BGJvD implementation](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgjvd2019-impl.hh)). Defaults are set to HAMMER values. | [arXiv:1703.05330](https://arxiv.org/abs/1703.05330), [arXiv:1908.09398](https://arxiv.org/abs/1908.09398), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBLPR.cc?ref_type=tags) |
 | HPQCD     | From ancillary files in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) | FF from fit to non-zero recoil lattice QCD in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2), as described in Sec. IV B. | [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) |
 
 
 # TO DO
 ### Priority:
+- [ ] Update repo to work like a python module
+    - Need the `.toml` and requirements for an easy `pip` install
 - [ ] Add base methods in `FormFactor` to obtain FFs in different basis from currently mandatory $A_i$, i.e.
     - [ ] Common HQET basis $h_{A_i}$
     - [ ] Usual BGL FFs $g/f/F_1/F_2$ 
     - [ ] Standard CLN $h/R_1/R_2/R_0$
 - [ ] Homgenise nomenclature of FF parameters for parameterisations with polynomial expansions
 - [ ] Add ability to get $\langle J_i \rangle$ for a given binning scheme (as in the PDF methods) rather than need to get each individual bin
-- [ ] Maybe move FF param defaults to some `.json` files? In particular for HPQCD this is a lot of parameters - largely a cosmetic thing
+- [ ] Maybe move FF param defaults to some `.json` files? In particular for HPQCD this is a lot of parameters - largely a cosmetic thing and would like to keep everything readable from the class so maybe not
 
 ### Others
 - [ ] Add some `cite` attirbute to return bib entries for each FF scheme - make bookkeeping easier for end-user
