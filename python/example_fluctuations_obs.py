@@ -6,7 +6,9 @@ from bd2dstlnu.utils import setPlotParams
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Number of fluctuations we will use for errorbands
 Nfluct = 5000
+
 wcoeffs = {
     'CVL_bcmunumu': 0.0, 
     'CVR_bcmunumu': 0.0,
@@ -14,48 +16,54 @@ wcoeffs = {
     'CSR_bcmunumu': 0.0,
     'CT_bcmunumu': 0.0
 }
-
+# Initialise observables we will fluctuate
 obs_hpqcd = BToDstEllNuPrediction("mu", "mu", HPQCD)
 obs_hpqcd.set_wc(wcoeffs)
 obs_bsz = BToDstEllNuPrediction("mu", "mu", BSZ)
 obs_bsz.set_wc(wcoeffs)
 
-f_hpqcd = SamplingHelper(obs_hpqcd)
+# Fluctuate at particular value of q2
+obs_hpqcd_fluct = SamplingHelper(obs_hpqcd)
 fconfig_hpqcd = "data/FF_HPQCD_COV_arXiv230403137.json"
-f_hpqcd.set_params_from_configfile(fconfig_hpqcd)
-f_hpqcd.fluctuate(Nfluct)
-jerr_hpqcd = f_hpqcd.get_error("J", [5.0])
+obs_hpqcd_fluct.set_params_from_configfile(fconfig_hpqcd)
+obs_hpqcd_fluct.fluctuate(Nfluct)
+jerr_hpqcd = obs_hpqcd_fluct.get_error("J", [5.0])
 
-
-f_bsz = SamplingHelper(obs_bsz)
+obs_bsz_fluct = SamplingHelper(obs_bsz)
 fconfig_bsz = "data/FF_BSZ_COV_arXiv181100983.json"
-f_bsz.set_params_from_configfile(fconfig_bsz)
-f_bsz.fluctuate(Nfluct)
-jerr_bsz = f_bsz.get_error("J", [5.0])
+obs_bsz_fluct.set_params_from_configfile(fconfig_bsz)
+obs_bsz_fluct.fluctuate(Nfluct)
+jerr_bsz = obs_bsz_fluct.get_error("J", [5.0])
 
+# Print nominal values and errors
 print(obs_hpqcd.J(5.0))
 print(jerr_hpqcd)
 print(obs_bsz.J(5.0))
 print(jerr_bsz)
 
 
-# Now th FFs themselves
-ff_hpqcd = SamplingHelper(HPQCD())
-ff_hpqcd.set_params_from_configfile(fconfig_hpqcd)
-ff_hpqcd.fluctuate(Nfluct)
-fferr_hpqcd = ff_hpqcd.get_error("get_ff", [5.0])
+
+# Lets do the same for the form factors:
+ff_hpqcd = HPQCD()
+ff_bsz = BSZ()
+
+ff_hpqcd_fluct = SamplingHelper(ff_hpqcd)
+ff_hpqcd_fluct.set_params_from_configfile(fconfig_hpqcd)
+ff_hpqcd_fluct.fluctuate(Nfluct)
+fferr_hpqcd = ff_hpqcd_fluct.get_error("get_ff", [5.0])
 
 
-ff_bsz = SamplingHelper(BSZ())
-ff_bsz.set_params_from_configfile(fconfig_bsz)
-ff_bsz.fluctuate(Nfluct)
-fferr_bsz = ff_bsz.get_error("get_ff", [5.0])
+ff_bsz_fluct = SamplingHelper(ff_bsz)
+ff_bsz_fluct.set_params_from_configfile(fconfig_bsz)
+ff_bsz_fluct.fluctuate(Nfluct)
+fferr_bsz = ff_bsz_fluct.get_error("get_ff", [5.0])
+print(ff_hpqcd.get_ff(5.0))
+print(fferr_hpqcd)
+print(ff_bsz.get_ff(5.0))
+print(fferr_bsz)
 
 
-hpqcd = HPQCD()
-bsz = BSZ()
-
-
+# We are interested in the full q2 range, so some helper functions for that:
 def get_spectrum_dict(qsq, obs, attr, fluct):
     res = {}
     for iq2 in qsq:
@@ -87,28 +95,28 @@ def plot_spectrum_dict(qsq, obslist, res_list, label_list, obs_labels):
         plt.close()
 
 
-
+# Now lets plot comparisons in the full q2 range
 npoints = 100
 qsq = np.linspace(obs_hpqcd.q2min, obs_hpqcd.q2max, npoints)
 
 setPlotParams()
 
-hpqcd_ff_res = get_spectrum_dict(qsq, hpqcd, "get_ff", ff_hpqcd)
-bsz_ff_res = get_spectrum_dict(qsq, bsz, "get_ff", ff_bsz)
+hpqcd_ff_res = get_spectrum_dict(qsq, ff_hpqcd, "get_ff", ff_hpqcd_fluct)
+bsz_ff_res = get_spectrum_dict(qsq, ff_bsz, "get_ff", ff_bsz_fluct)
 plot_spectrum_dict(qsq, [ielem for ielem in hpqcd_ff_res], 
                    [hpqcd_ff_res, bsz_ff_res], 
                    ["HPQCD arXiv:2304.03137", "BSZ arXiv:1811.00983"],
                    [r"$A_0$", r"$A_1$", r"$A_2$", r"$V$", r"$T_1$", r"$T_2$", r"$T_{23}$", r"$A_{12}$"])
 
-hpqcd_J_res = get_spectrum_dict(qsq, obs_hpqcd, "J", f_hpqcd)
-bsz_J_res = get_spectrum_dict(qsq, obs_bsz, "J", f_bsz)
+hpqcd_J_res = get_spectrum_dict(qsq, obs_hpqcd, "J", obs_hpqcd_fluct)
+bsz_J_res = get_spectrum_dict(qsq, obs_bsz, "J", obs_bsz_fluct)
 plot_spectrum_dict(qsq, [ielem for ielem in hpqcd_J_res], 
                    [hpqcd_J_res, bsz_J_res], 
                    ["HPQCD arXiv:2304.03137", "BSZ arXiv:1811.00983"],
                    [r"$J_{"+str(ielem)+r"}$" for ielem in hpqcd_J_res])
 
-hpqcd_Juni_res = get_spectrum_dict(qsq, obs_hpqcd, "uniang_obs", f_hpqcd)
-bsz_Juni_res = get_spectrum_dict(qsq, obs_bsz, "uniang_obs", f_bsz)
+hpqcd_Juni_res = get_spectrum_dict(qsq, obs_hpqcd, "uniang_obs", obs_hpqcd_fluct)
+bsz_Juni_res = get_spectrum_dict(qsq, obs_bsz, "uniang_obs", obs_bsz_fluct)
 plot_spectrum_dict(qsq, ["FL", "AFB", "FLt"], 
                    [hpqcd_Juni_res, bsz_Juni_res], 
                    ["HPQCD arXiv:2304.03137", "BSZ arXiv:1811.00983"],
