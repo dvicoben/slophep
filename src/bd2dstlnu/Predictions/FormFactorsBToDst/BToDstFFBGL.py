@@ -21,12 +21,9 @@ class BGL(FormFactor):
             "d1" : -0.218
         }
         self._params = ["a0", "a1", "a2", "b0", "b1", "b2", "c1", "c2", "d0", "d1"]
-        self._process = 'B->D*'
-        self._pd = {'B': 'B0', 'V': 'D*+', 'q': 'b->c'}
-
         self._internalparams = {
-            "Mb"         : self.par['m_'+self._pd['B']],
-            "Mc"         : self.par['m_'+self._pd['V']],
+            "Mb"         : self.par['m_B0'],
+            "Mc"         : self.par['m_D*+'],
             "nmax"       : 4,
             "Vcb"        : 41.5e-3,                       
             "chim"       : 3.068e-4, # GeV^-2
@@ -118,6 +115,7 @@ class BGL(FormFactor):
             "A12" : F1/(8*Mb*Mc),
             "T1" : 0.0,
             "T2" : 0.0,
+            "T3" : 0.0,
             "T23" : 0.0
         }
 

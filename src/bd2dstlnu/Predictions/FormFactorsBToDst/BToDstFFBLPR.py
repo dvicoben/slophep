@@ -2,7 +2,8 @@ from math import sqrt
 import numpy as np
 from bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase import FormFactor
 from flavio.physics.bdecays.formfactors import hqet
-from flavio.physics.bdecays.formfactors.b_v.cln import h_to_A
+# from flavio.physics.bdecays.formfactors.b_v.cln import h_to_A
+from bd2dstlnu.Predictions.BToDstMathTools import h_to_A
 
 
 class BLPR(FormFactor):
@@ -20,11 +21,9 @@ class BLPR(FormFactor):
             "dV20"  : 0.0
         }
         self._params = ["RhoSq", "Chi21", "Chi2p", "Chi3p", "Eta1", "Etap", "dV20"]
-        self._process = 'B->D*'
-        self._pd = {'B': 'B0', 'V': 'D*+', 'q': 'b->c'}
         self._internalparams = {
-            "Mb"        : self.par['m_'+self._pd['B']],
-            "Mc"        : self.par['m_'+self._pd['V']],
+            "Mb"        : self.par['m_B0'],
+            "Mc"        : self.par['m_D*+'],
             "ash"       : 0.26/np.pi,
             "la"        : 0.57115,
             "mb"        : 4.710,
@@ -146,7 +145,7 @@ class BLPR(FormFactor):
             "T2" : xi*Ht2,
             "T3" : xi*Ht3
         }
-
+        print(h)
         # NOTE: this performs the translation https://arxiv.org/pdf/1309.0301 eqns. 38-39,
         # should be analgous to eqns B7-B13 in https://arxiv.org/pdf/1908.09398
         return h_to_A(mB, mV, h, q2)

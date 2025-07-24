@@ -178,6 +178,7 @@ class HPQCD(FormFactor):
             "V"   : V,
             "T1"  : T1b,
             "T2"  : T2b,
+            "T3"  : T3b,
             "T23" : T23b,
         }
         ff['A12'] = ((ff['A1'] * (mB + mV)**2 * (mB**2 - mV**2 - q2)

@@ -17,11 +17,9 @@ class CLN(FormFactor):
             "R0"    : 1.15
         }
         self._params = ["RhoSq", "h_A1", "R1", "R2", "R0"]
-        self._process = 'B->D*'
-        self._pd = {'B': 'B0', 'V': 'D*+', 'q': 'b->c'}
         self._internalparams = {
-            "Mb"        : self.par['m_'+self._pd['B']],
-            "Mc"        : self.par['m_'+self._pd['V']],
+            "Mb"        : self.par['m_B0'],
+            "Mc"        : self.par['m_D*+'],
         }
 
         print(f"WARNING: {self.name} Tensor FFs are set assuming eq. 11 in https://arxiv.org/pdf/1503.05534 is unity, use with care for BSM")
@@ -52,10 +50,7 @@ class CLN(FormFactor):
         mB = self.internalparams["Mb"]
         mV = self.internalparams["Mc"]
         mb = running.get_mb_pole(self.par)
-        if self._pd['q'] == 'b->c':
-            mq = running.get_mc_pole(self.par)
-        else:
-            mq = 0 # neglect m_u,d,s
+        mq = running.get_mc_pole(self.par)
         # # power corrections
         # # NOTE: These are all zero
         # a_T1  = self.par[self._process + ' IW a_T1']

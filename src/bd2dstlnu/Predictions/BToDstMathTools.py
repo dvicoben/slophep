@@ -1,5 +1,38 @@
 import numpy as np
 
+def h_to_A(mB, mV, h, q2):
+    """Convert HQET form factors to the basis used by flavio.
+
+    See e.g. arXiv:1309.0301, eqs. (38), (39) but notice that we use the
+    convention of arXiv:1703.05330 for h_T3, which differs by a factor -2
+    from the one in arXiv:1309.0301 (see Eq. (11e) in arXiv:1703.05330 and
+    Eq. (46b) in arXiv:1309.0301).
+    """
+    ff = {}
+    lambdabdstar = mB**4+mV**4+q2**2-2*(mB**2*mV**2+mB**2*q2+mV**2*q2)
+    pre = 1 / 2 / np.sqrt(mB * mV)
+    ff['V'] = pre * (mB + mV) * h['V']
+    ff['A1'] = pre * ((mB + mV)**2 - q2) / (mB + mV) * h['A1']
+    ff['A2'] = pre * (mB + mV) * (h['A3'] + mV / mB * h['A2'])
+    ff['A0'] = pre * (((mB + mV)**2 - q2) / (2 * mV) * h['A1']
+                      - (mB**2 - mV**2 + q2) / (2 * mB) * h['A2']
+                      - (mB**2 - mV**2 - q2) / (2 * mV) * h['A3'])
+    ff['T1'] = pre * ((mB + mV) * h['T1'] - (mB - mV) * h['T2'])
+    ff['T2'] = pre * (((mB + mV)**2 - q2) / (mB + mV) * h['T1']
+                      - ((mB - mV)**2 - q2) / (mB - mV) * h['T2'])
+    ff['T3'] = pre * ((mB - mV) * h['T1'] - (mB + mV) * h['T2']
+                      + (mB**2 - mV**2) / mB * h['T3']) # h_T3 as in arXiv:1703.05330
+    # conversion from A_1, A_2 to A_12
+    ff['A12'] = ((ff['A1'] * (mB + mV)**2 * (mB**2 - mV**2 - q2)
+                 - ff['A2'] * (mB**4 + (mV**2 - q2)**2
+                 - 2 * mB**2 * (mV**2 + q2)))
+                 / (16. * mB * mV**2 * (mB + mV)))
+    # conversion from T_2, T_3 to T_23
+    ff['T23'] = ((mB**2 - mV**2) * (mB**2 + 3 * mV**2 - q2) * ff['T2']
+                 - lambdabdstar * ff['T3']
+                ) / (8 * mB * (mB - mV) * mV**2)
+    return ff
+
 def calc_norm_j(j: dict[float]) -> dict[float]:
     norm = 3/4. * (2 * j['1s'] + j['1c']) - 1/4. * (2 * j['2s'] + j['2c'])
     return {k : j[k]/norm for k in j}

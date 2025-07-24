@@ -1,0 +1,26 @@
+[project]
+name = "bd2dstlnu"
+version = "0.0.1"
+authors = [
+    {name="David Vico Benet", email="david.vico.benet@cern.ch"}
+]
+description = "Package for Bd2DstEllNu Predictions"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "numpy",
+    "matplotlib",
+    "flavio",
+    "iminuit"
+]
+
+[project.urls]
+Homepage = "https://gitlab.cern.ch/dvicoben/bd2dstlnu_angular"
+
+[build-system]
+requires = [
+    "setuptools>=61.0"
+]
+build-backend = "setuptools.build_meta"

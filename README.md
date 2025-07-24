@@ -1,23 +1,42 @@
 # bd2dstlnu_angular
 
-Repository for $B^0 \to D^*\mu\nu$ angular analysis predicitons.
+Repository for $B^0 \to D^*\ell\nu$ angular analysis predicitons.
 
 To be used to generate bands from fit results and to generate predictions for fits/fit models (e.g. for an unfolded fit).
 
 Predictions are made using `flavio` to compute the amplitudes and observables. ***Note that angular conventions may differ***. ***PDF/observable normalizations can also differ*** - literature and prediction tools vary in what factors are absorbed by the FFs, amplitudes, observables, decay rate and BR. For consistency it is best to look at rate-normalised observables.
 
 # Requirements
-
+Requirements are listed in `requirements.txt`
 - Predictions use `flavio` to go from FFs and WCs to amplitudes and observables
-- Internally also uses standard libraries (`numpy`, `matplotlib`)
+- Internally also uses standard libraries (`numpy`, `matplotlib`), and `iminuit` for the (currently very limited) functionality
+
+# Set-up
+## Quick
+Ensure you are in a python environment with all requirements in `requirements.txt`, then
+```
+git clone https://gitlab.cern.ch/dvicoben/bd2dstmunu.git
+cd bd2dstlnu_angular
+source ./setup.sh
+```
+The script `setup.sh` simply appends `src/` to the `PYTHONPATH` so that contents therein will be found when running scripts. You will need to `source ./setup.sh` whenever you start a new terminal session.
+
+## Using pip
+In the python environment of your choice, 
+```
+git clone https://gitlab.cern.ch/dvicoben/bd2dstmunu.git
+cd bd2dstlnu_angular
+pip install -e .
+```
+which should install the package (`b2dstlnu`) and the required dependencies.
 
 
 # Usage
 
 - Some example scripts are in the `python` directory.
-- Generation of predictions with varying FFs and WCs is shown in `python/example_minimal.py`. You can find a comparison of FF schemes (with some example of plotting functionality) in `python/compare_FFschemes.py`.
+- Generation of predictions with varying FFs and WCs is shown in the minimal example `python/example_simple.py`. You can find a comparison of FF schemes (with some example of plotting functionality) in `python/compare_FFschemes.py`.
 - Examples for generating error bands can be found in `python/example_fluctuations_obs.py` and `python/example_fluctuations_BR.py`.
-- Additional FF schemes can be implemented - they need to inherit from `FormFactor` and implement the `get_ff(q2)` method, returning FFs in the lattice convention $V, A_0, A_1, A_{12}, T_1, T_2, T_{23}$. See existing schemes for examples.
+- Additional FF schemes can be implemented - they need to inherit from `FormFactor` and implement the `get_ff(q2)` method, returning FFs in the basis $V, A_0, A_1, A_{12}, T_1, T_2, T_{23}$. See existing schemes for examples.
 - There are some preliminary scripts for fits (largely illustrative), `python/test_coef_fit.py` and `python/test_FF_fit.py`. Currently working on more optimised fitting interface.
 - Access (available) documentation in `docs/build/html`, open `index.html` in your preferred browser.
 
@@ -34,13 +53,7 @@ Predictions are made using `flavio` to compute the amplitudes and observables. *
 
 # TO DO
 ### Priority:
-- [ ] Update repo to work like a python module
-    - Need the `.toml` and requirements for an easy `pip` install
-- [ ] Add base methods in `FormFactor` to obtain FFs in different basis from currently mandatory $A_i$, i.e.
-    - [ ] Common HQET basis $h_{A_i}$
-    - [ ] Usual BGL FFs $g/f/F_1/F_2$ 
-    - [ ] Standard CLN $h/R_1/R_2/R_0$
-- [ ] Homgenise nomenclature of FF parameters for parameterisations with polynomial expansions
+- [ ] Homogenise nomenclature of FF parameters for parameterisations with polynomial expansions
 - [ ] Add ability to get $\langle J_i \rangle$ for a given binning scheme (as in the PDF methods) rather than need to get each individual bin
 - [ ] Maybe move FF param defaults to some `.json` files? In particular for HPQCD this is a lot of parameters - largely a cosmetic thing and would like to keep everything readable from the class so maybe not
 
@@ -66,5 +79,11 @@ Predictions are made using `flavio` to compute the amplitudes and observables. *
     - At moment need to provide boundaries for single bin to get prediction for that bin, plan to improve this to return predictions for all the range from a provided binning scheme
 - [x] Errorbands / Sampling 
     - Ideally should be able provide some covariance matrix for FFs (and WCs) to resample from and generate confidence bands
+- [x] Update repo to work like a python module
+    - Need the `.toml` and requirements for an easy `pip` install
+- [x] Add base methods in `FormFactor` to obtain FFs in different basis from currently mandatory $A_i$, i.e.
+    - [x] Common HQET basis $h_{A_i}$
+    - [x] Usual BGL FFs $g/f/F_1/F_2$ 
+    - [x] Standard CLN $h/R_1/R_2/R_0$
 
 

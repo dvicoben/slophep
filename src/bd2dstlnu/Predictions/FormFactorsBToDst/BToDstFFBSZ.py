@@ -38,11 +38,9 @@ class BSZ(FormFactor):
                         "T1_0", "T1_1", "T1_2",
                         "T2_1", "T2_2",
                         "T23_0", "T23_1", "T23_2"]
-        self._process = 'B->D*'
-        self._pd = {'B': 'B0', 'V': 'D*+', 'q': 'b->c'}
         self._internalparams = {
-            "Mb"  : self.par['m_'+self._pd['B']],
-            "Mc"  : self.par['m_'+self._pd['V']],
+            "Mb"  : self.par['m_B0'],
+            "Mc"  : self.par['m_D*+'],
             "m0"  : 6.275,
             "m1m" : 6.330,
             "m1p" : 6.767
