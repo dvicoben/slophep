@@ -98,11 +98,9 @@ class HPQCD(FormFactor):
             "a^0_hT2", "a^1_hT2", "a^2_hT2", "a^3_hT2", "a^4_hT2", "a^5_hT2", "a^6_hT2", "a^7_hT2", "a^8_hT2", "a^9_hT2", "a^10_hT2", 
             "a^0_hT3", "a^1_hT3", "a^2_hT3", "a^3_hT3", "a^4_hT3", "a^5_hT3", "a^6_hT3", "a^7_hT3", "a^8_hT3", "a^9_hT3", "a^10_hT3"
         ]
-        self._process = 'B->D*'
-        self._pd = {'B': 'B0', 'V': 'D*+', 'q': 'b->c'}
         self._internalparams = {
-            "Mb"  : self.par['m_'+self._pd['B']], # 5.27964
-            "Mc"  : self.par['m_'+self._pd['V']], # 2.010
+            "Mb"  : self.par['m_B0'], # 5.27964
+            "Mc"  : self.par['m_D*+'], # 2.010
             "lambdaqcdphys" : 0.5,
             "LambdaChi" : 1.0,
             "maxorder" : 10,

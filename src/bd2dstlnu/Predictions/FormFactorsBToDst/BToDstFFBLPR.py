@@ -2,8 +2,8 @@ from math import sqrt
 import numpy as np
 from bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase import FormFactor
 from flavio.physics.bdecays.formfactors import hqet
-# from flavio.physics.bdecays.formfactors.b_v.cln import h_to_A
-from bd2dstlnu.Predictions.BToDstMathTools import h_to_A
+from flavio.physics.bdecays.formfactors.b_v.cln import h_to_A
+# from bd2dstlnu.Predictions.BToDstMathTools import h_to_A
 
 
 class BLPR(FormFactor):
@@ -145,7 +145,6 @@ class BLPR(FormFactor):
             "T2" : xi*Ht2,
             "T3" : xi*Ht3
         }
-        print(h)
         # NOTE: this performs the translation https://arxiv.org/pdf/1309.0301 eqns. 38-39,
         # should be analgous to eqns B7-B13 in https://arxiv.org/pdf/1908.09398
         return h_to_A(mB, mV, h, q2)
