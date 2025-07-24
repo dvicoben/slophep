@@ -9,7 +9,7 @@ Predictions are made using `flavio` to compute the amplitudes and observables. *
 # Requirements
 Requirements are listed in `requirements.txt`
 - Predictions use `flavio` to go from FFs and WCs to amplitudes and observables
-- Internally also uses standard libraries (`numpy`, `matplotlib`), and `iminuit` for the (currently very limited) functionality
+- Internally also uses standard libraries (`numpy`, `matplotlib`), and `iminuit` for the (currently very limited) fitting functionality
 
 # Set-up
 ## Quick
