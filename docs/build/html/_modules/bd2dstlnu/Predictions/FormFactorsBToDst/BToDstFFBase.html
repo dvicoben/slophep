@@ -71,8 +71,7 @@
              
   <h1>Source code for bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">flavio</span>
-
-
+<span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
 
 <div class="viewcode-block" id="FormFactor">
 <a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToDst.html#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor">[docs]</a>
@@ -86,7 +85,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span> <span class="nb">str</span>            <span class="o">=</span> <span class="s2">&quot;FFBase&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ffpar</span><span class="p">:</span> <span class="nb">dict</span>          <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">:</span> <span class="nb">list</span>         <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internalparams</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internalparams</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Mb&quot;</span>         <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_B0&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;Mc&quot;</span>         <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_D*+&#39;</span><span class="p">],</span>
+        <span class="p">}</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> 
@@ -179,6 +181,118 @@
             <span class="s2">&quot;A12&quot;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
             <span class="s2">&quot;T23&quot;</span> <span class="p">:</span> <span class="mf">0.0</span>
         <span class="p">}</span></div>
+
+    
+<div class="viewcode-block" id="FormFactor.get_ff_gfF1F2_basis">
+<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToDst.html#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff_gfF1F2_basis">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_ff_gfF1F2_basis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate FFs in common BGL basis g, f, F1, F2</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2 : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            dictionary with FFs g, f, F1, F2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Mb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mb&quot;</span><span class="p">]</span>
+        <span class="n">Mc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mc&quot;</span><span class="p">]</span>
+
+        <span class="n">ff_A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ff</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+        <span class="c1"># Relations taken from https://github.com/eos/eos/blob/master/eos/form-factors/parametric-bgl1997-impl.hh lines 196 onwards</span>
+        <span class="n">ff</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;g&quot;</span>  <span class="p">:</span> <span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="p">(</span><span class="n">Mb</span> <span class="o">+</span> <span class="n">Mc</span><span class="p">))</span><span class="o">*</span><span class="n">ff_A</span><span class="p">[</span><span class="s2">&quot;V&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;f&quot;</span>  <span class="p">:</span> <span class="p">(</span><span class="n">Mb</span><span class="o">+</span><span class="n">Mc</span><span class="p">)</span><span class="o">*</span><span class="n">ff_A</span><span class="p">[</span><span class="s2">&quot;A1&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;F1&quot;</span> <span class="p">:</span> <span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="n">Mb</span><span class="o">*</span><span class="n">Mc</span><span class="p">)</span><span class="o">*</span><span class="n">ff_A</span><span class="p">[</span><span class="s2">&quot;A12&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;F2&quot;</span> <span class="p">:</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">ff_A</span><span class="p">[</span><span class="s2">&quot;A0&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">ff</span></div>
+
+
+<div class="viewcode-block" id="FormFactor.get_ff_h_basis">
+<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToDst.html#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff_h_basis">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_ff_h_basis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate form factors in HQET basis h_i</span>
+
+<span class="sd">        NOTE: hT3 and thus T3 must be computed from T23 and this requires</span>
+<span class="sd">        dividing by a term that is zero at zero recoil. Because of this,</span>
+<span class="sd">        the zero-recoil value is slightly offset from q2_max -&gt; 0.999999999*q2_max</span>
+<span class="sd">        </span>
+<span class="sd">        This affects only this transformation of basis. The method</span>
+<span class="sd">        get_ff(q2) does not have this issue.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2 : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            dictionary with FFs hV, hA0, hA1, hA2, hA3, hT1, hT2, hT3</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">mB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mb&quot;</span><span class="p">]</span>
+        <span class="n">mV</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mc&quot;</span><span class="p">]</span>
+        <span class="c1"># The kalman function lamdadstar is zero at zero recoil</span>
+        <span class="c1"># To get T3 we need to divide by this and it breaks if lambdadstar is too small</span>
+        <span class="c1"># This should only matter at the extreme edge of the q2 range and for this particular basis transformation    </span>
+        <span class="n">q2</span> <span class="o">=</span> <span class="n">q2</span> <span class="k">if</span> <span class="n">q2</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">mB</span> <span class="o">-</span> <span class="n">mV</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">else</span> <span class="mf">0.999999999</span><span class="o">*</span><span class="n">q2</span>
+        <span class="n">lambdabdstar</span> <span class="o">=</span> <span class="n">mB</span><span class="o">**</span><span class="mi">4</span><span class="o">+</span><span class="n">mV</span><span class="o">**</span><span class="mi">4</span><span class="o">+</span><span class="n">q2</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">mB</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">mV</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">mB</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">q2</span><span class="o">+</span><span class="n">mV</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">q2</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">mV</span><span class="o">/</span><span class="n">mB</span>
+        <span class="n">sqrtr</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="n">mB</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">mV</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">q2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">mB</span> <span class="o">*</span> <span class="n">mV</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">ff_A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ff</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+        <span class="n">ff</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">ff</span><span class="p">[</span><span class="s2">&quot;hV&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">sqrtr</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">ff_A</span><span class="p">[</span><span class="s2">&quot;V&quot;</span><span class="p">]</span>
+        <span class="n">ff</span><span class="p">[</span><span class="s2">&quot;hA1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">sqrtr</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">w</span><span class="p">))</span> <span class="o">*</span> <span class="n">ff_A</span><span class="p">[</span><span class="s2">&quot;A1&quot;</span><span class="p">]</span>
+        <span class="n">A2</span> <span class="o">=</span> <span class="o">-</span><span class="p">((</span><span class="mf">16.</span> <span class="o">*</span> <span class="n">mB</span> <span class="o">*</span> <span class="n">mV</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">mB</span> <span class="o">+</span> <span class="n">mV</span><span class="p">))</span><span class="o">*</span><span class="n">ff_A</span><span class="p">[</span><span class="s2">&quot;A12&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">ff_A</span><span class="p">[</span><span class="s2">&quot;A1&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">mB</span> <span class="o">+</span> <span class="n">mV</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">mB</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">mV</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">q2</span><span class="p">))</span>
+        <span class="n">A2</span> <span class="o">/=</span> <span class="p">(</span><span class="n">mB</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> <span class="p">(</span><span class="n">mV</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">q2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">mB</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">mV</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">q2</span><span class="p">))</span>
+        <span class="n">ff</span><span class="p">[</span><span class="s2">&quot;hA2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrtr</span><span class="o">*</span><span class="n">ff_A</span><span class="p">[</span><span class="s2">&quot;A0&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrtr</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span><span class="o">*</span><span class="n">A2</span>
+                      <span class="o">-</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">ff</span><span class="p">[</span><span class="s2">&quot;hA1&quot;</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="o">*</span><span class="n">w</span> <span class="o">-</span> <span class="n">r</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">ff</span><span class="p">[</span><span class="s2">&quot;hA3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">sqrtr</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span><span class="o">*</span><span class="n">A2</span> <span class="o">-</span> <span class="n">r</span><span class="o">*</span><span class="n">ff</span><span class="p">[</span><span class="s2">&quot;hA2&quot;</span><span class="p">]</span>
+        <span class="n">ff</span><span class="p">[</span><span class="s2">&quot;hT1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="n">r</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">ff_A</span><span class="p">[</span><span class="s2">&quot;T2&quot;</span><span class="p">]</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">ff_A</span><span class="p">[</span><span class="s2">&quot;T1&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrtr</span><span class="o">*</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="o">*</span><span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">ff</span><span class="p">[</span><span class="s2">&quot;hT2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">r</span><span class="p">))</span><span class="o">*</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">*</span><span class="n">ff</span><span class="p">[</span><span class="s2">&quot;hT1&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">sqrtr</span><span class="o">*</span><span class="n">ff_A</span><span class="p">[</span><span class="s2">&quot;T1&quot;</span><span class="p">])</span>
+        <span class="c1"># Here is the problematic division by lambdastar at zero recoil</span>
+        <span class="n">T3</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">lambdabdstar</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">mB</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">mV</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">mB</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">mV</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">q2</span><span class="p">)</span> <span class="o">*</span> <span class="n">ff_A</span><span class="p">[</span><span class="s1">&#39;T2&#39;</span><span class="p">]</span> 
+                                <span class="o">-</span> <span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">mB</span> <span class="o">*</span> <span class="p">(</span><span class="n">mB</span> <span class="o">-</span> <span class="n">mV</span><span class="p">)</span> <span class="o">*</span> <span class="n">mV</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">ff_A</span><span class="p">[</span><span class="s2">&quot;T23&quot;</span><span class="p">])</span>
+        <span class="n">ff</span><span class="p">[</span><span class="s2">&quot;hT3&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrtr</span><span class="o">*</span><span class="n">T3</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">r</span><span class="p">)</span><span class="o">*</span><span class="n">ff</span><span class="p">[</span><span class="s2">&quot;hT1&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">*</span><span class="n">ff</span><span class="p">[</span><span class="s2">&quot;hT2&quot;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">ff</span></div>
+
+    
+<div class="viewcode-block" id="FormFactor.get_ff_R_basis">
+<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToDst.html#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff_R_basis">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_ff_R_basis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate FF CLN ratios R0, R1, R2, formulae from ancillary material in https://arxiv.org/abs/2304.03137.</span>
+<span class="sd">        Directly lifted from the ancillary files (LOAD_FIT.py)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2 : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            dictionary with FFs hA1, R0, R1, R2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">mB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mb&quot;</span><span class="p">]</span>
+        <span class="n">mV</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mc&quot;</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">mV</span><span class="o">/</span><span class="n">mB</span>
+        <span class="n">ffh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ff_h</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+        <span class="n">hA1</span> <span class="o">=</span> <span class="n">ffh</span><span class="p">[</span><span class="s2">&quot;hA1&quot;</span><span class="p">]</span>
+        <span class="n">hA2</span> <span class="o">=</span> <span class="n">ffh</span><span class="p">[</span><span class="s2">&quot;hA2&quot;</span><span class="p">]</span>
+        <span class="n">hA3</span> <span class="o">=</span> <span class="n">ffh</span><span class="p">[</span><span class="s2">&quot;hA3&quot;</span><span class="p">]</span>
+        <span class="n">hV</span> <span class="o">=</span> <span class="n">ffh</span><span class="p">[</span><span class="s2">&quot;hV&quot;</span><span class="p">]</span>
+
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="n">mB</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">mV</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">q2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">mB</span> <span class="o">*</span> <span class="n">mV</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">R0</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="n">r</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="n">w</span> <span class="o">+</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="o">*</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">hA2</span><span class="o">-</span><span class="n">hA3</span><span class="p">)</span><span class="o">/</span><span class="n">hA1</span> <span class="o">-</span> <span class="p">(</span><span class="n">hA2</span><span class="o">-</span><span class="n">r</span><span class="o">*</span><span class="n">hA3</span><span class="p">)</span><span class="o">/</span><span class="n">hA1</span><span class="p">)</span>
+        <span class="n">R1</span><span class="o">=</span><span class="n">hV</span><span class="o">/</span><span class="n">hA1</span>
+        <span class="n">R2</span><span class="o">=</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">hA2</span><span class="o">+</span><span class="n">hA3</span><span class="p">)</span><span class="o">/</span><span class="n">hA1</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;hA1&quot;</span> <span class="p">:</span> <span class="n">hA1</span><span class="p">,</span> <span class="s2">&quot;R0&quot;</span> <span class="p">:</span> <span class="n">R0</span><span class="p">,</span> <span class="s2">&quot;R1&quot;</span> <span class="p">:</span> <span class="n">R1</span><span class="p">,</span> <span class="s2">&quot;R2&quot;</span> <span class="p">:</span> <span class="n">R2</span><span class="p">}</span></div>
 </div>
 
 </pre></div>

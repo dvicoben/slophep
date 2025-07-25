@@ -73,6 +73,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor._fullsetter"><code class="docutils literal notranslate"><span class="pre">FormFactor._fullsetter()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.ffpar"><code class="docutils literal notranslate"><span class="pre">FormFactor.ffpar</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff"><code class="docutils literal notranslate"><span class="pre">FormFactor.get_ff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff_R_basis"><code class="docutils literal notranslate"><span class="pre">FormFactor.get_ff_R_basis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff_gfF1F2_basis"><code class="docutils literal notranslate"><span class="pre">FormFactor.get_ff_gfF1F2_basis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff_h_basis"><code class="docutils literal notranslate"><span class="pre">FormFactor.get_ff_h_basis()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.internalparams"><code class="docutils literal notranslate"><span class="pre">FormFactor.internalparams</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.name"><code class="docutils literal notranslate"><span class="pre">FormFactor.name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.par"><code class="docutils literal notranslate"><span class="pre">FormFactor.par</span></code></a></li>
@@ -318,6 +321,63 @@ Must return in basis V, A0, A1, A12, T1, T2, T23</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>dictionary with FFs V, A0, A1, A12, T1, T2, T23</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff_R_basis">
+<span class="sig-name descname"><span class="pre">get_ff_R_basis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBase.html#FormFactor.get_ff_R_basis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff_R_basis" title="Link to this definition"></a></dt>
+<dd><p>Calculate FF CLN ratios R0, R1, R2, formulae from ancillary material in <a class="reference external" href="https://arxiv.org/abs/2304.03137">https://arxiv.org/abs/2304.03137</a>.
+Directly lifted from the ancillary files (LOAD_FIT.py)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary with FFs hA1, R0, R1, R2</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff_gfF1F2_basis">
+<span class="sig-name descname"><span class="pre">get_ff_gfF1F2_basis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBase.html#FormFactor.get_ff_gfF1F2_basis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff_gfF1F2_basis" title="Link to this definition"></a></dt>
+<dd><p>Calculate FFs in common BGL basis g, f, F1, F2</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary with FFs g, f, F1, F2</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff_h_basis">
+<span class="sig-name descname"><span class="pre">get_ff_h_basis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/bd2dstlnu/Predictions/FormFactorsBToDst/BToDstFFBase.html#FormFactor.get_ff_h_basis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#bd2dstlnu.Predictions.FormFactorsBToDst.FormFactor.get_ff_h_basis" title="Link to this definition"></a></dt>
+<dd><p>Calculate form factors in HQET basis h_i</p>
+<p>NOTE: hT3 and thus T3 must be computed from T23 and this requires
+dividing by a term that is zero at zero recoil. Because of this,
+the zero-recoil value is slightly offset from q2_max -&gt; 0.999999999*q2_max</p>
+<p>This affects only this transformation of basis. The method
+get_ff(q2) does not have this issue.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary with FFs hV, hA0, hA1, hA2, hA3, hT1, hT2, hT3</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>

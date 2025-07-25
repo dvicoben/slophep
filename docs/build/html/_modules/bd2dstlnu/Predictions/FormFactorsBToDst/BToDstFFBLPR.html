@@ -75,6 +75,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormFactor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">flavio.physics.bdecays.formfactors</span><span class="w"> </span><span class="kn">import</span> <span class="n">hqet</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">flavio.physics.bdecays.formfactors.b_v.cln</span><span class="w"> </span><span class="kn">import</span> <span class="n">h_to_A</span>
+<span class="c1"># from bd2dstlnu.Predictions.BToDstMathTools import h_to_A</span>
 
 
 <div class="viewcode-block" id="BLPR">
@@ -94,11 +95,9 @@
             <span class="s2">&quot;dV20&quot;</span>  <span class="p">:</span> <span class="mf">0.0</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RhoSq&quot;</span><span class="p">,</span> <span class="s2">&quot;Chi21&quot;</span><span class="p">,</span> <span class="s2">&quot;Chi2p&quot;</span><span class="p">,</span> <span class="s2">&quot;Chi3p&quot;</span><span class="p">,</span> <span class="s2">&quot;Eta1&quot;</span><span class="p">,</span> <span class="s2">&quot;Etap&quot;</span><span class="p">,</span> <span class="s2">&quot;dV20&quot;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_process</span> <span class="o">=</span> <span class="s1">&#39;B-&gt;D*&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pd</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="s1">&#39;B0&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">:</span> <span class="s1">&#39;D*+&#39;</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span> <span class="s1">&#39;b-&gt;c&#39;</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internalparams</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;Mb&quot;</span>        <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_pd</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]],</span>
-            <span class="s2">&quot;Mc&quot;</span>        <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_pd</span><span class="p">[</span><span class="s1">&#39;V&#39;</span><span class="p">]],</span>
+            <span class="s2">&quot;Mb&quot;</span>        <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_B0&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;Mc&quot;</span>        <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_D*+&#39;</span><span class="p">],</span>
             <span class="s2">&quot;ash&quot;</span>       <span class="p">:</span> <span class="mf">0.26</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>
             <span class="s2">&quot;la&quot;</span>        <span class="p">:</span> <span class="mf">0.57115</span><span class="p">,</span>
             <span class="s2">&quot;mb&quot;</span>        <span class="p">:</span> <span class="mf">4.710</span><span class="p">,</span>
@@ -222,7 +221,6 @@
             <span class="s2">&quot;T2&quot;</span> <span class="p">:</span> <span class="n">xi</span><span class="o">*</span><span class="n">Ht2</span><span class="p">,</span>
             <span class="s2">&quot;T3&quot;</span> <span class="p">:</span> <span class="n">xi</span><span class="o">*</span><span class="n">Ht3</span>
         <span class="p">}</span>
-
         <span class="c1"># NOTE: this performs the translation https://arxiv.org/pdf/1309.0301 eqns. 38-39,</span>
         <span class="c1"># should be analgous to eqns B7-B13 in https://arxiv.org/pdf/1908.09398</span>
         <span class="k">return</span> <span class="n">h_to_A</span><span class="p">(</span><span class="n">mB</span><span class="p">,</span> <span class="n">mV</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">q2</span><span class="p">)</span></div>

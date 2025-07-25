@@ -15,7 +15,7 @@ Requirements are listed in `requirements.txt`
 ## Quick
 Ensure you are in a python environment with all requirements in `requirements.txt`, then
 ```
-git clone https://gitlab.cern.ch/dvicoben/bd2dstmunu.git
+git clone https://gitlab.cern.ch/dvicoben/bd2dstlnu_angular.git
 cd bd2dstlnu_angular
 source ./setup.sh
 ```
@@ -24,17 +24,17 @@ The script `setup.sh` simply appends `src/` to the `PYTHONPATH` so that contents
 ## Using pip
 In the python environment of your choice, 
 ```
-git clone https://gitlab.cern.ch/dvicoben/bd2dstmunu.git
+git clone https://gitlab.cern.ch/dvicoben/bd2dstlnu_angular.git
 cd bd2dstlnu_angular
 pip install -e .
 ```
-which should install the package (`b2dstlnu`) and the required dependencies.
+which should install the package (`bd2dstlnu`) and the required dependencies.
 
 
 # Usage
 
 - Some example scripts are in the `python` directory.
-- Generation of predictions with varying FFs and WCs is shown in the minimal example `python/example_simple.py`. You can find a comparison of FF schemes (with some example of plotting functionality) in `python/compare_FFschemes.py`.
+- Generation of predictions with varying FFs and WCs is shown in the minimal example `python/example_simple.py`. You can find a comparison of FF schemes in `python/compare_FFschemes.py`.
 - Examples for generating error bands can be found in `python/example_fluctuations_obs.py` and `python/example_fluctuations_BR.py`.
 - Additional FF schemes can be implemented - they need to inherit from `FormFactor` and implement the `get_ff(q2)` method, returning FFs in the basis $V, A_0, A_1, A_{12}, T_1, T_2, T_{23}$. See existing schemes for examples.
 - There are some preliminary scripts for fits (largely illustrative), `python/test_coef_fit.py` and `python/test_FF_fit.py`. Currently working on more optimised fitting interface.
@@ -56,17 +56,23 @@ which should install the package (`b2dstlnu`) and the required dependencies.
 - [ ] Homogenise nomenclature of FF parameters for parameterisations with polynomial expansions
 - [ ] Add ability to get $\langle J_i \rangle$ for a given binning scheme (as in the PDF methods) rather than need to get each individual bin
 - [ ] Maybe move FF param defaults to some `.json` files? In particular for HPQCD this is a lot of parameters - largely a cosmetic thing and would like to keep everything readable from the class so maybe not
+- [ ] Add 1D projections / decay rate in each angle in addtion to $q^2$
 
 ### Others
 - [ ] Add some `cite` attirbute to return bib entries for each FF scheme - make bookkeeping easier for end-user
 - [ ] Fitting interface for $\langle J_i \rangle$ fits
 - [ ] Fitting interface for FF fits
 - [ ] For fitting: Optimise binned PDF predictions to avoid unnecessary re-calculations of angular integrals unless explicitly requested
-- [ ] Add 1D projections
 - [ ] Implement futher FF schemes
     - BGJvD (see [eos implementation](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgjvd2019-impl.hh), [arXiv:1912.09335](https://arxiv.org/abs/1912.09335)) and BLPRXP (see [hammer implementation](https://gitlab.com/mpapucci/Hammer/-/blob/v1.4.1/src/FormFactors/BLPRXP/FFBtoDstarBLPRXPVar.cc), [arXiv:2206.11281](https://arxiv.org/abs/2206.11281)), are BLPR-like schemes with subsubleading contributions ($\mathcal{O}(\varepsilon_c^2)$, $\mathcal{O}(\varepsilon_b\varepsilon_c)$)
     - `flavio` default FF is also BLPR-like and likely corresponds to [arXiv:1908.09398](https://arxiv.org/abs/1908.09398) - may be similar to EOS's BGJvD
 - [ ] Add ability to switch angular conventions
+
+### Wishlist limited by development time
+- [ ] Additional decay modes
+    - [ ] $B_s \to D_s^*$ - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which likely would not be accomodated
+    - [ ] $B \to D$
+    - [ ] Other $B \to V\ell\nu$
 
 ### Done
 - [x] Clean-up FF implementations 

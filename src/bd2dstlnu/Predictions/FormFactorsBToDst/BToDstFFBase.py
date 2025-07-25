@@ -97,7 +97,7 @@ class FormFactor:
             "T23" : 0.0
         }
     
-    def get_ff_gfF1F2(self, q2: float) -> dict:
+    def get_ff_gfF1F2_basis(self, q2: float) -> dict:
         """Calculate FFs in common BGL basis g, f, F1, F2
 
         Parameters
@@ -122,9 +122,16 @@ class FormFactor:
         }
         return ff
 
-    def get_ff_h(self, q2: float) -> dict:
+    def get_ff_h_basis(self, q2: float) -> dict:
         """Calculate form factors in HQET basis h_i
 
+        NOTE: hT3 and thus T3 must be computed from T23 and this requires
+        dividing by a term that is zero at zero recoil. Because of this,
+        the zero-recoil value is slightly offset from q2_max -> 0.999999999*q2_max
+        
+        This affects only this transformation of basis. The method
+        get_ff(q2) does not have this issue.
+        
         Parameters
         ----------
         q2 : float
@@ -164,7 +171,7 @@ class FormFactor:
 
         return ff
     
-    def get_ff_R(self, q2: float) -> dict:
+    def get_ff_R_basis(self, q2: float) -> dict:
         """Calculate FF CLN ratios R0, R1, R2, formulae from ancillary material in https://arxiv.org/abs/2304.03137.
         Directly lifted from the ancillary files (LOAD_FIT.py)
 

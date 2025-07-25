@@ -95,12 +95,9 @@
             <span class="s2">&quot;d1&quot;</span> <span class="p">:</span> <span class="o">-</span><span class="mf">0.218</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a0&quot;</span><span class="p">,</span> <span class="s2">&quot;a1&quot;</span><span class="p">,</span> <span class="s2">&quot;a2&quot;</span><span class="p">,</span> <span class="s2">&quot;b0&quot;</span><span class="p">,</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;b2&quot;</span><span class="p">,</span> <span class="s2">&quot;c1&quot;</span><span class="p">,</span> <span class="s2">&quot;c2&quot;</span><span class="p">,</span> <span class="s2">&quot;d0&quot;</span><span class="p">,</span> <span class="s2">&quot;d1&quot;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_process</span> <span class="o">=</span> <span class="s1">&#39;B-&gt;D*&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pd</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="s1">&#39;B0&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">:</span> <span class="s1">&#39;D*+&#39;</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span> <span class="s1">&#39;b-&gt;c&#39;</span><span class="p">}</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_internalparams</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;Mb&quot;</span>         <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_pd</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]],</span>
-            <span class="s2">&quot;Mc&quot;</span>         <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_pd</span><span class="p">[</span><span class="s1">&#39;V&#39;</span><span class="p">]],</span>
+            <span class="s2">&quot;Mb&quot;</span>         <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_B0&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;Mc&quot;</span>         <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_D*+&#39;</span><span class="p">],</span>
             <span class="s2">&quot;nmax&quot;</span>       <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
             <span class="s2">&quot;Vcb&quot;</span>        <span class="p">:</span> <span class="mf">41.5e-3</span><span class="p">,</span>                       
             <span class="s2">&quot;chim&quot;</span>       <span class="p">:</span> <span class="mf">3.068e-4</span><span class="p">,</span> <span class="c1"># GeV^-2</span>
@@ -197,6 +194,7 @@
             <span class="s2">&quot;A12&quot;</span> <span class="p">:</span> <span class="n">F1</span><span class="o">/</span><span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="n">Mb</span><span class="o">*</span><span class="n">Mc</span><span class="p">),</span>
             <span class="s2">&quot;T1&quot;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
             <span class="s2">&quot;T2&quot;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;T3&quot;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
             <span class="s2">&quot;T23&quot;</span> <span class="p">:</span> <span class="mf">0.0</span>
         <span class="p">}</span>
 
