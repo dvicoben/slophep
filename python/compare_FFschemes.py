@@ -1,9 +1,7 @@
-from bd2dstlnu.Predictions.BToDstObs import BToDstEllNuPrediction
+from bd2dstlnu.Predictions.Observables.BToDstObs import BToDstEllNuPrediction
 from bd2dstlnu.utils import setPlotParams
-from bd2dstlnu.Predictions.FormFactorsBToDst import CLN, BGL, BLPR, BSZ, HPQCD
+from bd2dstlnu.Predictions.FormFactorsBToV import BToDstFF
 
-import matplotlib.pyplot as plt
-        
 setPlotParams()
 
 wcoeffs = {
@@ -14,11 +12,11 @@ wcoeffs = {
     'CT_bcmunumu': 0.0
 }
 
-obs_cln = BToDstEllNuPrediction("mu", "mu", CLN)
-obs_blpr = BToDstEllNuPrediction("mu", "mu", BLPR)
-obs_bgl = BToDstEllNuPrediction("mu", "mu", BGL)
-obs_bsz = BToDstEllNuPrediction("mu", "mu", BSZ)
-obs_hpqcd = BToDstEllNuPrediction("mu", "mu", HPQCD)
+obs_cln = BToDstEllNuPrediction("mu", "mu", BToDstFF.CLN)
+obs_blpr = BToDstEllNuPrediction("mu", "mu", BToDstFF.BLPR)
+obs_bgl = BToDstEllNuPrediction("mu", "mu", BToDstFF.BGL)
+obs_bsz = BToDstEllNuPrediction("mu", "mu", BToDstFF.BSZ)
+obs_hpqcd = BToDstEllNuPrediction("mu", "mu", BToDstFF.HPQCD)
 
 obs_cln.set_wc(wcoeffs)
 obs_blpr.set_wc(wcoeffs)

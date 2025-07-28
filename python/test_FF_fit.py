@@ -12,33 +12,21 @@ import matplotlib.pyplot as plt
 import uncertainties as uncert
 from iminuit import Minuit
 
-from bd2dstlnu.Predictions.BToDstObs import BToDstEllNuPrediction
-from bd2dstlnu.Predictions.FormFactorsBToDst import BGL
+from bd2dstlnu.Predictions.Observables.BToDstObs import BToDstEllNuPrediction
+from bd2dstlnu.Predictions.FormFactorsBToV.BToDstFF import BGL
 
 obs = BToDstEllNuPrediction("mu", "mu", BGL)
-# { # https://arxiv.org/pdf/1707.09509 (Third column in table V)
-#     "a0" : 0.0209,
-#     "a1" : 0.33,
-#     "a2" : 0.6,
-#     "b0" : 0.01218,
-#     "b1" : 0.046,
-#     "b2" : 0.48,
-#     "c1" : 0.0063,
-#     "c2" : 0.062,
-#     "d0" : 0.0595,
-#     "d1" : -0.218
-# }
 ff_gen = { # https://arxiv.org/pdf/1707.09509 (Third column in table V)
     "a0" : 0.0209,
     "a1" : 0.33,
-    "a2" : 0.0,
+    "a2" : 0.6,
     "b0" : 0.01218,
     "b1" : 0.046,
-    "b2" : 0.0,
+    "b2" : 0.48,
     "c1" : 0.0063,
-    "c2" : 0.0,
+    "c2" : 0.062,
     "d0" : 0.0595,
-    "d1" : 0.0
+    "d1" : -0.218
 }
 obs.set_ff(ff_gen)
 print("Generated Values:")
@@ -61,29 +49,17 @@ pred = BToDstEllNuPrediction("mu", "mu", BGL)
 
 
 def calc_pdf(ff: list[float]):
-    # ffd = {
-    #     "a0" : ff[0],
-    #     "a1" : ff[1],
-    #     "a2" : ff[2],
-    #     "b0" : 0.01218,
-    #     "b1" : ff[3],
-    #     "b2" : ff[4],
-    #     "c1" : ff[5],
-    #     "c2" : ff[6],
-    #     "d0" : ff[7],
-    #     "d1" : ff[8],
-    # }
     ffd = {
         "a0" : ff[0],
         "a1" : ff[1],
-        "a2" : 0.0,
+        "a2" : ff[2],
         "b0" : 0.01218,
-        "b1" : ff[2],
-        "b2" : 0.0,
-        "c1" : ff[3],
-        "c2" : 0.0,
-        "d0" : ff[4],
-        "d1" : 0.0,
+        "b1" : ff[3],
+        "b2" : ff[4],
+        "c1" : ff[5],
+        "c2" : ff[6],
+        "d0" : ff[7],
+        "d1" : ff[8],
     }
     pred.set_ff(ffd)
     print(pred.FF.ffpar)

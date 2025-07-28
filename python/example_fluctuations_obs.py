@@ -1,6 +1,6 @@
-from bd2dstlnu.Predictions.BToDstObs import BToDstEllNuPrediction
+from bd2dstlnu.Predictions.Observables.BToDstObs import BToDstEllNuPrediction
 from bd2dstlnu.Predictions.SamplingFluctuate import SamplingHelper
-from bd2dstlnu.Predictions.FormFactorsBToDst import HPQCD, BSZ
+from bd2dstlnu.Predictions.FormFactorsBToV.BToDstFF import HPQCD, BSZ
 
 from bd2dstlnu.utils import setPlotParams
 import numpy as np
@@ -24,13 +24,13 @@ obs_bsz.set_wc(wcoeffs)
 
 # Fluctuate at particular value of q2
 obs_hpqcd_fluct = SamplingHelper(obs_hpqcd)
-fconfig_hpqcd = "data/FF_HPQCD_COV_arXiv230403137.json"
+fconfig_hpqcd = "data/BToDstFF_HPQCD_COV_arXiv230403137.json"
 obs_hpqcd_fluct.set_params_from_configfile(fconfig_hpqcd)
 obs_hpqcd_fluct.fluctuate(Nfluct)
 jerr_hpqcd = obs_hpqcd_fluct.get_error("J", [5.0])
 
 obs_bsz_fluct = SamplingHelper(obs_bsz)
-fconfig_bsz = "data/FF_BSZ_COV_arXiv181100983.json"
+fconfig_bsz = "data/BToDstFF_BSZ_COV_arXiv181100983.json"
 obs_bsz_fluct.set_params_from_configfile(fconfig_bsz)
 obs_bsz_fluct.fluctuate(Nfluct)
 jerr_bsz = obs_bsz_fluct.get_error("J", [5.0])
@@ -103,10 +103,10 @@ setPlotParams()
 
 hpqcd_ff_res = get_spectrum_dict(qsq, ff_hpqcd, "get_ff", ff_hpqcd_fluct)
 bsz_ff_res = get_spectrum_dict(qsq, ff_bsz, "get_ff", ff_bsz_fluct)
-plot_spectrum_dict(qsq, [ielem for ielem in hpqcd_ff_res], 
+plot_spectrum_dict(qsq, ["A0", "A1", "A12", "V", "T1", "T2", "T23"], 
                    [hpqcd_ff_res, bsz_ff_res], 
                    ["HPQCD arXiv:2304.03137", "BSZ arXiv:1811.00983"],
-                   [r"$A_0$", r"$A_1$", r"$A_2$", r"$V$", r"$T_1$", r"$T_2$", r"$T_{23}$", r"$A_{12}$"])
+                   [r"$A_0$", r"$A_1$", r"$A_{12}$", r"$V$", r"$T_1$", r"$T_2$", r"$T_{23}$"])
 
 hpqcd_J_res = get_spectrum_dict(qsq, obs_hpqcd, "J", obs_hpqcd_fluct)
 bsz_J_res = get_spectrum_dict(qsq, obs_bsz, "J", obs_bsz_fluct)

@@ -1,6 +1,6 @@
-from bd2dstlnu.Predictions.BToDstObs import BToDstEllNuPrediction
+from bd2dstlnu.Predictions.Observables.BToDstObs import BToDstEllNuPrediction
 from bd2dstlnu.Predictions.SamplingFluctuate import SamplingHelper
-from bd2dstlnu.Predictions.FormFactorsBToDst import HPQCD, BSZ
+from bd2dstlnu.Predictions.FormFactorsBToV import BToDstFF
 
 from bd2dstlnu.utils import setPlotParams
 import numpy as np
@@ -10,10 +10,10 @@ import matplotlib.pyplot as plt
 Nfluct = 5000
 
 # Initialise observables we will fluctuate
-obs_hpqcd_mu = BToDstEllNuPrediction("mu", "mu", HPQCD)
-obs_hpqcd_tau = BToDstEllNuPrediction("tau", "tau", HPQCD)
+obs_hpqcd_mu = BToDstEllNuPrediction("mu", "mu", BToDstFF.HPQCD)
+obs_hpqcd_tau = BToDstEllNuPrediction("tau", "tau", BToDstFF.HPQCD)
 
-fconfig_hpqcd = "data/FF_HPQCD_COV_arXiv230403137.json"
+fconfig_hpqcd = "data/BToDstFF_HPQCD_COV_arXiv230403137.json"
 obs_hpqcd_mu_fluct = SamplingHelper(obs_hpqcd_mu)
 obs_hpqcd_mu_fluct.set_params_from_configfile(fconfig_hpqcd)
 obs_hpqcd_mu_fluct.fluctuate(Nfluct)

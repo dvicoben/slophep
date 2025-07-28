@@ -11,8 +11,8 @@ import matplotlib.pyplot as plt
 import uncertainties as uncert
 from iminuit import Minuit
 
-from bd2dstlnu.Predictions.BToDstObs import BToDstEllNuPrediction
-from bd2dstlnu.Predictions.FormFactorsBToDst import BLPR
+from bd2dstlnu.Predictions.Observables.BToDstObs import BToDstEllNuPrediction
+from bd2dstlnu.Predictions.FormFactorsBToV.BToDstFF import BLPR
 from bd2dstlnu.Predictions.BToDstMathTools import calc_norm_j
 
 
