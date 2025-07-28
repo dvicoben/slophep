@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBGL &mdash; bd2dstlnu v0.0.1 documentation</title>
+  <title>bd2dstlnu.Predictions.FormFactorsBToV.BToVFFBGL &mdash; bd2dstlnu v0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
@@ -60,7 +60,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBGL</li>
+      <li class="breadcrumb-item active">bd2dstlnu.Predictions.FormFactorsBToV.BToVFFBGL</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -69,17 +69,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBGL</h1><div class="highlight"><pre>
+  <h1>Source code for bd2dstlnu.Predictions.FormFactorsBToV.BToVFFBGL</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormFactor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bd2dstlnu.Predictions.FormFactorsBToV</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormFactorBToV</span>
 
-
-<div class="viewcode-block" id="BGL">
-<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToDst.html#bd2dstlnu.Predictions.FormFactorsBToDst.BGL">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">BGL</span><span class="p">(</span><span class="n">FormFactor</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+<div class="viewcode-block" id="BGL_BToV">
+<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToV.html#bd2dstlnu.Predictions.FormFactorsBToV.BGL_BToV">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BGL_BToV</span><span class="p">(</span><span class="n">FormFactorBToV</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">V</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BGL&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ffpar</span> <span class="o">=</span> <span class="p">{</span> <span class="c1"># https://arxiv.org/pdf/1707.09509 (Third column in table V)</span>
@@ -95,9 +94,7 @@
             <span class="s2">&quot;d1&quot;</span> <span class="p">:</span> <span class="o">-</span><span class="mf">0.218</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a0&quot;</span><span class="p">,</span> <span class="s2">&quot;a1&quot;</span><span class="p">,</span> <span class="s2">&quot;a2&quot;</span><span class="p">,</span> <span class="s2">&quot;b0&quot;</span><span class="p">,</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;b2&quot;</span><span class="p">,</span> <span class="s2">&quot;c1&quot;</span><span class="p">,</span> <span class="s2">&quot;c2&quot;</span><span class="p">,</span> <span class="s2">&quot;d0&quot;</span><span class="p">,</span> <span class="s2">&quot;d1&quot;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internalparams</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;Mb&quot;</span>         <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_B0&#39;</span><span class="p">],</span>
-            <span class="s2">&quot;Mc&quot;</span>         <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_D*+&#39;</span><span class="p">],</span>
+        <span class="n">internalparams</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;nmax&quot;</span>       <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
             <span class="s2">&quot;Vcb&quot;</span>        <span class="p">:</span> <span class="mf">41.5e-3</span><span class="p">,</span>                       
             <span class="s2">&quot;chim&quot;</span>       <span class="p">:</span> <span class="mf">3.068e-4</span><span class="p">,</span> <span class="c1"># GeV^-2</span>
@@ -109,11 +106,12 @@
             <span class="s2">&quot;BcStatesg&quot;</span>  <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">6.337</span><span class="p">,</span><span class="mf">6.899</span><span class="p">,</span><span class="mf">7.012</span><span class="p">,</span><span class="mf">7.280</span><span class="p">]),</span>  <span class="c1"># GeV</span>
             <span class="s2">&quot;BcStatesP1&quot;</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">6.275</span><span class="p">,</span><span class="mf">6.842</span><span class="p">,</span><span class="mf">7.250</span><span class="p">])</span>         <span class="c1"># GeV</span>
         <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internalparams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">internalparams</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WARNING: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> Tensor FFs are 0, SM only parameterisation&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="BGL.blaschke">
-<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToDst.html#bd2dstlnu.Predictions.FormFactorsBToDst.BGL.blaschke">[docs]</a>
+<div class="viewcode-block" id="BGL_BToV.blaschke">
+<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToV.html#bd2dstlnu.Predictions.FormFactorsBToV.BGL_BToV.blaschke">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">blaschke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BcStates</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">Mb</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">Mc</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate Blaschke factor P(t) from B_c-type resonances&quot;&quot;&quot;</span>
         <span class="n">Mb2</span> <span class="o">=</span> <span class="n">Mb</span><span class="o">*</span><span class="n">Mb</span>
@@ -126,8 +124,8 @@
 
 
 
-<div class="viewcode-block" id="BGL.get_ff">
-<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToDst.html#bd2dstlnu.Predictions.FormFactorsBToDst.BGL.get_ff">[docs]</a>
+<div class="viewcode-block" id="BGL_BToV.get_ff">
+<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToV.html#bd2dstlnu.Predictions.FormFactorsBToV.BGL_BToV.get_ff">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_ff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates BGL form factors (SM only) as in hammer https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBGL.cc?ref_type=tags</span>
 

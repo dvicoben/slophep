@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBLPR &mdash; bd2dstlnu v0.0.1 documentation</title>
+  <title>bd2dstlnu.Predictions.FormFactorsBToV.BToVFFBLPR &mdash; bd2dstlnu v0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
@@ -60,7 +60,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBLPR</li>
+      <li class="breadcrumb-item active">bd2dstlnu.Predictions.FormFactorsBToV.BToVFFBLPR</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -69,20 +69,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBLPR</h1><div class="highlight"><pre>
+  <h1>Source code for bd2dstlnu.Predictions.FormFactorsBToV.BToVFFBLPR</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormFactor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bd2dstlnu.Predictions.FormFactorsBToV</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormFactorBToV</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">flavio.physics.bdecays.formfactors</span><span class="w"> </span><span class="kn">import</span> <span class="n">hqet</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">flavio.physics.bdecays.formfactors.b_v.cln</span><span class="w"> </span><span class="kn">import</span> <span class="n">h_to_A</span>
 <span class="c1"># from bd2dstlnu.Predictions.BToDstMathTools import h_to_A</span>
 
 
-<div class="viewcode-block" id="BLPR">
-<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToDst.html#bd2dstlnu.Predictions.FormFactorsBToDst.BLPR">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">BLPR</span><span class="p">(</span><span class="n">FormFactor</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+<div class="viewcode-block" id="BLPR_BToV">
+<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToV.html#bd2dstlnu.Predictions.FormFactorsBToV.BLPR_BToV">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BLPR_BToV</span><span class="p">(</span><span class="n">FormFactorBToV</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">V</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BLPR&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ffpar</span> <span class="o">=</span> <span class="p">{</span>
@@ -95,9 +95,7 @@
             <span class="s2">&quot;dV20&quot;</span>  <span class="p">:</span> <span class="mf">0.0</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RhoSq&quot;</span><span class="p">,</span> <span class="s2">&quot;Chi21&quot;</span><span class="p">,</span> <span class="s2">&quot;Chi2p&quot;</span><span class="p">,</span> <span class="s2">&quot;Chi3p&quot;</span><span class="p">,</span> <span class="s2">&quot;Eta1&quot;</span><span class="p">,</span> <span class="s2">&quot;Etap&quot;</span><span class="p">,</span> <span class="s2">&quot;dV20&quot;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_internalparams</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;Mb&quot;</span>        <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_B0&#39;</span><span class="p">],</span>
-            <span class="s2">&quot;Mc&quot;</span>        <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_D*+&#39;</span><span class="p">],</span>
+        <span class="n">internalparams</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;ash&quot;</span>       <span class="p">:</span> <span class="mf">0.26</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>
             <span class="s2">&quot;la&quot;</span>        <span class="p">:</span> <span class="mf">0.57115</span><span class="p">,</span>
             <span class="s2">&quot;mb&quot;</span>        <span class="p">:</span> <span class="mf">4.710</span><span class="p">,</span>
@@ -106,9 +104,10 @@
             <span class="s2">&quot;ecRec&quot;</span>     <span class="p">:</span> <span class="mf">0.822</span><span class="p">,</span>
             <span class="s2">&quot;rD&quot;</span>        <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_D0&#39;</span><span class="p">]</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_B0&#39;</span><span class="p">]</span>
         <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internalparams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">internalparams</span><span class="p">)</span>
 
-<div class="viewcode-block" id="BLPR.get_ff">
-<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToDst.html#bd2dstlnu.Predictions.FormFactorsBToDst.BLPR.get_ff">[docs]</a>
+<div class="viewcode-block" id="BLPR_BToV.get_ff">
+<a class="viewcode-back" href="../../../../autodoc/bd2dstlnu.Predictions.FormFactorsBToV.html#bd2dstlnu.Predictions.FormFactorsBToV.BLPR_BToV.get_ff">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_ff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;FF in BLPR parameterisation from https://arxiv.org/pdf/1703.05330 as in HAMMER v1.4.1</span>
 
@@ -125,7 +124,7 @@
         <span class="n">mB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mb&quot;</span><span class="p">]</span>
         <span class="n">mV</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mc&quot;</span><span class="p">]</span>
 
-        <span class="n">w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="n">mB</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">mV</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">q2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">mB</span> <span class="o">*</span> <span class="n">mV</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">(</span><span class="n">q2</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">ash</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;ash&quot;</span><span class="p">]</span>
         <span class="n">la</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;la&quot;</span><span class="p">]</span>
         <span class="n">mb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;mb&quot;</span><span class="p">]</span>
