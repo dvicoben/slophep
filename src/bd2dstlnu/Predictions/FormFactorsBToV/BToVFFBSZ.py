@@ -1,11 +1,11 @@
 from math import sqrt
 import numpy as np
-from bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase import FormFactor
+from bd2dstlnu.Predictions.FormFactorsBToV import FormFactorBToV
 
 
-class BSZ(FormFactor):
-    def __init__(self, par: dict = None, scale: float = None, *ffargs):
-        super().__init__(par, scale)
+class BSZ_BToV(FormFactorBToV):
+    def __init__(self, B: str, V: str, par: dict = None, scale: float = None, *ffargs):
+        super().__init__(B, V, par, scale)
         
         self._name = "BSZ"
         # Parameters from EOS, see https://eoshep.org/doc/reference/parameters.html#parameters-in-b-to-v-form-factor-parametrizations
@@ -38,13 +38,12 @@ class BSZ(FormFactor):
                         "T1_0", "T1_1", "T1_2",
                         "T2_1", "T2_2",
                         "T23_0", "T23_1", "T23_2"]
-        self._internalparams = {
-            "Mb"  : self.par['m_B0'],
-            "Mc"  : self.par['m_D*+'],
+        internalparams = {
             "m0"  : 6.275,
             "m1m" : 6.330,
             "m1p" : 6.767
         }
+        self._internalparams.update(internalparams)
 
     def z(self, mB: float, mM: float, q2: float, t0: float = None):
         """Form factor expansion parameter z.

@@ -1,21 +1,33 @@
 import flavio
 from math import sqrt
 
-class FormFactor:
+class FormFactorBToV:
     def __init__(self, 
+                 B: str,
+                 V: str,
                  par: dict = None, 
                  scale: float = None):
         self._par: dict            = flavio.default_parameters.get_central_all() if type(par) == type(None) else par
         self._scale: float         = 4.8 if not scale else scale
         
+        self._B = B
+        self._V = V
         self._name: str            = "FFBase"
         self._ffpar: dict          = {}
         self._params: list         = []
         self._internalparams: dict = {
-            "Mb"         : self.par['m_B0'],
-            "Mc"         : self.par['m_D*+'],
+            "Mb"         : self.par[f'm_{self.B}'],
+            "Mc"         : self.par[f'm_{self.V}'],
         }
 
+    @property
+    def B(self) -> str:
+        """The B meson"""
+        return self._B
+    @property
+    def V(self) -> str:
+        """The Charmed Vector meson"""
+        return self._V
     @property
     def name(self) -> str: 
         """Name of FF scheme"""
@@ -73,6 +85,11 @@ class FormFactor:
         """
         pars = {self.params[k] : params[k] for k in range(len(self.params))}
         self.set_ff(**pars)
+    
+    def w(self, q2: float) -> float:
+        mB = self.internalparams["Mb"]
+        mV = self.internalparams["Mc"]
+        return (mB**2 + mV**2 - q2) / (2 * mB * mV)
 
     def get_ff(self, q2: float) -> dict:
         """Calculate form factors at particular q2. To implement in derived class.

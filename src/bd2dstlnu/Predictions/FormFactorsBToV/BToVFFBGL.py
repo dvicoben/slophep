@@ -1,11 +1,10 @@
 from math import sqrt
 import numpy as np
-from bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase import FormFactor
+from bd2dstlnu.Predictions.FormFactorsBToV import FormFactorBToV
 
-
-class BGL(FormFactor):
-    def __init__(self, par: dict = None, scale: float = None, *ffargs):
-        super().__init__(par, scale)
+class BGL_BToV(FormFactorBToV):
+    def __init__(self, B: str, V: str, par: dict = None, scale: float = None, *ffargs):
+        super().__init__(B, V, par, scale)
         
         self._name = "BGL"
         self._ffpar = { # https://arxiv.org/pdf/1707.09509 (Third column in table V)
@@ -21,9 +20,7 @@ class BGL(FormFactor):
             "d1" : -0.218
         }
         self._params = ["a0", "a1", "a2", "b0", "b1", "b2", "c1", "c2", "d0", "d1"]
-        self._internalparams = {
-            "Mb"         : self.par['m_B0'],
-            "Mc"         : self.par['m_D*+'],
+        internalparams = {
             "nmax"       : 4,
             "Vcb"        : 41.5e-3,                       
             "chim"       : 3.068e-4, # GeV^-2
@@ -35,6 +32,7 @@ class BGL(FormFactor):
             "BcStatesg"  : np.array([6.337,6.899,7.012,7.280]),  # GeV
             "BcStatesP1" : np.array([6.275,6.842,7.250])         # GeV
         }
+        self._internalparams.update(internalparams)
 
         print(f"WARNING: {self.name} Tensor FFs are 0, SM only parameterisation")
 

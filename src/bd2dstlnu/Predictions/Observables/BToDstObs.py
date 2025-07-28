@@ -1,11 +1,11 @@
-from bd2dstlnu.Predictions.FormFactorsBToDst import FormFactor
+from bd2dstlnu.Predictions.FormFactorsBToV import FormFactorBToV
 from bd2dstlnu.Predictions.Observables import BToVEllNuPrediction
 
 class BToDstEllNuPrediction(BToVEllNuPrediction):
     def __init__(self, 
                  lep: str, 
                  nu: str,
-                 FF: FormFactor,
+                 FF: FormFactorBToV,
                  ffargs: list = [],
                  par: dict = None,
                  scale: float = 4.8,
@@ -18,7 +18,7 @@ class BsToDsstEllNuPrediction(BToVEllNuPrediction):
     def __init__(self, 
                  lep: str, 
                  nu: str,
-                 FF: FormFactor,
+                 FF: FormFactorBToV,
                  ffargs: list = [],
                  par: dict = None,
                  scale: float = 4.8,

@@ -1,10 +1,10 @@
-from bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase import FormFactor
+from bd2dstlnu.Predictions.FormFactorsBToV import FormFactorBToV
 from math import sqrt
 
 
-class HPQCD(FormFactor):
-    def __init__(self, par: dict = None, scale: float = None, *ffargs):
-        super().__init__(par, scale)
+class HPQCD_BToV(FormFactorBToV):
+    def __init__(self, B: str, V: str, par: dict = None, scale: float = None, *ffargs):
+        super().__init__(B, V, par, scale)
         
         self._name = "HPQCD"
         # From supplementary material in https://arxiv.org/abs/2304.03137v2 
@@ -109,11 +109,6 @@ class HPQCD(FormFactor):
             "MEta" : 0.547862,
             "fpi" : 0.130
         }
-    
-    def w(self, q2: float) -> float:
-        mB = self.internalparams["Mb"]
-        mV = self.internalparams["Mc"]
-        return (mB**2 + mV**2 - q2) / (2 * mB * mV)
 
     def get_ff_h(self, q2: float, A: str) -> float:
         value = 0

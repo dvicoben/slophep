@@ -1,14 +1,14 @@
 from math import sqrt
 import numpy as np
-from bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase import FormFactor
+from bd2dstlnu.Predictions.FormFactorsBToV import FormFactorBToV
 from flavio.physics.bdecays.formfactors import hqet
 from flavio.physics.bdecays.formfactors.b_v.cln import h_to_A
 # from bd2dstlnu.Predictions.BToDstMathTools import h_to_A
 
 
-class BLPR(FormFactor):
-    def __init__(self, par: dict = None, scale: float = None, *ffargs):
-        super().__init__(par, scale)
+class BLPR_BToV(FormFactorBToV):
+    def __init__(self, B: str, V: str, par: dict = None, scale: float = None, *ffargs):
+        super().__init__(B, V, par, scale)
         
         self._name = "BLPR"
         self._ffpar = {
@@ -21,9 +21,7 @@ class BLPR(FormFactor):
             "dV20"  : 0.0
         }
         self._params = ["RhoSq", "Chi21", "Chi2p", "Chi3p", "Eta1", "Etap", "dV20"]
-        self._internalparams = {
-            "Mb"        : self.par['m_B0'],
-            "Mc"        : self.par['m_D*+'],
+        internalparams = {
             "ash"       : 0.26/np.pi,
             "la"        : 0.57115,
             "mb"        : 4.710,
@@ -32,6 +30,7 @@ class BLPR(FormFactor):
             "ecRec"     : 0.822,
             "rD"        : self.par['m_D0']/self.par['m_B0']
         }
+        self._internalparams.update(internalparams)
 
     def get_ff(self, q2: float) -> dict:
         """FF in BLPR parameterisation from https://arxiv.org/pdf/1703.05330 as in HAMMER v1.4.1
@@ -49,7 +48,7 @@ class BLPR(FormFactor):
         mB = self.internalparams["Mb"]
         mV = self.internalparams["Mc"]
 
-        w = max((mB**2 + mV**2 - q2) / (2 * mB * mV), 1)
+        w = max(self.w(q2), 1)
         ash = self.internalparams["ash"]
         la = self.internalparams["la"]
         mb = self.internalparams["mb"]

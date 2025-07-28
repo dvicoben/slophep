@@ -1,12 +1,12 @@
 from math import sqrt
-from bd2dstlnu.Predictions.FormFactorsBToDst.BToDstFFBase import FormFactor
+from bd2dstlnu.Predictions.FormFactorsBToV import FormFactorBToV
 from flavio.physics.running import running
 
 
 
-class CLN(FormFactor):
-    def __init__(self, par: dict = None, scale: float = None, *ffargs):
-        super().__init__(par, scale)
+class CLN_BToV(FormFactorBToV):
+    def __init__(self, B: str, V: str, par: dict = None, scale: float = None, *ffargs):
+        super().__init__(B, V, par, scale)
         
         self._name = "CLN"
         self._ffpar = {
@@ -17,10 +17,6 @@ class CLN(FormFactor):
             "R0"    : 1.15
         }
         self._params = ["RhoSq", "h_A1", "R1", "R2", "R0"]
-        self._internalparams = {
-            "Mb"        : self.par['m_B0'],
-            "Mc"        : self.par['m_D*+'],
-        }
 
         print(f"WARNING: {self.name} Tensor FFs are set assuming eq. 11 in https://arxiv.org/pdf/1503.05534 is unity, use with care for BSM")
     

@@ -48,6 +48,14 @@ class BToVEllNuPrediction:
         """Dictionary of parameters, defaults to `flavio.default_parameters.get_central_all()`"""
         return self._par
     @property
+    def B(self) -> str:
+        """The B meson"""
+        return self._B
+    @property
+    def V(self) -> str:
+        """The Charmed Vector meson"""
+        return self._V
+    @property
     def lep(self) -> str: 
         """Lepton flavour (mu/e/tau)"""
         return self._lep
