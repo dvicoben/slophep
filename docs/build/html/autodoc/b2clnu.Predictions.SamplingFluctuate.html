@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>b2clnu.Predictions.SamplingFluctuate &mdash; bd2dstlnu v0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2fea6348"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="b2clnu.Predictions.SamplingTools" href="b2clnu.Predictions.SamplingTools.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            bd2dstlnu
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../auto.html">b2clnu.Predictions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="b2clnu.Predictions.Observables.html">b2clnu.Predictions.Observables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="b2clnu.Predictions.FormFactorsBToV.html">b2clnu.Predictions.FormFactorsBToV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="b2clnu.Predictions.FormFactorsBToV.BToDstFF.html">b2clnu.Predictions.FormFactorsBToV.BToDstFF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="b2clnu.Predictions.FormFactorsBToV.BsToDsstFF.html">b2clnu.Predictions.FormFactorsBToV.BsToDsstFF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="b2clnu.Predictions.BToDstMathTools.html">b2clnu.Predictions.BToDstMathTools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="b2clnu.Predictions.SamplingTools.html">b2clnu.Predictions.SamplingTools</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">b2clnu.Predictions.SamplingFluctuate</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper"><code class="docutils literal notranslate"><span class="pre">SamplingHelper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.clear_fluctuations"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.clear_fluctuations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.constants"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.constants</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.corr"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.corr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.cov"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.cov</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.err"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.err</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.errtype"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.errtype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.fluctuate"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.fluctuate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.fluctuations"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.fluctuations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.get_error"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.get_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.mean"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.mean</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.nominal"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.nominal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.obs"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.obs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.params"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.params</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.set_params_asymmetric"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.set_params_asymmetric()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.set_params_from_configfile"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.set_params_from_configfile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.set_params_symmetric"><code class="docutils literal notranslate"><span class="pre">SamplingHelper.set_params_symmetric()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">bd2dstlnu</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../auto.html">b2clnu.Predictions</a></li>
+      <li class="breadcrumb-item active">b2clnu.Predictions.SamplingFluctuate</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/autodoc/b2clnu.Predictions.SamplingFluctuate.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-b2clnu.Predictions.SamplingFluctuate">
+<span id="b2clnu-predictions-samplingfluctuate"></span><h1>b2clnu.Predictions.SamplingFluctuate<a class="headerlink" href="#module-b2clnu.Predictions.SamplingFluctuate" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">b2clnu.Predictions.SamplingFluctuate.</span></span><span class="sig-name descname"><span class="pre">SamplingHelper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/b2clnu/Predictions/SamplingFluctuate.html#SamplingHelper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.clear_fluctuations">
+<span class="sig-name descname"><span class="pre">clear_fluctuations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/b2clnu/Predictions/SamplingFluctuate.html#SamplingHelper.clear_fluctuations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.clear_fluctuations" title="Link to this definition"></a></dt>
+<dd><p>Clear produced fluctuations</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.constants">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">constants</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.constants" title="Link to this definition"></a></dt>
+<dd><p>Parameters that are kept constant in fluctuation and their values.
+If they are here, they SHOULD NOT be in self.params</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.corr">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">corr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.corr" title="Link to this definition"></a></dt>
+<dd><p>Correlation matrix of parameters</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.cov">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cov</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.cov" title="Link to this definition"></a></dt>
+<dd><p>Covariance matrix of parameters</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.err">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">err</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.err" title="Link to this definition"></a></dt>
+<dd><p>Error values for the parameters</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.errtype">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">errtype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.errtype" title="Link to this definition"></a></dt>
+<dd><p>Error type, should be <cite>Symmetric</cite> or <cite>Asymmetric</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.fluctuate">
+<span class="sig-name descname"><span class="pre">fluctuate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/b2clnu/Predictions/SamplingFluctuate.html#SamplingHelper.fluctuate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.fluctuate" title="Link to this definition"></a></dt>
+<dd><p>Produce N gaussian/bifurcated gaussian fluctuations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) – Number of fluctuations</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – numpy random seed, by default None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.fluctuations">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fluctuations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.fluctuations" title="Link to this definition"></a></dt>
+<dd><p>List of fluctuations generated</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.get_error">
+<span class="sig-name descname"><span class="pre">get_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.683</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_all</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/b2clnu/Predictions/SamplingFluctuate.html#SamplingHelper.get_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.get_error" title="Link to this definition"></a></dt>
+<dd><p>Gets an error using produced fluctations for a spcified CL</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attr</strong> (<em>str</em>) – The attribute/method in self.obs to compute</p></li>
+<li><p><strong>attr_args</strong> (<em>list</em>) – Arguments to be passed to that attribute, by default an empty
+list which means no arguments to pass</p></li>
+<li><p><strong>cl</strong> (<em>float</em><em>, </em><em>optional</em>) – CL to asses error for, by default 0.683</p></li>
+<li><p><strong>return_all</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to return a list with all the fluctiations (only)
+rather than the errors, by default False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.mean">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mean</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.mean" title="Link to this definition"></a></dt>
+<dd><p>Nominal/mean values for the parameters</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.nominal">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nominal</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.nominal" title="Link to this definition"></a></dt>
+<dd><p>Alias for mean</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.obs">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">obs</span></span><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.obs" title="Link to this definition"></a></dt>
+<dd><p>Observable/FF object to fluctuate</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.params">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.params" title="Link to this definition"></a></dt>
+<dd><p>List of fluctuated params names, in order as they appear in cov matrix</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.set_params_asymmetric">
+<span class="sig-name descname"><span class="pre">set_params_asymmetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errlo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errhi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constants</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/b2clnu/Predictions/SamplingFluctuate.html#SamplingHelper.set_params_asymmetric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.set_params_asymmetric" title="Link to this definition"></a></dt>
+<dd><p>Sets parameters necessary for fluctuation, for asymmetric gaussian errors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>param_names</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – “List of fluctuated params names, in order as they appear in cov matrix</p></li>
+<li><p><strong>mean</strong> (<em>dict</em>) – Nominal/mean values for the parameters</p></li>
+<li><p><strong>errlo</strong> (<em>dict</em>) – Size of lower error</p></li>
+<li><p><strong>errhi</strong> (<em>dict</em>) – Size of upper error</p></li>
+<li><p><strong>corr</strong> (<em>list</em><em> | </em><em>np.ndarray</em>) – Correlation matrix</p></li>
+<li><p><strong>constants</strong> (<em>dict</em><em>, </em><em>optional</em>) – Dictinoary of parameters that are set constant - for specific use-cases with fluctuate
+e.g. in case want to set a particular WC to some non-zero value for all fluctations. In
+principle FF that are not in params should be kept the same so shouldn’t need to
+pass them here.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.set_params_from_configfile">
+<span class="sig-name descname"><span class="pre">set_params_from_configfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inpath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/b2clnu/Predictions/SamplingFluctuate.html#SamplingHelper.set_params_from_configfile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.set_params_from_configfile" title="Link to this definition"></a></dt>
+<dd><p>Set parameters for fluctuation from a json file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>inpath</strong> (<em>str</em>) – Path to json file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="b2clnu.Predictions.SamplingFluctuate.SamplingHelper.set_params_symmetric">
+<span class="sig-name descname"><span class="pre">set_params_symmetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constants</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/b2clnu/Predictions/SamplingFluctuate.html#SamplingHelper.set_params_symmetric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#b2clnu.Predictions.SamplingFluctuate.SamplingHelper.set_params_symmetric" title="Link to this definition"></a></dt>
+<dd><p>Sets parameters necessary for fluctuation, for symmetric gaussian errors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>param_names</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of fluctuated params names, in order as they appear in cov matrix</p></li>
+<li><p><strong>mean</strong> (<em>dict</em>) – Nominal/mean values for the parameters</p></li>
+<li><p><strong>cov</strong> (<em>list</em><em> | </em><em>np.ndarray</em>) – Covariance matrix</p></li>
+<li><p><strong>constants</strong> (<em>dict</em><em>, </em><em>optional</em>) – Dictinoary of parameters that are set constant - for specific use-cases with fluctuate
+e.g. in case want to set a particular WC to some non-zero value for all fluctations. In
+principle FF that are not in params should be kept the same so shouldn’t need to
+pass them here.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="b2clnu.Predictions.SamplingTools.html" class="btn btn-neutral float-left" title="b2clnu.Predictions.SamplingTools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, dvicoben.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
