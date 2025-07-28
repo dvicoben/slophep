@@ -15,7 +15,7 @@ Requirements are listed in `requirements.txt`
 ## Quick
 Ensure you are in a python environment with all requirements in `requirements.txt`, then
 ```
-git clone https://gitlab.cern.ch/dvicoben/bd2dstlnu_angular.git
+git clone https://gitlab.cern.ch/dvicoben/b2clnu.git
 cd bd2dstlnu_angular
 source ./setup.sh
 ```
@@ -24,11 +24,11 @@ The script `setup.sh` simply appends `src/` to the `PYTHONPATH` so that contents
 ## Using pip
 In the python environment of your choice, 
 ```
-git clone https://gitlab.cern.ch/dvicoben/bd2dstlnu_angular.git
-cd bd2dstlnu_angular
+git clone https://gitlab.cern.ch/dvicoben/b2clnu.git
+cd b2clnu
 pip install -e .
 ```
-which should install the package (`bd2dstlnu`) and the required dependencies.
+which should install the package (`b2clnu`) and the required dependencies.
 
 
 # Usage

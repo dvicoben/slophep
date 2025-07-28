@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import json
-from bd2dstlnu.utils import setPlotParams
+from b2clnu.utils import setPlotParams
 
 def readres(inpath: str, label: str = None):
     with open(inpath) as f:

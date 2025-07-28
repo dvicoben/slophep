@@ -9,11 +9,11 @@ NOTE: Simplified set-up here assumes no correlations between bin yields
 import numpy as np
 import matplotlib.pyplot as plt
 import uncertainties as uncert
-from bd2dstlnu.Fitting.PDFCoefSimple import PDFAngularCoef
+from b2clnu.Fitting.PDFCoefSimple import PDFAngularCoef
 
-from bd2dstlnu.Predictions.Observables.BToDstObs import BToDstEllNuPrediction
-from bd2dstlnu.Predictions.FormFactorsBToV.BToDstFF import BLPR
-from bd2dstlnu.Predictions.BToDstMathTools import calc_norm_j
+from b2clnu.Predictions.Observables import BToDstEllNuPrediction
+from b2clnu.Predictions.FormFactorsBToV.BToDstFF import BLPR
+from b2clnu.Predictions.BToDstMathTools import calc_norm_j
 import json
 
 def makeJfitres(res, cov, order):

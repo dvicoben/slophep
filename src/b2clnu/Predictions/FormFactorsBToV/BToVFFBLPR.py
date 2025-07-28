@@ -1,6 +1,6 @@
 from math import sqrt
 import numpy as np
-from bd2dstlnu.Predictions.FormFactorsBToV import FormFactorBToV
+from b2clnu.Predictions.FormFactorsBToV import FormFactorBToV
 from flavio.physics.bdecays.formfactors import hqet
 from flavio.physics.bdecays.formfactors.b_v.cln import h_to_A
 # from bd2dstlnu.Predictions.BToDstMathTools import h_to_A

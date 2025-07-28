@@ -1,5 +1,5 @@
-from bd2dstlnu.Predictions.Observables.BToDstObs import BToDstEllNuPrediction
-from bd2dstlnu.Predictions.FormFactorsBToV import BToDstFF
+from b2clnu.Predictions.Observables import BToDstEllNuPrediction
+from b2clnu.Predictions.FormFactorsBToV import BToDstFF
 
 
 obs_cln = BToDstEllNuPrediction("mu", "mu", BToDstFF.CLN)

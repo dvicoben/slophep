@@ -1,4 +1,4 @@
-from bd2dstlnu.Predictions.FormFactorsBToV import FormFactorBToV
+from b2clnu.Predictions.FormFactorsBToV import FormFactorBToV
 from math import sqrt
 
 

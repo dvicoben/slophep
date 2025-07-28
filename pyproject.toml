@@ -1,10 +1,10 @@
 [project]
-name = "bd2dstlnu"
+name = "b2clnu"
 version = "0.0.1"
 authors = [
     {name="David Vico Benet", email="david.vico.benet@cern.ch"}
 ]
-description = "Package for Bd2DstEllNu Predictions"
+description = "Package for b2clnu Predictions"
 readme = "README.md"
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://gitlab.cern.ch/dvicoben/bd2dstlnu_angular"
+Homepage = "https://gitlab.cern.ch/dvicoben/b2clnu"
 
 [build-system]
 requires = [

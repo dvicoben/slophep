@@ -1,6 +1,6 @@
-from bd2dstlnu.Predictions.Observables.BToDstObs import BToDstEllNuPrediction
-from bd2dstlnu.utils import setPlotParams
-from bd2dstlnu.Predictions.FormFactorsBToV import BToDstFF
+from b2clnu.Predictions.Observables import BToDstEllNuPrediction
+from b2clnu.utils import setPlotParams
+from b2clnu.Predictions.FormFactorsBToV import BToDstFF
 
 setPlotParams()
 

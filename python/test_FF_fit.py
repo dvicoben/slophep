@@ -8,12 +8,10 @@ NOTE: At the moment fits are quite slow as:
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
-import uncertainties as uncert
 from iminuit import Minuit
 
-from bd2dstlnu.Predictions.Observables.BToDstObs import BToDstEllNuPrediction
-from bd2dstlnu.Predictions.FormFactorsBToV.BToDstFF import BGL
+from b2clnu.Predictions.Observables import BToDstEllNuPrediction
+from b2clnu.Predictions.FormFactorsBToV.BToDstFF import BGL
 
 obs = BToDstEllNuPrediction("mu", "mu", BGL)
 ff_gen = { # https://arxiv.org/pdf/1707.09509 (Third column in table V)

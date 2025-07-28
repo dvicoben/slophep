@@ -2,8 +2,8 @@ from math import sqrt
 import numpy as np
 import matplotlib.pyplot as plt
 
-from bd2dstlnu.Predictions.FormFactorsBToV import FormFactorBToV
-from bd2dstlnu.Predictions import BToDstMathTools as mt
+from b2clnu.Predictions.FormFactorsBToV import FormFactorBToV
+from b2clnu.Predictions import BToDstMathTools as mt
 
 import flavio
 from flavio.physics.running import running

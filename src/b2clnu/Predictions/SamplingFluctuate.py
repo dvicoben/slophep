@@ -1,6 +1,6 @@
 import numpy as np
 import json
-from bd2dstlnu.Predictions.SamplingTools import bifurcated_gaussian_sampler
+from b2clnu.Predictions.SamplingTools import bifurcated_gaussian_sampler
 
 class SamplingHelper:
     def __init__(self, obs):
