@@ -16,7 +16,7 @@ Requirements are listed in `requirements.txt`
 Ensure you are in a python environment with all requirements in `requirements.txt`, then
 ```
 git clone https://gitlab.cern.ch/dvicoben/b2clnu.git
-cd bd2dstlnu_angular
+cd b2clnu
 source ./setup.sh
 ```
 The script `setup.sh` simply appends `src/` to the `PYTHONPATH` so that contents therein will be found when running scripts. You will need to `source ./setup.sh` whenever you start a new terminal session.
@@ -40,7 +40,24 @@ which should install the package (`b2clnu`) and the required dependencies.
 - There are some preliminary scripts for fits (largely illustrative), `python/test_coef_fit.py` and `python/test_FF_fit.py`. Currently working on more optimised fitting interface.
 - Access (available) documentation in `docs/build/html`, open `index.html` in your preferred browser.
 
-# Implemented FF Schemes
+# Available FF Schemes
+### $B \to D^*$
+- CLN
+- BGL
+- BLPR
+- BSZ
+- HPQCD
+
+### $B_s \to D_s^*$ (in development)
+In development, not yet available!
+
+Implementation in most cases is the same as $B \to D^*$ but with the appropiate meson masses.
+- CLN
+- BGL
+- BLPR
+- HPQCD
+
+## FF Implementation Details
 
 | FF Scheme | Implementation | Notes | Refs. |
 |-----------|----------------|-------|-------|
