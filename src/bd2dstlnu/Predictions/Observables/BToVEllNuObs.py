@@ -2,7 +2,7 @@ from math import sqrt
 import numpy as np
 import matplotlib.pyplot as plt
 
-from bd2dstlnu.Predictions.FormFactorsBToDst import FormFactor
+from bd2dstlnu.Predictions.FormFactorsBToV import FormFactorBToV
 from bd2dstlnu.Predictions import BToDstMathTools as mt
 
 import flavio
@@ -19,7 +19,7 @@ class BToVEllNuPrediction:
                  qiqj: str,
                  lep: str,
                  nu: str,
-                 FF: FormFactor,
+                 FF: FormFactorBToV,
                  ffargs: list = [],
                  par: dict = None,
                  scale: float = 4.8,
@@ -36,7 +36,7 @@ class BToVEllNuPrediction:
             self._par = par
         self._scale: float = scale
 
-        self._FF: FormFactor = FF(par, scale, *ffargs)
+        self._FF: FormFactorBToV = FF(par, scale, *ffargs)
         self.obslist = ['1s', '1c', '2s', '2c', '6s', '6c', 3, 4, 5, 7, 8, 9]
 
     @property
@@ -81,7 +81,7 @@ class BToVEllNuPrediction:
         """Wilson coefficient object"""
         return self._wc_obj
     @property
-    def FF(self) -> FormFactor: 
+    def FF(self) -> FormFactorBToV: 
         """Form factors"""
         return self._FF
 
