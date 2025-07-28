@@ -24,13 +24,13 @@ obs_bsz.set_wc(wcoeffs)
 
 # Fluctuate at particular value of q2
 obs_hpqcd_fluct = SamplingHelper(obs_hpqcd)
-fconfig_hpqcd = "data/FF_HPQCD_COV_arXiv230403137.json"
+fconfig_hpqcd = "data/BToDstFF_HPQCD_COV_arXiv230403137.json"
 obs_hpqcd_fluct.set_params_from_configfile(fconfig_hpqcd)
 obs_hpqcd_fluct.fluctuate(Nfluct)
 jerr_hpqcd = obs_hpqcd_fluct.get_error("J", [5.0])
 
 obs_bsz_fluct = SamplingHelper(obs_bsz)
-fconfig_bsz = "data/FF_BSZ_COV_arXiv181100983.json"
+fconfig_bsz = "data/BToDstFF_BSZ_COV_arXiv181100983.json"
 obs_bsz_fluct.set_params_from_configfile(fconfig_bsz)
 obs_bsz_fluct.fluctuate(Nfluct)
 jerr_bsz = obs_bsz_fluct.get_error("J", [5.0])

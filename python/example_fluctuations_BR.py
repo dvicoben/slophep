@@ -13,7 +13,7 @@ Nfluct = 5000
 obs_hpqcd_mu = BToDstEllNuPrediction("mu", "mu", BToDstFF.HPQCD)
 obs_hpqcd_tau = BToDstEllNuPrediction("tau", "tau", BToDstFF.HPQCD)
 
-fconfig_hpqcd = "data/FF_HPQCD_COV_arXiv230403137.json"
+fconfig_hpqcd = "data/BToDstFF_HPQCD_COV_arXiv230403137.json"
 obs_hpqcd_mu_fluct = SamplingHelper(obs_hpqcd_mu)
 obs_hpqcd_mu_fluct.set_params_from_configfile(fconfig_hpqcd)
 obs_hpqcd_mu_fluct.fluctuate(Nfluct)
