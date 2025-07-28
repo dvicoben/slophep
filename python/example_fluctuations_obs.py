@@ -1,6 +1,6 @@
 from bd2dstlnu.Predictions.Observables.BToDstObs import BToDstEllNuPrediction
 from bd2dstlnu.Predictions.SamplingFluctuate import SamplingHelper
-from bd2dstlnu.Predictions.FormFactorsBToDst import HPQCD, BSZ
+from bd2dstlnu.Predictions.FormFactorsBToV.BToDstFF import HPQCD, BSZ
 
 from bd2dstlnu.utils import setPlotParams
 import numpy as np
@@ -103,10 +103,10 @@ setPlotParams()
 
 hpqcd_ff_res = get_spectrum_dict(qsq, ff_hpqcd, "get_ff", ff_hpqcd_fluct)
 bsz_ff_res = get_spectrum_dict(qsq, ff_bsz, "get_ff", ff_bsz_fluct)
-plot_spectrum_dict(qsq, [ielem for ielem in hpqcd_ff_res], 
+plot_spectrum_dict(qsq, ["A0", "A1", "A12", "V", "T1", "T2", "T23"], 
                    [hpqcd_ff_res, bsz_ff_res], 
                    ["HPQCD arXiv:2304.03137", "BSZ arXiv:1811.00983"],
-                   [r"$A_0$", r"$A_1$", r"$A_2$", r"$V$", r"$T_1$", r"$T_2$", r"$T_{23}$", r"$A_{12}$"])
+                   [r"$A_0$", r"$A_1$", r"$A_{12}$", r"$V$", r"$T_1$", r"$T_2$", r"$T_{23}$"])
 
 hpqcd_J_res = get_spectrum_dict(qsq, obs_hpqcd, "J", obs_hpqcd_fluct)
 bsz_J_res = get_spectrum_dict(qsq, obs_bsz, "J", obs_bsz_fluct)

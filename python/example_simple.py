@@ -1,8 +1,8 @@
 from bd2dstlnu.Predictions.Observables.BToDstObs import BToDstEllNuPrediction
-from bd2dstlnu.Predictions.FormFactorsBToDst import CLN
+from bd2dstlnu.Predictions.FormFactorsBToV import BToDstFF
 
 
-obs_cln = BToDstEllNuPrediction("mu", "mu", CLN)
+obs_cln = BToDstEllNuPrediction("mu", "mu", BToDstFF.CLN)
 print(obs_cln.FF.ffpar) # print the default FF parameters
 ffdefaults = obs_cln.FF.ffpar.copy()
 
