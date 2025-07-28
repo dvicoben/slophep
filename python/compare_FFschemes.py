@@ -1,4 +1,4 @@
-from bd2dstlnu.Predictions.BToDstObs import BToDstEllNuPrediction
+from bd2dstlnu.Predictions.Observables.BToDstObs import BToDstEllNuPrediction
 from bd2dstlnu.utils import setPlotParams
 from bd2dstlnu.Predictions.FormFactorsBToDst import CLN, BGL, BLPR, BSZ, HPQCD
 

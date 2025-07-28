@@ -8,23 +8,25 @@ from bd2dstlnu.Predictions import BToDstMathTools as mt
 import flavio
 from flavio.physics.running import running
 from flavio.physics.bdecays.wilsoncoefficients import get_wceff_fccc
-import flavio.physics.bdecays.bvlnu as bvlnu
 from flavio.physics.bdecays import angular
+from flavio.physics import ckm
 
 
-
-class BToDstEllNuPrediction:
+class BToVEllNuPrediction:
     def __init__(self, 
-                 lep: str, 
+                 B: str,
+                 V: str,
+                 qiqj: str,
+                 lep: str,
                  nu: str,
                  FF: FormFactor,
                  ffargs: list = [],
                  par: dict = None,
                  scale: float = 4.8,
                  ):
-        self._B: str = "B0"
-        self._V: str = "D*+"
-        self._qiqj: str = "bc"
+        self._B: str = B
+        self._V: str = V
+        self._qiqj: str = qiqj
         self._lep: str = lep
         self._nu: str = nu
         self._wc_obj: flavio.WilsonCoefficients = flavio.WilsonCoefficients()
@@ -151,6 +153,27 @@ class BToDstEllNuPrediction:
         """
         self._FF.set_ff_fromlist(ffparams)
 
+    def _prefactor(self, q2: float) -> float:
+        """Return the prefactor including constants and CKM elements. Direct reimplementation
+        of flavio equivalent in https://flav-io.github.io/apidoc/flavio/physics/bdecays/bvlnu.m.html
+        """
+        GF = self.par['GF']
+        # scale = self.scale
+        ml = self.par['m_'+self.lep]
+        # mB = self.par['m_'+self._B]
+        # mV = self.par['m_'+self._V]
+        # tauB = self.par['tau_'+self._B]
+        # laB  = lambda_K(mB**2, mV**2, q2)
+        # laGa = lambda_K(q2, ml**2, 0.)
+        qi_qj = self._qiqj
+        if qi_qj == 'bu':
+            Vij = ckm.get_ckm(self.par)[0,2] # V_{ub} for b->u transitions
+        if qi_qj == 'bc':
+            Vij = ckm.get_ckm(self.par)[1,2] # V_{cb} for b->c transitions
+        if q2 <= ml**2:
+            return 0
+        return 4*GF/sqrt(2)*Vij
+
     def get_angularcoeff(self, q2: float) -> dict:
         """Calculate angular coefficients, flavio is used for these calculations, method essentially follows
         flavio.physics.bdecays.bvlnu._get_angularcoeff from https://flav-io.github.io/apidoc/flavio/physics/bdecays/bvlnu.m.html
@@ -174,7 +197,7 @@ class BToDstEllNuPrediction:
         mB = self.par['m_'+self._B]
         mV = self.par['m_'+self._V]
         mlight = running.get_mc(self.par, self.scale) # this is needed for scalar contributions
-        N = bvlnu.prefactor(q2, self.par, self._B, self._V, self.lep)
+        N = self._prefactor(q2)
         ff = self.FF.get_ff(q2)
         h = angular.helicity_amps_v(q2, mB, mV, mb, mlight, ml, 0, ff, wc, N)
         J = angular.angularcoeffs_general_v(h, q2, mB, mV, mb, mlight, ml, 0)
@@ -512,11 +535,6 @@ class BToDstEllNuPrediction:
                         j_bins[iq2] = dJ
                         J_vec = np.array([dJ[iobs] for iobs in h_angintegrals["order"]])
                         h[iq2][ictx][ictl][ichi] = 9/(32*np.pi)*np.dot(J_vec, h_angintegrals[ictx][ictl][ichi])
-                        # This is inefficient as recomputes angular integrals for every calculation
-                        # h[iq2][ictx][ictl][ichi] = self.PDF_bin(q2_edges[iq2], q2_edges[iq2+1],
-                        #                                         ctx_edges[ictx], ctx_edges[ictx+1],
-                        #                                         ctl_edges[ictl], ctl_edges[ictl+1],
-                        #                                         chi_edges[ichi], chi_edges[ichi+1])
                         
         return h, [q2_edges, ctx_edges, ctl_edges, chi_edges], h_angintegrals, j_bins
 
@@ -614,4 +632,3 @@ class BToDstEllNuPrediction:
 
         ax.plot(q2, obs_vals, label=label if label else f"{obs} {self.FF.name}")
         return fig, ax
-

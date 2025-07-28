@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import uncertainties as uncert
 from iminuit import Minuit
 
-from bd2dstlnu.Predictions.BToDstObs import BToDstEllNuPrediction
+from bd2dstlnu.Predictions.Observables.BToDstObs import BToDstEllNuPrediction
 from bd2dstlnu.Predictions.FormFactorsBToDst import BGL
 
 obs = BToDstEllNuPrediction("mu", "mu", BGL)
