@@ -99,8 +99,8 @@ class HPQCD_BToV(FormFactorBToV):
             "a^0_hT3", "a^1_hT3", "a^2_hT3", "a^3_hT3", "a^4_hT3", "a^5_hT3", "a^6_hT3", "a^7_hT3", "a^8_hT3", "a^9_hT3", "a^10_hT3"
         ]
         self._internalparams = {
-            "Mb"  : self.par['m_B0'], # 5.27964
-            "Mc"  : self.par['m_D*+'], # 2.010
+            "Mb"  : self.par[f'm_{self.B}'],
+            "Mc"  : self.par[f'm_{self.V}'],
             "lambdaqcdphys" : 0.5,
             "LambdaChi" : 1.0,
             "maxorder" : 10,
@@ -111,6 +111,20 @@ class HPQCD_BToV(FormFactorBToV):
         }
 
     def get_ff_h(self, q2: float, A: str) -> float:
+        """Calculates h form factors according to https://arxiv.org/abs/2304.03137.
+        Directly lifted from the ancillary files (LOAD_FIT.py)
+
+        Parameters
+        ----------
+        q2 : float
+        A : str
+            FF to compute, hA1, hA2, hA3, hV, hT1, hT2, hT3
+
+        Returns
+        -------
+        float
+            FF computed at q2 value
+        """
         value = 0
         w = self.w(q2)
         for order in range(int(self.internalparams["maxorder"]+1)):
