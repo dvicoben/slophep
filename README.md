@@ -1,4 +1,4 @@
-# b2clnu
+# Semi-leptonic Observable Predictions (SLOP)
 
 Repository for $B^0 \to D^*\ell\nu$ angular analysis predicitons. Plan to expand to generalised $b\to c\ell\nu$ prediction tool.
 
@@ -15,8 +15,8 @@ Requirements are listed in `requirements.txt`
 ## Quick
 Ensure you are in a python environment with all requirements in `requirements.txt`, then
 ```
-git clone https://gitlab.cern.ch/dvicoben/b2clnu.git
-cd b2clnu
+git clone https://gitlab.cern.ch/dvicoben/slophep.git
+cd slophep
 source ./setup.sh
 ```
 The script `setup.sh` simply appends `src/` to the `PYTHONPATH` so that contents therein will be found when running scripts. You will need to `source ./setup.sh` whenever you start a new terminal session.
@@ -24,11 +24,11 @@ The script `setup.sh` simply appends `src/` to the `PYTHONPATH` so that contents
 ## Using pip
 In the python environment of your choice, 
 ```
-git clone https://gitlab.cern.ch/dvicoben/b2clnu.git
-cd b2clnu
+git clone https://gitlab.cern.ch/dvicoben/slophep.git
+cd slophep
 pip install -e .
 ```
-which should install the package (`b2clnu`) and the required dependencies.
+which should install the package (`slophep`) and the required dependencies.
 
 
 # Usage
@@ -85,6 +85,7 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
 
 # TO DO
 ### Priority:
+- [ ] Work on `PyPI` release
 - [ ] Consider moving error handling to `gvar` rather than sampling of Gaussian? 
     - Moving to `gvar` could be problematic for non-gaussian errors - would need to consider how to deal with this.
     - In some tests for $B_s \to D_s^*$, obtained larger contours for the low $q^2$ in form factors compared to [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) and what is obtained with LOAD_FIT.py. 
@@ -94,6 +95,12 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
 - [ ] Add ability to get $\langle J_i \rangle$ for a given binning scheme (as in the PDF methods) rather than need to get each individual bin
 - [ ] Maybe move FF param defaults to some `.json` files? In particular for HPQCD this is a lot of parameters - largely a cosmetic thing and would like to keep everything readable from the class so maybe not
 - [ ] Add 1D projections / decay rate in each angle in addtion to $q^2$
+- [ ] Additional decay modes
+    - [x] $B_s \to D_s^*$ - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which is not accommodated.
+    - [ ] $B \to D$
+    - [ ] Other $B \to V\ell\nu$ and $B \to P\ell\nu$
+    - [ ] $\Lambda_b$ modes
+    - [ ] $b \to u$ modes
 
 ### Others
 - [ ] Add some `cite` attirbute to return bib entries for each FF scheme - make bookkeeping easier for end-user
@@ -104,12 +111,6 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
     - BGJvD (see [eos implementation](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgjvd2019-impl.hh), [arXiv:1912.09335](https://arxiv.org/abs/1912.09335)) and BLPRXP (see [hammer implementation](https://gitlab.com/mpapucci/Hammer/-/blob/v1.4.1/src/FormFactors/BLPRXP/FFBtoDstarBLPRXPVar.cc), [arXiv:2206.11281](https://arxiv.org/abs/2206.11281)), are BLPR-like schemes with subsubleading contributions ($\mathcal{O}(\varepsilon_c^2)$, $\mathcal{O}(\varepsilon_b\varepsilon_c)$)
     - `flavio` default FF is also BLPR-like and likely corresponds to [arXiv:1908.09398](https://arxiv.org/abs/1908.09398) - may be similar to EOS's BGJvD
 - [ ] Add ability to switch angular conventions
-
-### Wishlist limited by development time
-- [ ] Additional decay modes
-    - [x] $B_s \to D_s^*$ - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which is not accommodated.
-    - [ ] $B \to D$
-    - [ ] Other $B \to V\ell\nu$
 
 ### Done
 - [x] Clean-up FF implementations 

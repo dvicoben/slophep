@@ -1,6 +1,6 @@
 from math import sqrt
 import numpy as np
-from b2clnu.Predictions.FormFactorsBToV import FormFactorBToV
+from slophep.Predictions.FormFactorsBToV import FormFactorBToV
 
 
 class BSZ_BToV(FormFactorBToV):

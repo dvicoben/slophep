@@ -1,8 +1,8 @@
-from b2clnu.Predictions.Observables import BToDstEllNuPrediction
-from b2clnu.Predictions.SamplingFluctuate import SamplingHelper
-from b2clnu.Predictions.FormFactorsBToV.BToDstFF import HPQCD, BSZ
+from slophep.Predictions.Observables import BToDstEllNuPrediction
+from slophep.Predictions.SamplingFluctuate import SamplingHelper
+from slophep.Predictions.FormFactorsBToV.BToDstFF import HPQCD, BSZ
 
-from b2clnu.utils import setPlotParams
+from slophep.utils import setPlotParams
 import numpy as np
 import matplotlib.pyplot as plt
 

@@ -1,5 +1,5 @@
-from b2clnu.Predictions.FormFactorsBToV import FormFactorBToV
-from b2clnu.Predictions.Observables import BToVEllNuPrediction
+from slophep.Predictions.FormFactorsBToV import FormFactorBToV
+from slophep.Predictions.Observables import BToVEllNuPrediction
 
 class BToDstEllNuPrediction(BToVEllNuPrediction):
     def __init__(self, 

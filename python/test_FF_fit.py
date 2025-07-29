@@ -10,8 +10,8 @@ NOTE: At the moment fits are quite slow as:
 import numpy as np
 from iminuit import Minuit
 
-from b2clnu.Predictions.Observables import BToDstEllNuPrediction
-from b2clnu.Predictions.FormFactorsBToV.BToDstFF import BGL
+from slophep.Predictions.Observables import BToDstEllNuPrediction
+from slophep.Predictions.FormFactorsBToV.BToDstFF import BGL
 
 obs = BToDstEllNuPrediction("mu", "mu", BGL)
 ff_gen = { # https://arxiv.org/pdf/1707.09509 (Third column in table V)

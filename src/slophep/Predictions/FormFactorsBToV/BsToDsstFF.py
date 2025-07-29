@@ -1,7 +1,7 @@
-from b2clnu.Predictions.FormFactorsBToV.BToVFFBLPR import BLPR_BToV
-from b2clnu.Predictions.FormFactorsBToV.BToVFFCLN import CLN_BToV
-from b2clnu.Predictions.FormFactorsBToV.BToVFFBGL import BGL_BToV
-from b2clnu.Predictions.FormFactorsBToV.BToVFFHPQCD import HPQCD_BToV
+from slophep.Predictions.FormFactorsBToV.BToVFFBLPR import BLPR_BToV
+from slophep.Predictions.FormFactorsBToV.BToVFFCLN import CLN_BToV
+from slophep.Predictions.FormFactorsBToV.BToVFFBGL import BGL_BToV
+from slophep.Predictions.FormFactorsBToV.BToVFFHPQCD import HPQCD_BToV
 
 
 

@@ -11,9 +11,9 @@ import matplotlib.pyplot as plt
 import uncertainties as uncert
 from iminuit import Minuit
 
-from b2clnu.Predictions.Observables import BToDstEllNuPrediction
-from b2clnu.Predictions.FormFactorsBToV.BToDstFF import BLPR
-from b2clnu.Predictions.BToVMathTools import calc_norm_j
+from slophep.Predictions.Observables import BToDstEllNuPrediction
+from slophep.Predictions.FormFactorsBToV.BToDstFF import BLPR
+from slophep.Predictions.BToVMathTools import calc_norm_j
 
 
 def makeJfitres(res, cov, order):
