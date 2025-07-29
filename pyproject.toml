@@ -1,10 +1,10 @@
 [project]
-name = "b2clnu"
+name = "slophep"
 version = "0.0.1"
 authors = [
     {name="David Vico Benet", email="david.vico.benet@cern.ch"}
 ]
-description = "Package for b2clnu Predictions"
+description = "Package for semi-leptonic observable predictions"
 readme = "README.md"
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://gitlab.cern.ch/dvicoben/b2clnu"
+Homepage = "https://gitlab.cern.ch/dvicoben/slophep"
 
 [build-system]
 requires = [

@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>slophep.Predictions.FormFactorsBToV.BToVFFBGL &mdash; bd2dstlnu v0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=2fea6348"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            bd2dstlnu
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html">slophep.Predictions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">bd2dstlnu</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">slophep.Predictions.FormFactorsBToV.BToVFFBGL</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for slophep.Predictions.FormFactorsBToV.BToVFFBGL</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">slophep.Predictions.FormFactorsBToV</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormFactorBToV</span>
+
+<div class="viewcode-block" id="BGL_BToV">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToV.html#slophep.Predictions.FormFactorsBToV.BGL_BToV">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BGL_BToV</span><span class="p">(</span><span class="n">FormFactorBToV</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">V</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BGL&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ffpar</span> <span class="o">=</span> <span class="p">{</span> <span class="c1"># https://arxiv.org/pdf/1707.09509 (Third column in table V)</span>
+            <span class="s2">&quot;a0&quot;</span> <span class="p">:</span> <span class="mf">0.0209</span><span class="p">,</span>
+            <span class="s2">&quot;a1&quot;</span> <span class="p">:</span> <span class="mf">0.33</span><span class="p">,</span>
+            <span class="s2">&quot;a2&quot;</span> <span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span>
+            <span class="s2">&quot;b0&quot;</span> <span class="p">:</span> <span class="mf">0.01218</span><span class="p">,</span>
+            <span class="s2">&quot;b1&quot;</span> <span class="p">:</span> <span class="mf">0.046</span><span class="p">,</span>
+            <span class="s2">&quot;b2&quot;</span> <span class="p">:</span> <span class="mf">0.48</span><span class="p">,</span>
+            <span class="s2">&quot;c1&quot;</span> <span class="p">:</span> <span class="mf">0.0063</span><span class="p">,</span>
+            <span class="s2">&quot;c2&quot;</span> <span class="p">:</span> <span class="mf">0.062</span><span class="p">,</span>
+            <span class="s2">&quot;d0&quot;</span> <span class="p">:</span> <span class="mf">0.0595</span><span class="p">,</span>
+            <span class="s2">&quot;d1&quot;</span> <span class="p">:</span> <span class="o">-</span><span class="mf">0.218</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a0&quot;</span><span class="p">,</span> <span class="s2">&quot;a1&quot;</span><span class="p">,</span> <span class="s2">&quot;a2&quot;</span><span class="p">,</span> <span class="s2">&quot;b0&quot;</span><span class="p">,</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span> <span class="s2">&quot;b2&quot;</span><span class="p">,</span> <span class="s2">&quot;c1&quot;</span><span class="p">,</span> <span class="s2">&quot;c2&quot;</span><span class="p">,</span> <span class="s2">&quot;d0&quot;</span><span class="p">,</span> <span class="s2">&quot;d1&quot;</span><span class="p">]</span>
+        <span class="n">internalparams</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;nmax&quot;</span>       <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="s2">&quot;Vcb&quot;</span>        <span class="p">:</span> <span class="mf">41.5e-3</span><span class="p">,</span>                       
+            <span class="s2">&quot;chim&quot;</span>       <span class="p">:</span> <span class="mf">3.068e-4</span><span class="p">,</span> <span class="c1"># GeV^-2</span>
+            <span class="s2">&quot;chip&quot;</span>       <span class="p">:</span> <span class="mf">5.280e-4</span><span class="p">,</span> <span class="c1"># GeV^-2</span>
+            <span class="s2">&quot;chimL&quot;</span>      <span class="p">:</span> <span class="mf">2.466e-3</span><span class="p">,</span>
+            <span class="s2">&quot;nc&quot;</span>         <span class="p">:</span> <span class="mf">2.6</span><span class="p">,</span>
+            <span class="s2">&quot;etaEW&quot;</span>      <span class="p">:</span> <span class="mf">1.0066</span><span class="p">,</span>
+            <span class="s2">&quot;BcStatesf&quot;</span>  <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">6.730</span><span class="p">,</span><span class="mf">6.736</span><span class="p">,</span><span class="mf">7.135</span><span class="p">,</span><span class="mf">7.142</span><span class="p">]),</span>  <span class="c1"># GeV</span>
+            <span class="s2">&quot;BcStatesg&quot;</span>  <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">6.337</span><span class="p">,</span><span class="mf">6.899</span><span class="p">,</span><span class="mf">7.012</span><span class="p">,</span><span class="mf">7.280</span><span class="p">]),</span>  <span class="c1"># GeV</span>
+            <span class="s2">&quot;BcStatesP1&quot;</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">6.275</span><span class="p">,</span><span class="mf">6.842</span><span class="p">,</span><span class="mf">7.250</span><span class="p">])</span>         <span class="c1"># GeV</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internalparams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">internalparams</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WARNING: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> Tensor FFs are 0, SM only parameterisation&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BGL_BToV.blaschke">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToV.html#slophep.Predictions.FormFactorsBToV.BGL_BToV.blaschke">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">blaschke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BcStates</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">Mb</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">Mc</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate Blaschke factor P(t) from B_c-type resonances&quot;&quot;&quot;</span>
+        <span class="n">Mb2</span> <span class="o">=</span> <span class="n">Mb</span><span class="o">*</span><span class="n">Mb</span>
+        <span class="n">tp</span> <span class="o">=</span> <span class="p">(</span><span class="n">Mb</span><span class="o">+</span><span class="n">Mc</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Mb</span><span class="o">+</span><span class="n">Mc</span><span class="p">)</span><span class="o">/</span><span class="n">Mb2</span>
+        <span class="n">tm</span> <span class="o">=</span> <span class="p">(</span><span class="n">Mb</span><span class="o">-</span><span class="n">Mc</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Mb</span><span class="o">-</span><span class="n">Mc</span><span class="p">)</span><span class="o">/</span><span class="n">Mb2</span>
+        <span class="n">sqtptm</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">tp</span> <span class="o">-</span> <span class="n">tm</span><span class="p">)</span>
+        <span class="n">sqtpBc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">tp</span><span class="o">-</span><span class="p">(</span><span class="n">BcStates</span><span class="o">/</span><span class="n">Mb</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">parr</span> <span class="o">=</span> <span class="p">((</span><span class="n">z</span><span class="o">-</span><span class="p">((</span><span class="n">sqtpBc</span><span class="o">-</span><span class="n">sqtptm</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">sqtpBc</span><span class="o">+</span><span class="n">sqtptm</span><span class="p">)))</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">z</span><span class="o">*</span><span class="p">((</span><span class="n">sqtpBc</span><span class="o">-</span><span class="n">sqtptm</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">sqtpBc</span><span class="o">+</span><span class="n">sqtptm</span><span class="p">))))</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">parr</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="BGL_BToV.get_ff">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToV.html#slophep.Predictions.FormFactorsBToV.BGL_BToV.get_ff">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_ff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates BGL form factors (SM only) as in hammer https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBGL.cc?ref_type=tags</span>
+
+<span class="sd">        Could alternatively consider EOS implementation</span>
+<span class="sd">        https://github.com/eos/eos/blob/master/eos/form-factors/parametric-bgl1997.hh</span>
+<span class="sd">        https://github.com/eos/eos/blob/master/eos/form-factors/parametric-bgl1997-impl.hh</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2 : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            FF dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">Mb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mb&quot;</span><span class="p">]</span>
+        <span class="n">Mc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mc&quot;</span><span class="p">]</span>
+        <span class="n">Mb2</span> <span class="o">=</span> <span class="n">Mb</span><span class="o">*</span><span class="n">Mb</span>
+        <span class="n">Mb3</span> <span class="o">=</span> <span class="n">Mb2</span><span class="o">*</span><span class="n">Mb</span>
+        <span class="n">rC</span> <span class="o">=</span> <span class="n">Mc</span><span class="o">/</span><span class="n">Mb</span>
+        <span class="n">rC2</span> <span class="o">=</span> <span class="n">rC</span><span class="o">*</span><span class="n">rC</span>
+        <span class="n">sqrC</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rC</span><span class="p">)</span>
+
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">((</span><span class="n">Mb</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Mc</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">q2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">Mb</span> <span class="o">*</span> <span class="n">Mc</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">zpow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">z</span><span class="o">**</span><span class="n">ik</span> <span class="k">for</span> <span class="n">ik</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;nmax&quot;</span><span class="p">]))])</span>
+
+        <span class="n">ag</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;a0&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;a1&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;a2&quot;</span><span class="p">]])</span>
+        <span class="n">af</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;b0&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;b1&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;b2&quot;</span><span class="p">]])</span>
+        <span class="n">aF1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;c1&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;c2&quot;</span><span class="p">]])</span>
+        <span class="n">aP1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;d0&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;d1&quot;</span><span class="p">]])</span>
+
+        <span class="n">chim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;chim&quot;</span><span class="p">]</span>    <span class="c1"># GeV^-2</span>
+        <span class="n">chip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;chip&quot;</span><span class="p">]</span>    <span class="c1"># GeV^-2</span>
+        <span class="n">chimL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;chimL&quot;</span><span class="p">]</span>
+        <span class="n">nc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;nc&quot;</span><span class="p">]</span>
+
+        <span class="c1"># Blaschke factors</span>
+        <span class="n">Pf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">blaschke</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;BcStatesf&quot;</span><span class="p">],</span> <span class="n">z</span><span class="p">,</span> <span class="n">Mb</span><span class="p">,</span> <span class="n">Mc</span><span class="p">)</span>
+        <span class="n">PF1</span> <span class="o">=</span> <span class="n">Pf</span>
+        <span class="n">Pg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">blaschke</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;BcStatesg&quot;</span><span class="p">],</span> <span class="n">z</span><span class="p">,</span> <span class="n">Mb</span><span class="p">,</span> <span class="n">Mc</span><span class="p">)</span>
+        <span class="n">PP1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">blaschke</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;BcStatesP1&quot;</span><span class="p">],</span> <span class="n">z</span><span class="p">,</span> <span class="n">Mb</span><span class="p">,</span> <span class="n">Mc</span><span class="p">)</span>
+        
+        <span class="n">phig</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="mf">256.</span><span class="o">*</span><span class="n">nc</span><span class="o">/</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">chip</span><span class="p">))</span><span class="o">*</span><span class="p">((</span><span class="n">rC2</span><span class="o">*</span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">z</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">z</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">))</span><span class="o">/</span><span class="nb">pow</span><span class="p">(((</span><span class="mi">1</span><span class="o">+</span><span class="n">rC</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">z</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrC</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">z</span><span class="p">)),</span><span class="mi">4</span><span class="p">))</span>
+        <span class="n">phif</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">Mb2</span><span class="p">)</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">16.</span><span class="o">*</span><span class="n">nc</span><span class="o">/</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">chim</span><span class="p">))</span><span class="o">*</span><span class="p">((</span><span class="n">rC</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">z</span><span class="p">,</span><span class="mf">1.5</span><span class="p">))</span><span class="o">/</span><span class="nb">pow</span><span class="p">(((</span><span class="mi">1</span><span class="o">+</span><span class="n">rC</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">z</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrC</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">z</span><span class="p">)),</span><span class="mi">4</span><span class="p">))</span>
+        <span class="n">phiF1</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">Mb3</span><span class="p">)</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">8.</span><span class="o">*</span><span class="n">nc</span><span class="o">/</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">chim</span><span class="p">))</span><span class="o">*</span><span class="p">((</span><span class="n">rC</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">z</span><span class="p">,</span><span class="mf">2.5</span><span class="p">))</span><span class="o">/</span><span class="nb">pow</span><span class="p">(((</span><span class="mi">1</span><span class="o">+</span><span class="n">rC</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">z</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrC</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">z</span><span class="p">)),</span><span class="mi">5</span><span class="p">))</span>
+        <span class="n">phif_0</span> <span class="o">=</span> <span class="mf">4.</span><span class="o">*</span><span class="n">rC</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">nc</span><span class="o">/</span><span class="n">chim</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">Mb2</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrC</span><span class="o">+</span><span class="n">rC</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+        <span class="n">phiF1_0</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span><span class="o">*</span><span class="n">rC</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">nc</span><span class="o">/</span><span class="n">chim</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">Mb3</span><span class="o">*</span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrC</span><span class="o">+</span><span class="n">rC</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+        <span class="n">phiP1</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">nc</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">chimL</span><span class="p">))</span><span class="o">*</span><span class="p">((</span><span class="mf">8.</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">rC2</span><span class="o">*</span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">z</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">z</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)))</span><span class="o">/</span><span class="nb">pow</span><span class="p">(((</span><span class="mi">1</span><span class="o">+</span><span class="n">rC</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">z</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrC</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">z</span><span class="p">)),</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ag</span><span class="p">,</span> <span class="n">zpow</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">ag</span><span class="p">)])</span><span class="o">/</span><span class="p">(</span><span class="n">Pg</span><span class="o">*</span><span class="n">phig</span><span class="p">)</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">af</span><span class="p">,</span> <span class="n">zpow</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">af</span><span class="p">)])</span><span class="o">/</span><span class="p">(</span><span class="n">Pf</span><span class="o">*</span><span class="n">phif</span><span class="p">)</span>
+        <span class="n">F1</span> <span class="o">=</span> <span class="p">(</span><span class="n">af</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">Mb</span><span class="o">-</span><span class="n">Mc</span><span class="p">)</span><span class="o">*</span><span class="n">phiF1_0</span><span class="o">/</span><span class="n">phif_0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">aF1</span><span class="p">,</span> <span class="n">zpow</span><span class="p">[</span><span class="mi">1</span><span class="p">:(</span><span class="mi">1</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">aF1</span><span class="p">))]))</span><span class="o">/</span><span class="p">(</span><span class="n">PF1</span><span class="o">*</span><span class="n">phiF1</span><span class="p">)</span>
+        <span class="c1"># P1 = np.dot(aP1, zpow[:len(aP1)])*(sqrC/((1+rC)*PP1*phiP1))</span>
+        <span class="n">F2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">aP1</span><span class="p">,</span> <span class="n">zpow</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">aP1</span><span class="p">)])</span><span class="o">/</span><span class="p">(</span><span class="n">PP1</span><span class="o">*</span><span class="n">phiP1</span><span class="p">)</span>
+
+        <span class="c1"># Relations taken from https://github.com/eos/eos/blob/master/eos/form-factors/parametric-bgl1997-impl.hh lines 196 onwards</span>
+        <span class="n">ff</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;V&quot;</span>  <span class="p">:</span> <span class="p">(</span><span class="n">Mb</span> <span class="o">+</span> <span class="n">Mc</span><span class="p">)</span> <span class="o">*</span> <span class="n">g</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
+            <span class="s2">&quot;A0&quot;</span> <span class="p">:</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">F2</span><span class="p">,</span>
+            <span class="s2">&quot;A1&quot;</span> <span class="p">:</span> <span class="n">f</span><span class="o">/</span><span class="p">(</span><span class="n">Mb</span> <span class="o">+</span> <span class="n">Mc</span><span class="p">),</span>
+            <span class="s2">&quot;A12&quot;</span> <span class="p">:</span> <span class="n">F1</span><span class="o">/</span><span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="n">Mb</span><span class="o">*</span><span class="n">Mc</span><span class="p">),</span>
+            <span class="s2">&quot;T1&quot;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;T2&quot;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;T3&quot;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;T23&quot;</span> <span class="p">:</span> <span class="mf">0.0</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">ff</span></div>
+</div>
+
+        <span class="c1"># return {k : ff[k]/(self.internalparams[&quot;etaEW&quot;]*self.internalparams[&quot;Vcb&quot;]) for k in ff} # This is what hammer seems to do</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, dvicoben.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

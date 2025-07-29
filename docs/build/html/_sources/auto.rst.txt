@@ -1,15 +1,15 @@
-b2clnu.Predictions
-==================
+slophep.Predictions
+===================
 
 .. autosummary::
     :toctree: autodoc
     :template: custom-module-template.rst
     :recursive:
 
-    b2clnu.Predictions.Observables
-    b2clnu.Predictions.FormFactorsBToV
-    b2clnu.Predictions.FormFactorsBToV.BToDstFF
-    b2clnu.Predictions.FormFactorsBToV.BsToDsstFF
-    b2clnu.Predictions.BToVMathTools
-    b2clnu.Predictions.SamplingTools
-    b2clnu.Predictions.SamplingFluctuate
+    slophep.Predictions.Observables
+    slophep.Predictions.FormFactorsBToV
+    slophep.Predictions.FormFactorsBToV.BToDstFF
+    slophep.Predictions.FormFactorsBToV.BsToDsstFF
+    slophep.Predictions.BToVMathTools
+    slophep.Predictions.SamplingTools
+    slophep.Predictions.SamplingFluctuate

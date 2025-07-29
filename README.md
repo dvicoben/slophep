@@ -1,4 +1,4 @@
-# Semi-leptonic Observable Predictions (SLOP)
+# Semi-Leptonic Observable Predictions (SLOP)
 
 Repository for $B^0 \to D^*\ell\nu$ angular analysis predicitons. Plan to expand to generalised $b\to c\ell\nu$ prediction tool.
 
