@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>b2clnu.Predictions.BToDstMathTools &mdash; bd2dstlnu v0.0.1 documentation</title>
+  <title>b2clnu.Predictions.BToVMathTools &mdash; bd2dstlnu v0.0.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
 
@@ -59,7 +59,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">b2clnu.Predictions.BToDstMathTools</li>
+      <li class="breadcrumb-item active">b2clnu.Predictions.BToVMathTools</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -68,11 +68,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for b2clnu.Predictions.BToDstMathTools</h1><div class="highlight"><pre>
+  <h1>Source code for b2clnu.Predictions.BToVMathTools</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <div class="viewcode-block" id="h_to_A">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.h_to_A">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.h_to_A">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">h_to_A</span><span class="p">(</span><span class="n">mB</span><span class="p">,</span> <span class="n">mV</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">q2</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert HQET form factors to the basis used by flavio.</span>
 
@@ -108,14 +108,14 @@
 
 
 <div class="viewcode-block" id="calc_norm_j">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.calc_norm_j">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.calc_norm_j">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calc_norm_j</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
     <span class="n">norm</span> <span class="o">=</span> <span class="mi">3</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;1s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;1c&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;2s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;2c&#39;</span><span class="p">])</span>
     <span class="k">return</span> <span class="p">{</span><span class="n">k</span> <span class="p">:</span> <span class="n">j</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">j</span><span class="p">}</span></div>
 
 
 <div class="viewcode-block" id="calc_unaing_obs">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.calc_unaing_obs">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.calc_unaing_obs">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calc_unaing_obs</span><span class="p">(</span><span class="n">j</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="n">norm</span> <span class="o">=</span> <span class="mi">3</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;1s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;1c&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;2s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">j</span><span class="p">[</span><span class="s1">&#39;2c&#39;</span><span class="p">])</span>
     <span class="n">obs</span> <span class="o">=</span> <span class="p">{</span>
@@ -129,112 +129,112 @@
 
 
 <div class="viewcode-block" id="int_one">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_one">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_one">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_one</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Integral of 1&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">vmax</span> <span class="o">-</span> <span class="n">vmin</span></div>
 
 
 <div class="viewcode-block" id="int_x">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_x">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_x">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_x</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of x&quot;</span>
     <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">vmax</span><span class="o">*</span><span class="n">vmax</span> <span class="o">-</span> <span class="n">vmin</span><span class="o">*</span><span class="n">vmin</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="int_x2">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_x2">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_x2">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_x2</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of x^2&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mf">3.</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">vmax</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="n">vmin</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="int_x3">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_x3">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_x3">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_x3</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of x^3&quot;</span>
     <span class="k">return</span> <span class="mf">0.25</span><span class="o">*</span><span class="p">(</span><span class="n">vmax</span><span class="o">**</span><span class="mi">4</span> <span class="o">-</span> <span class="n">vmin</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="int_x4">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_x4">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_x4">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_x4</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of x^4&quot;</span>
     <span class="k">return</span> <span class="mf">0.2</span><span class="o">*</span><span class="p">(</span><span class="n">vmax</span><span class="o">**</span><span class="mi">5</span> <span class="o">-</span> <span class="n">vmin</span><span class="o">**</span><span class="mi">5</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="int_1minxsq">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_1minxsq">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_1minxsq">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_1minxsq</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of 1-x^2&quot;</span>
     <span class="k">return</span> <span class="n">int_one</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span> <span class="o">-</span> <span class="n">int_x2</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="int_1plusxsq">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_1plusxsq">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_1plusxsq">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_1plusxsq</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of 1+x^2&quot;</span>
     <span class="k">return</span> <span class="n">int_one</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span> <span class="o">+</span> <span class="n">int_x2</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="int_xsqmin1">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_xsqmin1">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_xsqmin1">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_xsqmin1</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of x^2-1&quot;</span>
     <span class="k">return</span> <span class="n">int_x2</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span> <span class="o">-</span> <span class="n">int_one</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="int_2xsqmin1">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_2xsqmin1">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_2xsqmin1">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_2xsqmin1</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of 2x^2-1&quot;</span>
     <span class="k">return</span> <span class="mf">2.</span><span class="o">*</span><span class="n">int_x2</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span> <span class="o">-</span> <span class="n">int_one</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="int_3xsqmin1">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_3xsqmin1">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_3xsqmin1">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_3xsqmin1</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of 3x^2-1&quot;</span>
     <span class="k">return</span> <span class="mf">3.</span><span class="o">*</span><span class="n">int_x2</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span> <span class="o">-</span> <span class="n">int_one</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="int_3xsqmin1sq">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_3xsqmin1sq">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_3xsqmin1sq">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_3xsqmin1sq</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of (3x^2-1)^2&quot;</span>
     <span class="k">return</span> <span class="mf">9.</span><span class="o">*</span><span class="n">int_x4</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span> <span class="o">-</span> <span class="mf">6.</span><span class="o">*</span><span class="n">int_x2</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">),</span> <span class="n">int_one</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="int_cosx">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_cosx">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_cosx">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_cosx</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of cosx&quot;</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">vmax</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">vmin</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="int_sinx">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_sinx">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_sinx">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_sinx</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of sinx&quot;</span>
     <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vmax</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vmin</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="int_cos2x">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_cos2x">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_cos2x">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_cos2x</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of cos(2x)&quot;</span>
     <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">vmax</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">vmin</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="int_sin2x">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_sin2x">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_sin2x">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_sin2x</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of sin(2x)&quot;</span>
     <span class="k">return</span> <span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">vmax</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">vmin</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="int_xsqrt1minx">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_xsqrt1minx">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_xsqrt1minx">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_xsqrt1minx</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of x*sqrt(1-x)&quot;</span>
     <span class="n">a</span><span class="o">=</span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">vmin</span><span class="p">,</span><span class="mf">1.5</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">vmin</span><span class="p">)</span>
@@ -243,7 +243,7 @@
 
 
 <div class="viewcode-block" id="int_2xsqrt1minxsq">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_2xsqrt1minxsq">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_2xsqrt1minxsq">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_2xsqrt1minxsq</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of 2x*sqrt(1-x^2)&quot;</span>
     <span class="n">a</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">vmin</span><span class="o">*</span><span class="n">vmin</span><span class="p">,</span><span class="mf">1.5</span><span class="p">)</span>
@@ -252,14 +252,14 @@
 
 
 <div class="viewcode-block" id="int_sinxwrtcosx">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_sinxwrtcosx">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_sinxwrtcosx">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_sinxwrtcosx</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of sinx w.r.t. cosx&quot;</span>
     <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">vmax</span><span class="o">*</span><span class="n">vmax</span><span class="p">)</span><span class="o">*</span><span class="n">vmax</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">vmax</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">vmin</span><span class="o">*</span><span class="n">vmin</span><span class="p">)</span><span class="o">*</span><span class="n">vmin</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">vmin</span><span class="p">)))</span></div>
 
 
 <div class="viewcode-block" id="int_xn">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.int_xn">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.int_xn">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">int_xn</span><span class="p">(</span><span class="n">vmin</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vmax</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s2">&quot;Integral of x^n&quot;</span>
     <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">vmax</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mf">1.0</span><span class="p">)</span><span class="o">-</span><span class="nb">pow</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mf">1.0</span><span class="p">)</span></div>
@@ -268,7 +268,7 @@
 
 
 <div class="viewcode-block" id="angularPDF">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.angularPDF">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.angularPDF">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">angularPDF</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ctl</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">chi</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="n">ctx2</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">*</span><span class="n">ctx</span>
     <span class="n">stx2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">ctx2</span>
@@ -310,7 +310,7 @@
 
 
 <div class="viewcode-block" id="angular_integrals">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.angular_integrals">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.angular_integrals">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">angular_integrals</span><span class="p">(</span>
         <span class="n">ctx_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ctx_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">ctl_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ctl_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -334,7 +334,7 @@
 
 
 <div class="viewcode-block" id="angularPDF_binned">
-<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToDstMathTools.html#b2clnu.Predictions.BToDstMathTools.angularPDF_binned">[docs]</a>
+<a class="viewcode-back" href="../../../autodoc/b2clnu.Predictions.BToVMathTools.html#b2clnu.Predictions.BToVMathTools.angularPDF_binned">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">angularPDF_binned</span><span class="p">(</span>
         <span class="n">ctx_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ctx_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">ctl_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ctl_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
