@@ -120,11 +120,11 @@ class SamplingHelper:
         with open(inpath) as f:
             config = json.load(f)
         constants = config["Constants"] if "Constants" in config else {}
-        if config["Type"] == "Asymmetric":
+        if "Type" in config and config["Type"] == "Asymmetric":
             self.set_params_asymmetric(config["Params"], config["Mean"],
                                        config["Error_lo"], config["Error_hi"], config["Corr"],
                                        constants)
-        elif config["Type"] == "Symmetric":
+        elif "Type" in config and config["Type"] == "Symmetric":
             self.set_params_symmetric(config["Params"], config["Mean"], config["Cov"], constants)
         else:
             print("Specified error type is not Asymmetric or Symmetric, assuming Symmetric")
