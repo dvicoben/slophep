@@ -49,7 +49,7 @@ which should install the package (`b2clnu`) and the required dependencies.
 - HPQCD
 
 ### $B_s \to D_s^*$ (in development)
-In development, not yet available!
+Largely untested! Make sure to check before use that desired/expected values are produced correctly.
 
 Implementation in most cases is the same as $B \to D^*$ but with the appropiate meson masses.
 - CLN
@@ -87,7 +87,7 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
 
 ### Wishlist limited by development time
 - [ ] Additional decay modes
-    - [ ] $B_s \to D_s^*$ - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which likely would not be accomodated
+    - [x] $B_s \to D_s^*$ - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which is not accommodated.
     - [ ] $B \to D$
     - [ ] Other $B \to V\ell\nu$
 
