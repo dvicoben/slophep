@@ -43,19 +43,15 @@ which should install the package (`b2clnu`) and the required dependencies.
 
 # About the Predictions
 For $B \to V$ predictions, the decomposition of the decay rate used throughout, up to a normalisation constant, follows the form:
+
 $$\frac{\mathrm{d}\Gamma}{\mathrm{d}q^2 \mathrm{d}\cos\theta_V \mathrm{d}\cos\theta_\ell \mathrm{d}\chi} 
 \propto \frac{9}{32\pi} \Bigg[ 
 J_{1c}\cos^2\theta_D + J_{1s}\sin^2\theta_D
-\\
-+\left(J_{2c}\cos^2\theta_D + J_{2s}\sin^2\theta_D \right)\cos 2\theta_\ell
-\\
-+\left(J_{6c}\cos^2\theta_D + J_{6s}\cos^2\theta_D \right)\cos\theta_\ell
-\\
-+\left(J_3\cos 2\chi + J_9 \sin 2\chi \right)\sin^2\theta_\ell \sin^2\theta_D
-\\
-+\left(J_4 \cos\chi + J_8\sin\chi\right)\sin 2\theta_\ell \sin 2\theta_D
-\\
-+ \left(J_5 \cos\chi + J_7 \sin\chi \right) \sin\theta_\ell \sin 2\theta_D
+\\ +\left(J_{2c}\cos^2\theta_D + J_{2s}\sin^2\theta_D \right)\cos 2\theta_\ell
+\\ +\left(J_{6c}\cos^2\theta_D + J_{6s}\cos^2\theta_D \right)\cos\theta_\ell
+\\ +\left(J_3\cos 2\chi + J_9 \sin 2\chi \right)\sin^2\theta_\ell \sin^2\theta_D
+\\ +\left(J_4 \cos\chi + J_8\sin\chi\right)\sin 2\theta_\ell \sin 2\theta_D
+\\ + \left(J_5 \cos\chi + J_7 \sin\chi \right) \sin\theta_\ell \sin 2\theta_D
 \Bigg]$$
 
 
