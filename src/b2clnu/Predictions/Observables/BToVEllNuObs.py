@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from b2clnu.Predictions.FormFactorsBToV import FormFactorBToV
-from b2clnu.Predictions import BToDstMathTools as mt
+from b2clnu.Predictions import BToVMathTools as mt
 
 import flavio
 from flavio.physics.running import running
