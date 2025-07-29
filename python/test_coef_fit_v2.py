@@ -13,7 +13,7 @@ from b2clnu.Fitting.PDFCoefSimple import PDFAngularCoef
 
 from b2clnu.Predictions.Observables import BToDstEllNuPrediction
 from b2clnu.Predictions.FormFactorsBToV.BToDstFF import BLPR
-from b2clnu.Predictions.BToDstMathTools import calc_norm_j
+from b2clnu.Predictions.BToVMathTools import calc_norm_j
 import json
 
 def makeJfitres(res, cov, order):

@@ -5,7 +5,7 @@ from b2clnu.Predictions.FormFactorsBToV.BToVFFBLPR import BLPR_BToV
 from b2clnu.Predictions.FormFactorsBToV.BToVFFBSZ import BSZ_BToV
 from b2clnu.Predictions.FormFactorsBToV.BToVFFHPQCD import HPQCD_BToV
 import b2clnu.Predictions.FormFactorsBToV.BToDstFF as BToDstFF
-import b2clnu.Predictions.FormFactorsBToV.BToDstFF as BsToDsstFF
+import b2clnu.Predictions.FormFactorsBToV.BsToDsstFF as BsToDsstFF
 
 
 __all__ = ["FormFactorBToV", 

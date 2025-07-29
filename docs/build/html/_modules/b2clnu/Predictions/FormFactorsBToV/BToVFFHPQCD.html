@@ -172,8 +172,8 @@
             <span class="s2">&quot;a^0_hT3&quot;</span><span class="p">,</span> <span class="s2">&quot;a^1_hT3&quot;</span><span class="p">,</span> <span class="s2">&quot;a^2_hT3&quot;</span><span class="p">,</span> <span class="s2">&quot;a^3_hT3&quot;</span><span class="p">,</span> <span class="s2">&quot;a^4_hT3&quot;</span><span class="p">,</span> <span class="s2">&quot;a^5_hT3&quot;</span><span class="p">,</span> <span class="s2">&quot;a^6_hT3&quot;</span><span class="p">,</span> <span class="s2">&quot;a^7_hT3&quot;</span><span class="p">,</span> <span class="s2">&quot;a^8_hT3&quot;</span><span class="p">,</span> <span class="s2">&quot;a^9_hT3&quot;</span><span class="p">,</span> <span class="s2">&quot;a^10_hT3&quot;</span>
         <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_internalparams</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;Mb&quot;</span>  <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_B0&#39;</span><span class="p">],</span> <span class="c1"># 5.27964</span>
-            <span class="s2">&quot;Mc&quot;</span>  <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_D*+&#39;</span><span class="p">],</span> <span class="c1"># 2.010</span>
+            <span class="s2">&quot;Mb&quot;</span>  <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;m_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">B</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;Mc&quot;</span>  <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;m_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">],</span>
             <span class="s2">&quot;lambdaqcdphys&quot;</span> <span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
             <span class="s2">&quot;LambdaChi&quot;</span> <span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
             <span class="s2">&quot;maxorder&quot;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
@@ -186,6 +186,20 @@
 <div class="viewcode-block" id="HPQCD_BToV.get_ff_h">
 <a class="viewcode-back" href="../../../../autodoc/b2clnu.Predictions.FormFactorsBToV.html#b2clnu.Predictions.FormFactorsBToV.HPQCD_BToV.get_ff_h">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_ff_h</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">A</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates h form factors according to https://arxiv.org/abs/2304.03137.</span>
+<span class="sd">        Directly lifted from the ancillary files (LOAD_FIT.py)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2 : float</span>
+<span class="sd">        A : str</span>
+<span class="sd">            FF to compute, hA1, hA2, hA3, hV, hT1, hT2, hT3</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            FF computed at q2 value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;maxorder&quot;</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)):</span>

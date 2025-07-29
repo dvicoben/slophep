@@ -99,8 +99,8 @@ class HPQCD_BToV(FormFactorBToV):
             "a^0_hT3", "a^1_hT3", "a^2_hT3", "a^3_hT3", "a^4_hT3", "a^5_hT3", "a^6_hT3", "a^7_hT3", "a^8_hT3", "a^9_hT3", "a^10_hT3"
         ]
         self._internalparams = {
-            "Mb"  : self.par['m_B0'], # 5.27964
-            "Mc"  : self.par['m_D*+'], # 2.010
+            "Mb"  : self.par[f'm_{self.B}'],
+            "Mc"  : self.par[f'm_{self.V}'],
             "lambdaqcdphys" : 0.5,
             "LambdaChi" : 1.0,
             "maxorder" : 10,
@@ -110,7 +110,21 @@ class HPQCD_BToV(FormFactorBToV):
             "fpi" : 0.130
         }
 
-    def get_ff_h(self, q2: float, A: str) -> float:
+    def _get_ff_h(self, q2: float, A: str) -> float:
+        """Calculates h form factors according to https://arxiv.org/abs/2304.03137.
+        Directly lifted from the ancillary files (LOAD_FIT.py)
+
+        Parameters
+        ----------
+        q2 : float
+        A : str
+            FF to compute, hA1, hA2, hA3, hV, hT1, hT2, hT3
+
+        Returns
+        -------
+        float
+            FF computed at q2 value
+        """
         value = 0
         w = self.w(q2)
         for order in range(int(self.internalparams["maxorder"]+1)):
@@ -143,14 +157,14 @@ class HPQCD_BToV(FormFactorBToV):
         mV = self.internalparams["Mc"]
         r=mV/mB
         w = self.w(q2)
-        hA1b=self.get_ff_h(q2, 'hA1')
-        hA2b=self.get_ff_h(q2,'hA2')
-        hA3b=self.get_ff_h(q2,'hA3')
-        hVb =self.get_ff_h(q2,'hV')
+        hA1b=self._get_ff_h(q2, 'hA1')
+        hA2b=self._get_ff_h(q2,'hA2')
+        hA3b=self._get_ff_h(q2,'hA3')
+        hVb =self._get_ff_h(q2,'hV')
         
-        hT1b=self.get_ff_h(q2,'hT1')
-        hT2b=self.get_ff_h(q2,'hT2')
-        hT3b=self.get_ff_h(q2,'hT3')
+        hT1b=self._get_ff_h(q2,'hT1')
+        hT2b=self._get_ff_h(q2,'hT2')
+        hT3b=self._get_ff_h(q2,'hT3')
 
         A0 = ((1.0+w)*hA1b+(r*w-1.0)*hA2b+(r-w)*hA3b)/(2.0*sqrt(r))
         A1 = hA1b*(1.0+w)*sqrt(r)/(1.0+r)

@@ -10,6 +10,6 @@ b2clnu.Predictions
     b2clnu.Predictions.FormFactorsBToV
     b2clnu.Predictions.FormFactorsBToV.BToDstFF
     b2clnu.Predictions.FormFactorsBToV.BsToDsstFF
-    b2clnu.Predictions.BToDstMathTools
+    b2clnu.Predictions.BToVMathTools
     b2clnu.Predictions.SamplingTools
     b2clnu.Predictions.SamplingFluctuate

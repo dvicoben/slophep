@@ -189,7 +189,7 @@ class SamplingHelper:
         if return_all:
             return res
 
-        # Beware this breaking if the entires in the dictionary are not numeric
+        # Beware this breaking if the entries in the dictionary are not numeric
         if type(res[0]) == dict:
             merged_res = {k: np.sort([d.get(k) for d in res])
                           for k in res[0]} #set().union(*res)
@@ -204,7 +204,7 @@ class SamplingHelper:
         try:
             tmp = int(res[0])
             res = np.sort(res)
-            return (res[int(len(res)*0.5*cl)], res[int(len(res)*(1-0.5*cl))])
+            return (res[int(len(res)*0.5*alpha)], res[int(len(res)*(1-0.5*alpha))])
         except:
             print("Fluctuations requested don't have support for anything other than return_all, returning all")
             return res

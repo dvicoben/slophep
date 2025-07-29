@@ -40,7 +40,26 @@ which should install the package (`b2clnu`) and the required dependencies.
 - There are some preliminary scripts for fits (largely illustrative), `python/test_coef_fit.py` and `python/test_FF_fit.py`. Currently working on more optimised fitting interface.
 - Access (available) documentation in `docs/build/html`, open `index.html` in your preferred browser.
 
-# Available FF Schemes
+
+# About the Predictions
+For $B \to V$ predictions, the decomposition of the decay rate used throughout, up to a normalisation constant, follows the form:
+$$\frac{\mathrm{d}\Gamma}{\mathrm{d}q^2 \mathrm{d}\cos\theta_V \mathrm{d}\cos\theta_\ell \mathrm{d}\chi} 
+\propto \frac{9}{32\pi} \Bigg[ 
+J_{1c}\cos^2\theta_D + J_{1s}\sin^2\theta_D
+\\
++\left(J_{2c}\cos^2\theta_D + J_{2s}\sin^2\theta_D \right)\cos 2\theta_\ell
+\\
++\left(J_{6c}\cos^2\theta_D + J_{6s}\cos^2\theta_D \right)\cos\theta_\ell
+\\
++\left(J_3\cos 2\chi + J_9 \sin 2\chi \right)\sin^2\theta_\ell \sin^2\theta_D
+\\
++\left(J_4 \cos\chi + J_8\sin\chi\right)\sin 2\theta_\ell \sin 2\theta_D
+\\
++ \left(J_5 \cos\chi + J_7 \sin\chi \right) \sin\theta_\ell \sin 2\theta_D
+\Bigg]$$
+
+
+## Available FF Schemes
 ### $B \to D^*$
 - CLN
 - BGL
@@ -48,8 +67,8 @@ which should install the package (`b2clnu`) and the required dependencies.
 - BSZ
 - HPQCD
 
-### $B_s \to D_s^*$ (in development)
-In development, not yet available!
+### $B_s \to D_s^*$ (needs testing)
+Largely untested! Make sure to check before use that desired/expected values are produced correctly.
 
 Implementation in most cases is the same as $B \to D^*$ but with the appropiate meson masses.
 - CLN
@@ -70,6 +89,11 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
 
 # TO DO
 ### Priority:
+- [ ] Consider moving error handling to `gvar` rather than sampling of Gaussian? 
+    - Moving to `gvar` could be problematic for non-gaussian errors - would need to consider how to deal with this.
+    - In some tests for $B_s \to D_s^*$, obtained larger contours for the low $q^2$ in form factors compared to [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) and what is obtained with LOAD_FIT.py. 
+    - Even sampling directly from `gvar` (loading the `pydat` and using `gvar.sample`) produces errors different to those resulting from `gvar` arithmetic
+    - The issues does not seem to be computation of the FFs since central values seem fine - need to cross-check directly by calculating similar fluctuations using functions in `LOAD_FIT.py`.
 - [ ] Homogenise nomenclature of FF parameters for parameterisations with polynomial expansions
 - [ ] Add ability to get $\langle J_i \rangle$ for a given binning scheme (as in the PDF methods) rather than need to get each individual bin
 - [ ] Maybe move FF param defaults to some `.json` files? In particular for HPQCD this is a lot of parameters - largely a cosmetic thing and would like to keep everything readable from the class so maybe not
@@ -87,7 +111,7 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
 
 ### Wishlist limited by development time
 - [ ] Additional decay modes
-    - [ ] $B_s \to D_s^*$ - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which likely would not be accomodated
+    - [x] $B_s \to D_s^*$ - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which is not accommodated.
     - [ ] $B \to D$
     - [ ] Other $B \to V\ell\nu$
 
