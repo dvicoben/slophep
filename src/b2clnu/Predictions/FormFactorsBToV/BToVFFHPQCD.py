@@ -110,7 +110,7 @@ class HPQCD_BToV(FormFactorBToV):
             "fpi" : 0.130
         }
 
-    def get_ff_h(self, q2: float, A: str) -> float:
+    def _get_ff_h(self, q2: float, A: str) -> float:
         """Calculates h form factors according to https://arxiv.org/abs/2304.03137.
         Directly lifted from the ancillary files (LOAD_FIT.py)
 
@@ -157,14 +157,14 @@ class HPQCD_BToV(FormFactorBToV):
         mV = self.internalparams["Mc"]
         r=mV/mB
         w = self.w(q2)
-        hA1b=self.get_ff_h(q2, 'hA1')
-        hA2b=self.get_ff_h(q2,'hA2')
-        hA3b=self.get_ff_h(q2,'hA3')
-        hVb =self.get_ff_h(q2,'hV')
+        hA1b=self._get_ff_h(q2, 'hA1')
+        hA2b=self._get_ff_h(q2,'hA2')
+        hA3b=self._get_ff_h(q2,'hA3')
+        hVb =self._get_ff_h(q2,'hV')
         
-        hT1b=self.get_ff_h(q2,'hT1')
-        hT2b=self.get_ff_h(q2,'hT2')
-        hT3b=self.get_ff_h(q2,'hT3')
+        hT1b=self._get_ff_h(q2,'hT1')
+        hT2b=self._get_ff_h(q2,'hT2')
+        hT3b=self._get_ff_h(q2,'hT3')
 
         A0 = ((1.0+w)*hA1b+(r*w-1.0)*hA2b+(r-w)*hA3b)/(2.0*sqrt(r))
         A1 = hA1b*(1.0+w)*sqrt(r)/(1.0+r)

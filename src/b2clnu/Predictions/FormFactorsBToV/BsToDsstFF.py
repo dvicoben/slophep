@@ -111,7 +111,7 @@ class HPQCD(HPQCD_BToV):
             "s_a^0_hT3_Mpi^2/Lambda", "s_a^1_hT3_Mpi^2/Lambda", "s_a^2_hT3_Mpi^2/Lambda", "s_a^3_hT3_Mpi^2/Lambda", "s_a^4_hT3_Mpi^2/Lambda", "s_a^5_hT3_Mpi^2/Lambda", "s_a^6_hT3_Mpi^2/Lambda", "s_a^7_hT3_Mpi^2/Lambda", "s_a^8_hT3_Mpi^2/Lambda", "s_a^9_hT3_Mpi^2/Lambda", "s_a^10_hT3_Mpi^2/Lambda"
         ])
 
-    def get_ff_h(self, q2: float, A: str) -> float:
+    def _get_ff_h(self, q2: float, A: str) -> float:
         value = 0
         w = self.w(q2)
         mK = self.internalparams["Mk"]

@@ -89,6 +89,9 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
 
 # TO DO
 ### Priority:
+- [ ] Consider moving error handling to `gvar` rather than sampling of Gaussian? 
+    - In some tests for $B_s \to D_s^*$, obtained larger contours for the low $q^2$ in form factors compared to [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) and what is obtained with LOAD_FIT.py. The issues does not seem to be computation of the FFs but it is hard to spot if something is being performed incorrectly in the sampling.
+    - Moving to `gvar` could be problematic for non-gaussian errors - would need to consider how to deal with this.
 - [ ] Homogenise nomenclature of FF parameters for parameterisations with polynomial expansions
 - [ ] Add ability to get $\langle J_i \rangle$ for a given binning scheme (as in the PDF methods) rather than need to get each individual bin
 - [ ] Maybe move FF param defaults to some `.json` files? In particular for HPQCD this is a lot of parameters - largely a cosmetic thing and would like to keep everything readable from the class so maybe not
