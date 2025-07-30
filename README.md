@@ -46,12 +46,12 @@ For $B \to V$ predictions, the decomposition of the decay rate used throughout, 
 
 $$\frac{\mathrm{d}\Gamma}{\mathrm{d}q^2 \mathrm{d}\cos\theta_V \mathrm{d}\cos\theta_\ell \mathrm{d}\chi} 
 \propto \frac{9}{32\pi} \Bigg[ 
-J_{1c}\cos^2\theta_D + J_{1s}\sin^2\theta_D
-\\ +\left(J_{2c}\cos^2\theta_D + J_{2s}\sin^2\theta_D \right)\cos 2\theta_\ell
-\\ +\left(J_{6c}\cos^2\theta_D + J_{6s}\cos^2\theta_D \right)\cos\theta_\ell
-\\ +\left(J_3\cos 2\chi + J_9 \sin 2\chi \right)\sin^2\theta_\ell \sin^2\theta_D
-\\ +\left(J_4 \cos\chi + J_8\sin\chi\right)\sin 2\theta_\ell \sin 2\theta_D
-\\ + \left(J_5 \cos\chi + J_7 \sin\chi \right) \sin\theta_\ell \sin 2\theta_D
+J_{1c}\cos^2\theta_V + J_{1s}\sin^2\theta_V
+\\ +\left(J_{2c}\cos^2\theta_V + J_{2s}\sin^2\theta_V \right)\cos 2\theta_\ell
+\\ +\left(J_{6c}\cos^2\theta_V + J_{6s}\cos^2\theta_V \right)\cos\theta_\ell
+\\ +\left(J_3\cos 2\chi + J_9 \sin 2\chi \right)\sin^2\theta_\ell \sin^2\theta_V
+\\ +\left(J_4 \cos\chi + J_8\sin\chi\right)\sin 2\theta_\ell \sin 2\theta_V
+\\ + \left(J_5 \cos\chi + J_7 \sin\chi \right) \sin\theta_\ell \sin 2\theta_V
 \Bigg]$$
 
 
@@ -96,7 +96,7 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
 - [ ] Maybe move FF param defaults to some `.json` files? In particular for HPQCD this is a lot of parameters - largely a cosmetic thing and would like to keep everything readable from the class so maybe not
 - [ ] Add 1D projections / decay rate in each angle in addtion to $q^2$
 - [ ] Additional decay modes
-    - [x] $B_s \to D_s^*$ - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which is not accommodated.
+    - [x] $B_s \to D_s^*$ - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a dhttps://gitlab.cern.ch/dvicoben/slophepifferent angular decomposition for $D^*\to D\gamma$ which is not accommodated.
     - [ ] $B \to D$
     - [ ] Other $B \to V\ell\nu$ and $B \to P\ell\nu$
     - [ ] $\Lambda_b$ modes
