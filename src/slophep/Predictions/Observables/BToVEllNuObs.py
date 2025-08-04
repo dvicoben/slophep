@@ -615,8 +615,8 @@ class BToVEllNuPrediction:
         ValueError
             For unavailable observable
         """
-        q2max = q2max if q2max else self.q2max
-        q2min = q2min if q2min else self.q2min
+        q2max = q2max if q2max else self.q2max+1e-6
+        q2min = q2min if q2min else self.q2min-1e-6
         q2 = np.linspace(q2min, q2max, 150, endpoint=True)
         obs_vals = []
         # Get the observable in q2
