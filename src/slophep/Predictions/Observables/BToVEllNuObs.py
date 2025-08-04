@@ -204,7 +204,7 @@ class BToVEllNuPrediction:
         ml = self.par['m_'+self.lep]
         mB = self.par['m_'+self._B]
         mV = self.par['m_'+self._V]
-        mlight = running.get_mc(self.par, self.scale) # this is needed for scalar contributions
+        mlight = running.get_mc(self.par, self.scale) if self._qiqj == "bc" else 0.0 # Set mlight = m_u = 0 for up quark "bu"
         N = self._prefactor(q2)
         ff = self.FF.get_ff(q2)
         h = angular.helicity_amps_v(q2, mB, mV, mb, mlight, ml, 0, ff, wc, N)
