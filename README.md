@@ -97,7 +97,7 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
 - [ ] Maybe move FF param defaults to some `.json` files? In particular for HPQCD this is a lot of parameters - largely a cosmetic thing and would like to keep everything readable from the class so maybe not
 - [ ] Add 1D projections / decay rate in each angle in addtion to $q^2$
 - [ ] Additional decay modes
-    - [x] $B_s \to D_s^*$ - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a dhttps://gitlab.cern.ch/dvicoben/slophepifferent angular decomposition for $D^*\to D\gamma$ which is not accommodated.
+    - [x] $B_s \to D_s^*$ - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which is not accommodated.
     - [ ] $B \to D$
     - [ ] Other $B \to V\ell\nu$ and $B \to P\ell\nu$
     - [ ] $\Lambda_b$ modes
