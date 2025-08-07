@@ -12,7 +12,7 @@ class FormFactorBToV:
         
         self._B = B
         self._V = V
-        self._name: str            = "FFBase"
+        self._name: str            = "BToVFFBase"
         self._ffpar: dict          = {}
         self._params: list         = []
         self._internalparams: dict = {
