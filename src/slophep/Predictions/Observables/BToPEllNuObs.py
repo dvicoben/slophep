@@ -204,6 +204,14 @@ class BToPEllNuPrediction:
     def dJ(self, q2: float) -> dict:
         return self.get_angularcoeff(q2)
 
+    def J(self, q2: float) -> float:
+        dJ = self.dJ(q2)
+        dG = 2 * (dJ['a'] + dJ['c']/3.)
+        # Can lead to Nan if dG==0 i.e. outside kinematic range, so:
+        if dG <= 0.0:
+            return {k : 0 for k in dJ}
+        return {k : dJ[k]/dG for k in dJ}
+
     def dGdq2(self, q2: float) -> float:
         """Caclulate q2 distriution
 
@@ -237,3 +245,6 @@ class BToPEllNuPrediction:
             # factor of 1/2 for neutral pi due to pi = (uubar-ddbar)/sqrt(2)
             return 0.5*BR
         return BR
+    
+    def afb(self, q2: float) -> float:
+        return self.J(q2)["b"]
