@@ -284,7 +284,12 @@ class BToVEllNuPrediction:
             dBR/dq2
         """
         dGdq2 = self.dGdq2(q2)
-        return self.par[f"tau_{self._B}"]*dGdq2
+        BR = self.par[f"tau_{self._B}"]*dGdq2
+        if self.V == 'rho0' or self.V == 'omega':
+            # factor of 1/2 for neutral rho due to rho = (uubar-ddbar)/sqrt(2)
+            # and also for omega = (uubar+ddbar)/sqrt(2)
+            return 0.5*BR
+        return BR
 
     def _obsq2Bin(self, obs: str | int, q2min: float, q2max: float) -> float:
         def evalObs(q2):
