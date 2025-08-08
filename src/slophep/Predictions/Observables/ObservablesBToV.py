@@ -24,3 +24,6 @@ class BsToDsstEllNuPrediction(BToVEllNuPrediction):
                  scale: float = 4.8,
                  ):
         super().__init__("Bs", "Ds*", "bc", lep, nu, FF, ffargs, par, scale)
+
+
+
