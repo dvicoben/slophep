@@ -226,6 +226,9 @@ class BToVEllNuPrediction:
         """
         J = self.get_angularcoeff(q2)
         norm =  3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
+        # Can lead to Nan if dG==0 i.e. outside kinematic range, so:
+        if norm <= 0.0:
+            return {k : 0 for k in J}
         return {k : J[k]/norm for k in J}
     
     def dJ(self, q2: float) -> dict:

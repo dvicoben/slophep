@@ -97,7 +97,7 @@ def plot_spectrum_dict(qsq, obslist, res_list, label_list, obs_labels):
 
 # Now lets plot comparisons in the full q2 range
 npoints = 100
-qsq = np.linspace(obs_hpqcd.q2min, obs_hpqcd.q2max, npoints)
+qsq = np.linspace(obs_hpqcd.q2min+1e-6, obs_hpqcd.q2max-1e-6, npoints)
 
 setPlotParams()
 

@@ -50,7 +50,7 @@ def plot_spectrum(qsq, res_list, label_list, obs_label, savepath):
 
 # Now lets plot comparisons in the full q2 range
 npoints = 100
-qsq = np.linspace(obs_hpqcd_mu.q2min, obs_hpqcd_mu.q2max, npoints)
+qsq = np.linspace(obs_hpqcd_mu.q2min+1e-6, obs_hpqcd_mu.q2max-1e-6, npoints)
 
 setPlotParams()
 mu_res = get_spectrum_float(qsq, obs_hpqcd_mu, "dBRdq2", obs_hpqcd_mu_fluct)
