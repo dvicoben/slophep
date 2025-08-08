@@ -1,0 +1,12 @@
+2025-XX-XX --- Version 1.0.0
+    Additions:
+     - General B->P FF classes
+     - General B->P Prediction classes
+     - Added B->D BSZ FF (https://arxiv.org/abs/1811.00983)
+    Changes:
+     - Made general FF base clase to take care of setters - reduce redundancy
+     - Moved WC and FF setters in predictions to a base observable class that is inherited - reduces redundancy
+    Fixes:
+
+2025-08-08 --- Version 0.0.1
+    First release version

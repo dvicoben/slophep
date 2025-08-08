@@ -43,6 +43,11 @@ which should install the package (`slophep`) and the required dependencies.
 
 
 # About the Predictions
+For $B \to P$ predictions, the decomposition of the decay rate, up to normalisation constant, follows the form:
+$$\frac{\mathrm{d}\Gamma}{\mathrm{d}q^2 \mathrm{d}\cos\theta_\ell} \propto
+a(q^2) + b(q^2)\cos\theta_\ell + c(q^2)\cos^2\theta_\ell
+$$
+
 For $B \to V$ predictions, the decomposition of the decay rate used throughout, up to a normalisation constant, follows the form:
 
 $$\frac{\mathrm{d}\Gamma}{\mathrm{d}q^2 \mathrm{d}\cos\theta_V \mathrm{d}\cos\theta_\ell \mathrm{d}\chi} 
@@ -57,6 +62,9 @@ J_{1c}\cos^2\theta_V + J_{1s}\sin^2\theta_V
 
 
 ## Available FF Schemes
+### $B \to D$
+- BSZ
+
 ### $B \to D^*$
 - CLN
 - BGL
@@ -75,13 +83,13 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
 
 ## FF Implementation Details
 
-| FF Scheme | Implementation | Notes | Refs. |
-|-----------|----------------|-------|-------|
-| CLN       | flavio based   | Tensor FFs are obtained as in flavio, using eqn. 11 in [arXiv:1503.05534](https://arxiv.org/abs/1503.05534). Use with care for BSM predictions. Defaults are set to HAMMER values. | [arXiv:hep-ph/9712417v1](https://arxiv.org/abs/hep-ph/9712417), [arXiv:1203.2654](https://arxiv.org/abs/1203.2654), [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [flavio source](https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/clnexp.py), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarCLN.cc?ref_type=tags)
-| BGL       | Hammer based   | Hammer divides by an additional factor of $\eta_{EW}V_{cb}$. Translation to $V, A_i$ obtained from EOS. Tensor FFs $T_i = 0$, use with care for BSM predictions. Defaults are set from [arXiv:1707.09509](https://arxiv.org/abs/1707.09509). |  [arXiv:hep-ph/9705252](https://arxiv.org/abs/hep-ph/9705252), [arXiv:1707.09509](https://arxiv.org/abs/1707.09509), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBGL.cc?ref_type=tags), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgl1997-impl.hh)|
-| BSZ       | flavio based   | FF from fit to LCSR + zero recoil lattice. Resonances used taken from [arXiv:1811.00983](https://arxiv.org/abs/1811.00983). Should match EOS implementation (`BSZ2015` which is default $B\to D^*$ FF scheme in EOS). Defaults are set to EOS values (see [EOS docs](https://eoshep.org/doc/reference/parameters.html#parameters-in-b-to-v-form-factor-parametrizations)). | [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [arXiv:1811.00983](https://arxiv.org/abs/1811.00983), [flavio source](https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/bsz.py), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bsz2015-impl.hh) |
-| BLPR      | Hammer based   | Correspondence to $V, A_i, T_i$ obtained from Appendix B in [arXiv:1908.09398](https://arxiv.org/abs/1908.09398) / Eqns. 38-39 in [arXiv:1309.0301](https://arxiv.org/abs/1309.0301) and similar parametrisation in eos (see [EOS BGJvD implementation](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgjvd2019-impl.hh)). Defaults are set to HAMMER values. | [arXiv:1703.05330](https://arxiv.org/abs/1703.05330), [arXiv:1908.09398](https://arxiv.org/abs/1908.09398), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBLPR.cc?ref_type=tags) |
-| HPQCD     | From ancillary files in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) | FF from fit to non-zero recoil lattice QCD in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2), as described in Sec. IV B. | [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) |
+| FF Scheme | Notes | Refs. |
+|-----------|-------|-------|
+| CLN       | Implementation reproduces flavio's. Tensor FFs are obtained as in flavio, using eqn. 11 in [arXiv:1503.05534](https://arxiv.org/abs/1503.05534). Use with care for BSM predictions. Defaults are set to HAMMER values. | [arXiv:hep-ph/9712417v1](https://arxiv.org/abs/hep-ph/9712417), [arXiv:1203.2654](https://arxiv.org/abs/1203.2654), [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [flavio source](https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/clnexp.py), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarCLN.cc?ref_type=tags)
+| BGL       | Implementation reproduces Hammer's. Hammer divides by an additional factor of $\eta_{EW}V_{cb}$. Translation to $V, A_i$ obtained from EOS. Tensor FFs $T_i = 0$, use with care for BSM predictions. Defaults are set from [arXiv:1707.09509](https://arxiv.org/abs/1707.09509). |  [arXiv:hep-ph/9705252](https://arxiv.org/abs/hep-ph/9705252), [arXiv:1707.09509](https://arxiv.org/abs/1707.09509), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBGL.cc?ref_type=tags), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgl1997-impl.hh)|
+| BSZ       | Implementation reproduces flavio's. FF from fit to LCSR + zero recoil lattice. Resonances used taken from [arXiv:1811.00983](https://arxiv.org/abs/1811.00983). Should match EOS implementation (`BSZ2015` which is default $B\to D^*$ FF scheme in EOS). Defaults are set to EOS values (see [EOS docs](https://eoshep.org/doc/reference/parameters.html#parameters-in-b-to-v-form-factor-parametrizations)). | [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [arXiv:1811.00983](https://arxiv.org/abs/1811.00983), [flavio source](https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/bsz.py), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bsz2015-impl.hh) |
+| BLPR      | Implementation reproduces hammer's. Correspondence to $V, A_i, T_i$ obtained from Appendix B in [arXiv:1908.09398](https://arxiv.org/abs/1908.09398) / Eqns. 38-39 in [arXiv:1309.0301](https://arxiv.org/abs/1309.0301) and similar parametrisation in eos (see [EOS BGJvD implementation](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgjvd2019-impl.hh)). Defaults are set to HAMMER values. | [arXiv:1703.05330](https://arxiv.org/abs/1703.05330), [arXiv:1908.09398](https://arxiv.org/abs/1908.09398), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBLPR.cc?ref_type=tags) |
+| HPQCD     | Implementation from ancillary files in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). FF from fit to non-zero recoil lattice QCD in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2), as described in Sec. IV B. | [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) |
 
 
 # TO DO
@@ -97,8 +105,8 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
 - [ ] Maybe move FF param defaults to some `.json` files? In particular for HPQCD this is a lot of parameters - largely a cosmetic thing and would like to keep everything readable from the class so maybe not
 - [ ] Add 1D projections / decay rate in each angle in addtion to $q^2$
 - [ ] Additional decay modes
-    - [x] $B_s \to D_s^*$ - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which is not accommodated.
-    - [ ] $B \to D$
+    - [x] $B_s \to D_s^*$ (to be tested) - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which is not accommodated.
+    - [x] $B \to D$ (to be tested)
     - [ ] Other $B \to V\ell\nu$ and $B \to P\ell\nu$
     - [ ] $\Lambda_b$ modes
     - [ ] $b \to u$ modes
@@ -130,5 +138,6 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
     - [x] Common HQET basis $h_{A_i}$
     - [x] Usual BGL FFs $g/f/F_1/F_2$ 
     - [x] Standard CLN $h/R_1/R_2/R_0$
-
+- [x] Moved FF and Prediction setting methods to a base class to inherit in order to reduce redundancy
+- [x] Added $B\to P$ generalised classes
 
