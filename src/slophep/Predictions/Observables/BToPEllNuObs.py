@@ -33,7 +33,7 @@ class BToPEllNuPrediction:
         self._scale: float = scale
 
         self._FF: FormFactorBToP = FF(par, scale, *ffargs)
-        self.obslist = ['1s', '1c', '2s', '2c', '6s', '6c', 3, 4, 5, 7, 8, 9]
+        self.obslist = ['a', 'b', 'c']
 
     @property
     def scale(self) -> float: 
