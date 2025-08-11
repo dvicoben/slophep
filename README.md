@@ -62,8 +62,9 @@ J_{1c}\cos^2\theta_V + J_{1s}\sin^2\theta_V
 
 
 ## Available FF Schemes
-### $B \to D$
+### $B \to D$ (needs testing)
 - BSZ
+- BLPR
 
 ### $B \to D^*$
 - CLN

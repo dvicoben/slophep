@@ -3,6 +3,7 @@
      - General B->P FF classes
      - General B->P Prediction classes
      - Added B->D BSZ FF (https://arxiv.org/abs/1811.00983)
+     - Added B->D BLPR FF (arXiv:1703.05330)
     Changes:
      - CLN changed to have tensor FFs be zero by default, previous behaviour replicated from flavio
        has been moved to new CLN2 class - should make no difference for SM or NP without tensor contributions

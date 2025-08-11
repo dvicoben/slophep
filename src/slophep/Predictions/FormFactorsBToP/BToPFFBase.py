@@ -24,13 +24,13 @@ class FormFactorBToP(FormFactor):
         return self._B
     @property
     def P(self) -> str:
-        """The Charmed Vector meson"""
+        """The Charmed P meson"""
         return self._P
     
     def w(self, q2: float) -> float:
         mB = self.internalparams["Mb"]
-        mV = self.internalparams["Mc"]
-        return (mB**2 + mV**2 - q2) / (2 * mB * mV)
+        mC = self.internalparams["Mc"]
+        return (mB**2 + mC**2 - q2) / (2 * mB * mC)
 
     def get_ff(self, q2: float) -> dict:
         """Calculate form factors at particular q2. To implement in derived class.
