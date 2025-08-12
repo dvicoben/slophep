@@ -6,7 +6,7 @@ class HPQCD_BToV(FormFactorBToV):
     def __init__(self, B: str, V: str, par: dict = None, scale: float = None, *ffargs):
         super().__init__(B, V, par, scale)
         
-        self._name = "HPQCD"
+        self._name = "BToV_HPQCD"
         # From supplementary material in https://arxiv.org/abs/2304.03137v2 
         # This goes up to order 10 in (w-1) for each FF !!
         # Will work on a neater way to store these values ...

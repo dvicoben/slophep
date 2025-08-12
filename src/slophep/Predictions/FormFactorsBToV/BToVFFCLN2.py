@@ -8,7 +8,7 @@ class CLN2_BToV(FormFactorBToV):
     def __init__(self, B: str, V: str, par: dict = None, scale: float = None, *ffargs):
         super().__init__(B, V, par, scale)
         
-        self._name = "CLN"
+        self._name = "BToV_CLN2"
         self._ffpar = {
             "RhoSq" : 1.207,
             "h_A1"  : 0.908,

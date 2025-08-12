@@ -6,7 +6,7 @@ class BGL_BToV(FormFactorBToV):
     def __init__(self, B: str, V: str, par: dict = None, scale: float = None, *ffargs):
         super().__init__(B, V, par, scale)
         
-        self._name = "BGL"
+        self._name = "BToV_BGL"
         self._ffpar = { # https://arxiv.org/pdf/1707.09509 (Third column in table V)
             "a0" : 0.0209,
             "a1" : 0.33,

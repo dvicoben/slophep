@@ -6,10 +6,7 @@ class BSZ_BToP(FormFactorBToP):
     def __init__(self, B: str, P: str, par: dict = None, scale: float = None, *ffargs):
         super().__init__(B, P, par, scale)
 
-        self._name = "BSZ"
-        self._ffpar = {
-
-        }
+        self._name = "BToP_BSZ"
         # Parameters from B->P EOS https://eoshep.org/doc/reference/parameters.html#parameters-in-b-to-p-form-factor-parametrizations
         self._ffpar = {
             "f+_0" : 0.680881482963591,

@@ -10,7 +10,7 @@ class BLPR_BToV(FormFactorBToV):
     def __init__(self, B: str, V: str, par: dict = None, scale: float = None, *ffargs):
         super().__init__(B, V, par, scale)
         
-        self._name = "BLPR"
+        self._name = "BToV_BLPR"
         self._ffpar = {
             "RhoSq" : 1.24,
             "Chi21" : -0.06,
