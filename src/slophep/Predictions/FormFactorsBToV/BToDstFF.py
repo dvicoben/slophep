@@ -1,32 +1,25 @@
-from slophep.Predictions.FormFactorsBToV.BToVFFBLPR import BLPR_BToV
-from slophep.Predictions.FormFactorsBToV.BToVFFCLN import CLN_BToV
-from slophep.Predictions.FormFactorsBToV.BToVFFCLN2 import CLN2_BToV
-from slophep.Predictions.FormFactorsBToV.BToVFFBGL import BGL_BToV
-from slophep.Predictions.FormFactorsBToV.BToVFFBSZ import BSZ_BToV
-from slophep.Predictions.FormFactorsBToV.BToVFFHPQCD import HPQCD_BToV
+import slophep.Predictions.FormFactorsBToV as FFBToV
 
-
-
-class BLPR(BLPR_BToV):
+class BLPR(FFBToV.BLPR_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("B0", "D*+", par, scale, *ffargs)
 
-class CLN(CLN_BToV):
+class CLN(FFBToV.CLN_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("B0", "D*+", par, scale, *ffargs)
 
-class CLN2(CLN2_BToV):
+class CLN2(FFBToV.CLN2_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("B0", "D*+", par, scale, *ffargs)
 
-class BGL(BGL_BToV):
+class BGL(FFBToV.BGL_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("B0", "D*+", par, scale, *ffargs)
 
-class BSZ(BSZ_BToV):
+class BSZ(FFBToV.BSZ_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("B0", "D*+", par, scale, *ffargs)
 
-class HPQCD(HPQCD_BToV):
+class HPQCD(FFBToV.HPQCD_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("B0", "D*+", par, scale, *ffargs)

@@ -111,6 +111,7 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
     - [ ] Other $B \to V\ell\nu$ and $B \to P\ell\nu$
     - [ ] $\Lambda_b$ modes
     - [ ] $b \to u$ modes
+- [ ] MC generator - sampling reject method for MC generation
 
 ### Others
 - [ ] Add some `cite` attirbute to return bib entries for each FF scheme - make bookkeeping easier for end-user
