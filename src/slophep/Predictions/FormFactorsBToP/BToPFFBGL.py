@@ -20,7 +20,7 @@ class BGL_BToP(FormFactorBToP):
         }
         self._params = [
             "f+_0", "f+_1", "f+_2", "f+_3",
-            "f0_1", "f0_2", "f0_2", "f0_3"
+            "f0_0", "f0_1", "f0_2", "f0_3"
         ]
         internalparams = {
             "BcStatesp" : np.array([6.329, 6.920, 7.020]),

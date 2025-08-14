@@ -11,6 +11,9 @@ class CLN(FFBToV.CLN_BToV):
 class CLN2(FFBToV.CLN2_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        self.internalparams.update({
+            "qiqj" : "bc"
+        })
 
 class BGL(FFBToV.BGL_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):

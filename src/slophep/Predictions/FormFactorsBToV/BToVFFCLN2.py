@@ -46,7 +46,7 @@ class CLN2_BToV(FormFactorBToV):
         mB = self.internalparams["Mb"]
         mV = self.internalparams["Mc"]
         mb = running.get_mb_pole(self.par)
-        mq = running.get_mc_pole(self.par)
+        mq = running.get_mc_pole(self.par) if self.internalparams["qiqj"] == "bc" else 0.
         # # power corrections
         # # NOTE: These are all zero
         # a_T1  = self.par[self._process + ' IW a_T1']
