@@ -58,7 +58,6 @@ def get_spectrum_eos(ffs: list, qsq, mode, ffscheme):
 
 btod_bszeos = get_spectrum_eos(["f+", "f0", "fT"], btod_qsq, "B->D", "BSZ2015")
 btodst_bszeos = get_spectrum_eos(["A0", "A1", "A12", "V", "T1", "T2", "T23"], btodst_qsq, "B->D^*", "BSZ2015")
-# bstodsst_bszeos = get_spectrum_eos(["A0", "A1", "A12", "V", "T1", "T2", "T23"], btodst_qsq, "B_s->D_s^*", "BGJvD2019")
 
 
 # Plotting them together
@@ -73,5 +72,5 @@ def make_comparison_plot(sloppred, eospred, qsq, prefix):
                     bbox_inches = 'tight',
                     dpi=100)
 
-make_comparison_plot(btod_bszff, btod_bszeos, btod_qsq, "BToDFF_")
-make_comparison_plot(btodst_bszff, btodst_bszeos, btodst_qsq, "BToDstFF_")
+make_comparison_plot(btod_bszff, btod_bszeos, btod_qsq, "BpToD0FFBSZ_")
+make_comparison_plot(btodst_bszff, btodst_bszeos, btodst_qsq, "BdToDstFFBSZ_")
