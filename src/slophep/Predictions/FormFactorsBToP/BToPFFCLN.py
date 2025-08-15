@@ -49,9 +49,9 @@ class CLN_BToP(FormFactorBToP):
         a = self.internalparams["a"]
         zCon = (sqrt(w+1) - sqrt2*a)/(sqrt(w+1) + sqrt2*a)
         
-        RhoSq = self.internalparams["RhoSq"]
-        G1par = self.internalparams["G1"]
-        Delta = self.internalparams["Delta"]
+        RhoSq = self.ffpar["RhoSq"]
+        G1par = self.ffpar["G1"]
+        Delta = self.ffpar["Delta"]
 
         V1wOnV1 = 1. - 8.* RhoSq * zCon + (51. * RhoSq - 10.) * zCon * zCon - (252. * RhoSq - 84.) * zCon * zCon *zCon
         fp=((1. + rC)/(2.*sqrt(rC))*V1wOnV1)*G1par
