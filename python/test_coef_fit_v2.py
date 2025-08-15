@@ -13,7 +13,7 @@ from slophep.Fitting.PDFCoefSimple import PDFAngularCoef
 
 from slophep.Predictions.Observables import BToDstEllNuPrediction
 from slophep.Predictions.FormFactorsBToV.BToDstFF import BLPR
-from slophep.Predictions.BToVMathTools import calc_norm_j
+from slophep.Predictions.Math.BToVMathTools import calc_norm_j
 import json
 
 def makeJfitres(res, cov, order):

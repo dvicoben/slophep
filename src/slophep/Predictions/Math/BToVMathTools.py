@@ -1,0 +1,133 @@
+import numpy as np
+from slophep.Predictions.Math import integrals as aint
+
+def h_to_A(mB, mV, h, q2):
+    """Convert HQET form factors to the basis used by flavio.
+
+    See e.g. arXiv:1309.0301, eqs. (38), (39) but notice that we use the
+    convention of arXiv:1703.05330 for h_T3, which differs by a factor -2
+    from the one in arXiv:1309.0301 (see Eq. (11e) in arXiv:1703.05330 and
+    Eq. (46b) in arXiv:1309.0301).
+    """
+    ff = {}
+    lambdabdstar = mB**4+mV**4+q2**2-2*(mB**2*mV**2+mB**2*q2+mV**2*q2)
+    pre = 1 / 2 / np.sqrt(mB * mV)
+    ff['V'] = pre * (mB + mV) * h['V']
+    ff['A1'] = pre * ((mB + mV)**2 - q2) / (mB + mV) * h['A1']
+    ff['A2'] = pre * (mB + mV) * (h['A3'] + mV / mB * h['A2'])
+    ff['A0'] = pre * (((mB + mV)**2 - q2) / (2 * mV) * h['A1']
+                      - (mB**2 - mV**2 + q2) / (2 * mB) * h['A2']
+                      - (mB**2 - mV**2 - q2) / (2 * mV) * h['A3'])
+    ff['T1'] = pre * ((mB + mV) * h['T1'] - (mB - mV) * h['T2'])
+    ff['T2'] = pre * (((mB + mV)**2 - q2) / (mB + mV) * h['T1']
+                      - ((mB - mV)**2 - q2) / (mB - mV) * h['T2'])
+    ff['T3'] = pre * ((mB - mV) * h['T1'] - (mB + mV) * h['T2']
+                      + (mB**2 - mV**2) / mB * h['T3']) # h_T3 as in arXiv:1703.05330
+    # conversion from A_1, A_2 to A_12
+    ff['A12'] = ((ff['A1'] * (mB + mV)**2 * (mB**2 - mV**2 - q2)
+                 - ff['A2'] * (mB**4 + (mV**2 - q2)**2
+                 - 2 * mB**2 * (mV**2 + q2)))
+                 / (16. * mB * mV**2 * (mB + mV)))
+    # conversion from T_2, T_3 to T_23
+    ff['T23'] = ((mB**2 - mV**2) * (mB**2 + 3 * mV**2 - q2) * ff['T2']
+                 - lambdabdstar * ff['T3']
+                ) / (8 * mB * (mB - mV) * mV**2)
+    return ff
+
+def calc_norm_j(j: dict[float]) -> dict[float]:
+    norm = 3/4. * (2 * j['1s'] + j['1c']) - 1/4. * (2 * j['2s'] + j['2c'])
+    return {k : j[k]/norm for k in j}
+
+def calc_unaing_obs(j: dict[float]) -> float:
+    norm = 3/4. * (2 * j['1s'] + j['1c']) - 1/4. * (2 * j['2s'] + j['2c'])
+    obs = {
+        "FL" : (0.25*(3*j["1c"] - j["2c"]))/norm,
+        "AFB" : ((3.0/8.0)*(j["6c"] + 2*j["6s"]))/norm,
+        "FLt" : 0.25*(j["1c"] - 3*j["2c"] + 2*j["1s"] - 6*j["2s"])/norm,
+        3 : j[3],
+        9 : j[9]
+    }
+    return obs
+
+def angularPDF(ctx: float, ctl: float, chi: float, j: dict[float]) -> float:
+    ctx2 = ctx*ctx
+    stx2 = 1 - ctx2
+    # tx = np.arccos(ctx)
+    # s2tx = np.sin(2*tx)
+    stx = np.sqrt(stx2)
+    s2tx = 2*stx*ctx
+
+    ctl2 = ctl*ctl
+    stl2 = 1 - ctl2
+    c2tl = 2*ctl2 - 1
+    # tl = np.arccos(ctl)
+    # stl = np.sin(tl)
+    # s2tl = np.sin(2*tl)
+    stl = np.sqrt(stl2)
+    s2tl = 2*stl*ctl
+
+    cph = np.cos(chi)
+    sph = np.sin(chi)
+    c2ph = 2*cph*cph - 1
+    s2ph = 2*sph*cph
+    
+    pdf = 9/(32*np.pi) * (
+          j['1c']*ctx2         # I1c * cos2(thetaX)
+        + j['1s']*stx2         # I1s * sin2(thetaX)
+        + j['2c']*ctx2*c2tl    # I2c * cos2(thetaX) * cos(2thetaL)
+        + j['2s']*stx2*c2tl    # I2s * sin2(thetaX) * cos(2thetaL)
+        + j[3]*stx2*stl2*c2ph  # I3  * sin2(thetaX) * sin2(thetaL) * cos(2phi)
+        + j[4]*s2tx*s2tl*cph   # I4  * sin(2thetaX) * sin(2thetaL) * cos(phi)
+        + j[5]*s2tx*stl*cph    # I5  * sin(2thetaX) * sin(thetaL)  * cos(phi)
+        + j['6c']*ctx2*ctl     # I6c * cos2(thetaX) * cos(thetaL)
+        + j['6s']*stx2*ctl     # I6s * sin2(thetaX) * cos(thetaL)
+        + j[7]*s2tx*stl*sph    # I7  * sin(2thetaX) * sin(thetaL)  * sin(phi)
+        + j[8]*s2tx*s2tl*sph   # I8  * sin(2thetaX) * sin(2thetaL) * sin(phi)
+        + j[9]*stx2*stl2*s2ph  # I9  * sin2(thetaX) * sin2(thetaL) * sin2(phi)
+    )
+    return pdf
+
+
+def angular_integrals(
+        ctx_min: float, ctx_max: float,
+        ctl_min: float, ctl_max: float,
+        chi_min: float, chi_max: float) -> dict[float]:
+    angint = {
+        '1c' : aint.int_x2(ctx_min, ctx_max)*aint.int_one(ctl_min, ctl_max)*aint.int_one(chi_min, chi_max),
+        '1s' : aint.int_1minxsq(ctx_min, ctx_max)*aint.int_one(ctl_min, ctl_max)*aint.int_one(chi_min, chi_max),
+        '2c' : aint.int_x2(ctx_min, ctx_max)*aint.int_2xsqmin1(ctl_min, ctl_max)*aint.int_one(chi_min, chi_max),
+        '2s' : aint.int_1minxsq(ctx_min, ctx_max)*aint.int_2xsqmin1(ctl_min, ctl_max)*aint.int_one(chi_min, chi_max),
+        3    : aint.int_1minxsq(ctx_min, ctx_max)*aint.int_1minxsq(ctl_min, ctl_max)*aint.int_cos2x(chi_min, chi_max),
+        4    : aint.int_2xsqrt1minxsq(ctx_min, ctx_max)*aint.int_2xsqrt1minxsq(ctl_min, ctl_max)*aint.int_cosx(chi_min, chi_max),
+        5    : aint.int_2xsqrt1minxsq(ctx_min, ctx_max)*aint.int_sinxwrtcosx(ctl_min, ctl_max)*aint.int_cosx(chi_min, chi_max),
+        '6c' : aint.int_x2(ctx_min, ctx_max)*aint.int_x(ctl_min, ctl_max)*aint.int_one(chi_min, chi_max),
+        '6s' : aint.int_1minxsq(ctx_min, ctx_max)*aint.int_x(ctl_min, ctl_max)*aint.int_one(chi_min, chi_max),
+        7    : aint.int_2xsqrt1minxsq(ctx_min, ctx_max)*aint.int_sinxwrtcosx(ctl_min, ctl_max)*aint.int_sinx(chi_min, chi_max),
+        8    : aint.int_2xsqrt1minxsq(ctx_min, ctx_max)*aint.int_2xsqrt1minxsq(ctl_min, ctl_max)*aint.int_sinx(chi_min, chi_max),
+        9    : aint.int_1minxsq(ctx_min, ctx_max)*aint.int_1minxsq(ctl_min, ctl_max)*aint.int_sin2x(chi_min, chi_max)
+    }
+    return angint
+
+
+def angularPDF_binned(
+        ctx_min: float, ctx_max: float,
+        ctl_min: float, ctl_max: float,
+        chi_min: float, chi_max: float,
+        j: dict[float]) -> float:
+    angint = angular_integrals(ctx_min, ctx_max, ctl_min, ctl_max, chi_min, chi_max)
+    pdf = 9/(32*np.pi) * (
+              j['1c'] * angint['1c']
+            + j['1s'] * angint['1s']
+            + j['2c'] * angint['2c']
+            + j['2s'] * angint['2s']
+            + j[3]    * angint[3]
+            + j[4]    * angint[4]
+            + j[5]    * angint[5]
+            + j['6c'] * angint['6c']
+            + j['6s'] * angint['6s']
+            + j[7]    * angint[7]
+            + j[8]    * angint[8]
+            + j[9]    * angint[9]
+        )
+    return pdf
+

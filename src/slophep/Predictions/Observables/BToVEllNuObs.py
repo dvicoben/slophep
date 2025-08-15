@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 from slophep.Predictions.FormFactorsBToV import FormFactorBToV
 from slophep.Predictions.Observables import ObservableBase
-from slophep.Predictions import BToVMathTools as mt
+from slophep.Predictions.Math import BToVMathTools as mt
 
 import flavio
 from flavio.physics.running import running
@@ -243,12 +243,7 @@ class BToVEllNuPrediction(ObservableBase):
         dict
             Dictionary of observable <J_i>
         """
-        ml = self.par['m_'+self.lep]
-        mB = self.par['m_'+self._B]
-        mV = self.par['m_'+self._V]
-        q2max = (mB-mV)**2
-        q2min = ml**2
-        return self.dJ_bin(q2min, q2max)
+        return self.dJ_bin(self.q2min, self.q2max)
     
     def J_q2int(self) -> dict:
         """Calculate rate-normalised q2-integrated observable
