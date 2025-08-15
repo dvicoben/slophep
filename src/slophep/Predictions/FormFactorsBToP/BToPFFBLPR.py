@@ -61,6 +61,8 @@ class BLPR_BToP(FormFactorBToP):
         ebReb = self.internalparams["ebReb"]
         ecRec = self.internalparams["ecRec"]
         zBC = mc/mb
+        corrb = eb*(1.-ebReb)
+        corrc = ec*(1.-ecRec)
 
         RhoSq = self.ffpar["RhoSq"]
         chi21 = self.ffpar["Chi21"]
@@ -69,11 +71,10 @@ class BLPR_BToP(FormFactorBToP):
         eta1 = self.ffpar["Eta1"]
         etap = self.ffpar["Etap"]
         
-        
         L1 = -4.*(w-1)*(chi21 + (w-1.)*chi2p)+12.*chi3p*(w-1.)
-        # L4 = 2.*(eta1 + etap*(w-1.))-1.
-        L4b = (2.*(eta1 + etap*(w-1.))-1.*ebReb)
-        L4c = (2.*(eta1 + etap*(w-1.))-1.*ecRec)
+        L4 = 2.*(eta1 + etap*(w-1.))-1.
+        # L4b = (2.*(eta1 + etap*(w-1.))-1.*ebReb) # HAMMERv1.2.1
+        # L4c = (2.*(eta1 + etap*(w-1.))-1.*ecRec) # HAMMERv1.2.1
 
         rD = self.internalparams["rD"]
         a = sqrt((1+rD)/(2*sqrt(rD)))
@@ -84,9 +85,6 @@ class BLPR_BToP(FormFactorBToP):
         Cv1 = hqet.CV1(w, zBC)
         Cv2 = hqet.CV2(w, zBC)
         Cv3 = hqet.CV3(w, zBC)
-        # Ca1 = hqet.CA1(w, zBC)
-        # Ca2 = hqet.CA2(w, zBC)
-        # Ca3 = hqet.CA3(w, zBC)
         Ct1 = hqet.CT1(w, zBC)
         Ct2 = hqet.CT2(w, zBC)
         Ct3 = hqet.CT3(w, zBC)
@@ -118,8 +116,10 @@ class BLPR_BToP(FormFactorBToP):
         chi1=0
         xi =xiIW + 2.*(eb+ec)*chi1
         Hp = 1.+ash*(Cv1+0.5*(w+1)*(Cv2+Cv3))+(ec+eb)*L1
-        Hm = ash*0.5*(w+1)*(Cv2-Cv3)+(ec*L4c-eb*L4b)
-        Ht = 1.+ash*(Ct1-Ct2+Ct3)+(ec+eb)*(L1) - (ec*L4c+eb*L4b)
+        # Hm = ash*0.5*(w+1)*(Cv2-Cv3)+(ec*L4c-eb*L4b)               # HAMMERv1.2.1
+        Hm = ash*0.5*(w+1)*(Cv2-Cv3)+(ec-eb)*L4 + (corrc-corrb)
+        # Ht = 1.+ash*(Ct1-Ct2+Ct3)+(ec+eb)*L1 - (ec*L4c+eb*L4b)     # HAMMERv1.2.1
+        Ht = 1.+ash*(Ct1-Ct2+Ct3)+(ec+eb)*(L1 - L4) - (corrc+corrb)
 
         ff = {
             "h+" : xi*Hp,
@@ -127,3 +127,44 @@ class BLPR_BToP(FormFactorBToP):
             "hT" : xi*Ht
         }
         return h_to_f(mB, mP, ff, q2)
+    
+    def get_hhat(self, q2: float) -> dict:
+        w = max(self.w(q2), 1)
+        ash = self.internalparams["ash"]
+        la = self.internalparams["la"]
+        mb = self.internalparams["mb"]
+        eb = la/(2*mb)
+        mc = mb - self.internalparams["delta_mbc"]
+        ec = la/(2*mc)
+        ebReb = self.internalparams["ebReb"]
+        ecRec = self.internalparams["ecRec"]
+        zBC = mc/mb
+        corrb = eb*(1.-ebReb)
+        corrc = ec*(1.-ecRec)
+
+        chi21 = self.ffpar["Chi21"]
+        chi2p = self.ffpar["Chi2p"]
+        chi3p = self.ffpar["Chi3p"]
+        eta1 = self.ffpar["Eta1"]
+        etap = self.ffpar["Etap"]
+        
+        L1 = -4.*(w-1)*(chi21 + (w-1.)*chi2p)+12.*chi3p*(w-1.)
+        L4 = 2.*(eta1 + etap*(w-1.))-1.
+
+        Cv1 = hqet.CV1(w, zBC)
+        Cv2 = hqet.CV2(w, zBC)
+        Cv3 = hqet.CV3(w, zBC)
+        Ct1 = hqet.CT1(w, zBC)
+        Ct2 = hqet.CT2(w, zBC)
+        Ct3 = hqet.CT3(w, zBC)
+
+        Hp = 1.+ash*(Cv1+0.5*(w+1)*(Cv2+Cv3))+(ec+eb)*L1
+        Hm = ash*0.5*(w+1)*(Cv2-Cv3)+(ec-eb)*L4 + (corrc-corrb)
+        Ht = 1.+ash*(Ct1-Ct2+Ct3)+(ec+eb)*(L1 - L4) - (corrc+corrb)
+
+        h = {
+            "h+" : Hp,
+            "h-" : Hm,
+            "hT" : Ht
+        }
+        return h

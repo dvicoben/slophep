@@ -77,10 +77,10 @@ def make_comparison_plot(sloppred, otherpred, qsq, prefix):
         fig, ax = plt.subplots(1, 1)
         ax.plot(qsq, sloppred[ipred], 'b-', label="SLOP CLN")
         ax.plot(qsq, otherpred[ipred], 'r--', label="flavio CLN")
-        ax.set(xlabel = r"$q^2$", ylabel=ipred)
+        ax.set(xlabel = r"$q^2$", ylabel=ipred, title=prefix)
         ax.legend()
-        plt.savefig(f"checks/checks_flavio_{prefix}{ipred}.png", 
+        plt.savefig(f"checks/checks_flavio_{prefix}_{ipred}.png", 
                     bbox_inches = 'tight',
                     dpi=100)
 
-make_comparison_plot(btodst_clnff, btodst_clnflavio, btodst_qsq, "BdToDstFFCLN2_")
+make_comparison_plot(btodst_clnff, btodst_clnflavio, btodst_qsq, "BdToDstFFCLN2")
