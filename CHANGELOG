@@ -14,7 +14,6 @@
      - Moved WC and FF setters in predictions to a base observable class that is inherited - reduces redundancy
      - Nomenclature changes, BToDst -> BdToDst, BToD -> BpToD and BdToD
     Fixes:
-     - Bugfix for appropiate errorbands in observables that return non-dictionary results
 
 2025-08-08 --- Version 0.0.1
     First release version
