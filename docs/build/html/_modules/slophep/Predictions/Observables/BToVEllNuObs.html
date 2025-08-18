@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>slophep.Predictions.Observables.BToVEllNuObs &mdash; bd2dstlnu v0.0.1 documentation</title>
+  <title>slophep.Predictions.Observables.BToVEllNuObs &mdash; SLOP v1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../../_static/documentation_options.js?v=2fea6348"></script>
+      <script src="../../../../_static/documentation_options.js?v=76e2d817"></script>
       <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
@@ -29,7 +29,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            bd2dstlnu
+            SLOP
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -50,7 +50,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">bd2dstlnu</a>
+          <a href="../../../../index.html">SLOP</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -74,7 +74,8 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">slophep.Predictions.FormFactorsBToV</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormFactorBToV</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">slophep.Predictions</span><span class="w"> </span><span class="kn">import</span> <span class="n">BToVMathTools</span> <span class="k">as</span> <span class="n">mt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">slophep.Predictions.Observables</span><span class="w"> </span><span class="kn">import</span> <span class="n">ObservableBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">slophep.Predictions.Math</span><span class="w"> </span><span class="kn">import</span> <span class="n">BToVMathTools</span> <span class="k">as</span> <span class="n">mt</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">flavio</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">flavio.physics.running</span><span class="w"> </span><span class="kn">import</span> <span class="n">running</span>
@@ -85,7 +86,7 @@
 
 <div class="viewcode-block" id="BToVEllNuPrediction">
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToVEllNuPrediction">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">BToVEllNuPrediction</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BToVEllNuPrediction</span><span class="p">(</span><span class="n">ObservableBase</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
                  <span class="n">B</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                  <span class="n">V</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -97,29 +98,14 @@
                  <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">4.8</span><span class="p">,</span>
                  <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">FF</span><span class="p">,</span> <span class="n">ffargs</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">B</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_V</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">V</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_qiqj</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">qiqj</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_lep</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">lep</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nu</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">nu</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_wc_obj</span><span class="p">:</span> <span class="n">flavio</span><span class="o">.</span><span class="n">WilsonCoefficients</span> <span class="o">=</span> <span class="n">flavio</span><span class="o">.</span><span class="n">WilsonCoefficients</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">flavio</span><span class="o">.</span><span class="n">default_parameters</span><span class="o">.</span><span class="n">get_central_all</span><span class="p">()</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">par</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_par</span> <span class="o">=</span> <span class="n">par</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">scale</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_FF</span><span class="p">:</span> <span class="n">FormFactorBToV</span> <span class="o">=</span> <span class="n">FF</span><span class="p">(</span><span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obslist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1s&#39;</span><span class="p">,</span> <span class="s1">&#39;1c&#39;</span><span class="p">,</span> <span class="s1">&#39;2s&#39;</span><span class="p">,</span> <span class="s1">&#39;2c&#39;</span><span class="p">,</span> <span class="s1">&#39;6s&#39;</span><span class="p">,</span> <span class="s1">&#39;6c&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Renorm scale&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale</span>
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">par</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span> 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Dictionary of parameters, defaults to `flavio.default_parameters.get_central_all()`&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_par</span>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">B</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The B meson&quot;&quot;&quot;</span>
@@ -149,102 +135,6 @@
         <span class="n">mV</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_V</span><span class="p">]</span>
         <span class="n">q2max</span> <span class="o">=</span> <span class="p">(</span><span class="n">mB</span><span class="o">-</span><span class="n">mV</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
         <span class="k">return</span> <span class="n">q2max</span>
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">wc_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">flavio</span><span class="o">.</span><span class="n">WilsonCoefficients</span><span class="p">:</span> 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Wilson coefficient object&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wc_obj</span>
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">FF</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FormFactorBToV</span><span class="p">:</span> 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Form factors&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_FF</span>
-
-<div class="viewcode-block" id="BToVEllNuPrediction.set_wc">
-<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToVEllNuPrediction.set_wc">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_wc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wc_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">eft</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;WET&#39;</span><span class="p">,</span> <span class="n">basis</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;flavio&#39;</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the wilson coefficients</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        wc_dict : dict</span>
-<span class="sd">            Dictionary of wilson coefficients</span>
-<span class="sd">        eft : str, optional</span>
-<span class="sd">            EFT, by default &#39;WET&#39;</span>
-<span class="sd">        basis : str, optional</span>
-<span class="sd">            WC basis (see https://wcxf.github.io/bases.html), by default &#39;flavio&#39;</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_wc_obj</span><span class="o">.</span><span class="n">set_initial</span><span class="p">(</span><span class="n">wc_dict</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="n">eft</span><span class="p">,</span> <span class="n">basis</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="BToVEllNuPrediction.set_ff">
-<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToVEllNuPrediction.set_ff">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_ff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ffparams</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set form factor parameters. Can use None to leave a parameter unchanged.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        ffparams : dict</span>
-<span class="sd">            Dictionary of form factor parameters, names should match FF.ffpars dictionary in the particular </span>
-<span class="sd">            scheme being used</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_FF</span><span class="o">.</span><span class="n">set_ff</span><span class="p">(</span><span class="o">**</span><span class="n">ffparams</span><span class="p">)</span></div>
-
-    
-<div class="viewcode-block" id="BToVEllNuPrediction._fullsetter">
-<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToVEllNuPrediction._fullsetter">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_fullsetter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">constants</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set WCs and FF parameters, for usage with Fluctuate</span>
-
-<span class="sd">        FF parameters must follow naming in self.FF.params</span>
-
-<span class="sd">        WCs must be in the flavio basis, prepended with &#39;WCRe\_&#39; or &#39;WCIm\_&#39;</span>
-<span class="sd">        for the respective component</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        params : dict</span>
-<span class="sd">            Dictionary of parameters to set</span>
-<span class="sd">        constants: dict</span>
-<span class="sd">            Dictinoary of parameters that are set constant - for specific use-cases with fluctuate</span>
-<span class="sd">            e.g. in case want to set a particular WC to some non-zero value for all fluctations. In</span>
-<span class="sd">            principle FF that are not in params should be kept the same so shouldn&#39;t need to</span>
-<span class="sd">            pass them here.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Note no key checking performed! User must make sure these are set-up correctly!</span>
-        <span class="n">par</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">constants</span><span class="p">}</span>
-        <span class="n">wc</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">ff</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">ikey</span><span class="p">,</span> <span class="n">ival</span> <span class="ow">in</span> <span class="n">par</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="c1"># Handle Wilson Coefficients</span>
-            <span class="k">if</span> <span class="s2">&quot;WCRe_&quot;</span> <span class="ow">in</span> <span class="n">ikey</span> <span class="ow">or</span> <span class="s2">&quot;WCIm_&quot;</span> <span class="ow">in</span> <span class="n">ikey</span><span class="p">:</span>
-                <span class="n">name_wc</span> <span class="o">=</span> <span class="n">ikey</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span>
-                <span class="n">iwc</span> <span class="o">=</span> <span class="n">ival</span> <span class="k">if</span> <span class="s2">&quot;WCRe_&quot;</span> <span class="ow">in</span> <span class="n">ikey</span> <span class="k">else</span> <span class="mf">1.0</span><span class="n">j</span><span class="o">*</span><span class="n">ival</span>
-                <span class="k">if</span> <span class="n">name_wc</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">wc</span><span class="p">:</span>
-                    <span class="n">wc</span><span class="p">[</span><span class="n">name_wc</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-                <span class="n">wc</span><span class="p">[</span><span class="n">name_wc</span><span class="p">]</span> <span class="o">+=</span> <span class="n">iwc</span>
-            <span class="c1"># Everything else is considered a FF</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">ff</span><span class="p">[</span><span class="n">ikey</span><span class="p">]</span> <span class="o">=</span> <span class="n">ival</span>
-        
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">wc</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_wc</span><span class="p">(</span><span class="n">wc</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ff</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_ff</span><span class="p">(</span><span class="n">ff</span><span class="p">)</span></div>
-
-
-
-<div class="viewcode-block" id="BToVEllNuPrediction.set_ff_fromlist">
-<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToVEllNuPrediction.set_ff_fromlist">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_ff_fromlist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ffparams</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set form factor parameters in form of list. Must include all parameters in self.FF.params, in order.</span>
-<span class="sd">        Can use None to leave a parameter unchanged.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        ffparams : list</span>
-<span class="sd">            All FF parameters, in appropiate order</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_FF</span><span class="o">.</span><span class="n">set_ff_fromlist</span><span class="p">(</span><span class="n">ffparams</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="BToVEllNuPrediction._prefactor">
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToVEllNuPrediction._prefactor">[docs]</a>
@@ -294,7 +184,7 @@
         <span class="n">ml</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">lep</span><span class="p">]</span>
         <span class="n">mB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">]</span>
         <span class="n">mV</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_V</span><span class="p">]</span>
-        <span class="n">mlight</span> <span class="o">=</span> <span class="n">running</span><span class="o">.</span><span class="n">get_mc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span> <span class="c1"># this is needed for scalar contributions</span>
+        <span class="n">mlight</span> <span class="o">=</span> <span class="n">running</span><span class="o">.</span><span class="n">get_mc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qiqj</span> <span class="o">==</span> <span class="s2">&quot;bc&quot;</span> <span class="k">else</span> <span class="mf">0.0</span> <span class="c1"># Set mlight = m_u = 0 for up quark &quot;bu&quot;</span>
         <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefactor</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
         <span class="n">ff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FF</span><span class="o">.</span><span class="n">get_ff</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">angular</span><span class="o">.</span><span class="n">helicity_amps_v</span><span class="p">(</span><span class="n">q2</span><span class="p">,</span> <span class="n">mB</span><span class="p">,</span> <span class="n">mV</span><span class="p">,</span> <span class="n">mb</span><span class="p">,</span> <span class="n">mlight</span><span class="p">,</span> <span class="n">ml</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ff</span><span class="p">,</span> <span class="n">wc</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
@@ -319,6 +209,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">J</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_angularcoeff</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
         <span class="n">norm</span> <span class="o">=</span>  <span class="mi">3</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">J</span><span class="p">[</span><span class="s1">&#39;1s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">J</span><span class="p">[</span><span class="s1">&#39;1c&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="mf">4.</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">J</span><span class="p">[</span><span class="s1">&#39;2s&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">J</span><span class="p">[</span><span class="s1">&#39;2c&#39;</span><span class="p">])</span>
+        <span class="c1"># Can lead to Nan if dG==0 i.e. outside kinematic range, so:</span>
+        <span class="k">if</span> <span class="n">norm</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="n">k</span> <span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">J</span><span class="p">}</span>
         <span class="k">return</span> <span class="p">{</span><span class="n">k</span> <span class="p">:</span> <span class="n">J</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">J</span><span class="p">}</span></div>
 
     
@@ -389,7 +282,12 @@
 <span class="sd">            dBR/dq2</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dGdq2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dGdq2</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;tau_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">dGdq2</span></div>
+        <span class="n">BR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;tau_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">dGdq2</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span> <span class="o">==</span> <span class="s1">&#39;rho0&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span> <span class="o">==</span> <span class="s1">&#39;omega&#39;</span><span class="p">:</span>
+            <span class="c1"># factor of 1/2 for neutral rho due to rho = (uubar-ddbar)/sqrt(2)</span>
+            <span class="c1"># and also for omega = (uubar+ddbar)/sqrt(2)</span>
+            <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">BR</span>
+        <span class="k">return</span> <span class="n">BR</span></div>
 
 
 <div class="viewcode-block" id="BToVEllNuPrediction._obsq2Bin">
@@ -450,12 +348,7 @@
 <span class="sd">        dict</span>
 <span class="sd">            Dictionary of observable &lt;J_i&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">ml</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">lep</span><span class="p">]</span>
-        <span class="n">mB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">]</span>
-        <span class="n">mV</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_V</span><span class="p">]</span>
-        <span class="n">q2max</span> <span class="o">=</span> <span class="p">(</span><span class="n">mB</span><span class="o">-</span><span class="n">mV</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-        <span class="n">q2min</span> <span class="o">=</span> <span class="n">ml</span><span class="o">**</span><span class="mi">2</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ_bin</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ_bin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q2min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2max</span><span class="p">)</span></div>
 
     
 <div class="viewcode-block" id="BToVEllNuPrediction.J_q2int">
@@ -777,8 +670,8 @@
 <span class="sd">        ValueError</span>
 <span class="sd">            For unavailable observable</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">q2max</span> <span class="o">=</span> <span class="n">q2max</span> <span class="k">if</span> <span class="n">q2max</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2max</span>
-        <span class="n">q2min</span> <span class="o">=</span> <span class="n">q2min</span> <span class="k">if</span> <span class="n">q2min</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2min</span>
+        <span class="n">q2min</span> <span class="o">=</span> <span class="n">q2min</span> <span class="k">if</span> <span class="n">q2min</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2min</span><span class="o">+</span><span class="mf">1e-6</span>
+        <span class="n">q2max</span> <span class="o">=</span> <span class="n">q2max</span> <span class="k">if</span> <span class="n">q2max</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2max</span><span class="o">-</span><span class="mf">1e-6</span>
         <span class="n">q2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">obs_vals</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># Get the observable in q2</span>

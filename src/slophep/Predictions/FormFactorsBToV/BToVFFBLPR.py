@@ -10,7 +10,7 @@ class BLPR_BToV(FormFactorBToV):
     def __init__(self, B: str, V: str, par: dict = None, scale: float = None, *ffargs):
         super().__init__(B, V, par, scale)
         
-        self._name = "BLPR"
+        self._name = "BToV_BLPR"
         self._ffpar = {
             "RhoSq" : 1.24,
             "Chi21" : -0.06,
@@ -147,3 +147,64 @@ class BLPR_BToV(FormFactorBToV):
         # NOTE: this performs the translation https://arxiv.org/pdf/1309.0301 eqns. 38-39,
         # should be analgous to eqns B7-B13 in https://arxiv.org/pdf/1908.09398
         return h_to_A(mB, mV, h, q2)
+
+    def get_hhat(self, q2: float) -> dict:
+        w = max(self.w(q2), 1)
+        ash = self.internalparams["ash"]
+        la = self.internalparams["la"]
+        mb = self.internalparams["mb"]
+        eb = la/(2*mb)
+        mc = mb - self.internalparams["delta_mbc"]
+        ec = la/(2*mc)
+        ebReb = self.internalparams["ebReb"]
+        ecRec = self.internalparams["ecRec"]
+        corrb = eb*(1.-ebReb)
+        corrc = ec*(1.-ecRec)
+        zBC = mc/mb
+
+        chi21 = self.ffpar["Chi21"]
+        chi2p = self.ffpar["Chi2p"]
+        chi3p = self.ffpar["Chi3p"]
+        eta1 = self.ffpar["Eta1"]
+        etap = self.ffpar["Etap"]
+
+        L1 = -4.0*(w-1.0)*(chi21 + (w-1.0)*chi2p)+12.0*chi3p*(w-1.0)
+        L2 = -4.0*chi3p*(w-1.0)
+        L3 = 4.0*(chi21 + (w-1.0)*chi2p)
+        L4 = 2.*(eta1 + etap*(w-1.))-1.
+        # L4 = (2.0*(eta1 + etap*(w-1.0))-1.0*ebReb)
+        L5 = -1.0
+        # L5 = -ecRec
+        L6 = -2.*(1+(eta1 + etap*(w-1.)))/(w+1.)
+        # L6 = -2.0*(ecRec + (eta1 + etap*(w-1.0)))/(w+1.0)
+
+        # QCD correction functions
+        Cv1 = hqet.CV1(w, zBC)
+        # CV2 = hqet.CV2(w, zBC)
+        # CV3 = hqet.CV3(w, zBC)
+        Ca1 = hqet.CA1(w, zBC)
+        Ca2 = hqet.CA2(w, zBC)
+        Ca3 = hqet.CA3(w, zBC)
+        Ct1 = hqet.CT1(w, zBC)
+        Ct2 = hqet.CT2(w, zBC)
+        Ct3 = hqet.CT3(w, zBC)
+        
+        # Hps = 1.+ash*Cps+ec*(L2+L3*(w-1)+L5-L6*(w+1))+eb*(L1-L4)-(corrc + corrb)
+        Hv = 1.+ash*Cv1+ec*(L2-L5)+eb*(L1-L4) -(corrc + corrb)
+        Ha1 = 1.+ash*Ca1+ec*(L2-L5*(w-1)/(w+1))+eb*(L1-L4*(w-1)/(w+1)) -(corrc + corrb)*(w-1)/(w+1)
+        Ha2 = ash*Ca2+ec*(L3+L6) +2.*corrc/(w+1.)
+        Ha3 = 1.+ash*(Ca1+Ca3)+ec*(L2-L3-L5+L6)+eb*(L1-L4) -(corrc * (w-1.)/(w+1.)+corrb)
+        Ht1 = 1.+ash*(Ct1+0.5*(w-1)*(Ct2-Ct3))+ec*(L2)+eb*(L1)
+        Ht2 = 0.5*(w+1)*ash*(Ct2+Ct3)+ec*(L5)-eb*(L4) +corrc-corrb
+        Ht3 = ash*(Ct2)+ec*(L6-L3) +2.*corrc/(w+1.)
+        
+        hhat = {
+            "V"  : Hv,
+            "A1" : Ha1,
+            "A2" : Ha2,
+            "A3" : Ha3,
+            "T1" : Ht1,
+            "T2" : Ht2,
+            "T3" : Ht3
+        }
+        return hhat

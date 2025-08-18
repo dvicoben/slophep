@@ -11,9 +11,9 @@ import matplotlib.pyplot as plt
 import uncertainties as uncert
 from iminuit import Minuit
 
-from slophep.Predictions.Observables import BToDstEllNuPrediction
-from slophep.Predictions.FormFactorsBToV.BToDstFF import BLPR
-from slophep.Predictions.BToVMathTools import calc_norm_j
+from slophep.Predictions.Observables import BdToDstEllNuPrediction
+from slophep.Predictions.FormFactorsBToV.BdToDstFF import BLPR
+from slophep.Predictions.Math.BToVMathTools import calc_norm_j
 
 
 def makeJfitres(res, cov, order):
@@ -23,7 +23,7 @@ def makeJfitres(res, cov, order):
     J['1c'] = I1c
     return J
 
-obs = BToDstEllNuPrediction("mu", "mu", BLPR)
+obs = BdToDstEllNuPrediction("mu", "mu", BLPR)
 ctd_bins = 4
 ctl_bins = 4
 chi_bins = 5

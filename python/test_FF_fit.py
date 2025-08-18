@@ -10,10 +10,10 @@ NOTE: At the moment fits are quite slow as:
 import numpy as np
 from iminuit import Minuit
 
-from slophep.Predictions.Observables import BToDstEllNuPrediction
-from slophep.Predictions.FormFactorsBToV.BToDstFF import BGL
+from slophep.Predictions.Observables import BdToDstEllNuPrediction
+from slophep.Predictions.FormFactorsBToV.BdToDstFF import BGL
 
-obs = BToDstEllNuPrediction("mu", "mu", BGL)
+obs = BdToDstEllNuPrediction("mu", "mu", BGL)
 ff_gen = { # https://arxiv.org/pdf/1707.09509 (Third column in table V)
     "a0" : 0.0209,
     "a1" : 0.33,
@@ -43,7 +43,7 @@ h_data = N*h_norm
 h_data_err = 2.0*np.sqrt(h_data)
 
 
-pred = BToDstEllNuPrediction("mu", "mu", BGL)
+pred = BdToDstEllNuPrediction("mu", "mu", BGL)
 
 
 def calc_pdf(ff: list[float]):

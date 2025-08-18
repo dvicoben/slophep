@@ -7,7 +7,7 @@ class BSZ_BToV(FormFactorBToV):
     def __init__(self, B: str, V: str, par: dict = None, scale: float = None, *ffargs):
         super().__init__(B, V, par, scale)
         
-        self._name = "BSZ"
+        self._name = "BToV_BSZ"
         # Parameters from EOS, see https://eoshep.org/doc/reference/parameters.html#parameters-in-b-to-v-form-factor-parametrizations
         # Should correspond to LCSR+Lattice fit from arXiv:1811.00983v2
         self._ffpar = { 

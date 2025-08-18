@@ -1,6 +1,6 @@
-from slophep.Predictions.Observables import BToDstEllNuPrediction
+from slophep.Predictions.Observables import BdToDstEllNuPrediction
 from slophep.Predictions.SamplingFluctuate import SamplingHelper
-from slophep.Predictions.FormFactorsBToV.BToDstFF import HPQCD, BSZ
+from slophep.Predictions.FormFactorsBToV.BdToDstFF import HPQCD, BSZ
 
 from slophep.utils import setPlotParams
 import numpy as np
@@ -17,9 +17,9 @@ wcoeffs = {
     'CT_bcmunumu': 0.0
 }
 # Initialise observables we will fluctuate
-obs_hpqcd = BToDstEllNuPrediction("mu", "mu", HPQCD)
+obs_hpqcd = BdToDstEllNuPrediction("mu", "mu", HPQCD)
 obs_hpqcd.set_wc(wcoeffs)
-obs_bsz = BToDstEllNuPrediction("mu", "mu", BSZ)
+obs_bsz = BdToDstEllNuPrediction("mu", "mu", BSZ)
 obs_bsz.set_wc(wcoeffs)
 
 # Fluctuate at particular value of q2
@@ -97,7 +97,7 @@ def plot_spectrum_dict(qsq, obslist, res_list, label_list, obs_labels):
 
 # Now lets plot comparisons in the full q2 range
 npoints = 100
-qsq = np.linspace(obs_hpqcd.q2min, obs_hpqcd.q2max, npoints)
+qsq = np.linspace(obs_hpqcd.q2min+1e-6, obs_hpqcd.q2max-1e-6, npoints)
 
 setPlotParams()
 

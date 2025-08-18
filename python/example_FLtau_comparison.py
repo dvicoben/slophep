@@ -8,8 +8,8 @@ This produces three plots:
 - Unbinned prediction (HPQCD) i.e. full q2 range, with error, and experimental result
 """
 from slophep.Predictions.SamplingFluctuate import SamplingHelper
-from slophep.Predictions.Observables import BToDstEllNuPrediction
-from slophep.Predictions.FormFactorsBToV import BToDstFF
+from slophep.Predictions.Observables import BdToDstEllNuPrediction
+from slophep.Predictions.FormFactorsBToV import BdToDstFF
 from slophep.utils import setPlotParams
 import numpy as np
 import matplotlib.pyplot as plt
@@ -23,11 +23,11 @@ fl_exp_err_syst = np.array([0.04, 0.02])
 fl_exp_err = np.sqrt(fl_exp_err_stat**2 + fl_exp_err_syst**2)
 
 # A quick comparison of several FF schemes and central values with the experimental value:
-obs_cln = BToDstEllNuPrediction("tau", "tau", BToDstFF.CLN)
-obs_blpr = BToDstEllNuPrediction("tau", "tau", BToDstFF.BLPR)
-obs_bgl = BToDstEllNuPrediction("tau", "tau", BToDstFF.BGL)
-obs_bsz = BToDstEllNuPrediction("tau", "tau", BToDstFF.BSZ)
-obs_hpqcd = BToDstEllNuPrediction("tau", "tau", BToDstFF.HPQCD)
+obs_cln = BdToDstEllNuPrediction("tau", "tau", BdToDstFF.CLN)
+obs_blpr = BdToDstEllNuPrediction("tau", "tau", BdToDstFF.BLPR)
+obs_bgl = BdToDstEllNuPrediction("tau", "tau", BdToDstFF.BGL)
+obs_bsz = BdToDstEllNuPrediction("tau", "tau", BdToDstFF.BSZ)
+obs_hpqcd = BdToDstEllNuPrediction("tau", "tau", BdToDstFF.HPQCD)
 obs = "FL"
 p = obs_cln.plot_obs_prediction(obs, label="CLN")
 p = obs_blpr.plot_obs_prediction(obs, label="BLPR", plot=p)

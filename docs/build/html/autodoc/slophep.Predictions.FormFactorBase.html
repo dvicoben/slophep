@@ -1,0 +1,229 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>slophep.Predictions.FormFactorBase &mdash; SLOP v1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=76e2d817"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="slophep.Predictions.FormFactorsBToV" href="slophep.Predictions.FormFactorsBToV.html" />
+    <link rel="prev" title="slophep.Predictions.Observables" href="slophep.Predictions.Observables.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SLOP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../auto.html">slophep.Predictions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.Observables.html">slophep.Predictions.Observables</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">slophep.Predictions.FormFactorBase</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.FormFactorBase.FormFactor"><code class="docutils literal notranslate"><span class="pre">FormFactor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorBase.FormFactor._fullsetter"><code class="docutils literal notranslate"><span class="pre">FormFactor._fullsetter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorBase.FormFactor.ffpar"><code class="docutils literal notranslate"><span class="pre">FormFactor.ffpar</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorBase.FormFactor.get_ff"><code class="docutils literal notranslate"><span class="pre">FormFactor.get_ff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorBase.FormFactor.internalparams"><code class="docutils literal notranslate"><span class="pre">FormFactor.internalparams</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorBase.FormFactor.name"><code class="docutils literal notranslate"><span class="pre">FormFactor.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorBase.FormFactor.par"><code class="docutils literal notranslate"><span class="pre">FormFactor.par</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorBase.FormFactor.params"><code class="docutils literal notranslate"><span class="pre">FormFactor.params</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorBase.FormFactor.scale"><code class="docutils literal notranslate"><span class="pre">FormFactor.scale</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorBase.FormFactor.set_ff"><code class="docutils literal notranslate"><span class="pre">FormFactor.set_ff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorBase.FormFactor.set_ff_fromlist"><code class="docutils literal notranslate"><span class="pre">FormFactor.set_ff_fromlist()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToV.html">slophep.Predictions.FormFactorsBToV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToV.BdToDstFF.html">slophep.Predictions.FormFactorsBToV.BdToDstFF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToV.BsToDsstFF.html">slophep.Predictions.FormFactorsBToV.BsToDsstFF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.html">slophep.Predictions.FormFactorsBToP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.BpToDFF.html">slophep.Predictions.FormFactorsBToP.BpToDFF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.BdToDFF.html">slophep.Predictions.FormFactorsBToP.BdToDFF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.SamplingTools.html">slophep.Predictions.SamplingTools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.SamplingFluctuate.html">slophep.Predictions.SamplingFluctuate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.Math.BToVMathTools.html">slophep.Predictions.Math.BToVMathTools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.Math.BToPMathTools.html">slophep.Predictions.Math.BToPMathTools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.Math.integrals.html">slophep.Predictions.Math.integrals</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SLOP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../auto.html">slophep.Predictions</a></li>
+      <li class="breadcrumb-item active">slophep.Predictions.FormFactorBase</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/autodoc/slophep.Predictions.FormFactorBase.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-slophep.Predictions.FormFactorBase">
+<span id="slophep-predictions-formfactorbase"></span><h1>slophep.Predictions.FormFactorBase<a class="headerlink" href="#module-slophep.Predictions.FormFactorBase" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorBase.FormFactor">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">slophep.Predictions.FormFactorBase.</span></span><span class="sig-name descname"><span class="pre">FormFactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorBase/FormFactorBase.html#FormFactor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorBase.FormFactor" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorBase.FormFactor._fullsetter">
+<span class="sig-name descname"><span class="pre">_fullsetter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constants</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorBase/FormFactorBase.html#FormFactor._fullsetter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorBase.FormFactor._fullsetter" title="Link to this definition"></a></dt>
+<dd><p>For usage with fluctuate - effectively alias of set_ff</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>params</strong> (<em>dict</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorBase.FormFactor.ffpar">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ffpar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#slophep.Predictions.FormFactorBase.FormFactor.ffpar" title="Link to this definition"></a></dt>
+<dd><p>Form factor (floating) parameters, make sure to overwrite in derived classes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorBase.FormFactor.get_ff">
+<span class="sig-name descname"><span class="pre">get_ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorBase/FormFactorBase.html#FormFactor.get_ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorBase.FormFactor.get_ff" title="Link to this definition"></a></dt>
+<dd><p>Calculate form factors at particular q2. To implement in derived class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary with FFs</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorBase.FormFactor.internalparams">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">internalparams</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#slophep.Predictions.FormFactorBase.FormFactor.internalparams" title="Link to this definition"></a></dt>
+<dd><p>Internal parameters used in FF computation (e.g. alpha_s, quark/meson masses),
+where possible take from FormFactor.par, but things may differ if an implementation is taken from HAMMER
+so this is kept seperate</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorBase.FormFactor.name">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#slophep.Predictions.FormFactorBase.FormFactor.name" title="Link to this definition"></a></dt>
+<dd><p>Name of FF scheme</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorBase.FormFactor.par">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">par</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#slophep.Predictions.FormFactorBase.FormFactor.par" title="Link to this definition"></a></dt>
+<dd><p>Dictionary of flavio parameters, defaults to <cite>flavio.default_parameters.get_central_all()</cite></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorBase.FormFactor.params">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#slophep.Predictions.FormFactorBase.FormFactor.params" title="Link to this definition"></a></dt>
+<dd><p>List of (floating) form factor parameters (the ones in ffpar), make sure to overwrite in derived classes</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorBase.FormFactor.scale">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scale</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#slophep.Predictions.FormFactorBase.FormFactor.scale" title="Link to this definition"></a></dt>
+<dd><p>Renorm scale</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorBase.FormFactor.set_ff">
+<span class="sig-name descname"><span class="pre">set_ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorBase/FormFactorBase.html#FormFactor.set_ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorBase.FormFactor.set_ff" title="Link to this definition"></a></dt>
+<dd><p>Set form factors - argument names should be as in FormFactor.params</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorBase.FormFactor.set_ff_fromlist">
+<span class="sig-name descname"><span class="pre">set_ff_fromlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorBase/FormFactorBase.html#FormFactor.set_ff_fromlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorBase.FormFactor.set_ff_fromlist" title="Link to this definition"></a></dt>
+<dd><p>Set form factors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>params</strong> (<em>list</em><em>[</em><em>float</em><em>]</em>) – Form factor parameters, in order as in FormFactor.params</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="slophep.Predictions.Observables.html" class="btn btn-neutral float-left" title="slophep.Predictions.Observables" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="slophep.Predictions.FormFactorsBToV.html" class="btn btn-neutral float-right" title="slophep.Predictions.FormFactorsBToV" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, dvicoben.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

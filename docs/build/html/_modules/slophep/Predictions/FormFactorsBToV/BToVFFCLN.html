@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>slophep.Predictions.FormFactorsBToV.BToVFFCLN &mdash; bd2dstlnu v0.0.1 documentation</title>
+  <title>slophep.Predictions.FormFactorsBToV.BToVFFCLN &mdash; SLOP v1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../../_static/documentation_options.js?v=2fea6348"></script>
+      <script src="../../../../_static/documentation_options.js?v=76e2d817"></script>
       <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
@@ -29,7 +29,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            bd2dstlnu
+            SLOP
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -50,7 +50,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">bd2dstlnu</a>
+          <a href="../../../../index.html">SLOP</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -81,7 +81,7 @@
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">V</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;CLN&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BToV_CLN&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ffpar</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;RhoSq&quot;</span> <span class="p">:</span> <span class="mf">1.207</span><span class="p">,</span>
             <span class="s2">&quot;h_A1&quot;</span>  <span class="p">:</span> <span class="mf">0.908</span><span class="p">,</span>
@@ -91,57 +91,8 @@
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RhoSq&quot;</span><span class="p">,</span> <span class="s2">&quot;h_A1&quot;</span><span class="p">,</span> <span class="s2">&quot;R1&quot;</span><span class="p">,</span> <span class="s2">&quot;R2&quot;</span><span class="p">,</span> <span class="s2">&quot;R0&quot;</span><span class="p">]</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WARNING: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> Tensor FFs are set assuming eq. 11 in https://arxiv.org/pdf/1503.05534 is unity, use with care for BSM&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WARNING: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> SM only, tensor FFs are zero.&quot;</span><span class="p">)</span>
     
-
-<div class="viewcode-block" id="CLN_BToV.isgur_wise">
-<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToV.html#slophep.Predictions.FormFactorsBToV.CLN_BToV.isgur_wise">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">isgur_wise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ff</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Isgur-Wise-like relations to obtain tensor</span>
-<span class="sd">        form factors from vector form factors from the equations of motion</span>
-<span class="sd">        in the heavy quark limit</span>
-
-<span class="sd">        Implements eq. 11 in https://arxiv.org/pdf/1503.05534 and assumes</span>
-<span class="sd">        r(q2) = 1 for all three terms in the equation </span>
-
-<span class="sd">        Directly lifted from flavio https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/isgurwise.py</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        q2 : float</span>
-<span class="sd">            q2 value to calculate FF at</span>
-<span class="sd">        ff : dict</span>
-<span class="sd">            dictionary with other FFs</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        dict</span>
-<span class="sd">            FF dictionary with a tensor FFs</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">mB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mb&quot;</span><span class="p">]</span>
-        <span class="n">mV</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mc&quot;</span><span class="p">]</span>
-        <span class="n">mb</span> <span class="o">=</span> <span class="n">running</span><span class="o">.</span><span class="n">get_mb_pole</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">)</span>
-        <span class="n">mq</span> <span class="o">=</span> <span class="n">running</span><span class="o">.</span><span class="n">get_mc_pole</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">)</span>
-        <span class="c1"># # power corrections</span>
-        <span class="c1"># # NOTE: These are all zero</span>
-        <span class="c1"># a_T1  = self.par[self._process + &#39; IW a_T1&#39;]</span>
-        <span class="c1"># a_T2  = self.par[self._process + &#39; IW a_T2&#39;]</span>
-        <span class="c1"># a_T23 = self.par[self._process + &#39; IW a_T23&#39;]</span>
-        <span class="n">a_T1</span><span class="p">,</span> <span class="n">a_T2</span><span class="p">,</span> <span class="n">a_T23</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
-        <span class="c1"># cf. eq. (11) of arXiv:1503.05534</span>
-        <span class="n">ff</span><span class="p">[</span><span class="s1">&#39;T1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">mb</span> <span class="o">+</span> <span class="n">mq</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">mB</span> <span class="o">+</span> <span class="n">mV</span><span class="p">)</span><span class="o">*</span><span class="n">ff</span><span class="p">[</span><span class="s1">&#39;V&#39;</span><span class="p">]</span>  <span class="o">*</span> <span class="p">(</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">a_T1</span> <span class="p">)</span>
-        <span class="n">ff</span><span class="p">[</span><span class="s1">&#39;T2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">mb</span> <span class="o">-</span> <span class="n">mq</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">mB</span> <span class="o">-</span> <span class="n">mV</span><span class="p">)</span><span class="o">*</span><span class="n">ff</span><span class="p">[</span><span class="s1">&#39;A1&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">a_T2</span> <span class="p">)</span>
-        <span class="k">if</span> <span class="n">q2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">ff</span><span class="p">[</span><span class="s1">&#39;T23&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">ff</span><span class="p">[</span><span class="s1">&#39;A12&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">mb</span> <span class="o">-</span> <span class="n">mq</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">mB</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">mV</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">/</span><span class="p">((</span><span class="n">mB</span> <span class="o">-</span> <span class="n">mV</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">mB</span> <span class="o">+</span> <span class="n">mV</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">ff</span><span class="p">[</span><span class="s1">&#39;T23&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">mb</span> <span class="o">-</span> <span class="n">mq</span><span class="p">)</span><span class="o">*</span> <span class="p">(</span>
-                    <span class="p">((</span><span class="n">mB</span> <span class="o">-</span> <span class="n">mV</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">q2</span><span class="p">)</span><span class="o">*</span> <span class="p">((</span><span class="n">mB</span> <span class="o">+</span> <span class="n">mV</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">q2</span><span class="p">)</span><span class="o">*</span><span class="n">ff</span><span class="p">[</span><span class="s1">&#39;A0&#39;</span><span class="p">]</span>
-                    <span class="o">+</span> <span class="mi">8</span><span class="o">*</span><span class="n">mB</span><span class="o">*</span><span class="n">mV</span><span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">mB</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">mV</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span> <span class="n">ff</span><span class="p">[</span><span class="s1">&#39;A12&#39;</span><span class="p">]</span>
-                    <span class="p">))</span><span class="o">/</span> <span class="p">(</span><span class="mf">4.</span><span class="o">*</span><span class="n">mB</span><span class="o">*</span><span class="p">(</span><span class="n">mV</span> <span class="o">-</span> <span class="n">mB</span><span class="p">)</span><span class="o">*</span><span class="n">mV</span><span class="o">*</span><span class="n">q2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">a_T23</span> <span class="p">)</span>
-        <span class="k">return</span> <span class="n">ff</span></div>
-
-
-
 <div class="viewcode-block" id="CLN_BToV.get_ff">
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToV.html#slophep.Predictions.FormFactorsBToV.CLN_BToV.get_ff">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_ff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
@@ -151,9 +102,6 @@
 <span class="sd">        Directly lifted from flavio, see https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/clnexp.py</span>
 
 <span class="sd">        For SM, this behaviour should be the same as HQET2 in EvtGen and CLN in HAMMER (though haven&#39;t verified throughly)</span>
-<span class="sd">        </span>
-<span class="sd">        For BSM, this follows flavio behaviour implementing eq. 11 in https://arxiv.org/pdf/1503.05534 and assuming</span>
-<span class="sd">        r(q2) = 1 for all three terms in the equation </span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -194,7 +142,10 @@
                 <span class="o">-</span> <span class="n">A2</span><span class="o">*</span><span class="p">(</span><span class="n">mB</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> <span class="p">(</span><span class="n">mV</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">q2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">mB</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">mV</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">q2</span><span class="p">)))</span>
                 <span class="o">/</span> <span class="p">(</span><span class="mf">16.</span><span class="o">*</span><span class="n">mB</span><span class="o">*</span><span class="n">mV</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">mB</span> <span class="o">+</span> <span class="n">mV</span><span class="p">)))</span>
         <span class="n">ff</span><span class="p">[</span><span class="s1">&#39;V&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">R1</span><span class="o">/</span><span class="n">RV</span> <span class="o">*</span> <span class="n">hA1</span>
-        <span class="n">ff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isgur_wise</span><span class="p">(</span><span class="n">q2</span><span class="o">=</span><span class="n">q2</span><span class="p">,</span> <span class="n">ff</span><span class="o">=</span><span class="n">ff</span><span class="p">)</span>
+        <span class="c1"># SM only non tensor FFs</span>
+        <span class="n">ff</span><span class="p">[</span><span class="s2">&quot;T1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">ff</span><span class="p">[</span><span class="s2">&quot;T2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">ff</span><span class="p">[</span><span class="s2">&quot;T23&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="k">return</span> <span class="n">ff</span></div>
 </div>
 
