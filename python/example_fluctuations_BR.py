@@ -1,6 +1,6 @@
-from slophep.Predictions.Observables import BToDstEllNuPrediction
+from slophep.Predictions.Observables import BdToDstEllNuPrediction
 from slophep.Predictions.SamplingFluctuate import SamplingHelper
-from slophep.Predictions.FormFactorsBToV import BToDstFF
+from slophep.Predictions.FormFactorsBToV import BdToDstFF
 
 from slophep.utils import setPlotParams
 import numpy as np
@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 Nfluct = 5000
 
 # Initialise observables we will fluctuate
-obs_hpqcd_mu = BToDstEllNuPrediction("mu", "mu", BToDstFF.HPQCD)
-obs_hpqcd_tau = BToDstEllNuPrediction("tau", "tau", BToDstFF.HPQCD)
+obs_hpqcd_mu = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.HPQCD)
+obs_hpqcd_tau = BdToDstEllNuPrediction("tau", "tau", BdToDstFF.HPQCD)
 
 fconfig_hpqcd = "data/BToDstFF_HPQCD_COV_arXiv230403137.json"
 obs_hpqcd_mu_fluct = SamplingHelper(obs_hpqcd_mu)

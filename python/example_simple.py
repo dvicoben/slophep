@@ -1,8 +1,8 @@
-from slophep.Predictions.Observables import BToDstEllNuPrediction
-from slophep.Predictions.FormFactorsBToV import BToDstFF
+from slophep.Predictions.Observables import BdToDstEllNuPrediction
+from slophep.Predictions.FormFactorsBToV import BdToDstFF
 
 
-obs_cln = BToDstEllNuPrediction("mu", "mu", BToDstFF.CLN2)
+obs_cln = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.CLN2)
 print(obs_cln.FF.ffpar) # print the default FF parameters
 ffdefaults = obs_cln.FF.ffpar.copy()
 

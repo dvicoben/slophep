@@ -1,4 +1,4 @@
-from slophep.Predictions.FormFactorsBToV import BToDstFF
+from slophep.Predictions.FormFactorsBToV import BdToDstFF
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -39,7 +39,7 @@ def get_spectrum(ff):
     return qsq, {k : np.array(res[k]) for k in res}
 
 
-btodst_cln = BToDstFF.CLN2()
+btodst_cln = BdToDstFF.CLN2()
 setffpar = perpare_dst_params_from_flavio(par)
 btodst_cln.set_ff(**setffpar)
 btodst_qsq, btodst_clnff = get_spectrum(btodst_cln)

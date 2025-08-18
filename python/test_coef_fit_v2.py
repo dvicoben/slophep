@@ -11,8 +11,8 @@ import matplotlib.pyplot as plt
 import uncertainties as uncert
 from slophep.Fitting.PDFCoefSimple import PDFAngularCoef
 
-from slophep.Predictions.Observables import BToDstEllNuPrediction
-from slophep.Predictions.FormFactorsBToV.BToDstFF import BLPR
+from slophep.Predictions.Observables import BdToDstEllNuPrediction
+from slophep.Predictions.FormFactorsBToV.BdToDstFF import BLPR
 from slophep.Predictions.Math.BToVMathTools import calc_norm_j
 import json
 
@@ -30,7 +30,7 @@ wcoeffs = {
     'CSR_bcmunumu': 0.0,
     'CT_bcmunumu': 0.5
 }
-obs = BToDstEllNuPrediction("mu", "mu", BLPR)
+obs = BdToDstEllNuPrediction("mu", "mu", BLPR)
 obs.set_wc(wcoeffs)
 ctd_bins = 3
 ctl_bins = 3

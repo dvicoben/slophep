@@ -16,8 +16,8 @@ NOTE: This still does not completely align things, as L_i are calculated differe
 may be small disagreements in the very low q2
 """
 
-from slophep.Predictions.FormFactorsBToV import BToDstFF
-from slophep.Predictions.FormFactorsBToP import BToDFF
+from slophep.Predictions.FormFactorsBToV import BdToDstFF
+from slophep.Predictions.FormFactorsBToP import BpToDFF, BdToDFF
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -40,20 +40,26 @@ def get_spectrum(ff, method: str = "get_ff"):
     return qsq, {k : np.array(res[k]) for k in res}
 
 
-btodst_blpr = BToDstFF.BLPR()
+btodst_blpr = BdToDstFF.BLPR()
 btodst_blpr.internalparams.update({
     "ebReb" : 1.0,
     "ecRec" : 1.0
 })
 btodst_qsq, btodst_blprff = get_spectrum(btodst_blpr, "get_hhat")
 
-btod_blpr = BToDFF.BLPR()
-btod_blpr.internalparams.update({
+bptod_blpr = BpToDFF.BLPR()
+bptod_blpr.internalparams.update({
     "ebReb" : 1.0,
     "ecRec" : 1.0
 })
-btod_qsq, btod_blprff = get_spectrum(btod_blpr, "get_hhat")
+bptod_qsq, bptod_blprff = get_spectrum(bptod_blpr, "get_hhat")
 
+bdtod_blpr = BdToDFF.BLPR()
+bdtod_blpr.internalparams.update({
+    "ebReb" : 1.0,
+    "ecRec" : 1.0
+})
+bdtod_qsq, bdtod_blprff = get_spectrum(bdtod_blpr, "get_hhat")
 
 def align_pars_for_flavio(par: dict, ff):
     ffpar = ff.ffpar
@@ -79,6 +85,7 @@ from flavio.physics.bdecays.formfactors import common
 
 process_dict = {
     'B->D'  : {'B': 'B+', 'q': 'b->c', 'P': 'D0'},
+    'B->D2' : {'B': 'B0', 'q': 'b->c', 'P': 'D+'},
     'B->D*' : {'B': 'B0', 'V': 'D*+', 'q': 'b->c'}
 }
 # We lift this here from flavio and adapt it for our purposes
@@ -196,7 +203,8 @@ def get_flavio_spectrum(fffunc, process, par, qsq):
     return {k : np.array(res[k]) for k in res}
 
 btodst_blprflavio = get_flavio_spectrum(blpr_btov_flavio, "B->D*", par, btodst_qsq)
-btod_blprflavio = get_flavio_spectrum(blpr_btop_flavio, "B->D", par, btod_qsq)
+bptod_blprflavio = get_flavio_spectrum(blpr_btop_flavio, "B->D", par, bptod_qsq)
+bdtod_blprflavio = get_flavio_spectrum(blpr_btop_flavio, "B->D2", par, bdtod_qsq)
 
 # Plotting them together
 def make_comparison_plot(sloppred, otherpred, qsq, prefix):
@@ -204,11 +212,12 @@ def make_comparison_plot(sloppred, otherpred, qsq, prefix):
         fig, ax = plt.subplots(1, 1)
         ax.plot(qsq, sloppred[ipred], 'b-', label="SLOP")
         ax.plot(qsq, otherpred[ipred], 'r--', label="flavio")
-        ax.set(xlabel = r"$q^2$", ylabel=r"$\hat{h}_{"+ipred+r"}$", title=prefix)
+        ax.set(xlabel = r"$q^2$", ylabel=r"$\hat{h}$ "+ipred, title=prefix)
         ax.legend()
         plt.savefig(f"checks/checks_flavio_{prefix}_{ipred}.png", 
                     bbox_inches = 'tight',
                     dpi=100)
 
 make_comparison_plot(btodst_blprff, btodst_blprflavio, btodst_qsq, "BdToDstFFBLPR")
-make_comparison_plot(btod_blprff, btod_blprflavio, btod_qsq, "BdToDFFBLPR")
+make_comparison_plot(bptod_blprff, bptod_blprflavio, bptod_qsq, "BpToDFFBLPR")
+make_comparison_plot(bdtod_blprff, bdtod_blprflavio, bdtod_qsq, "BdToDFFBLPR")

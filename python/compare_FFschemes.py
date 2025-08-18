@@ -1,6 +1,6 @@
-from slophep.Predictions.Observables import BToDstEllNuPrediction
+from slophep.Predictions.Observables import BdToDstEllNuPrediction
 from slophep.utils import setPlotParams
-from slophep.Predictions.FormFactorsBToV import BToDstFF
+from slophep.Predictions.FormFactorsBToV import BdToDstFF
 
 setPlotParams()
 
@@ -12,11 +12,11 @@ wcoeffs = {
     'CT_bcmunumu': 0.0
 }
 
-obs_cln = BToDstEllNuPrediction("mu", "mu", BToDstFF.CLN)
-obs_blpr = BToDstEllNuPrediction("mu", "mu", BToDstFF.BLPR)
-obs_bgl = BToDstEllNuPrediction("mu", "mu", BToDstFF.BGL)
-obs_bsz = BToDstEllNuPrediction("mu", "mu", BToDstFF.BSZ)
-obs_hpqcd = BToDstEllNuPrediction("mu", "mu", BToDstFF.HPQCD)
+obs_cln = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.CLN)
+obs_blpr = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.BLPR)
+obs_bgl = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.BGL)
+obs_bsz = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.BSZ)
+obs_hpqcd = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.HPQCD)
 
 obs_cln.set_wc(wcoeffs)
 obs_blpr.set_wc(wcoeffs)
