@@ -6,6 +6,12 @@ To be used to generate bands from fit results and to generate predictions for fi
 
 Predictions are made using `flavio` to compute the amplitudes and observables. ***Note that angular conventions may differ***. ***PDF/observable normalizations can also differ*** - literature and prediction tools vary in what factors are absorbed by the FFs, amplitudes, observables, decay rate and BR. For consistency it is best to look at rate-normalised observables.
 
+# Notes on Recent Changes
+For detailed changes see changelong and merge requests. This here is just to note new changes that may break existing scripts.
+
+- In v1.0.0 some of the nomenclature was changed, which means some minor changes may need to be performed to scripts due to changes in nomenclature
+    - In particular the nomenclature changed `BToDst` $\to$ `BdToDst` in both FFs and observable, so `BToDstEllNuPrediction` $\to$ `BdToDstEllNuPrediction` and `BToDstFF` $\to$ `BdToDstFF`
+
 # Requirements
 Requirements are listed in `requirements.txt`
 - Predictions use `flavio` to go from FFs and WCs to amplitudes and observables

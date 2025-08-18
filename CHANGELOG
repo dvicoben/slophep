@@ -1,15 +1,20 @@
-2025-XX-XX --- Version 1.0.0
+2025-08-18 --- Version 1.0.0
     Additions:
      - General B->P FF classes
      - General B->P Prediction classes
+     - Added B+->D0 and B0->D+
      - Added B->D BSZ FF (https://arxiv.org/abs/1811.00983)
      - Added B->D BLPR FF (arXiv:1703.05330)
+     - Added B->D BGL FF
+     - Added B->D CLN FF
     Changes:
      - CLN changed to have tensor FFs be zero by default, previous behaviour replicated from flavio
        has been moved to new CLN2 class - should make no difference for SM or NP without tensor contributions
      - Made general FF base clase to take care of setters - reduce redundancy
      - Moved WC and FF setters in predictions to a base observable class that is inherited - reduces redundancy
+     - Nomenclature changes, BToDst -> BdToDst, BToD -> BpToD and BdToD
     Fixes:
+     - Bugfix for appropiate errorbands in observables that return non-dictionary results
 
 2025-08-08 --- Version 0.0.1
     First release version
