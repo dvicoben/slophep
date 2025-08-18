@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>slophep.Predictions.FormFactorsBToP.BToPFFBLPR &mdash; bd2dstlnu v0.0.1 documentation</title>
+  <title>slophep.Predictions.FormFactorsBToP.BToPFFBLPR &mdash; SLOP v1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../../_static/documentation_options.js?v=2fea6348"></script>
+      <script src="../../../../_static/documentation_options.js?v=76e2d817"></script>
       <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
@@ -29,7 +29,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            bd2dstlnu
+            SLOP
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -50,7 +50,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">bd2dstlnu</a>
+          <a href="../../../../index.html">SLOP</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -82,7 +82,7 @@
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">P</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BToPBLPR&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BToP_BLPR&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ffpar</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;RhoSq&quot;</span> <span class="p">:</span> <span class="mf">1.24</span><span class="p">,</span>
             <span class="s2">&quot;Chi21&quot;</span> <span class="p">:</span> <span class="o">-</span><span class="mf">0.06</span><span class="p">,</span>
@@ -136,6 +136,8 @@
         <span class="n">ebReb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;ebReb&quot;</span><span class="p">]</span>
         <span class="n">ecRec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;ecRec&quot;</span><span class="p">]</span>
         <span class="n">zBC</span> <span class="o">=</span> <span class="n">mc</span><span class="o">/</span><span class="n">mb</span>
+        <span class="n">corrb</span> <span class="o">=</span> <span class="n">eb</span><span class="o">*</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">ebReb</span><span class="p">)</span>
+        <span class="n">corrc</span> <span class="o">=</span> <span class="n">ec</span><span class="o">*</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">ecRec</span><span class="p">)</span>
 
         <span class="n">RhoSq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;RhoSq&quot;</span><span class="p">]</span>
         <span class="n">chi21</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Chi21&quot;</span><span class="p">]</span>
@@ -144,11 +146,10 @@
         <span class="n">eta1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Eta1&quot;</span><span class="p">]</span>
         <span class="n">etap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Etap&quot;</span><span class="p">]</span>
         
-        
         <span class="n">L1</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">chi21</span> <span class="o">+</span> <span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span><span class="o">*</span><span class="n">chi2p</span><span class="p">)</span><span class="o">+</span><span class="mf">12.</span><span class="o">*</span><span class="n">chi3p</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span>
-        <span class="c1"># L4 = 2.*(eta1 + etap*(w-1.))-1.</span>
-        <span class="n">L4b</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="n">eta1</span> <span class="o">+</span> <span class="n">etap</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.</span><span class="p">))</span><span class="o">-</span><span class="mf">1.</span><span class="o">*</span><span class="n">ebReb</span><span class="p">)</span>
-        <span class="n">L4c</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="n">eta1</span> <span class="o">+</span> <span class="n">etap</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.</span><span class="p">))</span><span class="o">-</span><span class="mf">1.</span><span class="o">*</span><span class="n">ecRec</span><span class="p">)</span>
+        <span class="n">L4</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="n">eta1</span> <span class="o">+</span> <span class="n">etap</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.</span><span class="p">))</span><span class="o">-</span><span class="mf">1.</span>
+        <span class="c1"># L4b = (2.*(eta1 + etap*(w-1.))-1.*ebReb) # HAMMERv1.2.1</span>
+        <span class="c1"># L4c = (2.*(eta1 + etap*(w-1.))-1.*ecRec) # HAMMERv1.2.1</span>
 
         <span class="n">rD</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;rD&quot;</span><span class="p">]</span>
         <span class="n">a</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">rD</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rD</span><span class="p">)))</span>
@@ -159,9 +160,6 @@
         <span class="n">Cv1</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CV1</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
         <span class="n">Cv2</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CV2</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
         <span class="n">Cv3</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CV3</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
-        <span class="c1"># Ca1 = hqet.CA1(w, zBC)</span>
-        <span class="c1"># Ca2 = hqet.CA2(w, zBC)</span>
-        <span class="c1"># Ca3 = hqet.CA3(w, zBC)</span>
         <span class="n">Ct1</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CT1</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
         <span class="n">Ct2</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CT2</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
         <span class="n">Ct3</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CT3</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
@@ -193,8 +191,10 @@
         <span class="n">chi1</span><span class="o">=</span><span class="mi">0</span>
         <span class="n">xi</span> <span class="o">=</span><span class="n">xiIW</span> <span class="o">+</span> <span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="n">eb</span><span class="o">+</span><span class="n">ec</span><span class="p">)</span><span class="o">*</span><span class="n">chi1</span>
         <span class="n">Hp</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">+</span><span class="n">ash</span><span class="o">*</span><span class="p">(</span><span class="n">Cv1</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Cv2</span><span class="o">+</span><span class="n">Cv3</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="n">ec</span><span class="o">+</span><span class="n">eb</span><span class="p">)</span><span class="o">*</span><span class="n">L1</span>
-        <span class="n">Hm</span> <span class="o">=</span> <span class="n">ash</span><span class="o">*</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Cv2</span><span class="o">-</span><span class="n">Cv3</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">ec</span><span class="o">*</span><span class="n">L4c</span><span class="o">-</span><span class="n">eb</span><span class="o">*</span><span class="n">L4b</span><span class="p">)</span>
-        <span class="n">Ht</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">+</span><span class="n">ash</span><span class="o">*</span><span class="p">(</span><span class="n">Ct1</span><span class="o">-</span><span class="n">Ct2</span><span class="o">+</span><span class="n">Ct3</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">ec</span><span class="o">+</span><span class="n">eb</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">L1</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">ec</span><span class="o">*</span><span class="n">L4c</span><span class="o">+</span><span class="n">eb</span><span class="o">*</span><span class="n">L4b</span><span class="p">)</span>
+        <span class="c1"># Hm = ash*0.5*(w+1)*(Cv2-Cv3)+(ec*L4c-eb*L4b)               # HAMMERv1.2.1</span>
+        <span class="n">Hm</span> <span class="o">=</span> <span class="n">ash</span><span class="o">*</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Cv2</span><span class="o">-</span><span class="n">Cv3</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">ec</span><span class="o">-</span><span class="n">eb</span><span class="p">)</span><span class="o">*</span><span class="n">L4</span> <span class="o">+</span> <span class="p">(</span><span class="n">corrc</span><span class="o">-</span><span class="n">corrb</span><span class="p">)</span>
+        <span class="c1"># Ht = 1.+ash*(Ct1-Ct2+Ct3)+(ec+eb)*L1 - (ec*L4c+eb*L4b)     # HAMMERv1.2.1</span>
+        <span class="n">Ht</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">+</span><span class="n">ash</span><span class="o">*</span><span class="p">(</span><span class="n">Ct1</span><span class="o">-</span><span class="n">Ct2</span><span class="o">+</span><span class="n">Ct3</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">ec</span><span class="o">+</span><span class="n">eb</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">L1</span> <span class="o">-</span> <span class="n">L4</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">corrc</span><span class="o">+</span><span class="n">corrb</span><span class="p">)</span>
 
         <span class="n">ff</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;h+&quot;</span> <span class="p">:</span> <span class="n">xi</span><span class="o">*</span><span class="n">Hp</span><span class="p">,</span>
@@ -202,6 +202,50 @@
             <span class="s2">&quot;hT&quot;</span> <span class="p">:</span> <span class="n">xi</span><span class="o">*</span><span class="n">Ht</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">h_to_f</span><span class="p">(</span><span class="n">mB</span><span class="p">,</span> <span class="n">mP</span><span class="p">,</span> <span class="n">ff</span><span class="p">,</span> <span class="n">q2</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="BLPR_BToP.get_hhat">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.html#slophep.Predictions.FormFactorsBToP.BLPR_BToP.get_hhat">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_hhat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">(</span><span class="n">q2</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">ash</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;ash&quot;</span><span class="p">]</span>
+        <span class="n">la</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;la&quot;</span><span class="p">]</span>
+        <span class="n">mb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;mb&quot;</span><span class="p">]</span>
+        <span class="n">eb</span> <span class="o">=</span> <span class="n">la</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">mb</span><span class="p">)</span>
+        <span class="n">mc</span> <span class="o">=</span> <span class="n">mb</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;delta_mbc&quot;</span><span class="p">]</span>
+        <span class="n">ec</span> <span class="o">=</span> <span class="n">la</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">mc</span><span class="p">)</span>
+        <span class="n">ebReb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;ebReb&quot;</span><span class="p">]</span>
+        <span class="n">ecRec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;ecRec&quot;</span><span class="p">]</span>
+        <span class="n">zBC</span> <span class="o">=</span> <span class="n">mc</span><span class="o">/</span><span class="n">mb</span>
+        <span class="n">corrb</span> <span class="o">=</span> <span class="n">eb</span><span class="o">*</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">ebReb</span><span class="p">)</span>
+        <span class="n">corrc</span> <span class="o">=</span> <span class="n">ec</span><span class="o">*</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">ecRec</span><span class="p">)</span>
+
+        <span class="n">chi21</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Chi21&quot;</span><span class="p">]</span>
+        <span class="n">chi2p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Chi2p&quot;</span><span class="p">]</span>
+        <span class="n">chi3p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Chi3p&quot;</span><span class="p">]</span>
+        <span class="n">eta1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Eta1&quot;</span><span class="p">]</span>
+        <span class="n">etap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Etap&quot;</span><span class="p">]</span>
+        
+        <span class="n">L1</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">chi21</span> <span class="o">+</span> <span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span><span class="o">*</span><span class="n">chi2p</span><span class="p">)</span><span class="o">+</span><span class="mf">12.</span><span class="o">*</span><span class="n">chi3p</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span>
+        <span class="n">L4</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="n">eta1</span> <span class="o">+</span> <span class="n">etap</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.</span><span class="p">))</span><span class="o">-</span><span class="mf">1.</span>
+
+        <span class="n">Cv1</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CV1</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
+        <span class="n">Cv2</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CV2</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
+        <span class="n">Cv3</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CV3</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
+        <span class="n">Ct1</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CT1</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
+        <span class="n">Ct2</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CT2</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
+        <span class="n">Ct3</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CT3</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
+
+        <span class="n">Hp</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">+</span><span class="n">ash</span><span class="o">*</span><span class="p">(</span><span class="n">Cv1</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Cv2</span><span class="o">+</span><span class="n">Cv3</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="n">ec</span><span class="o">+</span><span class="n">eb</span><span class="p">)</span><span class="o">*</span><span class="n">L1</span>
+        <span class="n">Hm</span> <span class="o">=</span> <span class="n">ash</span><span class="o">*</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Cv2</span><span class="o">-</span><span class="n">Cv3</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">ec</span><span class="o">-</span><span class="n">eb</span><span class="p">)</span><span class="o">*</span><span class="n">L4</span> <span class="o">+</span> <span class="p">(</span><span class="n">corrc</span><span class="o">-</span><span class="n">corrb</span><span class="p">)</span>
+        <span class="n">Ht</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">+</span><span class="n">ash</span><span class="o">*</span><span class="p">(</span><span class="n">Ct1</span><span class="o">-</span><span class="n">Ct2</span><span class="o">+</span><span class="n">Ct3</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">ec</span><span class="o">+</span><span class="n">eb</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">L1</span> <span class="o">-</span> <span class="n">L4</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">corrc</span><span class="o">+</span><span class="n">corrb</span><span class="p">)</span>
+
+        <span class="n">h</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;h+&quot;</span> <span class="p">:</span> <span class="n">Hp</span><span class="p">,</span>
+            <span class="s2">&quot;h-&quot;</span> <span class="p">:</span> <span class="n">Hm</span><span class="p">,</span>
+            <span class="s2">&quot;hT&quot;</span> <span class="p">:</span> <span class="n">Ht</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">h</span></div>
 </div>
 
 </pre></div>

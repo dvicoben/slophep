@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>slophep.Predictions.Observables &mdash; bd2dstlnu v0.0.1 documentation</title>
+  <title>slophep.Predictions.Observables &mdash; SLOP v1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=2fea6348"></script>
+      <script src="../_static/documentation_options.js?v=76e2d817"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -32,7 +32,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            bd2dstlnu
+            SLOP
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -46,20 +46,31 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../auto.html">slophep.Predictions</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">slophep.Predictions.Observables</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.Observables.BToDEllNuPrediction"><code class="docutils literal notranslate"><span class="pre">BToDEllNuPrediction</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.Observables.BToDstEllNuPrediction"><code class="docutils literal notranslate"><span class="pre">BToDstEllNuPrediction</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.B"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.B</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.J"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.J()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.J_bin"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.J_bin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.J_q2int"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.J_q2int()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.P"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.P</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.PDF"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.PDF()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_angular_int"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.PDF_angular_int()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_bin"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.PDF_bin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_hist"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.PDF_hist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_hist_angular_int"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.PDF_hist_angular_int()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_norm"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.PDF_norm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction._obsq2Bin"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction._obsq2Bin()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction._prefactor"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction._prefactor()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.afb"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.afb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.afb_bin"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.afb_bin()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.dBRdq2"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.dBRdq2()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.dGdq2"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.dGdq2()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.dJ"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.dJ()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.dJ_bin"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.dJ_bin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.dJ_q2int"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.dJ_q2int()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.get_angularcoeff"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.get_angularcoeff()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.lep"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.lep</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.nu"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.nu</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.plot_obs_prediction"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.plot_obs_prediction()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.q2max"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.q2max</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction.q2min"><code class="docutils literal notranslate"><span class="pre">BToPEllNuPrediction.q2min</span></code></a></li>
 </ul>
@@ -99,6 +110,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.BToVEllNuPrediction.uniang_obs"><code class="docutils literal notranslate"><span class="pre">BToVEllNuPrediction.uniang_obs()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.Observables.BdToDstEllNuPrediction"><code class="docutils literal notranslate"><span class="pre">BdToDstEllNuPrediction</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.Observables.BpToDEllNuPrediction"><code class="docutils literal notranslate"><span class="pre">BpToDEllNuPrediction</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.Observables.BsToDsstEllNuPrediction"><code class="docutils literal notranslate"><span class="pre">BsToDsstEllNuPrediction</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.Observables.ObservableBase"><code class="docutils literal notranslate"><span class="pre">ObservableBase</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.Observables.ObservableBase.FF"><code class="docutils literal notranslate"><span class="pre">ObservableBase.FF</span></code></a></li>
@@ -115,13 +128,16 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorBase.html">slophep.Predictions.FormFactorBase</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToV.html">slophep.Predictions.FormFactorsBToV</a></li>
-<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToV.BToDstFF.html">slophep.Predictions.FormFactorsBToV.BToDstFF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToV.BdToDstFF.html">slophep.Predictions.FormFactorsBToV.BdToDstFF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToV.BsToDsstFF.html">slophep.Predictions.FormFactorsBToV.BsToDsstFF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.html">slophep.Predictions.FormFactorsBToP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.BToDFF.html">slophep.Predictions.FormFactorsBToP.BToDFF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.BToVMathTools.html">slophep.Predictions.BToVMathTools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.BpToDFF.html">slophep.Predictions.FormFactorsBToP.BpToDFF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.BdToDFF.html">slophep.Predictions.FormFactorsBToP.BdToDFF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.SamplingTools.html">slophep.Predictions.SamplingTools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.SamplingFluctuate.html">slophep.Predictions.SamplingFluctuate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.Math.BToVMathTools.html">slophep.Predictions.Math.BToVMathTools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.Math.BToPMathTools.html">slophep.Predictions.Math.BToPMathTools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.Math.integrals.html">slophep.Predictions.Math.integrals</a></li>
 </ul>
 </li>
 </ul>
@@ -132,7 +148,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">bd2dstlnu</a>
+          <a href="../index.html">SLOP</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -154,18 +170,6 @@
   <section id="module-slophep.Predictions.Observables">
 <span id="slophep-predictions-observables"></span><h1>slophep.Predictions.Observables<a class="headerlink" href="#module-slophep.Predictions.Observables" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToDEllNuPrediction">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">slophep.Predictions.Observables.</span></span><span class="sig-name descname"><span class="pre">BToDEllNuPrediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FF</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.html#slophep.Predictions.FormFactorsBToP.FormFactorBToP" title="slophep.Predictions.FormFactorsBToP.BToPFFBase.FormFactorBToP"><span class="pre">FormFactorBToP</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ffargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4.8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/ObservablesBToP.html#BToDEllNuPrediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToDEllNuPrediction" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction" title="slophep.Predictions.Observables.BToPEllNuObs.BToPEllNuPrediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">BToPEllNuPrediction</span></code></a></p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToDstEllNuPrediction">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">slophep.Predictions.Observables.</span></span><span class="sig-name descname"><span class="pre">BToDstEllNuPrediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FF</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="slophep.Predictions.FormFactorsBToV.html#slophep.Predictions.FormFactorsBToV.FormFactorBToV" title="slophep.Predictions.FormFactorsBToV.BToVFFBase.FormFactorBToV"><span class="pre">FormFactorBToV</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ffargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4.8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/ObservablesBToV.html#BToDstEllNuPrediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToDstEllNuPrediction" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#slophep.Predictions.Observables.BToVEllNuPrediction" title="slophep.Predictions.Observables.BToVEllNuObs.BToVEllNuPrediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">BToVEllNuPrediction</span></code></a></p>
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">slophep.Predictions.Observables.</span></span><span class="sig-name descname"><span class="pre">BToPEllNuPrediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qiqj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FF</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.html#slophep.Predictions.FormFactorsBToP.FormFactorBToP" title="slophep.Predictions.FormFactorsBToP.BToPFFBase.FormFactorBToP"><span class="pre">FormFactorBToP</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ffargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4.8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#slophep.Predictions.Observables.ObservableBase" title="slophep.Predictions.Observables.ObservableBase.ObservableBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObservableBase</span></code></a></p>
@@ -178,13 +182,190 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.J">
 <span class="sig-name descname"><span class="pre">J</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.J"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.J" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Calculate rate normalised angular coefficients, flavio is used for these calculations, method essentially follows
+flavio.physics.bdecays.bplnu._get_angularcoeff from <a class="reference external" href="https://flav-io.github.io/apidoc/flavio/physics/bdecays/bplnu.m.html">https://flav-io.github.io/apidoc/flavio/physics/bdecays/bplnu.m.html</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of coefficients a, b, c</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.J_bin">
+<span class="sig-name descname"><span class="pre">J_bin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.J_bin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.J_bin" title="Link to this definition"></a></dt>
+<dd><p>Calculate rate normalised binned angular observable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q2min</strong> (<em>float</em>)</p></li>
+<li><p><strong>q2max</strong> (<em>float</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of observables, integrated over q2min, q2max</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.J_q2int">
+<span class="sig-name descname"><span class="pre">J_q2int</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.J_q2int"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.J_q2int" title="Link to this definition"></a></dt>
+<dd><p>Calculate rate-normalised q2-integrated observable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of observables</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.P">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">P</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.P" title="Link to this definition"></a></dt>
 <dd><p>The P meson</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.PDF">
+<span class="sig-name descname"><span class="pre">PDF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.PDF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.PDF" title="Link to this definition"></a></dt>
+<dd><p>Evaluate PDF (up to normalisation) at phase-space point</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q2</strong> (<em>float</em>)</p></li>
+<li><p><strong>ctl</strong> (<em>float</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>pdf (up to normalisation)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.PDF_angular_int">
+<span class="sig-name descname"><span class="pre">PDF_angular_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctl_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctl_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.PDF_angular_int"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_angular_int" title="Link to this definition"></a></dt>
+<dd><p>Evaluate angular terms of PDF integrated over angular bin</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ctl_min</strong> (<em>float</em>)</p></li>
+<li><p><strong>ctl_max</strong> (<em>float</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Integrated angular term corresponding to each observable</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.PDF_bin">
+<span class="sig-name descname"><span class="pre">PDF_bin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctl_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctl_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.PDF_bin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_bin" title="Link to this definition"></a></dt>
+<dd><p>Evaluate pdf integrated over phase-space bin</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q2_min</strong> (<em>float</em>)</p></li>
+<li><p><strong>q2_max</strong> (<em>float</em>)</p></li>
+<li><p><strong>ctl_min</strong> (<em>float</em>)</p></li>
+<li><p><strong>ctl_max</strong> (<em>float</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>PDF in phase-space bin</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.PDF_hist">
+<span class="sig-name descname"><span class="pre">PDF_hist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctl_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.PDF_hist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_hist" title="Link to this definition"></a></dt>
+<dd><p>Create 4D histogram of PDF. This computes observables integrated over the bin and angular integrals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q2_bins</strong> (<em>int</em><em> | </em><em>list</em>) – Binning in q2, specify either number of bins or bin edges</p></li>
+<li><p><strong>ctl_bins</strong> (<em>int</em><em> | </em><em>list</em>) – Binning in ctl, specify either number of bins or bin edges</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>h</strong> (<em>np.ndarray</em>) – PDF histogram</p></li>
+<li><p><strong>bin_edges</strong> (<em>list</em>) – List of bin edges used, in form [q2_edges, ctd_edges, ctl_edges, chi_edges]</p></li>
+<li><p><strong>h_angint</strong> (<em>dict</em>) – Angular integrals for angular bin</p></li>
+<li><p><strong>j_bins</strong> (<em>dict</em>) – Observables computed to generate h</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.PDF_hist_angular_int">
+<span class="sig-name descname"><span class="pre">PDF_hist_angular_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctl_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.PDF_hist_angular_int"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_hist_angular_int" title="Link to this definition"></a></dt>
+<dd><p>Compute angular integrals for provided binning scheme</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctl_bins</strong> (<em>int</em><em> | </em><em>list</em>) – Binning in ctl, specify either number of bins or bin edges</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Angular integrals for angular bin, output is in the form dict[ctx bin][ctl bin][chi bin] = [angular integrals]
+where [angular integrals] is a list of the integrated angular term corresponding to each observable in the order
+stored in dict[“order”]. This is also returned as an array in dict[“asarray”] to use for easier multiplication with
+numpy.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.PDF_norm">
+<span class="sig-name descname"><span class="pre">PDF_norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.PDF_norm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_norm" title="Link to this definition"></a></dt>
+<dd><p>Evaluate PDF (up to normalisation) at phase-space point, using rate-normalised observables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q2</strong> (<em>float</em>)</p></li>
+<li><p><strong>ctl</strong> (<em>float</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>pdf (up to normalisation)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction._obsq2Bin">
+<span class="sig-name descname"><span class="pre">_obsq2Bin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction._obsq2Bin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction._obsq2Bin" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction._prefactor">
@@ -196,7 +377,14 @@ of flavio equivalent in <a class="reference external" href="https://flav-io.gith
 <dl class="py method">
 <dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.afb">
 <span class="sig-name descname"><span class="pre">afb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.afb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.afb" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Calculate afb</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.afb_bin">
+<span class="sig-name descname"><span class="pre">afb_bin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.afb_bin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.afb_bin" title="Link to this definition"></a></dt>
+<dd><p>Calculate binned AFB</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.dBRdq2">
@@ -235,7 +423,53 @@ of flavio equivalent in <a class="reference external" href="https://flav-io.gith
 <dl class="py method">
 <dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.dJ">
 <span class="sig-name descname"><span class="pre">dJ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.dJ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.dJ" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Alias for get_angularcoeff</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of coefficents a, b, c</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.dJ_bin">
+<span class="sig-name descname"><span class="pre">dJ_bin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.dJ_bin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.dJ_bin" title="Link to this definition"></a></dt>
+<dd><p>Calculate binned angular observable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q2min</strong> (<em>float</em>)</p></li>
+<li><p><strong>q2max</strong> (<em>float</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of observables, integrated over q2min, q2max</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.dJ_q2int">
+<span class="sig-name descname"><span class="pre">dJ_q2int</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.dJ_q2int"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.dJ_q2int" title="Link to this definition"></a></dt>
+<dd><p>Calculate q2-integrated observable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of observables</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.get_angularcoeff">
@@ -265,6 +499,34 @@ flavio.physics.bdecays.bplnu._get_angularcoeff from <a class="reference external
 <dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.nu">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nu</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.nu" title="Link to this definition"></a></dt>
 <dd><p>Neutrino flavour (nu/e/tau)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BToPEllNuPrediction.plot_obs_prediction">
+<span class="sig-name descname"><span class="pre">plot_obs_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Figure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Axes</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Figure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Axes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/BToPEllNuObs.html#BToPEllNuPrediction.plot_obs_prediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BToPEllNuPrediction.plot_obs_prediction" title="Link to this definition"></a></dt>
+<dd><p>Plot prediction for a particular observable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs</strong> (<em>str</em>) – Desired observable, available are [“a”, “b”, “c”, “AFB”]</p></li>
+<li><p><strong>q2min</strong> (<em>float</em><em>, </em><em>optional</em>) – Min. value of q2 to plot, by default None which sets to physical minimum</p></li>
+<li><p><strong>q2max</strong> (<em>float</em><em>, </em><em>optional</em>) – Max. value of q2 to plot, by default None which sets to physical maximum</p></li>
+<li><p><strong>label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for legend, by default None</p></li>
+<li><p><strong>plot</strong> (<em>tuple</em><em>[</em><em>plt.Figure</em><em>, </em><em>plt.Axes</em><em>]</em><em>, </em><em>optional</em>) – Figure and axes to plot on, by default None. This allows to plot multiple observables in same
+axis or to change FFs/WCs and re-plot on same axes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>fig</strong> (<em>plt.Figure</em>) – The matplotlib figure, show with fig.show(), update drawing with fig.canvas.draw()</p></li>
+<li><p><strong>ax</strong> (<em>plt.Axes</em>) – Matplotlib axes, add legend with ax.legend()</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – For unavailable observable</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -739,6 +1001,18 @@ axis or to change FFs/WCs and re-plot on same axes</p></li>
 <dd><p>Calculate uniangular observables (FL, AFB, Flt, J3, J9)</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BdToDstEllNuPrediction">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">slophep.Predictions.Observables.</span></span><span class="sig-name descname"><span class="pre">BdToDstEllNuPrediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FF</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="slophep.Predictions.FormFactorsBToV.html#slophep.Predictions.FormFactorsBToV.FormFactorBToV" title="slophep.Predictions.FormFactorsBToV.BToVFFBase.FormFactorBToV"><span class="pre">FormFactorBToV</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ffargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4.8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/ObservablesBToV.html#BdToDstEllNuPrediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BdToDstEllNuPrediction" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#slophep.Predictions.Observables.BToVEllNuPrediction" title="slophep.Predictions.Observables.BToVEllNuObs.BToVEllNuPrediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">BToVEllNuPrediction</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="slophep.Predictions.Observables.BpToDEllNuPrediction">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">slophep.Predictions.Observables.</span></span><span class="sig-name descname"><span class="pre">BpToDEllNuPrediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FF</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.html#slophep.Predictions.FormFactorsBToP.FormFactorBToP" title="slophep.Predictions.FormFactorsBToP.BToPFFBase.FormFactorBToP"><span class="pre">FormFactorBToP</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ffargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4.8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/Observables/ObservablesBToP.html#BpToDEllNuPrediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Observables.BpToDEllNuPrediction" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#slophep.Predictions.Observables.BToPEllNuPrediction" title="slophep.Predictions.Observables.BToPEllNuObs.BToPEllNuPrediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">BToPEllNuPrediction</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">

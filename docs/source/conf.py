@@ -10,10 +10,10 @@ sys.path.insert(0, os.path.abspath('../../src/'))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'bd2dstlnu'
+project = 'SLOP'
 copyright = '2025, dvicoben'
 author = 'dvicoben'
-release = 'v0.0.1'
+release = 'v1.0.0'
 
 
 # -- General configuration ---------------------------------------------------

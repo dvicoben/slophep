@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>slophep.Predictions.Observables.BToPEllNuObs &mdash; bd2dstlnu v0.0.1 documentation</title>
+  <title>slophep.Predictions.Observables.BToPEllNuObs &mdash; SLOP v1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../../_static/documentation_options.js?v=2fea6348"></script>
+      <script src="../../../../_static/documentation_options.js?v=76e2d817"></script>
       <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
@@ -29,7 +29,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            bd2dstlnu
+            SLOP
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -50,7 +50,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">bd2dstlnu</a>
+          <a href="../../../../index.html">SLOP</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -70,9 +70,12 @@
              
   <h1>Source code for slophep.Predictions.Observables.BToPEllNuObs</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">slophep.Predictions.FormFactorsBToP</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormFactorBToP</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">slophep.Predictions.Observables</span><span class="w"> </span><span class="kn">import</span> <span class="n">ObservableBase</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">slophep.Predictions.Math.BToPMathTools</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mt</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">flavio</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">flavio.physics.running</span><span class="w"> </span><span class="kn">import</span> <span class="n">running</span>
@@ -185,12 +188,35 @@
 <div class="viewcode-block" id="BToPEllNuPrediction.dJ">
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.dJ">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">dJ</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for get\_angularcoeff</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2 : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            Dictionary of coefficents a, b, c</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_angularcoeff</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BToPEllNuPrediction.J">
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.J">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">J</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate rate normalised angular coefficients, flavio is used for these calculations, method essentially follows</span>
+<span class="sd">        flavio.physics.bdecays.bplnu._get_angularcoeff from https://flav-io.github.io/apidoc/flavio/physics/bdecays/bplnu.m.html</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2 : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            Dictionary of coefficients a, b, c</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dJ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
         <span class="n">dG</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">dJ</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">dJ</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">3.</span><span class="p">)</span>
         <span class="c1"># Can lead to Nan if dG==0 i.e. outside kinematic range, so:</span>
@@ -239,10 +265,302 @@
         <span class="k">return</span> <span class="n">BR</span></div>
 
     
+<div class="viewcode-block" id="BToPEllNuPrediction._obsq2Bin">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction._obsq2Bin">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_obsq2Bin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="n">q2min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">q2max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">evalObs</span><span class="p">(</span><span class="n">q2</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ</span><span class="p">(</span><span class="n">q2</span><span class="p">)[</span><span class="n">obs</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">flavio</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">nintegrate</span><span class="p">(</span><span class="n">evalObs</span><span class="p">,</span> <span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BToPEllNuPrediction.dJ_bin">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.dJ_bin">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dJ_bin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">q2max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate binned angular observable</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2min : float</span>
+<span class="sd">        q2max : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            Dictionary of observables, integrated over q2min, q2max</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">iobs</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obsq2Bin</span><span class="p">(</span><span class="n">iobs</span><span class="p">,</span> <span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">)</span> <span class="k">for</span> <span class="n">iobs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">obslist</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="BToPEllNuPrediction.J_bin">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.J_bin">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">J_bin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">q2max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate rate normalised binned angular observable</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2min : float</span>
+<span class="sd">        q2max : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            Dictionary of observables, integrated over q2min, q2max</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dJ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ_bin</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">)</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">dJ</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">dJ</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">3.</span><span class="p">)</span>
+        <span class="c1"># den = flavio.math.integrate.nintegrate(self.dGdq2, q2min, q2max)</span>
+        <span class="c1"># return {iobs : num[iobs]/den for iobs in self.obslist}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">iobs</span> <span class="p">:</span> <span class="n">dJ</span><span class="p">[</span><span class="n">iobs</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span> <span class="k">for</span> <span class="n">iobs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">obslist</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="BToPEllNuPrediction.dJ_q2int">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.dJ_q2int">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dJ_q2int</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate q2-integrated observable</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            Dictionary of observables</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ_bin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q2min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2max</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BToPEllNuPrediction.J_q2int">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.J_q2int">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">J_q2int</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate rate-normalised q2-integrated observable</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            Dictionary of observables</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dJ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ_q2int</span><span class="p">()</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">dJ</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">dJ</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">3.</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">iobs</span> <span class="p">:</span> <span class="n">dJ</span><span class="p">[</span><span class="n">iobs</span><span class="p">]</span><span class="o">/</span><span class="n">norm</span> <span class="k">for</span> <span class="n">iobs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">obslist</span><span class="p">}</span></div>
+
+
 <div class="viewcode-block" id="BToPEllNuPrediction.afb">
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.afb">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">afb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate afb&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">J</span><span class="p">(</span><span class="n">q2</span><span class="p">)[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span></div>
+
+    
+<div class="viewcode-block" id="BToPEllNuPrediction.afb_bin">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.afb_bin">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">afb_bin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">q2max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate binned AFB&quot;&quot;&quot;</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">J_bin</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span></div>
+
+    
+<div class="viewcode-block" id="BToPEllNuPrediction.PDF">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.PDF">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">PDF</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ctl</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Evaluate PDF (up to normalisation) at phase-space point</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2 : float</span>
+<span class="sd">        ctl : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            pdf (up to normalisation)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mt</span><span class="o">.</span><span class="n">angularPDF</span><span class="p">(</span><span class="n">ctl</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="BToPEllNuPrediction.PDF_norm">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_norm">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">PDF_norm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ctl</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Evaluate PDF (up to normalisation) at phase-space point, using rate-normalised observables</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2 : float</span>
+<span class="sd">        ctl : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            pdf (up to normalisation)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">J</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mt</span><span class="o">.</span><span class="n">angularPDF</span><span class="p">(</span><span class="n">ctl</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BToPEllNuPrediction.PDF_bin">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_bin">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">PDF_bin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">q2_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                 <span class="n">ctl_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ctl_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Evaluate pdf integrated over phase-space bin</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2_min : float</span>
+<span class="sd">        q2_max : float</span>
+<span class="sd">        ctl_min : float</span>
+<span class="sd">        ctl_max : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            PDF in phase-space bin</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ_bin</span><span class="p">(</span><span class="n">q2_min</span><span class="p">,</span> <span class="n">q2_max</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mt</span><span class="o">.</span><span class="n">angularPDF_binned</span><span class="p">(</span><span class="n">ctl_min</span><span class="p">,</span> <span class="n">ctl_max</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="BToPEllNuPrediction.PDF_angular_int">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_angular_int">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">PDF_angular_int</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctl_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ctl_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Evaluate angular terms of PDF integrated over angular bin</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ctl_min : float</span>
+<span class="sd">        ctl_max : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            Integrated angular term corresponding to each observable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">mt</span><span class="o">.</span><span class="n">angular_integrals</span><span class="p">(</span><span class="n">ctl_min</span><span class="p">,</span> <span class="n">ctl_max</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="BToPEllNuPrediction.PDF_hist_angular_int">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_hist_angular_int">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">PDF_hist_angular_int</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctl_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute angular integrals for provided binning scheme</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ctl_bins : int | list</span>
+<span class="sd">            Binning in ctl, specify either number of bins or bin edges</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            Angular integrals for angular bin, output is in the form dict[ctx bin][ctl bin][chi bin] = [angular integrals]</span>
+<span class="sd">            where [angular integrals] is a list of the integrated angular term corresponding to each observable in the order</span>
+<span class="sd">            stored in dict[&quot;order&quot;]. This is also returned as an array in dict[&quot;asarray&quot;] to use for easier multiplication with</span>
+<span class="sd">            numpy.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ctl_edges</span> <span class="o">=</span> <span class="n">ctl_bins</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">ctl_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">ctl_bins</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">h_angintegrals</span> <span class="o">=</span> <span class="p">{</span><span class="n">jctl</span> <span class="p">:</span> <span class="p">{}</span> <span class="k">for</span> <span class="n">jctl</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ctl_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)}</span>
+        <span class="n">angint_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ctl_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ictl</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ctl_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">h_ang_d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PDF_angular_int</span><span class="p">(</span><span class="n">ctl_edges</span><span class="p">[</span><span class="n">ictl</span><span class="p">],</span> <span class="n">ctl_edges</span><span class="p">[</span><span class="n">ictl</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">h_angintegrals</span><span class="p">[</span><span class="n">ictl</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">h_ang_d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">obslist</span><span class="p">])</span>
+            <span class="n">angint_array</span><span class="p">[</span><span class="n">ictl</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">h_ang_d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">obslist</span><span class="p">])</span>
+        <span class="n">h_angintegrals</span><span class="p">[</span><span class="s2">&quot;order&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obslist</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">h_angintegrals</span><span class="p">[</span><span class="s2">&quot;asarray&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">angint_array</span>
+        <span class="k">return</span> <span class="n">h_angintegrals</span></div>
+
+
+<div class="viewcode-block" id="BToPEllNuPrediction.PDF_hist">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.PDF_hist">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">PDF_hist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">,</span> <span class="n">ctl_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create 4D histogram of PDF. This computes observables integrated over the bin and angular integrals.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2_bins : int | list</span>
+<span class="sd">            Binning in q2, specify either number of bins or bin edges</span>
+<span class="sd">        ctl_bins : int | list</span>
+<span class="sd">            Binning in ctl, specify either number of bins or bin edges</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        h : np.ndarray</span>
+<span class="sd">            PDF histogram</span>
+<span class="sd">        bin_edges : list</span>
+<span class="sd">            List of bin edges used, in form [q2_edges, ctd_edges, ctl_edges, chi_edges]</span>
+<span class="sd">        h_angint : dict</span>
+<span class="sd">            Angular integrals for angular bin</span>
+<span class="sd">        j_bins : dict</span>
+<span class="sd">            Observables computed to generate h</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">q2max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2max</span>
+        <span class="n">q2min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2min</span>
+        
+        <span class="n">q2_edges</span> <span class="o">=</span> <span class="n">q2_bins</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">q2_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">,</span> <span class="n">q2_bins</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ctl_edges</span> <span class="o">=</span> <span class="n">ctl_bins</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">ctl_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">ctl_bins</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">q2_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ctl_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="c1"># Cache angular integrals to avoid recomputation for q2 angular bin</span>
+        <span class="n">h_angintegrals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PDF_hist_angular_int</span><span class="p">(</span><span class="n">ctl_edges</span><span class="p">)</span>
+        <span class="n">j_bins</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">iq2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">q2_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">ictl</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ctl_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">dJ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ_bin</span><span class="p">(</span><span class="n">q2_edges</span><span class="p">[</span><span class="n">iq2</span><span class="p">],</span> <span class="n">q2_edges</span><span class="p">[</span><span class="n">iq2</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">j_bins</span><span class="p">[</span><span class="n">iq2</span><span class="p">]</span> <span class="o">=</span> <span class="n">dJ</span>
+                <span class="n">J_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dJ</span><span class="p">[</span><span class="n">iobs</span><span class="p">]</span> <span class="k">for</span> <span class="n">iobs</span> <span class="ow">in</span> <span class="n">h_angintegrals</span><span class="p">[</span><span class="s2">&quot;order&quot;</span><span class="p">]])</span>
+                <span class="n">h</span><span class="p">[</span><span class="n">iq2</span><span class="p">][</span><span class="n">ictl</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span><span class="o">/</span><span class="p">(</span><span class="mi">32</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">J_vec</span><span class="p">,</span> <span class="n">h_angintegrals</span><span class="p">[</span><span class="n">ictl</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">h</span><span class="p">,</span> <span class="p">[</span><span class="n">q2_edges</span><span class="p">,</span> <span class="n">ctl_edges</span><span class="p">],</span> <span class="n">h_angintegrals</span><span class="p">,</span> <span class="n">j_bins</span></div>
+
+    
+<div class="viewcode-block" id="BToPEllNuPrediction.plot_obs_prediction">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.plot_obs_prediction">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_obs_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obs</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+                            <span class="n">q2min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">q2max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+                            <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                            <span class="n">plot</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Figure</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Figure</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plot prediction for a particular observable</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        obs : str</span>
+<span class="sd">            Desired observable, available are [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;AFB&quot;]</span>
+<span class="sd">        q2min : float, optional</span>
+<span class="sd">            Min. value of q2 to plot, by default None which sets to physical minimum</span>
+<span class="sd">        q2max : float, optional</span>
+<span class="sd">            Max. value of q2 to plot, by default None which sets to physical maximum</span>
+<span class="sd">        label : str, optional</span>
+<span class="sd">            Label for legend, by default None</span>
+<span class="sd">        plot : tuple[plt.Figure, plt.Axes], optional</span>
+<span class="sd">            Figure and axes to plot on, by default None. This allows to plot multiple observables in same</span>
+<span class="sd">            axis or to change FFs/WCs and re-plot on same axes</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        fig : plt.Figure</span>
+<span class="sd">            The matplotlib figure, show with fig.show(), update drawing with fig.canvas.draw()</span>
+<span class="sd">        ax : plt.Axes</span>
+<span class="sd">            Matplotlib axes, add legend with ax.legend()</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            For unavailable observable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">q2min</span> <span class="o">=</span> <span class="n">q2min</span> <span class="k">if</span> <span class="n">q2min</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2min</span><span class="o">+</span><span class="mf">1e-6</span>
+        <span class="n">q2max</span> <span class="o">=</span> <span class="n">q2max</span> <span class="k">if</span> <span class="n">q2max</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2max</span><span class="o">-</span><span class="mf">1e-6</span>
+        <span class="n">q2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">obs_vals</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Get the observable in q2</span>
+        <span class="k">if</span> <span class="n">obs</span> <span class="o">==</span> <span class="s2">&quot;AFB&quot;</span><span class="p">:</span>
+            <span class="n">obs_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">afb</span><span class="p">(</span><span class="n">iq2</span><span class="p">)</span> <span class="k">for</span> <span class="n">iq2</span> <span class="ow">in</span> <span class="n">q2</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">obs</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">obslist</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">obs</span><span class="si">}</span><span class="s2"> is not a valid observable&quot;</span><span class="p">)</span>
+            <span class="n">obs_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">J</span><span class="p">(</span><span class="n">iq2</span><span class="p">)[</span><span class="n">obs</span><span class="p">]</span> <span class="k">for</span> <span class="n">iq2</span> <span class="ow">in</span> <span class="n">q2</span><span class="p">])</span>
+
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">plot</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">):</span>
+            <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$q^2$ [GeV$^2$]&quot;</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">q2</span><span class="p">,</span> <span class="n">obs_vals</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span> <span class="k">if</span> <span class="n">label</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">obs</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">FF</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span></div>
 </div>
 
 </pre></div>

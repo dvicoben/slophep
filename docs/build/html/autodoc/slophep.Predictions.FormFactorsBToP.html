@@ -6,20 +6,20 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>slophep.Predictions.FormFactorsBToP &mdash; bd2dstlnu v0.0.1 documentation</title>
+  <title>slophep.Predictions.FormFactorsBToP &mdash; SLOP v1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=2fea6348"></script>
+      <script src="../_static/documentation_options.js?v=76e2d817"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="slophep.Predictions.FormFactorsBToP.BToDFF" href="slophep.Predictions.FormFactorsBToP.BToDFF.html" />
+    <link rel="next" title="slophep.Predictions.FormFactorsBToP.BpToDFF" href="slophep.Predictions.FormFactorsBToP.BpToDFF.html" />
     <link rel="prev" title="slophep.Predictions.FormFactorsBToV.BsToDsstFF" href="slophep.Predictions.FormFactorsBToV.BsToDsstFF.html" /> 
 </head>
 
@@ -32,7 +32,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            bd2dstlnu
+            SLOP
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -48,11 +48,17 @@
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.Observables.html">slophep.Predictions.Observables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorBase.html">slophep.Predictions.FormFactorBase</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToV.html">slophep.Predictions.FormFactorsBToV</a></li>
-<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToV.BToDstFF.html">slophep.Predictions.FormFactorsBToV.BToDstFF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToV.BdToDstFF.html">slophep.Predictions.FormFactorsBToV.BdToDstFF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToV.BsToDsstFF.html">slophep.Predictions.FormFactorsBToV.BsToDsstFF</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">slophep.Predictions.FormFactorsBToP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.BGL_BToP"><code class="docutils literal notranslate"><span class="pre">BGL_BToP</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.BGL_BToP.blaschke"><code class="docutils literal notranslate"><span class="pre">BGL_BToP.blaschke()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.BGL_BToP.get_ff"><code class="docutils literal notranslate"><span class="pre">BGL_BToP.get_ff()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.BLPR_BToP"><code class="docutils literal notranslate"><span class="pre">BLPR_BToP</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.BLPR_BToP.get_ff"><code class="docutils literal notranslate"><span class="pre">BLPR_BToP.get_ff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.BLPR_BToP.get_hhat"><code class="docutils literal notranslate"><span class="pre">BLPR_BToP.get_hhat()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.BSZ_BToP"><code class="docutils literal notranslate"><span class="pre">BSZ_BToP</span></code></a><ul>
@@ -60,6 +66,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.BSZ_BToP.pole"><code class="docutils literal notranslate"><span class="pre">BSZ_BToP.pole()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.BSZ_BToP.z"><code class="docutils literal notranslate"><span class="pre">BSZ_BToP.z()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.BSZ_BToP.zs"><code class="docutils literal notranslate"><span class="pre">BSZ_BToP.zs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.CLN_BToP"><code class="docutils literal notranslate"><span class="pre">CLN_BToP</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.CLN_BToP.get_ff"><code class="docutils literal notranslate"><span class="pre">CLN_BToP.get_ff()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.FormFactorBToP"><code class="docutils literal notranslate"><span class="pre">FormFactorBToP</span></code></a><ul>
@@ -71,10 +81,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.BToDFF.html">slophep.Predictions.FormFactorsBToP.BToDFF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.BToVMathTools.html">slophep.Predictions.BToVMathTools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.BpToDFF.html">slophep.Predictions.FormFactorsBToP.BpToDFF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.BdToDFF.html">slophep.Predictions.FormFactorsBToP.BdToDFF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.SamplingTools.html">slophep.Predictions.SamplingTools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.SamplingFluctuate.html">slophep.Predictions.SamplingFluctuate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.Math.BToVMathTools.html">slophep.Predictions.Math.BToVMathTools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.Math.BToPMathTools.html">slophep.Predictions.Math.BToPMathTools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.Math.integrals.html">slophep.Predictions.Math.integrals</a></li>
 </ul>
 </li>
 </ul>
@@ -85,7 +98,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">bd2dstlnu</a>
+          <a href="../index.html">SLOP</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -107,6 +120,36 @@
   <section id="module-slophep.Predictions.FormFactorsBToP">
 <span id="slophep-predictions-formfactorsbtop"></span><h1>slophep.Predictions.FormFactorsBToP<a class="headerlink" href="#module-slophep.Predictions.FormFactorsBToP" title="Link to this heading"></a></h1>
 <dl class="py class">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToP.BGL_BToP">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">slophep.Predictions.FormFactorsBToP.</span></span><span class="sig-name descname"><span class="pre">BGL_BToP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">ffargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToP/BToPFFBGL.html#BGL_BToP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToP.BGL_BToP" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.FormFactorBToP" title="slophep.Predictions.FormFactorsBToP.BToPFFBase.FormFactorBToP"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormFactorBToP</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToP.BGL_BToP.blaschke">
+<span class="sig-name descname"><span class="pre">blaschke</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BcStates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Mb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Mc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToP/BToPFFBGL.html#BGL_BToP.blaschke"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToP.BGL_BToP.blaschke" title="Link to this definition"></a></dt>
+<dd><p>Calculate Blaschke factor P(t) from B_c-type resonances</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToP.BGL_BToP.get_ff">
+<span class="sig-name descname"><span class="pre">get_ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToP/BToPFFBGL.html#BGL_BToP.get_ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToP.BGL_BToP.get_ff" title="Link to this definition"></a></dt>
+<dd><p>Calculates BGL FFs.
+Implementation lifted from Hammer <a class="reference external" href="https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDBGL.cc">https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDBGL.cc</a>,</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>FF dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToP.BLPR_BToP">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">slophep.Predictions.FormFactorsBToP.</span></span><span class="sig-name descname"><span class="pre">BLPR_BToP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">ffargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToP/BToPFFBLPR.html#BLPR_BToP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToP.BLPR_BToP" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.FormFactorBToP" title="slophep.Predictions.FormFactorsBToP.BToPFFBase.FormFactorBToP"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormFactorBToP</span></code></a></p>
@@ -127,6 +170,11 @@
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToP.BLPR_BToP.get_hhat">
+<span class="sig-name descname"><span class="pre">get_hhat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToP/BToPFFBLPR.html#BLPR_BToP.get_hhat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToP.BLPR_BToP.get_hhat" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -184,6 +232,30 @@ If equal to <cite>tm</cite>, set to t_0=t_-</p></li>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToP.CLN_BToP">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">slophep.Predictions.FormFactorsBToP.</span></span><span class="sig-name descname"><span class="pre">CLN_BToP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">ffargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToP/BToPFFCLN.html#CLN_BToP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToP.CLN_BToP" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#slophep.Predictions.FormFactorsBToP.FormFactorBToP" title="slophep.Predictions.FormFactorsBToP.BToPFFBase.FormFactorBToP"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormFactorBToP</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToP.CLN_BToP.get_ff">
+<span class="sig-name descname"><span class="pre">get_ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToP/BToPFFCLN.html#CLN_BToP.get_ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToP.CLN_BToP.get_ff" title="Link to this definition"></a></dt>
+<dd><p>Calculates CLN FFs.
+Implementation lifted from Hammer <a class="reference external" href="https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDCLN.cc">https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDCLN.cc</a>,</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>FF dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToP.FormFactorBToP">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">slophep.Predictions.FormFactorsBToP.</span></span><span class="sig-name descname"><span class="pre">FormFactorBToP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToP/BToPFFBase.html#FormFactorBToP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToP.FormFactorBToP" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="slophep.Predictions.FormFactorBase.html#slophep.Predictions.FormFactorBase.FormFactor" title="slophep.Predictions.FormFactorBase.FormFactorBase.FormFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormFactor</span></code></a></p>
@@ -231,7 +303,7 @@ Must return in basis f+, f0, fT</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="slophep.Predictions.FormFactorsBToV.BsToDsstFF.html" class="btn btn-neutral float-left" title="slophep.Predictions.FormFactorsBToV.BsToDsstFF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="slophep.Predictions.FormFactorsBToP.BToDFF.html" class="btn btn-neutral float-right" title="slophep.Predictions.FormFactorsBToP.BToDFF" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="slophep.Predictions.FormFactorsBToP.BpToDFF.html" class="btn btn-neutral float-right" title="slophep.Predictions.FormFactorsBToP.BpToDFF" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

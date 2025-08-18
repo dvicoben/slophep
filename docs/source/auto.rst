@@ -9,10 +9,13 @@ slophep.Predictions
     slophep.Predictions.Observables
     slophep.Predictions.FormFactorBase
     slophep.Predictions.FormFactorsBToV
-    slophep.Predictions.FormFactorsBToV.BToDstFF
+    slophep.Predictions.FormFactorsBToV.BdToDstFF
     slophep.Predictions.FormFactorsBToV.BsToDsstFF
     slophep.Predictions.FormFactorsBToP
-    slophep.Predictions.FormFactorsBToP.BToDFF
-    slophep.Predictions.BToVMathTools
+    slophep.Predictions.FormFactorsBToP.BpToDFF
+    slophep.Predictions.FormFactorsBToP.BdToDFF
     slophep.Predictions.SamplingTools
     slophep.Predictions.SamplingFluctuate
+    slophep.Predictions.Math.BToVMathTools
+    slophep.Predictions.Math.BToPMathTools
+    slophep.Predictions.Math.integrals

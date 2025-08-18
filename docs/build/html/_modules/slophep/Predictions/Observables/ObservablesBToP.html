@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>slophep.Predictions.Observables.ObservablesBToP &mdash; bd2dstlnu v0.0.1 documentation</title>
+  <title>slophep.Predictions.Observables.ObservablesBToP &mdash; SLOP v1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../../_static/documentation_options.js?v=2fea6348"></script>
+      <script src="../../../../_static/documentation_options.js?v=76e2d817"></script>
       <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
@@ -29,7 +29,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            bd2dstlnu
+            SLOP
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -50,7 +50,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">bd2dstlnu</a>
+          <a href="../../../../index.html">SLOP</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -72,9 +72,9 @@
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">slophep.Predictions.FormFactorsBToP</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormFactorBToP</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">slophep.Predictions.Observables</span><span class="w"> </span><span class="kn">import</span> <span class="n">BToPEllNuPrediction</span>
 
-<div class="viewcode-block" id="BToDEllNuPrediction">
-<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToDEllNuPrediction">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">BToDEllNuPrediction</span><span class="p">(</span><span class="n">BToPEllNuPrediction</span><span class="p">):</span>
+<div class="viewcode-block" id="BpToDEllNuPrediction">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BpToDEllNuPrediction">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BpToDEllNuPrediction</span><span class="p">(</span><span class="n">BToPEllNuPrediction</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
                  <span class="n">lep</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
                  <span class="n">nu</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -85,6 +85,18 @@
                  <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;B+&quot;</span><span class="p">,</span> <span class="s2">&quot;D0&quot;</span><span class="p">,</span> <span class="s2">&quot;bc&quot;</span><span class="p">,</span> <span class="n">lep</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">FF</span><span class="p">,</span> <span class="n">ffargs</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span></div>
 
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">BdToDEllNuPrediction</span><span class="p">(</span><span class="n">BToPEllNuPrediction</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
+                 <span class="n">lep</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+                 <span class="n">nu</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">FF</span><span class="p">:</span> <span class="n">FormFactorBToP</span><span class="p">,</span>
+                 <span class="n">ffargs</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span>
+                 <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">4.8</span><span class="p">,</span>
+                 <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;B0&quot;</span><span class="p">,</span> <span class="s2">&quot;D+&quot;</span><span class="p">,</span> <span class="s2">&quot;bc&quot;</span><span class="p">,</span> <span class="n">lep</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">FF</span><span class="p">,</span> <span class="n">ffargs</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
 </pre></div>
 
            </div>
