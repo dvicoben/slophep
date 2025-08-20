@@ -1,7 +1,7 @@
-﻿slophep.Predictions.FormFactorsBToP.BpToDFF
+﻿slophep.Predictions.FormFactorsBToP.BuToDFF
 ===========================================
 
-.. automodule:: slophep.Predictions.FormFactorsBToP.BpToDFF
+.. automodule:: slophep.Predictions.FormFactorsBToP.BuToDFF
    :members:
    :undoc-members:
    :private-members:
