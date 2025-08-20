@@ -1,7 +1,7 @@
 from slophep.Predictions.FormFactorsBToP import FormFactorBToP
 from slophep.Predictions.Observables import BToPEllNuPrediction
 
-class BpToDEllNuPrediction(BToPEllNuPrediction):
+class BuToDEllNuPrediction(BToPEllNuPrediction):
     def __init__(self, 
                  lep: str, 
                  nu: str,

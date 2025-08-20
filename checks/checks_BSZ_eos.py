@@ -1,4 +1,4 @@
-from slophep.Predictions.FormFactorsBToP import BpToDFF
+from slophep.Predictions.FormFactorsBToP import BuToDFF
 from slophep.Predictions.FormFactorsBToV import BdToDstFF
 
 import numpy as np
@@ -19,7 +19,7 @@ def get_spectrum(ff):
     return qsq, {k : np.array(res[k]) for k in res}
 
 
-btod_bsz = BpToDFF.BSZ()
+btod_bsz = BuToDFF.BSZ()
 btod_qsq, btod_bszff = get_spectrum(btod_bsz)
 
 btodst_bsz = BdToDstFF.BSZ()

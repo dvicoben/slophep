@@ -17,7 +17,7 @@ may be small disagreements in the very low q2
 """
 
 from slophep.Predictions.FormFactorsBToV import BdToDstFF
-from slophep.Predictions.FormFactorsBToP import BpToDFF, BdToDFF
+from slophep.Predictions.FormFactorsBToP import BdToDFF, BuToDFF
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -47,7 +47,7 @@ btodst_blpr.internalparams.update({
 })
 btodst_qsq, btodst_blprff = get_spectrum(btodst_blpr, "get_hhat")
 
-bptod_blpr = BpToDFF.BLPR()
+bptod_blpr = BuToDFF.BLPR()
 bptod_blpr.internalparams.update({
     "ebReb" : 1.0,
     "ecRec" : 1.0
