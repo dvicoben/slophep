@@ -1,8 +1,9 @@
-from slophep.Predictions.FormFactorsBToP import BuToDFF
+from slophep.Predictions.FormFactorsBToP import BuToDFF, BdToPiFF
 from slophep.Predictions.FormFactorsBToV import BdToDstFF
 
 import numpy as np
 import matplotlib.pyplot as plt
+import eos
 
 # Getting the SLOP predictions for BSZ:
 def get_spectrum(ff):
@@ -18,16 +19,7 @@ def get_spectrum(ff):
             res[ielem].append(iff[ielem])
     return qsq, {k : np.array(res[k]) for k in res}
 
-
-btod_bsz = BuToDFF.BSZ()
-btod_qsq, btod_bszff = get_spectrum(btod_bsz)
-
-btodst_bsz = BdToDstFF.BSZ()
-btodst_qsq, btodst_bszff = get_spectrum(btodst_bsz)
-
-
 # Getting the EOS predictions:
-import eos
 slop_to_eos = {
     "f+"  : "{}::f_+(q2)",
     "f0"  : "{}::f_0(q2)",
@@ -56,8 +48,6 @@ def get_spectrum_eos(ffs: list, qsq, mode, ffscheme):
     return ff
 
 
-btod_bszeos = get_spectrum_eos(["f+", "f0", "fT"], btod_qsq, "B->D", "BSZ2015")
-btodst_bszeos = get_spectrum_eos(["A0", "A1", "A12", "V", "T1", "T2", "T23"], btodst_qsq, "B->D^*", "BSZ2015")
 
 
 # Plotting them together
@@ -72,5 +62,22 @@ def make_comparison_plot(sloppred, eospred, qsq, prefix):
                     bbox_inches = 'tight',
                     dpi=100)
 
-make_comparison_plot(btod_bszff, btod_bszeos, btod_qsq, "BpToD0FFBSZ")
-make_comparison_plot(btodst_bszff, btodst_bszeos, btodst_qsq, "BdToDstFFBSZ")
+
+if __name__ == "__main__":
+    # SLOP predictions
+    btodst_bsz = BdToDstFF.BSZ()
+    btodst_qsq, btodst_bszff = get_spectrum(btodst_bsz)
+    btod_bsz = BuToDFF.BSZ()
+    btod_qsq, btod_bszff = get_spectrum(btod_bsz)
+    btopi_bsz = BdToPiFF.BSZ()
+    btopi_qsq, btopi_bszff = get_spectrum(btopi_bsz)
+    
+    # EOS predictions
+    btodst_bszeos = get_spectrum_eos(["A0", "A1", "A12", "V", "T1", "T2", "T23"], btodst_qsq, "B->D^*", "BSZ2015")
+    btod_bszeos = get_spectrum_eos(["f+", "f0", "fT"], btod_qsq, "B->D", "BSZ2015")
+    btopi_bszeos = get_spectrum_eos(["f+", "f0", "fT"], btopi_qsq, "B->pi", "BSZ2015")
+
+    # Comparison plots
+    make_comparison_plot(btodst_bszff, btodst_bszeos, btodst_qsq, "BdToDstFFBSZ")
+    make_comparison_plot(btod_bszff, btod_bszeos, btod_qsq, "BuToD0FFBSZ")
+    make_comparison_plot(btopi_bszff, btopi_bszeos, btopi_qsq, "BdToPiFFBSZ")

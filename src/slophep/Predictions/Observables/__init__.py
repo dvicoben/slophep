@@ -2,12 +2,12 @@ from slophep.Predictions.Observables.ObservableBase import ObservableBase
 from slophep.Predictions.Observables.BToVEllNuObs import BToVEllNuPrediction
 from slophep.Predictions.Observables.BToPEllNuObs import BToPEllNuPrediction
 from slophep.Predictions.Observables.ObservablesBToV import BdToDstEllNuPrediction, BsToDsstEllNuPrediction
-from slophep.Predictions.Observables.ObservablesBToP import BuToDEllNuPrediction, BdToDEllNuPrediction
+from slophep.Predictions.Observables.ObservablesBToP import BuToDEllNuPrediction, BdToDEllNuPrediction, BdToPiEllNuPrediction
 
 
 __all__ = [
     "ObservableBase",
     "BToVEllNuPrediction", "BToPEllNuPrediction", 
     "BdToDstEllNuPrediction", "BsToDsstEllNuPrediction",
-    "BuToDEllNuPrediction", "BdToDEllNuPrediction"
+    "BuToDEllNuPrediction", "BdToDEllNuPrediction", "BdToPiEllNuPrediction"
 ]

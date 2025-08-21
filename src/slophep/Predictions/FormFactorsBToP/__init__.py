@@ -5,9 +5,10 @@ from slophep.Predictions.FormFactorsBToP.BToPFFBGL import BGL_BToP
 from slophep.Predictions.FormFactorsBToP.BToPFFCLN import CLN_BToP
 import slophep.Predictions.FormFactorsBToP.BuToDFF as BuToDFF
 import slophep.Predictions.FormFactorsBToP.BdToDFF as BdToDFF
+import slophep.Predictions.FormFactorsBToP.BdToPiFF as BdToPiFF
 
 __all__ = [
     "FormFactorBToP",
     "BSZ_BToP", "BLPR_BToP", "BGL_BToP", "CLN_BToP",
-    "BuToDFF", "BdToDFF"
+    "BuToDFF", "BdToDFF", "BdToPiFF"
 ]
