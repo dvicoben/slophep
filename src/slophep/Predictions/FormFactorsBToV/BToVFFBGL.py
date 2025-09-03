@@ -46,6 +46,38 @@ class BGL_BToV(FormFactorBToV):
         parr = ((z-((sqtpBc-sqtptm)/(sqtpBc+sqtptm)))/(1.-z*((sqtpBc-sqtptm)/(sqtpBc+sqtptm))))
         return np.prod(parr)
 
+    def outer_fcn(self, z: float) -> dict:
+        """Computation of the outer functions"""
+        Mb = self.internalparams["Mb"]
+        Mc = self.internalparams["Mc"]
+        Mb2 = Mb*Mb
+        Mb3 = Mb2*Mb
+        rC = Mc/Mb
+        rC2 = rC*rC
+        sqrC = np.sqrt(rC)
+
+        chim = self.internalparams["chim"]    # GeV^-2
+        chip = self.internalparams["chip"]    # GeV^-2
+        chimL = self.internalparams["chimL"]
+        nc = self.internalparams["nc"]
+
+        phig = sqrt(256.*nc/(3*np.pi*chip))*((rC2*pow(1+z,2)*pow(1-z,-0.5))/pow(((1+rC)*(1-z)+2*sqrC*(1+z)),4))
+        phif = (1./Mb2)*sqrt(16.*nc/(3*np.pi*chim))*((rC*(1+z)*pow(1-z,1.5))/pow(((1+rC)*(1-z)+2*sqrC*(1+z)),4))
+        phiF1 = (1./Mb3)*sqrt(8.*nc/(3*np.pi*chim))*((rC*(1+z)*pow(1-z,2.5))/pow(((1+rC)*(1-z)+2*sqrC*(1+z)),5))
+        phif_0 = 4.*rC*sqrt(nc/chim)/(Mb2*sqrt(3*np.pi)*pow(1+2*sqrC+rC,4))
+        phiF1_0 = 2.*sqrt(2/(3*np.pi))*rC*sqrt(nc/chim)/(Mb3*pow(1+2*sqrC+rC,5))
+        phiP1 = sqrt(nc/(np.pi*chimL))*((8.*sqrt(2)*rC2*pow(1+z,2)*pow(1-z,-0.5)))/pow(((1+rC)*(1-z)+2*sqrC*(1+z)),4)
+
+        phi_fcn = {
+            "Phig" : phig,
+            "Phif" : phif,
+            "PhiF1" : phiF1,
+            "PhiF2" : phiP1,
+            "Phif_0" : phif_0,
+            "PhiF1_0" : phiF1_0
+        }
+        
+        return phi_fcn
 
     def get_ff(self, q2: float) -> dict:
         """Calculates BGL form factors (SM only) as in hammer https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBGL.cc?ref_type=tags
