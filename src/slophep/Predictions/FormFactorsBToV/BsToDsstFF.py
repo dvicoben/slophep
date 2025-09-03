@@ -1,4 +1,5 @@
 import slophep.Predictions.FormFactorsBToV as FFBToV
+import numpy as np
 
 class BLPR(FFBToV.BLPR_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
@@ -18,6 +19,57 @@ class CLN2(FFBToV.CLN2_BToV):
 class BGL(FFBToV.BGL_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("Bs", "Ds*", par, scale, *ffargs)
+
+class BGL_SLDecay(FFBToV.BGL_BToV):
+    def __init__(self, par: dict = None, scale: float = None, *ffargs):
+        """BGL equivalent to the implementation in SL_Decay (see https://cds.cern.ch/record/2313977/files/LHCb-INT-2018-015.pdf
+        https://gitlab.cern.ch/scali/SL_Decay/-/tree/master?ref_type=heads)
+
+        F2 differs from SL_decay by sqrt(mDs/mBs)/(1+mDs/mBs)
+        """
+        super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        # Set all parameters to SL_Decay defaults
+        self._ffpar = {
+            "a0" : 0.0289,
+            "a1" : 0.08,
+            "a2" : -1,
+            "b0" : 0.01224,
+            "b1" : -0.052,
+            "b2" : 1,
+            "c1" : -0.007,
+            "c2" : 0.089,
+            "d0" : 0.0595,
+            "d1" : -0.318
+        }
+        sldecay_internalparams = {
+            "chim"       : 3.894e-4,
+            "chip"       : 5.131e-4,
+            "chimL"      : 1.9421e-2,
+            "BcStatesf"  : np.array([6.739, 6.750, 7.145, 7.150]),  # GeV
+            "BcStatesg"  : np.array([6.329, 6.920, 7.020, 7.280]),  # GeV
+            "BcStatesP1" : np.array([6.275, 6.842, 7.250]),         # GeV
+            "P_1p_coeff" : 2.02159,
+            "P_1m_coeff" : 2.52733,
+            "P_2_coeff"  : 1.73835
+        }
+        self.internalparams.update(sldecay_internalparams)
+    
+    def get_ff(self, q2: float) -> dict:
+        ff_unscaled = super().get_ff(q2)
+        P_1m_coeff = self.internalparams["P_1m_coeff"]
+        P_1p_coeff = self.internalparams["P_1p_coeff"]
+        P_2_coeff = self.internalparams["P_2_coeff"]
+        ff = {
+            "V"  : ff_unscaled["V"]/P_1m_coeff,
+            "A0" : ff_unscaled["A0"]/P_2_coeff,
+            "A1" : ff_unscaled["A1"]/P_1p_coeff,
+            "A12" : ff_unscaled["A12"]/P_1p_coeff,
+            "T1" : ff_unscaled["T1"],
+            "T2" : ff_unscaled["T2"],
+            "T3" : ff_unscaled["T3"],
+            "T23" : ff_unscaled["T23"]
+        }
+        return ff
 
 class HPQCD(FFBToV.HPQCD_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):

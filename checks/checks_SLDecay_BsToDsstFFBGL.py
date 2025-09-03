@@ -4,8 +4,11 @@ Cross-check with SL_Decay, see
 - https://gitlab.cern.ch/scali/SL_Decay/-/tree/master?ref_type=heads
 
 NOTE: for BGL SL_Decay has different defaults and internalparams, in particular, 
-    - Different resonance masses for Blaschke factors,
-      Additionally, for g, the heaviest resonance is removed as considered to close to threshold
+    - Different resonance masses for Blaschke factors
+    - For the Bs Blaschke factors have additional scalings
+        P_1p_coeff = 2.02159;  
+        P_1m_coeff = 2.52733;
+        P_2_coeff = 1.73835;
     - Different chim, chip, chimL
     - There is a bug in the outer functions, where pow(xx, 3/2) is used (similar issue with 5/2).
       This results in an int division of 3/2=1 and incorrect exponentation. 
@@ -15,7 +18,7 @@ NOTE: for BGL SL_Decay has different defaults and internalparams, in particular,
         - According to https://arxiv.org/pdf/1707.09509 F2 = (1+r)/(sqrt(r)) P1 so maybe
           this is meant to convert to P1?
 """
-from slophep.Predictions.FormFactorsBToV import BdToDstFF
+from slophep.Predictions.FormFactorsBToV import BsToDsstFF
 from slophep.utils import setPlotParams
 import check_utils as chk
 import numpy as np
@@ -23,7 +26,7 @@ import numpy as np
 setPlotParams()
 
 # load in the SL_Decay output
-data_BGL = np.loadtxt("checks/SLDecay_BdToDstFFBGL.txt", float, skiprows=24).T
+data_BGL = np.loadtxt("checks/SLDecay_BsToDsstFFBGL.txt", float, skiprows=24).T
 qsq = data_BGL[0]
 SLDecayFF_spectrum = {
     "g"     : data_BGL[2],
@@ -55,28 +58,43 @@ SLDecay_BGL_ffpar = {
 }
 
 SLDecay_BGL_internalparams = {
-    "Mb"         : 5.27963,
+    "Mb"         : 5.36689,
+    "Mc"         : 2.1121,
     "chim"       : 3.894e-4,
     "chip"       : 5.131e-4,
     "chimL"      : 1.9421e-2,
     "BcStatesf"  : np.array([6.739, 6.750, 7.145, 7.150]),  # GeV
-    # "BcStatesg"  : np.array([6.329, 6.920, 7.020, 7.280]),         # GeV
-    "BcStatesg"  : np.array([6.329, 6.920, 7.020]),         # GeV
+    "BcStatesg"  : np.array([6.329, 6.920, 7.020, 7.280]),  # GeV
+    # "BcStatesg"  : np.array([6.329, 6.920, 7.020]),       # GeV
     "BcStatesP1" : np.array([6.275, 6.842, 7.250])          # GeV
 }
 
 # Initializing slop prediction and aligning parameters
-slopFF = BdToDstFF.BGL()
+slopFF = BsToDsstFF.BGL()
 slopFF.set_ff(**SLDecay_BGL_ffpar)
 slopFF._internalparams.update(SLDecay_BGL_internalparams)
 rC = slopFF.internalparams["Mc"]/slopFF.internalparams["Mb"]
 # Getting spectrum from SLOP
 slopFF_spectrum = chk.get_spectrum_slop(slopFF, qsq, "get_ff_gfF1F2_basis")
-# Adjusting for equivalence with SL_Decay - not sure if this is intended
-slopFF_spectrum["F2"] = slopFF_spectrum["F2"]*np.sqrt(rC)/(1+rC)
+# Adjusting for Blaschke factors scaling in SL_Decay for Bs and equivalence in F2
+P_1p_coeff = 2.02159  
+P_1m_coeff = 2.52733
+P_2_coeff = 1.73835
+slopFF_spectrum["g"] = slopFF_spectrum["g"]/P_1m_coeff
+slopFF_spectrum["f"] = slopFF_spectrum["f"]/P_1p_coeff
+slopFF_spectrum["F1"] = slopFF_spectrum["F1"]/P_1p_coeff
+slopFF_spectrum["F2"] = slopFF_spectrum["F2"]*np.sqrt(rC)/(1+rC)/P_2_coeff
+# slopFF_spectrum["F2"] = slopFF_spectrum["F2"]*np.sqrt(rC)/(1+rC)
+
+slopFF_bs = chk.get_additional_spectrum_BGL(qsq, slopFF)
+
+chk.make_comparison_plot(slopFF_bs, SLDecayFF_spectrum, qsq, "SL Decay",
+    ["Blg", "Blf", "BlP1", "Phig", "Phif", "PhiF1", "PhiF2", "z"],
+    [],
+    "BsToDsstFFBGL", "checks/check_SLDecay_{}_{}.png")
 
 # Making comparison plot
 chk.make_comparison_plot(slopFF_spectrum, SLDecayFF_spectrum, qsq, "SL Decay",
     ["f", "g", "F1", "F2"],
     [r"$f$", r"$g$", r"$\mathcal{F}_1$", r"$\mathcal{F}_2$"],
-    "BdToDstFFBGL", "checks/check_SLDecay_{}_{}.png")
+    "BsToDsstFFBGL", "checks/check_SLDecay_{}_{}.png")

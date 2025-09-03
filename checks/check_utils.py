@@ -36,3 +36,26 @@ def make_comparison_plot(sloppred: dict,
         fig.savefig(savestr_fmt.format(prefix, ipred), 
                     bbox_inches = 'tight',
                     dpi=100)
+        
+
+def get_additional_spectrum_BGL(qsq, ff):
+    res = {"z" : []}
+    for iq2 in qsq:
+        w = ff.w(iq2)
+        z = (np.sqrt(w+1) - np.sqrt(2))/(np.sqrt(w+1) + np.sqrt(2))
+        res["z"].append(z)
+        Mb = ff.internalparams["Mb"]
+        Mc = ff.internalparams["Mc"]
+        for ielem in ["f", "g", "P1"]:
+            if f"Bl{ielem}" not in res:
+                res[f"Bl{ielem}"] = []
+            res[f"Bl{ielem}"].append(ff.blaschke(ff.internalparams[f"BcStates{ielem}"], z, Mb, Mc))
+
+        outer_fcn = ff.outer_fcns(z)
+        for elem in outer_fcn:
+            if elem not in res:
+                res[elem] = []
+            res[elem].append(outer_fcn[elem])
+
+    res = {k : np.array(res[k]) for k in res}
+    return res
