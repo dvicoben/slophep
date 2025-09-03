@@ -17,49 +17,25 @@ may be small disagreements in the very low q2
 """
 
 from slophep.Predictions.FormFactorsBToV import BdToDstFF
-from slophep.Predictions.FormFactorsBToP import BdToDFF, BuToDFF
-
+from slophep.utils import setPlotParams
 import numpy as np
 import matplotlib.pyplot as plt
 import flavio
+import check_utils as chk
 
+setPlotParams()
 
 # Getting the SLOP predictions for BLPR:
-def get_spectrum(ff, method: str = "get_ff"):
-    q2max = (ff.internalparams["Mb"] - ff.internalparams["Mc"])**2
-    qsq = np.linspace(0.012, q2max-1e-3, 100)
-    
-    res = {}
-    for iq2 in qsq:
-        ffmethod = getattr(ff, method)
-        iff = ffmethod(iq2)
-        for ielem in iff:
-            if ielem not in res:
-                res[ielem] = []
-            res[ielem].append(iff[ielem])
-    return qsq, {k : np.array(res[k]) for k in res}
-
-
-btodst_blpr = BdToDstFF.BLPR()
-btodst_blpr.internalparams.update({
+slopFF = BdToDstFF.BLPR()
+slopFF.internalparams.update({
     "ebReb" : 1.0,
     "ecRec" : 1.0
 })
-btodst_qsq, btodst_blprff = get_spectrum(btodst_blpr, "get_hhat")
+q2max = (slopFF.internalparams["Mb"] - slopFF.internalparams["Mc"])**2
+q2min = slopFF.par["m_mu"]**2
+qsq = np.linspace(q2min+1e-6, q2max-1e-6, 100)
 
-bptod_blpr = BuToDFF.BLPR()
-bptod_blpr.internalparams.update({
-    "ebReb" : 1.0,
-    "ecRec" : 1.0
-})
-bptod_qsq, bptod_blprff = get_spectrum(bptod_blpr, "get_hhat")
-
-bdtod_blpr = BdToDFF.BLPR()
-bdtod_blpr.internalparams.update({
-    "ebReb" : 1.0,
-    "ecRec" : 1.0
-})
-bdtod_qsq, bdtod_blprff = get_spectrum(bdtod_blpr, "get_hhat")
+slopFF_spectrum = chk.get_spectrum_slop(slopFF, qsq, "get_hhat")
 
 def align_pars_for_flavio(par: dict, ff):
     ffpar = ff.ffpar
@@ -75,10 +51,20 @@ def align_pars_for_flavio(par: dict, ff):
     for i in range(1, 7):
         par[f"CLN l_{i}(1)"] = 0.0
         par[f"CLN lp_{i}(1)"] = 0.0
+    par["__ash"] = ff.internalparams["ash"]
+    la = ff.internalparams["la"]
+    mb = ff.internalparams["mb"]
+    eb = la/(2*mb)
+    mc = mb - ff.internalparams["delta_mbc"]
+    ec = la/(2*mc)
+    par["__mc"] = mc
+    par["__epsc"] = ec
+    par["__mb"] = mb
+    par["__epsb"] = eb
     return par
 
 par = flavio.default_parameters.get_central_all()
-par = align_pars_for_flavio(par, btodst_blpr)
+par = align_pars_for_flavio(par, slopFF)
 
 from flavio.physics.bdecays.formfactors import hqet
 from flavio.physics.bdecays.formfactors import common
@@ -99,12 +85,12 @@ def blpr_btov_flavio(process, q2, par, scale, order_z=3, order_z_slp=2, order_z_
     mB = par['m_' + pd['B']]
     mV = par['m_' + pd['V']]
     w = max((mB**2 + mV**2 - q2) / (2 * mB * mV), 1)
-    # phqet = hqet.get_hqet_parameters(par)
     # We also need to match the quark masses which differ in flavio
-    ash = 0.26/np.pi
-    epsc = 0.57115/(2*(4.71-3.4))
-    epsb = 0.57115/(2*(4.71))
-    zc = (4.71-3.4)/4.71
+    # phqet = hqet.get_hqet_parameters(par)
+    ash = par["__ash"]
+    epsc = par["__epsc"]
+    epsb = par["__epsb"]
+    zc = par["__mc"]/par["__mb"]
     # eq. (22) of arXiv:0809.0222
     CV1 = hqet.CV1(w, zc)
     CA1 = hqet.CA1(w, zc)
@@ -114,10 +100,10 @@ def blpr_btov_flavio(process, q2, par, scale, order_z=3, order_z_slp=2, order_z_
     CT2 = hqet.CT2(w, zc)
     CT3 = hqet.CT3(w, zc)
     z = common.z(mB, mV, q2, t0='tm')
-    # rho2 = par['CLN rho2_xi']
-    # c = par['CLN c_xi']
-    # xi3 = par['CLN xi3']
-    # xi = hqet.xi(z, rho2, c, xi3, order_z=order_z)
+    rho2 = par['CLN rho2_xi']
+    c = par['CLN c_xi']
+    xi3 = par['CLN xi3']
+    xi = hqet.xi(z, rho2, c, xi3, order_z=order_z)
     L = hqet.Lz(par, w, z, order_z=order_z_slp)
     ell = hqet.ell(par, z, order_z=order_z_sslp)
     h = {}
@@ -149,49 +135,6 @@ def blpr_btov_flavio(process, q2, par, scale, order_z=3, order_z_slp=2, order_z_
                + epsc**2 * (ell[6] - ell[3]))
     return h
 
-# We lift this here from flavio and adapt it for our purposes
-def blpr_btop_flavio(process, q2, par, scale, order_z=3, order_z_slp=2, order_z_sslp=1):
-    r"""Central value of $B\to P$ form factors in the lattice convention
-    CLN parametrization.
-
-    See arXiv:hep-ph/9712417 and arXiv:1703.05330.
-    """
-    pd = process_dict[process]
-    mB = par['m_' + pd['B']]
-    mP = par['m_' + pd['P']]
-    w = max((mB**2 + mP**2 - q2) / (2 * mB * mP), 1)
-    # phqet = hqet.get_hqet_parameters(par)
-    # We also need to match the quark masses which differ in flavio
-    ash = 0.26/np.pi
-    epsc = 0.57115/(2*(4.71-3.4))
-    epsb = 0.57115/(2*(4.71))
-    zc = (4.71-3.4)/4.71
-    CV1 = hqet.CV1(w, zc)
-    CV2 = hqet.CV2(w, zc)
-    CV3 = hqet.CV3(w, zc)
-    CT1 = hqet.CT1(w, zc)
-    CT2 = hqet.CT2(w, zc)
-    CT3 = hqet.CT3(w, zc)
-    z = common.z(mB, mP, q2, t0='tm')
-    # rho2 = par['CLN rho2_xi']
-    # c = par['CLN c_xi']
-    # xi3 = par['CLN xi3']
-    # xi = hqet.xi(z, rho2, c, xi3, order_z=order_z)
-    L = hqet.Lz(par, w, z, order_z=order_z_slp)
-    ell = hqet.ell(par, z, order_z=order_z_sslp)
-    h = {}
-    h['h+'] = (1 + ash * (CV1 + (w + 1) / 2 * (CV2 + CV3))
-               + (epsc + epsb) * L[1]
-               + epsc**2 * ell[1])
-    h['h-'] = (ash * (w + 1) / 2 * (CV2 - CV3)
-               + (epsc - epsb) * L[4]
-               + epsc**2 * ell[4])
-    h['hT'] = (1 + ash * (CT1 - CT2 + CT3)
-               + (epsc + epsb) * (L[1] - L[4])
-               + epsc**2 * (ell[1] - ell[4]))
-    return h
-
-
 def get_flavio_spectrum(fffunc, process, par, qsq):
     res = {}
     for iq2 in qsq:
@@ -202,22 +145,11 @@ def get_flavio_spectrum(fffunc, process, par, qsq):
             res[ielem].append(iff[ielem])
     return {k : np.array(res[k]) for k in res}
 
-btodst_blprflavio = get_flavio_spectrum(blpr_btov_flavio, "B->D*", par, btodst_qsq)
-bptod_blprflavio = get_flavio_spectrum(blpr_btop_flavio, "B->D", par, bptod_qsq)
-bdtod_blprflavio = get_flavio_spectrum(blpr_btop_flavio, "B->D2", par, bdtod_qsq)
+flavioFF_spectrum = get_flavio_spectrum(blpr_btov_flavio, "B->D*", par, qsq)
 
-# Plotting them together
-def make_comparison_plot(sloppred, otherpred, qsq, prefix):
-    for ipred in sloppred:
-        fig, ax = plt.subplots(1, 1)
-        ax.plot(qsq, sloppred[ipred], 'b-', label="SLOP")
-        ax.plot(qsq, otherpred[ipred], 'r--', label="flavio")
-        ax.set(xlabel = r"$q^2$", ylabel=r"$\hat{h}$ "+ipred, title=prefix)
-        ax.legend()
-        plt.savefig(f"checks/checks_flavio_{prefix}_{ipred}.png", 
-                    bbox_inches = 'tight',
-                    dpi=100)
 
-make_comparison_plot(btodst_blprff, btodst_blprflavio, btodst_qsq, "BdToDstFFBLPR")
-make_comparison_plot(bptod_blprff, bptod_blprflavio, bptod_qsq, "BpToDFFBLPR")
-make_comparison_plot(bdtod_blprff, bdtod_blprflavio, bdtod_qsq, "BdToDFFBLPR")
+chk.make_comparison_plot(slopFF_spectrum, flavioFF_spectrum, qsq, "flavio",
+    ["A1", "A2", "A3", "T1", "T2", "T3", "V"],
+    [r"$\hat{h}_{A1}$", r"$\hat{h}_{A2}$", r"$\hat{h}_{A3}$", 
+     r"$\hat{h}_{T1}$", r"$\hat{h}_{T2}$", r"$\hat{h}_{T3}$", r"$\hat{h}_{V}$"],
+    "BdToDstFFBLPR", "checks/check_flavio_{}_{}.png")

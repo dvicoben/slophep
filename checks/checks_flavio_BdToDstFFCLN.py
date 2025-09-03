@@ -1,8 +1,11 @@
 from slophep.Predictions.FormFactorsBToV import BdToDstFF
-
+from slophep.utils import setPlotParams
+import check_utils as chk
 import numpy as np
 import matplotlib.pyplot as plt
 import flavio
+
+setPlotParams()
 
 par = flavio.default_parameters.get_central_all()
 def perpare_dst_params_from_flavio(par):
@@ -24,27 +27,15 @@ def perpare_dst_params_from_flavio(par):
     return ffpar
 
 
-# Getting the SLOP predictions for CLN:
-def get_spectrum(ff):
-    q2max = (ff.internalparams["Mb"] - ff.internalparams["Mc"])**2
-    qsq = np.linspace(0.012, q2max-1e-3, 100)
-    
-    res = {}
-    for iq2 in qsq:
-        iff = ff.get_ff(iq2)
-        for ielem in iff:
-            if ielem not in res:
-                res[ielem] = []
-            res[ielem].append(iff[ielem])
-    return qsq, {k : np.array(res[k]) for k in res}
-
-
-btodst_cln = BdToDstFF.CLN2()
+slopFF = BdToDstFF.CLN2()
 setffpar = perpare_dst_params_from_flavio(par)
-btodst_cln.set_ff(**setffpar)
-btodst_qsq, btodst_clnff = get_spectrum(btodst_cln)
+slopFF.set_ff(**setffpar)
 
+q2max = (slopFF.internalparams["Mb"] - slopFF.internalparams["Mc"])**2
+q2min = slopFF.par["m_mu"]**2
+qsq = np.linspace(q2min+1e-6, q2max-1e-6, 100)
 
+slopFF_spectrum = chk.get_spectrum_slop(slopFF, qsq, "get_ff")
 
 # Getting the flavio predictions:
 import flavio
@@ -68,19 +59,11 @@ def get_flavio_spectrum(fffunc, process, par, qsq):
             res[ielem].append(iff[ielem])
     return {k : np.array(res[k]) for k in res}
 
-btodst_clnflavio = get_flavio_spectrum(cln_btov_flavio, "B->D*", par, btodst_qsq)
+flavioFF_specturm = get_flavio_spectrum(cln_btov_flavio, "B->D*", par, qsq)
 
 
 # Plotting them together
-def make_comparison_plot(sloppred, otherpred, qsq, prefix):
-    for ipred in sloppred:
-        fig, ax = plt.subplots(1, 1)
-        ax.plot(qsq, sloppred[ipred], 'b-', label="SLOP CLN")
-        ax.plot(qsq, otherpred[ipred], 'r--', label="flavio CLN")
-        ax.set(xlabel = r"$q^2$", ylabel=ipred, title=prefix)
-        ax.legend()
-        plt.savefig(f"checks/checks_flavio_{prefix}_{ipred}.png", 
-                    bbox_inches = 'tight',
-                    dpi=100)
-
-make_comparison_plot(btodst_clnff, btodst_clnflavio, btodst_qsq, "BdToDstFFCLN2")
+chk.make_comparison_plot(slopFF_spectrum, flavioFF_specturm, qsq, "flavio",
+    ["A0", "A1", "A12", "V", "T1", "T2", "T23"],
+    [r"$A_0$", r"$A_1$", r"$A_{12}$", r"$V$", r"$T_1$", r"$T_2$", r"$T_{23}$"],
+    "BdToDstFFCLN2", "checks/check_flavio_{}_{}.png")
