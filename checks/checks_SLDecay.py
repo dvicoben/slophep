@@ -51,6 +51,7 @@ SLDecay_BGL_ffpar = {
     "d0" : 0.0595,
     "d1" : -0.318
 }
+
 SLDecay_BGL_internalparams = {
     "Mb" : 5.27963,
     "chim"       : 3.894e-4,
@@ -79,27 +80,6 @@ def get_spectrum_BGL(qsq, ff):
     res["F2"] = res["F2"]*np.sqrt(rC)/(1+rC)
     return res
 
-def get_blaschke_spectrum(qsq, ff):
-    res = {"z" : []}
-    for iq2 in qsq:
-        w = ff.w(iq2)
-        z = (np.sqrt(w+1) - np.sqrt(2))/(np.sqrt(w+1) + np.sqrt(2))
-        res["z"].append(z)
-        Mb = ff.internalparams["Mb"]
-        Mc = ff.internalparams["Mc"]
-        for ielem in ["f", "g", "P1"]:
-            if f"Bl{ielem}" not in res:
-                res[f"Bl{ielem}"] = []
-            res[f"Bl{ielem}"].append(ff.blaschke(ff.internalparams[f"BcStates{ielem}"], z, Mb, Mc))
-
-        outer_fcn = ff.outer_fcn(z)
-        for elem in outer_fcn:
-            if elem not in res:
-                res[elem] = []
-            res[elem].append(outer_fcn[elem])
-
-    res = {k : np.array(res[k]) for k in res}
-    return res
 
 def make_comparison_plot(sloppred, otherpred, obsplot, qsq, prefix):
     for ipred in obsplot:
@@ -114,8 +94,5 @@ def make_comparison_plot(sloppred, otherpred, obsplot, qsq, prefix):
 
 
 BdToDstBGL_ff = get_spectrum_BGL(q2, BdToDstBGL)
-BdToDstBGL_blaschke = get_blaschke_spectrum(q2, BdToDstBGL)
 
 make_comparison_plot(BdToDstBGL_ff, BdToDstBGL_SLDecay, ["f", "g", "F1", "F2"], q2, "BdToDstFFBGL")
-make_comparison_plot(BdToDstBGL_blaschke, BdToDstBGL_SLDecay, ["Blf", "Blg", "BlP1"], q2, "Blaschke")
-make_comparison_plot(BdToDstBGL_blaschke, BdToDstBGL_SLDecay, ["Phif", "Phig", "PhiF1", "PhiF2", "z"], q2, "OuterFcn")
