@@ -3,3 +3,4 @@
 !*.cc
 !CMakeLists.txt
 !README.md
+!*.h

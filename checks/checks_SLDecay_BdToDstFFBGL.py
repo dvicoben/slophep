@@ -23,7 +23,7 @@ import numpy as np
 setPlotParams()
 
 # load in the SL_Decay output
-data_BGL = np.loadtxt("checks/SLDecay_BdToDstFFBGL.txt", float, skiprows=24).T
+data_BGL = np.loadtxt("checks/checks_SLDecay_BdToDstFFBGL.txt", float, skiprows=24).T
 qsq = data_BGL[0]
 SLDecayFF_spectrum = {
     "g"     : data_BGL[2],
