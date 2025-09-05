@@ -8,5 +8,5 @@ These should be run such that they output to a `.txt` file that will be read in 
 ```
 cmake .
 make
-./BdToDstarFFBGL > ../Hammer_BdToDstFFBGL.txt # or some other executable
+./BdToDstFFBGL > ../Hammer_BdToDstFFBGL.txt # or some other executable
 ```
