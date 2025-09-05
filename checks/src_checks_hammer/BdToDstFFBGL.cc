@@ -15,7 +15,7 @@ int main() {
   ham.setUnits("GeV");
 
   Hammer::SettingsHandler sh;
-  BdToDstFFWrapper FF(sh);
+  BdToDstFFBGLWrapper FF(sh);
 
   double q2min{0.012};
   double q2max{10.68};

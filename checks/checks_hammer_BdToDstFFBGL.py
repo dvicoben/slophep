@@ -22,31 +22,9 @@ import numpy as np
 
 setPlotParams()
 
-# load in the SL_Decay output
+# load in the Hammer output
 data_BGL = np.loadtxt("checks/checks_Hammer_BdToDstFFBGL.txt", float, skiprows=1).T
-# data_BGL = np.loadtxt("checks/checks_Hammer_test.txt", float, skiprows=1).T
 qsq = data_BGL[0]
-# hammerFF_spectrum = {
-#     "f"     : data_BGL[2],
-#     "g"     : data_BGL[3],
-#     "F1"    : data_BGL[4],
-#     "F2"    : data_BGL[5],
-#     "Blf"   : data_BGL[6],
-#     "Blg"   : data_BGL[7],
-#     "BlP1"  : data_BGL[8],
-#     "Phif"  : data_BGL[9],
-#     "Phig"  : data_BGL[10],
-#     "PhiF1" : data_BGL[11],
-#     "PhiF2" : data_BGL[12],
-#     "z"     : data_BGL[1]
-# }
-
-# hammerFF_spectrum = {
-#     "f"     : data_BGL[1],
-#     "g"     : data_BGL[2],
-#     "F1"    : data_BGL[3],
-#     "F2"    : data_BGL[4],
-# }
 hammerFF_spectrum = {
     "f"     : data_BGL[1],
     "g"     : data_BGL[2],
@@ -101,9 +79,3 @@ chk.make_comparison_plot(slopFF_spectrum, hammerFF_spectrum, qsq, "Hammer v1.2.1
     ["f", "g", "F1", "F2"],
     [r"$f$", r"$g$", r"$\mathcal{F}_1$", r"$\mathcal{F}_2$"],
     "BdToDstFFBGL", "checks/check_hammer_{}_{}.png")
-
-# slopFF_bl = chk.get_additional_spectrum_BGL(qsq, slopFF)
-# chk.make_comparison_plot(slopFF_bl, hammerFF_spectrum, qsq, "Hammer v1.2.1",
-#     ["Blg", "Blf", "BlP1", "Phig", "Phif", "PhiF1", "PhiF2", "z"],
-#     [],
-#     "BdToDstFFBGL", "checks/check_hammer_{}_{}.png")
