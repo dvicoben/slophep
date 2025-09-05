@@ -3,17 +3,15 @@ Cross-check with SL_Decay, see
 - https://cds.cern.ch/record/2313977/files/LHCb-INT-2018-015.pdf
 - https://gitlab.cern.ch/scali/SL_Decay/-/tree/master?ref_type=heads
 
-NOTE: for BGL SL_Decay has different defaults and internalparams, in particular, 
-    - Different resonance masses for Blaschke factors,
-      Additionally, for g, the heaviest resonance is removed as considered to close to threshold
-    - Different chim, chip, chimL
-    - There is a bug in the outer functions, where pow(xx, 3/2) is used (similar issue with 5/2).
-      This results in an int division of 3/2=1 and incorrect exponentation. 
-      For the comparison this has been corrected. 
-      A MR has been created in SL_Decay with the fix.
-    - F2 has an additional factor of sqrt(r)/(1+r) where r=M(Charm meson)/M(B meson)
-        - According to https://arxiv.org/pdf/1707.09509 F2 = (1+r)/(sqrt(r)) P1 so maybe
-          this is meant to convert to P1?
+NOTE: for BGL in HAMMER has different defaults and differs in: 
+    - Different ffpar defaults
+    - Additional scaling of 1./etaEW*Vcb
+    - Different FF basis
+For this comparison: 
+    - We set the ffpar to hammer defaults in SLOP
+    - Scale SLOP predictions according to the factor of 1./etaEW*Vcb.
+    - Get SLOP predictions as f, g, F1, F2
+    - Convert HAMMER basis to f, g, F1, F2
 """
 from slophep.Predictions.FormFactorsBToV import BdToDstFF
 from slophep.utils import setPlotParams
