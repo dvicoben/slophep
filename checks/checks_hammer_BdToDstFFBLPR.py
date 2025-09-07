@@ -51,8 +51,12 @@ def hammer_to_h_basis(Sqq, ham, slopFF):
 
 hammerFF_spectrum_h = hammer_to_h_basis(qsq, hammerFF_spectrum, slopFF)
 
-# Making comparison plot
-chk.make_comparison_plot(slopFF_spectrum, hammerFF_spectrum_h, qsq, "Hammer v1.2.1",
-    ["hA1", "hA2", "hA3", "hV", "hT1", "hT2", "hT3"],
-    [r"$h_{A1}$", r"$h_{A2}$", r"$h_{A3}$", r"$h_{V}$", r"$h_{T1}$", r"$h_{T2}$", r"$h_{T3}$"],
-    "BdToDstFFBLPR", "checks/check_hammer_{}_{}.png")
+ff = ["hA1", "hA2", "hA3", "hV", "hT1", "hT2", "hT3"]
+fflabel = [r"$h_{A1}$", r"$h_{A2}$", r"$h_{A3}$", r"$h_{V}$", r"$h_{T1}$", r"$h_{T2}$", r"$h_{T3}$"]
+for iff, ifflabel in zip(ff, fflabel):
+    savepath = f"checks/check_hammer_BdToDstFFBLPR_{iff}.png"
+    cplot = chk.ComparisonPlot(ifflabel)
+    cplot.add_slop_prediction(qsq, slopFF_spectrum[iff], "SLOP (default)")
+    cplot.add_comparison_prediction(qsq, hammerFF_spectrum_h[iff], "Hammer v1.2.1")
+    cplot.makeplot()
+    cplot.savefig(savepath)

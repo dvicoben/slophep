@@ -60,23 +60,45 @@ SLDecay_BGL_internalparams = {
     "chip"       : 5.131e-4,
     "chimL"      : 1.9421e-2,
     "BcStatesf"  : np.array([6.739, 6.750, 7.145, 7.150]),  # GeV
-    # "BcStatesg"  : np.array([6.329, 6.920, 7.020, 7.280]),         # GeV
     "BcStatesg"  : np.array([6.329, 6.920, 7.020]),         # GeV
     "BcStatesP1" : np.array([6.275, 6.842, 7.250])          # GeV
 }
 
-# Initializing slop prediction and aligning parameters
+# SLOP prediction
 slopFF = BdToDstFF.BGL()
-slopFF.set_ff(**SLDecay_BGL_ffpar)
-slopFF._internalparams.update(SLDecay_BGL_internalparams)
-rC = slopFF.internalparams["Mc"]/slopFF.internalparams["Mb"]
-# Getting spectrum from SLOP
 slopFF_spectrum = chk.get_spectrum_slop(slopFF, qsq, "get_ff_gfF1F2_basis")
-# Adjusting for equivalence with SL_Decay - not sure if this is intended
-slopFF_spectrum["F2"] = slopFF_spectrum["F2"]*np.sqrt(rC)/(1+rC)
 
-# Making comparison plot
-chk.make_comparison_plot(slopFF_spectrum, SLDecayFF_spectrum, qsq, "SL Decay",
-    ["f", "g", "F1", "F2"],
-    [r"$f$", r"$g$", r"$\mathcal{F}_1$", r"$\mathcal{F}_2$"],
-    "BdToDstFFBGL", "checks/check_SLDecay_{}_{}.png")
+# Aligned SLOP prediction
+slopFF_aligned = BdToDstFF.BGL()
+slopFF_aligned.set_ff(**SLDecay_BGL_ffpar)
+slopFF_aligned._internalparams.update(SLDecay_BGL_internalparams)
+rC = slopFF_aligned.internalparams["Mc"]/slopFF_aligned.internalparams["Mb"]
+slopFF_aligned_spectrum = chk.get_spectrum_slop(slopFF_aligned, qsq, "get_ff_gfF1F2_basis")
+# Adjusting for equivalence with SL_Decay in F2, not sure if intended
+slopFF_aligned_spectrum["F2"] = slopFF_aligned_spectrum["F2"]*np.sqrt(rC)/(1+rC)
+
+
+# Comparison plots
+ff = ["f", "g", "F1", "F2"]
+fflabel = [r"$f$", r"$g$", r"$\mathcal{F}_1$", r"$\mathcal{F}_2$"]
+annotation = r"""Notes:
+- SLOP BGL coefficients are from 
+  arXiv:1707.09509 (Third column in Table V)
+- For `aligned' do the following:
+  - Set BGL coefficients to SL Decay defaults
+  - Set resonances for Blaschke factors as in
+    SL Decay - in particular for $B^0 \to D^{*}$
+    SL Decay has one less resonance for $g$
+  - Set $\chi$'s to SL Decay values
+  - $\mathcal{F}_2$ is scaled by $\sqrt{m_{B^0}/m_{D^{*}}}/(1+m_{B^0}/m_{D^{*}})$
+    to match the factor in SL Decay
+"""
+for iff, ifflabel in zip(ff, fflabel):
+    savepath = f"checks/check_SLDecay_BdToDstFFBGL_{iff}.png"
+    cplot = chk.ComparisonPlot(ifflabel)
+    cplot.add_slop_prediction(qsq, slopFF_spectrum[iff], "SLOP (default)")
+    cplot.add_slop_prediction(qsq, slopFF_aligned_spectrum[iff], "SLOP (aligned)")
+    cplot.add_comparison_prediction(qsq, SLDecayFF_spectrum[iff], "SL Decay")
+    cplot.annotate(annotation, 1.01, 0.5)
+    cplot.makeplot()
+    cplot.savefig(savepath)

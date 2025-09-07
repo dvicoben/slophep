@@ -26,16 +26,20 @@ def perpare_dst_params_from_flavio(par):
     ffpar["R0"] = R0
     return ffpar
 
+# Using the SLOP defaults
+slopFF = BdToDstFF.CLN()
 
-slopFF = BdToDstFF.CLN2()
+# Aligning parameters
+slopFF_aligned = BdToDstFF.CLN2()
 setffpar = perpare_dst_params_from_flavio(par)
-slopFF.set_ff(**setffpar)
+slopFF_aligned.set_ff(**setffpar)
 
 q2max = (slopFF.internalparams["Mb"] - slopFF.internalparams["Mc"])**2
 q2min = slopFF.par["m_mu"]**2
 qsq = np.linspace(q2min+1e-6, q2max-1e-6, 100)
 
 slopFF_spectrum = chk.get_spectrum_slop(slopFF, qsq, "get_ff")
+slopFF_aligned_spectrum = chk.get_spectrum_slop(slopFF_aligned, qsq, "get_ff")
 
 # Getting the flavio predictions:
 import flavio
@@ -59,11 +63,26 @@ def get_flavio_spectrum(fffunc, process, par, qsq):
             res[ielem].append(iff[ielem])
     return {k : np.array(res[k]) for k in res}
 
-flavioFF_specturm = get_flavio_spectrum(cln_btov_flavio, "B->D*", par, qsq)
+flavioFF_spectrum = get_flavio_spectrum(cln_btov_flavio, "B->D*", par, qsq)
 
-
-# Plotting them together
-chk.make_comparison_plot(slopFF_spectrum, flavioFF_specturm, qsq, "flavio",
-    ["A0", "A1", "A12", "V", "T1", "T2", "T23"],
-    [r"$A_0$", r"$A_1$", r"$A_{12}$", r"$V$", r"$T_1$", r"$T_2$", r"$T_{23}$"],
-    "BdToDstFFCLN2", "checks/check_flavio_{}_{}.png")
+# Comparison plots
+ff = ["A0", "A1", "A12", "V", "T1", "T2", "T23"]
+fflabel = [r"$A_0$", r"$A_1$", r"$A_{12}$", r"$V$", r"$T_1$", r"$T_2$", r"$T_{23}$"]
+annotation = r"""Notes:
+- For `aligned', we set $\rho^2$, $h_{A1}(1)$, 
+  $R_1(1)$, $R_2(1)$, and $R_0(1)$ to flavio 
+  defaults
+"""
+extra_note = "- SLOP CLN is SM only so\n" +r"  $T_1 = T_2 = T_{23} = 0$, flavio behaviour"+"\n"+r"  can be reproduced with CLN2"
+for iff, ifflabel in zip(ff, fflabel):
+    savepath = f"checks/check_flavio_BdToDstFFCLN_{iff}.png"
+    cplot = chk.ComparisonPlot(ifflabel)
+    cplot.add_slop_prediction(qsq, slopFF_spectrum[iff], "SLOP (default)")
+    cplot.add_slop_prediction(qsq, slopFF_aligned_spectrum[iff], "SLOP (aligned)")
+    cplot.add_comparison_prediction(qsq, flavioFF_spectrum[iff], "flavio")
+    note = annotation
+    if "T" in iff:
+        note += extra_note
+    cplot.annotate(note, 1.01, 0.5)
+    cplot.makeplot()
+    cplot.savefig(savepath)

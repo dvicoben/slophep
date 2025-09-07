@@ -65,28 +65,53 @@ SLDecay_BGL_internalparams = {
     "chimL"      : 1.9421e-2,
     "BcStatesf"  : np.array([6.739, 6.750, 7.145, 7.150]),  # GeV
     "BcStatesg"  : np.array([6.329, 6.920, 7.020, 7.280]),  # GeV
-    # "BcStatesg"  : np.array([6.329, 6.920, 7.020]),       # GeV
     "BcStatesP1" : np.array([6.275, 6.842, 7.250])          # GeV
 }
 
-# Initializing slop prediction and aligning parameters
+# SLOP prediction
 slopFF = BsToDsstFF.BGL()
-slopFF.set_ff(**SLDecay_BGL_ffpar)
-slopFF._internalparams.update(SLDecay_BGL_internalparams)
-rC = slopFF.internalparams["Mc"]/slopFF.internalparams["Mb"]
-# Getting spectrum from SLOP
 slopFF_spectrum = chk.get_spectrum_slop(slopFF, qsq, "get_ff_gfF1F2_basis")
+
+# Aligned SLOP prediction
+slopFF_aligned = BsToDsstFF.BGL()
+slopFF_aligned.set_ff(**SLDecay_BGL_ffpar)
+slopFF_aligned._internalparams.update(SLDecay_BGL_internalparams)
+rC = slopFF_aligned.internalparams["Mc"]/slopFF_aligned.internalparams["Mb"]
+slopFF_aligned_spectrum = chk.get_spectrum_slop(slopFF_aligned, qsq, "get_ff_gfF1F2_basis")
 # Adjusting for Blaschke factors scaling in SL_Decay for Bs and equivalence in F2
 P_1p_coeff = 2.02159  
 P_1m_coeff = 2.52733
 P_2_coeff = 1.73835
-slopFF_spectrum["g"] = slopFF_spectrum["g"]/P_1m_coeff
-slopFF_spectrum["f"] = slopFF_spectrum["f"]/P_1p_coeff
-slopFF_spectrum["F1"] = slopFF_spectrum["F1"]/P_1p_coeff
-slopFF_spectrum["F2"] = slopFF_spectrum["F2"]*np.sqrt(rC)/(1+rC)/P_2_coeff
+slopFF_aligned_spectrum["g"] = slopFF_aligned_spectrum["g"]/P_1m_coeff
+slopFF_aligned_spectrum["f"] = slopFF_aligned_spectrum["f"]/P_1p_coeff
+slopFF_aligned_spectrum["F1"] = slopFF_aligned_spectrum["F1"]/P_1p_coeff
+slopFF_aligned_spectrum["F2"] = slopFF_aligned_spectrum["F2"]*np.sqrt(rC)/(1+rC)/P_2_coeff
 
-# Making comparison plot
-chk.make_comparison_plot(slopFF_spectrum, SLDecayFF_spectrum, qsq, "SL Decay",
-    ["f", "g", "F1", "F2"],
-    [r"$f$", r"$g$", r"$\mathcal{F}_1$", r"$\mathcal{F}_2$"],
-    "BsToDsstFFBGL", "checks/check_SLDecay_{}_{}.png")
+
+# Comparison plots
+ff = ["f", "g", "F1", "F2"]
+fflabel = [r"$f$", r"$g$", r"$\mathcal{F}_1$", r"$\mathcal{F}_2$"]
+annotation = r"""Notes:
+- SLOP BGL coefficients are from 
+  arXiv:1707.09509 (Third column in Table V)
+- For `aligned' do the following:
+  - Set BGL coefficients to SL Decay defaults
+  - Set resonances for Blaschke factors as in
+    SL Decay and scale Blaschke factors with
+    same constants
+  - Set $\chi$'s to SL Decay values
+"""
+extra_note = r"""  - $\mathcal{F}_2$ is scaled by $\sqrt{m_{B_s}/m_{D_s^{*}}}/(1+m_{B_s}/m_{D_s^{*}})$
+    to match the factor in SL Decay"""
+for iff, ifflabel in zip(ff, fflabel):
+    savepath = f"checks/check_SLDecay_BdToDstFFBGL_{iff}.png"
+    cplot = chk.ComparisonPlot(ifflabel)
+    cplot.add_slop_prediction(qsq, slopFF_spectrum[iff], "SLOP (default)")
+    cplot.add_slop_prediction(qsq, slopFF_aligned_spectrum[iff], "SLOP (aligned)")
+    cplot.add_comparison_prediction(qsq, SLDecayFF_spectrum[iff], "SL Decay")
+    note = annotation
+    if iff == "F2":
+        note+=extra_note
+    cplot.annotate(note, 1.01, 0.5)
+    cplot.makeplot()
+    cplot.savefig(savepath)

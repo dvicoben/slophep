@@ -15,27 +15,6 @@ def get_spectrum_slop(ff: FormFactor,
                 res[ielem] = []
             res[ielem].append(iff[ielem])
     return {k : np.array(res[k]) for k in res}
-
-
-def make_comparison_plot(sloppred: dict, 
-                         otherpred: dict, 
-                         qsq: list[float], 
-                         otherpred_label: str,
-                         ipreds: list[str],
-                         ipredlabels: list[str] = [],
-                         prefix: str = "",
-                         savestr_fmt: str = "checks/check.png"):
-    if len(ipredlabels) != len(ipreds):
-        ipredlabels = ipreds
-    for ipred, ilabel in zip(ipreds, ipredlabels):
-        fig, ax = plt.subplots(1, 1)
-        ax.plot(qsq, sloppred[ipred], 'b-', label="SLOP")
-        ax.plot(qsq, otherpred[ipred], 'r--', label=otherpred_label)
-        ax.set(xlabel=r"$q^2$", ylabel=ilabel, title=prefix)
-        ax.legend()
-        fig.savefig(savestr_fmt.format(prefix, ipred), 
-                    bbox_inches = 'tight',
-                    dpi=100)
         
 
 def get_additional_spectrum_BGL(qsq, ff):
@@ -59,3 +38,26 @@ def get_additional_spectrum_BGL(qsq, ff):
 
     res = {k : np.array(res[k]) for k in res}
     return res
+
+
+class ComparisonPlot:
+    def __init__(self, ylabel: str):
+        self.fig, self.ax = plt.subplots(1, 1)
+        self.ax.set(xlabel=r"$q^2$ [GeV$^2$]", ylabel=ylabel)
+
+    def add_slop_prediction(self, x: list[float], y: list[float], label: str):
+        self.ax.plot(x, y, '-', label=label)
+    
+    def add_comparison_prediction(self, x: list[float], y: list[float], label: str):
+        self.ax.plot(x, y, 'k--', label=label)
+    
+    def annotate(self, text: str, x: float, y: float):
+        self.ax.text(x, y, text, size=8,
+                    ha='left', va='top', transform=self.ax.transAxes)
+    
+    def makeplot(self):
+        self.ax.legend(bbox_to_anchor=(1.01, 0.99), loc="upper left")
+        return self.fig, self.ax
+    
+    def savefig(self, outpath: str, dpi: int = 150):
+        self.fig.savefig(outpath, dpi=dpi, bbox_inches="tight")

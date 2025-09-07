@@ -18,7 +18,7 @@ int main() {
   BdToDstFFBLPRWrapper FF(sh);
 
   double q2min{0.012};
-  double q2max{10.68};
+  double q2max{pow(BdToDst_MASSES[0]-BdToDst_MASSES[1], 2)};
   size_t N{100};
   double q2step = (q2max-q2min)/N;
 

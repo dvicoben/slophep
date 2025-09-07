@@ -46,7 +46,12 @@ slopFF_spectrum = chk.get_spectrum_slop(slopFF, qsq, "get_ff")
 eosFF_spectrum = get_spectrum_eos(["A0", "A1", "A12", "V", "T1", "T2", "T23"], qsq, "B->D^*", "BSZ2015")
 
 # Comparison plots
-chk.make_comparison_plot(slopFF_spectrum, eosFF_spectrum, qsq, "EOS", 
-    ["A0", "A1", "A12", "V", "T1", "T2", "T23"],
-    [r"$A_0$", r"$A_1$", r"$A_{12}$", r"$V$", r"$T_1$", r"$T_2$", r"$T_{23}$"],
-    "BdToDstFFBSZ", "checks/check_eos_{}_{}.png")
+ff = ["A0", "A1", "A12", "V", "T1", "T2", "T23"]
+fflabel = [r"$A_0$", r"$A_1$", r"$A_{12}$", r"$V$", r"$T_1$", r"$T_2$", r"$T_{23}$"]
+for iff, ifflabel in zip(ff, fflabel):
+    savepath = f"checks/check_eos_BdToDstFFBSZ_{iff}.png"
+    cplot = chk.ComparisonPlot(ifflabel)
+    cplot.add_slop_prediction(qsq, slopFF_spectrum[iff], "SLOP (default)")
+    cplot.add_comparison_prediction(qsq, eosFF_spectrum[iff], "EOS")
+    cplot.makeplot()
+    cplot.savefig(savepath)
