@@ -13,7 +13,7 @@ import numpy as np
 setPlotParams()
 
 # load in the Hammer output
-data = np.loadtxt("checks/checks_Hammer_BdToDstFFBLPR.txt", float, skiprows=1).T
+data = np.loadtxt("checks/checks_hammer_BdToDstFFBLPR.txt", float, skiprows=1).T
 qsq = data[0]
 hammerFF_spectrum = {
     "Fs"    : data[1],

@@ -84,14 +84,6 @@ slopFF_spectrum["g"] = slopFF_spectrum["g"]/P_1m_coeff
 slopFF_spectrum["f"] = slopFF_spectrum["f"]/P_1p_coeff
 slopFF_spectrum["F1"] = slopFF_spectrum["F1"]/P_1p_coeff
 slopFF_spectrum["F2"] = slopFF_spectrum["F2"]*np.sqrt(rC)/(1+rC)/P_2_coeff
-# slopFF_spectrum["F2"] = slopFF_spectrum["F2"]*np.sqrt(rC)/(1+rC)
-
-slopFF_bs = chk.get_additional_spectrum_BGL(qsq, slopFF)
-
-chk.make_comparison_plot(slopFF_bs, SLDecayFF_spectrum, qsq, "SL Decay",
-    ["Blg", "Blf", "BlP1", "Phig", "Phif", "PhiF1", "PhiF2", "z"],
-    [],
-    "BsToDsstFFBGL", "checks/check_SLDecay_{}_{}.png")
 
 # Making comparison plot
 chk.make_comparison_plot(slopFF_spectrum, SLDecayFF_spectrum, qsq, "SL Decay",
