@@ -100,18 +100,15 @@ annotation = r"""Notes:
     SL Decay and scale Blaschke factors with
     same constants
   - Set $\chi$'s to SL Decay values
+  - $\mathcal{F}_2$ is scaled by $\sqrt{m_{B_s}/m_{D_s^{*}}}/(1+m_{B_s}/m_{D_s^{*}})$
+    to match the factor in SL Decay
 """
-extra_note = r"""  - $\mathcal{F}_2$ is scaled by $\sqrt{m_{B_s}/m_{D_s^{*}}}/(1+m_{B_s}/m_{D_s^{*}})$
-    to match the factor in SL Decay"""
 for iff, ifflabel in zip(ff, fflabel):
-    savepath = f"checks/check_SLDecay_BdToDstFFBGL_{iff}.png"
+    savepath = f"checks/check_SLDecay_BsToDsstFFBGL_{iff}.png"
     cplot = chk.ComparisonPlot(ifflabel)
     cplot.add_slop_prediction(qsq, slopFF_spectrum[iff], "SLOP (default)")
     cplot.add_slop_prediction(qsq, slopFF_aligned_spectrum[iff], "SLOP (aligned)")
     cplot.add_comparison_prediction(qsq, SLDecayFF_spectrum[iff], "SL Decay")
-    note = annotation
-    if iff == "F2":
-        note+=extra_note
-    cplot.annotate(note, 1.01, 0.5)
+    cplot.annotate(annotation, 1.01, 0.5)
     cplot.makeplot()
     cplot.savefig(savepath)
