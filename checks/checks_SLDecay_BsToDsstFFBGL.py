@@ -79,7 +79,7 @@ slopFF_aligned._internalparams.update(SLDecay_BGL_internalparams)
 rC = slopFF_aligned.internalparams["Mc"]/slopFF_aligned.internalparams["Mb"]
 slopFF_aligned_spectrum = chk.get_spectrum_slop(slopFF_aligned, qsq, "get_ff_gfF1F2_basis")
 # Adjusting for Blaschke factors scaling in SL_Decay for Bs and equivalence in F2
-P_1p_coeff = 2.02159  
+P_1p_coeff = 2.02159
 P_1m_coeff = 2.52733
 P_2_coeff = 1.73835
 slopFF_aligned_spectrum["g"] = slopFF_aligned_spectrum["g"]/P_1m_coeff
@@ -92,8 +92,8 @@ slopFF_aligned_spectrum["F2"] = slopFF_aligned_spectrum["F2"]*np.sqrt(rC)/(1+rC)
 ff = ["f", "g", "F1", "F2"]
 fflabel = [r"$f$", r"$g$", r"$\mathcal{F}_1$", r"$\mathcal{F}_2$"]
 annotation = r"""Notes:
-- SLOP BGL coefficients are from 
-  arXiv:1707.09509 (Third column in Table V)
+- SLOP BGL coefficients are 
+  HAMMER's divided by $\eta_{EW} V_{cb}$
 - For `aligned' do the following:
   - Set BGL coefficients to SL Decay defaults
   - Set resonances for Blaschke factors as in

@@ -82,8 +82,8 @@ slopFF_aligned_spectrum["F2"] = slopFF_aligned_spectrum["F2"]*np.sqrt(rC)/(1+rC)
 ff = ["f", "g", "F1", "F2"]
 fflabel = [r"$f$", r"$g$", r"$\mathcal{F}_1$", r"$\mathcal{F}_2$"]
 annotation = r"""Notes:
-- SLOP BGL coefficients are from 
-  arXiv:1707.09509 (Third column in Table V)
+- SLOP BGL coefficients are 
+  HAMMER's divided by $\eta_{EW} V_{cb}$
 - For `aligned' do the following:
   - Set BGL coefficients to SL Decay defaults
   - Set resonances for Blaschke factors as in

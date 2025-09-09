@@ -12,9 +12,10 @@
 #include "Hammer/SettingsHandler.hh"
 #include <vector>
 
-const std::vector<double> BdToDst_MASSES = {5.27966, 2.01026};
-const std::vector<double> BdToD_MASSES = {5.27966, 1.86966};
-const std::vector<double> BuToD_MASSES = {5.27934, 1.86484};
+const std::vector<double> BdToDst_MASSES  = {5.27966, 2.01026};
+const std::vector<double> BdToD_MASSES    = {5.27966, 1.86966};
+const std::vector<double> BuToD_MASSES    = {5.27934, 1.86484};
+const std::vector<double> BsToDsst_MASSES = {5.36692, 2.1122};
 
 // BdToDst BGL
 class BdToDstFFBGLWrapper: public Hammer::FFBtoDstarBGL {
@@ -156,5 +157,22 @@ public:
   }
 };
 
+
+
+// BsToDsst BGL
+class BsToDsstFFBGLWrapper: public Hammer::FFBtoDstarBGL {
+public:
+  BsToDsstFFBGLWrapper(Hammer::SettingsHandler& sh) 
+    : Hammer::FFBtoDstarBGL()
+  {  
+    setSettingsHandler(sh);
+    initSettings();
+    defineSettings();
+  }
+
+  void performEvalAtQ2(double qsq) {
+    evalAtPSPoint({qsq}, BsToDsst_MASSES);
+  }
+};
 
 #endif

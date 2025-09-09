@@ -11,7 +11,7 @@ For this comparison:
     - Get SLOP predictions as f, g, F1, F2
     - Convert HAMMER basis to f, g, F1, F2
 """
-from slophep.Predictions.FormFactorsBToV import BdToDstFF
+from slophep.Predictions.FormFactorsBToV import BsToDsstFF
 from slophep.utils import setPlotParams
 import check_utils as chk
 import numpy as np
@@ -19,7 +19,7 @@ import numpy as np
 setPlotParams()
 
 # load in the Hammer output
-data_BGL = np.loadtxt("checks/checks_hammer_BdToDstFFBGL.txt", float, skiprows=1).T
+data_BGL = np.loadtxt("checks/checks_hammer_BsToDsstFFBGL.txt", float, skiprows=1).T
 qsq = data_BGL[0]
 hammerFF_spectrum = {
     "f"     : data_BGL[1],
@@ -42,12 +42,12 @@ hammerFF_defaults = {
 }
 
 # Getting SLOP default predictions
-slopFF = BdToDstFF.BGL()
+slopFF = BsToDsstFF.BGL()
 slopFF_spectrum = chk.get_spectrum_slop(slopFF, qsq, "get_ff_gfF1F2_basis")
 # Add hammer factor of etaEW*Vcb
 etaEWVcb = slopFF.internalparams["Vcb"]*slopFF.internalparams["etaEW"]
 
-slopFF_aligned = BdToDstFF.BGL()
+slopFF_aligned = BsToDsstFF.BGL()
 slopFF_aligned.set_ff(**hammerFF_defaults)
 slopFF_aligned_spectrum = chk.get_spectrum_slop(slopFF_aligned, qsq, "get_ff_gfF1F2_basis")
 slopFF_aligned_spectrum = {k : slopFF_aligned_spectrum[k]/etaEWVcb for k in slopFF_aligned_spectrum}
@@ -88,7 +88,7 @@ annotation = r"""Notes:
   the same (lines overlap)
 """
 for iff, ifflabel in zip(ff, fflabel):
-    savepath = f"checks/check_hammer_BdToDstFFBGL_{iff}.png"
+    savepath = f"checks/check_hammer_BsToDsstFFBGL_{iff}.png"
     cplot = chk.ComparisonPlot(ifflabel)
     cplot.add_slop_prediction(qsq, slopFF_spectrum[iff], "SLOP (default)")
     cplot.add_slop_prediction(qsq, slopFF_aligned_spectrum[iff], "SLOP (aligned)")
