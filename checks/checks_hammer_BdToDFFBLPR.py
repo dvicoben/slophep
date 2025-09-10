@@ -38,10 +38,10 @@ annotation = r"""Notes:
   for the FFs as flavio is used to
   calculate observables. This differs
   only in that 
-      $f_T = \frac{(m_D + m_B)h_T}{2\sqrt{m_D + m_B}}$
+      $f_T = \frac{(m_D m_B)h_T}{2\sqrt{m_D m_B}}$
   (i.e. eqn. B4 in arXiv:1908.09398),
   rather than HAMMER's
-      $f_T = \frac{h_T}{2\sqrt{m_D + m_B}}$
+      $f_T = \frac{h_T}{2\sqrt{m_D m_B}}$
 - The `aligned' simply accounts for
   the factor of $(m_D + m_B)$
 """
