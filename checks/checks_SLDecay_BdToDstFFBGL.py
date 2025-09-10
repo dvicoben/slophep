@@ -102,3 +102,32 @@ for iff, ifflabel in zip(ff, fflabel):
     cplot.annotate(annotation, 1.01, 0.5)
     cplot.makeplot()
     cplot.savefig(savepath)
+  
+
+
+slopFF_bl = chk.get_additional_spectrum_BGL(qsq, slopFF)
+slopFF_aligned_bl = chk.get_additional_spectrum_BGL(qsq, slopFF_aligned)
+
+z = slopFF_bl["z"]
+zpow = np.array([z**ik for ik in range(3)])
+sldecay_poly = np.sum([SLDecay_BGL_ffpar["a0"]*zpow[0], SLDecay_BGL_ffpar["a1"]*zpow[1], SLDecay_BGL_ffpar["a2"]*zpow[2]], axis=0)
+slop_poly = np.sum([slopFF.ffpar["a0"]*zpow[0], slopFF.ffpar["a1"]*zpow[1], slopFF.ffpar["a2"]*zpow[2]], axis=0)
+
+p = chk.ComparisonPlot(r"$\sum_n a^g_n z^n$")
+p.add_slop_prediction(qsq, slop_poly, "SLOP")
+p.add_comparison_prediction(qsq, sldecay_poly, "SLDecay")
+p.makeplot()
+p.savefig("checks/check_SLDecay_BdToDstFFBGL_poly.png")
+
+for ielem in slopFF_bl:
+    if "0" in ielem:
+        continue
+    savepath = f"checks/check_SLDecay_BdToDstFFBGL_{ielem}.png"
+    cplot = chk.ComparisonPlot(ielem)
+    cplot.add_slop_prediction(qsq, slopFF_bl[ielem], "SLOP (default)")
+    cplot.add_slop_prediction(qsq, slopFF_aligned_bl[ielem], "SLOP (aligned)")
+    cplot.add_comparison_prediction(qsq, SLDecayFF_spectrum[ielem], "SL Decay")
+    cplot.annotate(annotation, 1.01, 0.5)
+    cplot.makeplot()
+    cplot.savefig(savepath)
+
