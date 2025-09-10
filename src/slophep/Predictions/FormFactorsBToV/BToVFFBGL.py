@@ -81,10 +81,9 @@ class BGL_BToV(FormFactorBToV):
 
     def get_ff(self, q2: float) -> dict:
         """Calculates BGL form factors (SM only) as in hammer https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBGL.cc?ref_type=tags
-
-        Could alternatively consider EOS implementation
-        https://github.com/eos/eos/blob/master/eos/form-factors/parametric-bgl1997.hh
-        https://github.com/eos/eos/blob/master/eos/form-factors/parametric-bgl1997-impl.hh
+        
+        Note that there is an additional 1./(etaEW*Vcb) factor applied to FFs in Hammer that is not
+        present here. For that exact correspondence use BGL_Hammer FFs for the decay mode.
 
         Parameters
         ----------

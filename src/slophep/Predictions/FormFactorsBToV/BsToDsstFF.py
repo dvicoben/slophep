@@ -4,77 +4,57 @@ import numpy as np
 class BLPR(FFBToV.BLPR_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        self._name = "BsToDsst_BLPR"
+
 
 class CLN(FFBToV.CLN_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        self._name = "BsToDsst_CLN"
+
 
 class CLN2(FFBToV.CLN2_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        self._name = "BsToDsst_CLN2"
         self.internalparams.update({
             "qiqj" : "bc"
         })
 
+
 class BGL(FFBToV.BGL_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        self._name = "BsToDsst_BGL"
 
-class BGL_SLDecay(FFBToV.BGL_BToV):
+
+class BGL_Hammer(FFBToV.BGL_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
-        """BGL equivalent to the implementation in SL_Decay (see https://cds.cern.ch/record/2313977/files/LHCb-INT-2018-015.pdf
-        https://gitlab.cern.ch/scali/SL_Decay/-/tree/master?ref_type=heads)
-
-        F2 differs from SL_decay by sqrt(mDs/mBs)/(1+mDs/mBs)
-        """
         super().__init__("Bs", "Ds*", par, scale, *ffargs)
-        # Set all parameters to SL_Decay defaults
+        self._name = "BsToDsst_BGL_Hammer"
         self._ffpar = {
-            "a0" : 0.0289,
-            "a1" : 0.08,
-            "a2" : -1,
-            "b0" : 0.01224,
-            "b1" : -0.052,
-            "b2" : 1,
-            "c1" : -0.007,
-            "c2" : 0.089,
-            "d0" : 0.0595,
-            "d1" : -0.318
+            "a0" : 0.00038,
+            "a1" : 0.026905,
+            "a2" : 0.,
+            "b0" : 0.00055,
+            "b1" : -0.0020370,
+            "b2" : 0.,
+            "c1" : -0.000433,
+            "c2" : 0.005353,
+            "d0" : 0.007,
+            "d1" : -0.036
         }
-        sldecay_internalparams = {
-            "chim"       : 3.894e-4,
-            "chip"       : 5.131e-4,
-            "chimL"      : 1.9421e-2,
-            "BcStatesf"  : np.array([6.739, 6.750, 7.145, 7.150]),  # GeV
-            "BcStatesg"  : np.array([6.329, 6.920, 7.020, 7.280]),  # GeV
-            "BcStatesP1" : np.array([6.275, 6.842, 7.250]),         # GeV
-            "P_1p_coeff" : 2.02159,
-            "P_1m_coeff" : 2.52733,
-            "P_2_coeff"  : 1.73835
-        }
-        self.internalparams.update(sldecay_internalparams)
     
-    def get_ff(self, q2: float) -> dict:
-        ff_unscaled = super().get_ff(q2)
-        P_1m_coeff = self.internalparams["P_1m_coeff"]
-        P_1p_coeff = self.internalparams["P_1p_coeff"]
-        P_2_coeff = self.internalparams["P_2_coeff"]
-        ff = {
-            "V"  : ff_unscaled["V"]/P_1m_coeff,
-            "A0" : ff_unscaled["A0"]/P_2_coeff,
-            "A1" : ff_unscaled["A1"]/P_1p_coeff,
-            "A12" : ff_unscaled["A12"]/P_1p_coeff,
-            "T1" : ff_unscaled["T1"],
-            "T2" : ff_unscaled["T2"],
-            "T3" : ff_unscaled["T3"],
-            "T23" : ff_unscaled["T23"]
-        }
-        return ff
+    def get_ff(self, q2: float):
+        etaEWVcb = self.internalparams["etaEW"]*self.internalparams["Vcb"]
+        ff = super().get_ff(q2)
+        return {k : ff[k]/etaEWVcb for k in ff}
+
 
 class HPQCD(FFBToV.HPQCD_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("Bs", "Ds*", par, scale, *ffargs)
-
+        self._name = "BsToDsst_HPQCD"
         # These are in addition to the B->D* ones
         self._ffpar.update({
             "s_a^0_hA1_Mpi^2/Lambda": -0.03126051843850383,
