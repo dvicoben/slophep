@@ -1,28 +1,55 @@
 import slophep.Predictions.FormFactorsBToV as FFBToV
+import numpy as np
 
 class BLPR(FFBToV.BLPR_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        self._name = "BsToDsst_BLPR"
+
+
+class BLPR_Hammer(FFBToV.BLPR_BToV_Hammer):
+    def __init__(self, par: dict = None, scale: float = None, *ffargs):
+        super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        self._name = "BsToDsst_BLPR_Hammer"
+
 
 class CLN(FFBToV.CLN_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        self._name = "BsToDsst_CLN"
+
+
+class CLN_Hammer(FFBToV.CLN_BToV_Hammer):
+    def __init__(self, par: dict = None, scale: float = None, *ffargs):
+        super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        self._name = "BsToDsst_CLN_Hammer"
+
 
 class CLN2(FFBToV.CLN2_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        self._name = "BsToDsst_CLN2"
         self.internalparams.update({
             "qiqj" : "bc"
         })
 
+
 class BGL(FFBToV.BGL_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        self._name = "BsToDsst_BGL"
+
+
+class BGL_Hammer(FFBToV.BGL_BToV_Hammer):
+    def __init__(self, par: dict = None, scale: float = None, *ffargs):
+        super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        self._name = "BsToDsst_BGL_Hammer"
+
 
 class HPQCD(FFBToV.HPQCD_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("Bs", "Ds*", par, scale, *ffargs)
-
+        self._name = "BsToDsst_HPQCD"
         # These are in addition to the B->D* ones
         self._ffpar.update({
             "s_a^0_hA1_Mpi^2/Lambda": -0.03126051843850383,

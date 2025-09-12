@@ -75,28 +75,62 @@
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.BdToDFF.html#slophep.Predictions.FormFactorsBToP.BdToDFF.BSZ">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BSZ</span><span class="p">(</span><span class="n">FFBToP</span><span class="o">.</span><span class="n">BSZ_BToP</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;B0&quot;</span><span class="p">,</span> <span class="s2">&quot;D+&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;B0&quot;</span><span class="p">,</span> <span class="s2">&quot;D+&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BdToD_BSZ&quot;</span></div>
+
 
 
 <div class="viewcode-block" id="BLPR">
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.BdToDFF.html#slophep.Predictions.FormFactorsBToP.BdToDFF.BLPR">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BLPR</span><span class="p">(</span><span class="n">FFBToP</span><span class="o">.</span><span class="n">BLPR_BToP</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;B0&quot;</span><span class="p">,</span> <span class="s2">&quot;D+&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;B0&quot;</span><span class="p">,</span> <span class="s2">&quot;D+&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BdToD_BLPR&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="BLPR_Hammer">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.BdToDFF.html#slophep.Predictions.FormFactorsBToP.BdToDFF.BLPR_Hammer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BLPR_Hammer</span><span class="p">(</span><span class="n">FFBToP</span><span class="o">.</span><span class="n">BLPR_BToP_Hammer</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;B0&quot;</span><span class="p">,</span> <span class="s2">&quot;D+&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BdToD_BLPR_Hammer&quot;</span></div>
+
 
 
 <div class="viewcode-block" id="BGL">
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.BdToDFF.html#slophep.Predictions.FormFactorsBToP.BdToDFF.BGL">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BGL</span><span class="p">(</span><span class="n">FFBToP</span><span class="o">.</span><span class="n">BGL_BToP</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;B0&quot;</span><span class="p">,</span> <span class="s2">&quot;D+&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;B0&quot;</span><span class="p">,</span> <span class="s2">&quot;D+&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BdToD_BGL&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="BGL_Hammer">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.BdToDFF.html#slophep.Predictions.FormFactorsBToP.BdToDFF.BGL_Hammer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BGL_Hammer</span><span class="p">(</span><span class="n">FFBToP</span><span class="o">.</span><span class="n">BGL_BToP_Hammer</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;B0&quot;</span><span class="p">,</span> <span class="s2">&quot;D+&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BdToD_BGL_Hammer&quot;</span></div>
+
 
 
 <div class="viewcode-block" id="CLN">
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.BdToDFF.html#slophep.Predictions.FormFactorsBToP.BdToDFF.CLN">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CLN</span><span class="p">(</span><span class="n">FFBToP</span><span class="o">.</span><span class="n">CLN_BToP</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;B0&quot;</span><span class="p">,</span> <span class="s2">&quot;D+&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;B0&quot;</span><span class="p">,</span> <span class="s2">&quot;D+&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BdToD_CLN&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="CLN_Hammer">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.BdToDFF.html#slophep.Predictions.FormFactorsBToP.BdToDFF.CLN_Hammer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CLN_Hammer</span><span class="p">(</span><span class="n">FFBToP</span><span class="o">.</span><span class="n">CLN_BToP_Hammer</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;B0&quot;</span><span class="p">,</span> <span class="s2">&quot;D+&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BdToD_CLN_Hammer&quot;</span></div>
 
 </pre></div>
 

@@ -14,6 +14,7 @@ slophep.Predictions
     slophep.Predictions.FormFactorsBToP
     slophep.Predictions.FormFactorsBToP.BuToDFF
     slophep.Predictions.FormFactorsBToP.BdToDFF
+    slophep.Predictions.FormFactorsBToP.BdToPiFF
     slophep.Predictions.SamplingTools
     slophep.Predictions.SamplingFluctuate
     slophep.Predictions.Math.BToVMathTools

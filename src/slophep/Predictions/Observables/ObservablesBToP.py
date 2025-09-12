@@ -23,3 +23,15 @@ class BdToDEllNuPrediction(BToPEllNuPrediction):
                  scale: float = 4.8,
                  ):
         super().__init__("B0", "D+", "bc", lep, nu, FF, ffargs, par, scale)
+
+
+class BdToPiEllNuPrediction(BToPEllNuPrediction):
+    def __init__(self, 
+                 lep: str, 
+                 nu: str,
+                 FF: FormFactorBToP,
+                 ffargs: list = [],
+                 par: dict = None,
+                 scale: float = 4.8,
+                 ):
+        super().__init__("B0", "pi+", "bu", lep, nu, FF, ffargs, par, scale)

@@ -1,0 +1,62 @@
+"""
+Cross-check with SL_Decay, see
+- https://cds.cern.ch/record/2313977/files/LHCb-INT-2018-015.pdf
+- https://gitlab.cern.ch/scali/SL_Decay/-/tree/master?ref_type=heads
+
+NOTE: for this comparison, convert HAMMER basis to h basis and get SLOP predictions in h basis
+"""
+from slophep.Predictions.FormFactorsBToV import BdToDstFF
+from slophep.utils import setPlotParams
+import check_utils as chk
+import numpy as np
+
+setPlotParams()
+
+# load in the Hammer output
+data = np.loadtxt("checks/checks_hammer_BdToDstFFBLPR.txt", float, skiprows=1).T
+qsq = data[0]
+hammerFF_spectrum = {
+    "Fs"    : data[1],
+    "Ff"    : data[2],
+    "Fg"    : data[3],
+    "Fm"    : data[4],
+    "Fp"    : data[5],
+    "Fzt"   : data[6],
+    "Fmt"   : data[7],
+    "Fpt"   : data[8]
+}
+
+# Initializing slop prediction and aligning parameters
+slopFF = BdToDstFF.BLPR()
+# Getting spectrum from SLOP
+slopFF_spectrum = chk.get_spectrum_slop(slopFF, qsq, "get_ff_h_basis")
+
+# Adjusting hammer for equivalent basis
+def hammer_to_h_basis(Sqq, ham, slopFF):
+    ff = {}
+    
+    Mb = slopFF.internalparams["Mb"]
+    Mc = slopFF.internalparams["Mc"]
+    sqMbMc = np.sqrt(Mb*Mc)
+    Mb3 = Mb**3
+    
+    ff["hA1"] = (2. * sqMbMc)*ham["Ff"]/((Mb + Mc)*(Mb + Mc) - Sqq)
+    ff["hV"] = (2. * sqMbMc)*ham["Fg"]
+    ff["hA2"] = -(ham["Fm"] + ham["Fp"])/np.sqrt(Mc / Mb3)
+    ff["hA3"] = 0.5*(2. * sqMbMc)*(ham["Fm"] - ham["Fp"])
+    ff["hT3"] = ham["Fzt"]*(2. * pow(Mb * Mc, 1.5))/Mc
+    ff["hT2"] = (2. * sqMbMc)*((Mb+Mc)*ham["Fmt"] + (Mb-Mc)*ham["Fpt"])/((Mb-Mc)**2 - (Mb+Mc)**2)
+    ff["hT1"] = (ham["Fmt"] + (ff["hT2"] * (Mb + Mc)) / (2. * sqMbMc))*((2. * sqMbMc)/(Mb - Mc))
+    return ff
+
+hammerFF_spectrum_h = hammer_to_h_basis(qsq, hammerFF_spectrum, slopFF)
+
+ff = ["hA1", "hA2", "hA3", "hV", "hT1", "hT2", "hT3"]
+fflabel = [r"$h_{A1}$", r"$h_{A2}$", r"$h_{A3}$", r"$h_{V}$", r"$h_{T1}$", r"$h_{T2}$", r"$h_{T3}$"]
+for iff, ifflabel in zip(ff, fflabel):
+    savepath = f"checks/check_hammer_BdToDstFFBLPR_{iff}.png"
+    cplot = chk.ComparisonPlot(ifflabel)
+    cplot.add_slop_prediction(qsq, slopFF_spectrum[iff], "SLOP (default)")
+    cplot.add_comparison_prediction(qsq, hammerFF_spectrum_h[iff], "Hammer v1.2.1")
+    cplot.makeplot()
+    cplot.savefig(savepath)
