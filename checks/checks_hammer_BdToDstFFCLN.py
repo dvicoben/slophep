@@ -19,7 +19,7 @@ import numpy as np
 setPlotParams()
 
 # load in the Hammer output
-data_BGL = np.loadtxt("checks/checks_hammer_BdToDstFFBGL.txt", float, skiprows=1).T
+data_BGL = np.loadtxt("checks/checks_hammer_BdToDstFFCLN.txt", float, skiprows=1).T
 qsq = data_BGL[0]
 hammerFF_spectrum = {
     "f"     : data_BGL[1],
@@ -28,29 +28,10 @@ hammerFF_spectrum = {
     "Fp"    : data_BGL[4],
 }
 
-hammerFF_defaults = {
-    "a0" : 0.00038,
-    "a1" : 0.026905,
-    "a2" : 0.,
-    "b0" : 0.00055,
-    "b1" : -0.0020370,
-    "b2" : 0.,
-    "c1" : -0.000433,
-    "c2" : 0.005353,
-    "d0" : 0.007,
-    "d1" : -0.036
-}
-
 # Getting SLOP default predictions
-slopFF = BdToDstFF.BGL()
+slopFF = BdToDstFF.CLN()
 slopFF_spectrum = chk.get_spectrum_slop(slopFF, qsq, "get_ff_gfF1F2_basis")
 
-slopFF_aligned = BdToDstFF.BGL()
-slopFF_aligned.set_ff(**hammerFF_defaults)
-slopFF_aligned_spectrum = chk.get_spectrum_slop(slopFF_aligned, qsq, "get_ff_gfF1F2_basis")
-# Add hammer factor of etaEW*Vcb
-etaEWVcb = slopFF_aligned.internalparams["Vcb"]*slopFF_aligned.internalparams["etaEW"]
-slopFF_aligned_spectrum = {k : slopFF_aligned_spectrum[k]/etaEWVcb for k in slopFF_aligned_spectrum}
 
 # Adjusting hammer for equivalennt basis
 Mb = slopFF.internalparams["Mb"]
@@ -77,22 +58,11 @@ hammerFF_spectrum["g"] = hammerFF_spectrum["g"]*2.
 ff = ["f", "g", "F1", "F2"]
 fflabel = [r"$f$", r"$g$", r"$\mathcal{F}_1$", r"$\mathcal{F}_2$"]
 annotation = r"""Notes:
-- HAMMER divides its FFs by
-  a factor of $\eta_{EW} V_{cb}$
-- SLOP BGL coefficients are 
-  HAMMER's divided by $\eta_{EW} V_{cb}$
-- For `aligned', we set BGL 
-  coefficients to HAMMER defaults 
-  and scale by $\eta_{EW} V_{cb}$ 
-  as in HAMMER - the effect is 
-  the same (lines overlap)
 """
 for iff, ifflabel in zip(ff, fflabel):
-    savepath = f"checks/check_hammer_BdToDstFFBGL_{iff}.png"
+    savepath = f"checks/check_hammer_BdToDstFFCLN_{iff}.png"
     cplot = chk.ComparisonPlot(ifflabel)
     cplot.add_slop_prediction(qsq, slopFF_spectrum[iff], "SLOP (default)")
-    cplot.add_slop_prediction(qsq, slopFF_aligned_spectrum[iff], "SLOP (aligned)")
     cplot.add_comparison_prediction(qsq, hammerFF_spectrum[iff], "Hammer v1.2.1")
-    cplot.annotate(annotation, 1.01, 0.5)
     cplot.makeplot()
     cplot.savefig(savepath)
