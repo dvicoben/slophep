@@ -9,8 +9,8 @@ class CLN_BToP(FormFactorBToP):
         self._name = "BToP_CLN"
         # Parameters from B->D CLN Hammer https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDCLN.cc
         self._ffpar = {
-            "RhoSq" : 0.01565,
-            "G1"    : -0.0353,
+            "RhoSq" : 1.186,
+            "G1"    : 1.082,
             "Delta" : 1.0
         }
         self._params = [
