@@ -11,6 +11,9 @@ For detailed changes see changelong and merge requests. This here is just to not
 
 - In v1.0.0 some of the nomenclature was changed, which means some minor changes may need to be performed to scripts due to changes in nomenclature
     - In particular the nomenclature changed `BToDst` $\to$ `BdToDst` in both FFs and observable, so `BToDstEllNuPrediction` $\to$ `BdToDstEllNuPrediction` and `BToDstFF` $\to$ `BdToDstFF`
+- In v1.1.0 classes were added made to be direct Hammer equivalents, which are named `BGL_Hammer`, `CLN_Hammer`, `BLP_Hammer`. This is to make projection of Hammer fits easier. 
+    - In principle the only impact was when trying to make FF projections in $B \to V$ BGL, where Hammer has a $1/\eta_{EW}V_{cb}$ scaling that is not present in SLOP. If coefficients were not adjusted for this, one could get FF bands that were off by this factor.
+    - Note also that the $B \to P$ basis in Hammer differs in $f_T$ from the one used in flavio and therefore in SLOP for the calculation of observables (by a factor of $m_B + m_P$). Because of this, take care when comparing $f_T$ (and any observables it affects) from `BLPR_Hammer` in $B\to P$ and other FF schemes (`BGL_Hammer` and `CLN_Hammer` are SM only so this is not an issue as $f_T = 0$). This should only matter if you specifically want to plot out $f_T$ in the Hammer basis. Otherwise you can used the usual `BLPR`.
 
 # Requirements
 Requirements are listed in `requirements.txt`
@@ -77,6 +80,8 @@ J_{1c}\cos^2\theta_V + J_{1s}\sin^2\theta_V
 ## $B \to D$ (needs testing)
 Largely untested! Make sure to check before use that desired/expected values are produced correctly.
 
+Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`.
+
 | FF Scheme | Notes | Refs. |
 |-----------|-------|-------|
 | CLN       | Implementation reproduces hammer's. Tensor FF $f_T(q^2) = 0$. Use with care for BSM predictions. Defaults are set to HAMMER values. | [arXiv:hep-ph/9712417v1](https://arxiv.org/abs/hep-ph/9712417), [arXiv:1203.2654](https://arxiv.org/abs/1203.2654), [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDCLN.cc?ref_type=tags)
@@ -86,6 +91,8 @@ Largely untested! Make sure to check before use that desired/expected values are
 
 
 ## $B \to D^*$
+
+Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`.
 
 | FF Scheme | Notes | Refs. |
 |-----------|-------|-------|
@@ -98,6 +105,8 @@ Largely untested! Make sure to check before use that desired/expected values are
 
 ## $B_s \to D_s^*$ (needs testing)
 Largely untested! Make sure to check before use that desired/expected values are produced correctly.
+
+Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`.
 
 Implementation in most cases is the same as $B \to D^*$ but with the appropiate meson masses.
 
@@ -112,11 +121,6 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
 # TO DO
 ### Priority:
 - [ ] Work on `PyPI` release
-- [ ] Consider moving error handling to `gvar` rather than sampling of Gaussian? 
-    - Moving to `gvar` could be problematic for non-gaussian errors - would need to consider how to deal with this.
-    - In some tests for $B_s \to D_s^*$, obtained larger contours for the low $q^2$ in form factors compared to [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) and what is obtained with LOAD_FIT.py. 
-    - Even sampling directly from `gvar` (loading the `pydat` and using `gvar.sample`) produces errors different to those resulting from `gvar` arithmetic
-    - The issues does not seem to be computation of the FFs since central values seem fine - need to cross-check directly by calculating similar fluctuations using functions in `LOAD_FIT.py`.
 - [ ] Homogenise nomenclature of FF parameters for parameterisations with polynomial expansions
 - [ ] Add ability to get $\langle J_i \rangle$ for a given binning scheme (as in the PDF methods) rather than need to get each individual bin
 - [ ] Maybe move FF param defaults to some `.json` files? In particular for HPQCD this is a lot of parameters - largely a cosmetic thing and would like to keep everything readable from the class so maybe not
@@ -124,13 +128,17 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
 - [ ] Additional decay modes
     - [x] $B_s \to D_s^*$ (to be tested) - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which is not accommodated.
     - [x] $B \to D$ (to be tested)
-    - [ ] Other $B \to V\ell\nu$ and $B \to P\ell\nu$
-    - [ ] $\Lambda_b$ modes
-    - [ ] $b \to u$ modes
+    - [x] $B \to \pi$ (to be tested)
+    - [ ] $b$-baryon modes
 - [ ] MC generator - sampling reject method for MC generation
 
 ### Others
 - [ ] Add some `cite` attirbute to return bib entries for each FF scheme - make bookkeeping easier for end-user
+- [ ] Consider moving error handling to `gvar` rather than sampling of Gaussian? 
+    - Moving to `gvar` could be problematic for non-gaussian errors - would need to consider how to deal with this.
+    - In some tests for $B_s \to D_s^*$, obtained larger contours for the low $q^2$ in form factors compared to [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) and what is obtained with LOAD_FIT.py. 
+    - Even sampling directly from `gvar` (loading the `pydat` and using `gvar.sample`) produces errors different to those resulting from `gvar` arithmetic
+    - The issues does not seem to be computation of the FFs since central values seem fine - need to cross-check directly by calculating similar fluctuations using functions in `LOAD_FIT.py`.
 - [ ] Fitting interface for $\langle J_i \rangle$ fits
 - [ ] Fitting interface for FF fits
 - [ ] For fitting: Optimise binned PDF predictions to avoid unnecessary re-calculations of angular integrals unless explicitly requested

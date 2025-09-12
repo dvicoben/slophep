@@ -38,6 +38,10 @@ class BLPR_BToP(FormFactorBToP):
         """FF in BLPR parameterisation from https://arxiv.org/pdf/1703.05330 as in HAMMER v1.2.1, 
         https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDBLPR.cc?ref_type=tags
 
+        Note that HAMMER's basis differs from the one used here for fT, where in hammer
+        fT=hT/sqrt(Mb*Mp) while here we use Appendix B in https://arxiv.org/abs/1908.09398, which differs
+        by a factor of (Mb+Mp).
+
         Parameters
         ----------
         q2 : float

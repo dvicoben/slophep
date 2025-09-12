@@ -18,6 +18,22 @@ class BLPR_BToP_Hammer(FFBToP.BLPR_BToP):
               +"Take care if using this for anything other than FF comparisons!")
     
     def get_ff(self, q2: float) -> dict:
+        """FF in BLPR parameterisation from https://arxiv.org/pdf/1703.05330 as in HAMMER v1.2.1, 
+        https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDBLPR.cc?ref_type=tags
+
+        Note that this returns fT=hT/sqrt(Mb*Mp) but this is not the basis flavio expects to compute observables.
+        Take care if using for observables.
+
+        Parameters
+        ----------
+        q2 : float
+            q2 value to calculate FF at
+
+        Returns
+        -------
+        dict
+            FF dictionary
+        """
         ff = super().get_ff(q2)
         ff["fT"] = ff["fT"]/(self.internalparams["Mb"] + self.internalparams["Mc"])
         return ff

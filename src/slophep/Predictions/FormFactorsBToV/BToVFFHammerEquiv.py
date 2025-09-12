@@ -33,7 +33,20 @@ class BGL_BToV_Hammer(FFBToV.BGL_BToV):
 
         print("WARNING: Hammer's BToV BGL has a 1/(etaEW*Vcb) scaling of FFs, with etaEW=1.0066, Vcb=41.5e-3 and this results in different coefficients")
     
-    def get_ff(self, q2: float):
+    def get_ff(self, q2: float) -> dict:
+        """Calculates BGL form factors (SM only) as in hammer https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBGL.cc?ref_type=tags
+        
+        Note that there is an additional 1./(etaEW*Vcb) factor applied to FFs as in Hammer.
+
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        dict
+            FF dictionary
+        """
         etaEWVcb = self.internalparams["etaEW"]*self.internalparams["Vcb"]
         ff = super().get_ff(q2)
         return {k : ff[k]/etaEWVcb for k in ff}

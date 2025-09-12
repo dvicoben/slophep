@@ -70,19 +70,42 @@
              
   <h1>Source code for slophep.Predictions.FormFactorsBToV.BsToDsstFF</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">slophep.Predictions.FormFactorsBToV</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">FFBToV</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <div class="viewcode-block" id="BLPR">
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToV.BsToDsstFF.html#slophep.Predictions.FormFactorsBToV.BsToDsstFF.BLPR">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BLPR</span><span class="p">(</span><span class="n">FFBToV</span><span class="o">.</span><span class="n">BLPR_BToV</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Bs&quot;</span><span class="p">,</span> <span class="s2">&quot;Ds*&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Bs&quot;</span><span class="p">,</span> <span class="s2">&quot;Ds*&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BsToDsst_BLPR&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="BLPR_Hammer">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToV.BsToDsstFF.html#slophep.Predictions.FormFactorsBToV.BsToDsstFF.BLPR_Hammer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BLPR_Hammer</span><span class="p">(</span><span class="n">FFBToV</span><span class="o">.</span><span class="n">BLPR_BToV_Hammer</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Bs&quot;</span><span class="p">,</span> <span class="s2">&quot;Ds*&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BsToDsst_BLPR_Hammer&quot;</span></div>
+
 
 
 <div class="viewcode-block" id="CLN">
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToV.BsToDsstFF.html#slophep.Predictions.FormFactorsBToV.BsToDsstFF.CLN">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CLN</span><span class="p">(</span><span class="n">FFBToV</span><span class="o">.</span><span class="n">CLN_BToV</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Bs&quot;</span><span class="p">,</span> <span class="s2">&quot;Ds*&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Bs&quot;</span><span class="p">,</span> <span class="s2">&quot;Ds*&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BsToDsst_CLN&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="CLN_Hammer">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToV.BsToDsstFF.html#slophep.Predictions.FormFactorsBToV.BsToDsstFF.CLN_Hammer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CLN_Hammer</span><span class="p">(</span><span class="n">FFBToV</span><span class="o">.</span><span class="n">CLN_BToV_Hammer</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Bs&quot;</span><span class="p">,</span> <span class="s2">&quot;Ds*&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BsToDsst_CLN_Hammer&quot;</span></div>
+
 
 
 <div class="viewcode-block" id="CLN2">
@@ -90,16 +113,29 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">CLN2</span><span class="p">(</span><span class="n">FFBToV</span><span class="o">.</span><span class="n">CLN2_BToV</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Bs&quot;</span><span class="p">,</span> <span class="s2">&quot;Ds*&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BsToDsst_CLN2&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
             <span class="s2">&quot;qiqj&quot;</span> <span class="p">:</span> <span class="s2">&quot;bc&quot;</span>
         <span class="p">})</span></div>
+
 
 
 <div class="viewcode-block" id="BGL">
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToV.BsToDsstFF.html#slophep.Predictions.FormFactorsBToV.BsToDsstFF.BGL">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BGL</span><span class="p">(</span><span class="n">FFBToV</span><span class="o">.</span><span class="n">BGL_BToV</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Bs&quot;</span><span class="p">,</span> <span class="s2">&quot;Ds*&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Bs&quot;</span><span class="p">,</span> <span class="s2">&quot;Ds*&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BsToDsst_BGL&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="BGL_Hammer">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToV.BsToDsstFF.html#slophep.Predictions.FormFactorsBToV.BsToDsstFF.BGL_Hammer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BGL_Hammer</span><span class="p">(</span><span class="n">FFBToV</span><span class="o">.</span><span class="n">BGL_BToV_Hammer</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Bs&quot;</span><span class="p">,</span> <span class="s2">&quot;Ds*&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BsToDsst_BGL_Hammer&quot;</span></div>
+
 
 
 <div class="viewcode-block" id="HPQCD">
@@ -107,7 +143,7 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">HPQCD</span><span class="p">(</span><span class="n">FFBToV</span><span class="o">.</span><span class="n">HPQCD_BToV</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Bs&quot;</span><span class="p">,</span> <span class="s2">&quot;Ds*&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BsToDsst_HPQCD&quot;</span>
         <span class="c1"># These are in addition to the B-&gt;D* ones</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ffpar</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
             <span class="s2">&quot;s_a^0_hA1_Mpi^2/Lambda&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.03126051843850383</span><span class="p">,</span>
