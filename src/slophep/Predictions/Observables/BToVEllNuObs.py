@@ -193,7 +193,7 @@ class BToVEllNuPrediction(ObservableBase):
         return 3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
 
     def dGdq2_hist(self, q2_bins: int | list):
-        """Create 4D histogram of PDF. This computes J_i integrated over the bin and angular integrals.
+        """Create 1D histogram of dG/dq2
 
         Parameters
         ----------
