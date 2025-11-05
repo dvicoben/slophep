@@ -79,7 +79,7 @@ class BLPR_BToV_Hammer(FFBToV.BLPR_BToV):
 
 
 
-class CLN_BToV_Hammer(FFBToV.BGL_BToV):
+class CLN_BToV_Hammer(FFBToV.CLN_BToV):
     def __init__(self, B: str, V: str, par: dict, scale: float, *ffargs):
         super().__init__(B, V, par, scale, *ffargs)
         self._name = "BToV_CLN_Hammer"
