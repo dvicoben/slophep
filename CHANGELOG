@@ -1,3 +1,7 @@
+2025-09-12 --- Version 1.1.1
+    Fixes:
+     - Fixed inheritance bug in BToV CLN_Hammer
+
 2025-09-12 --- Version 1.1.0
     Additions:
      - Bd->Pi, with BSZ FFs
