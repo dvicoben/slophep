@@ -14,7 +14,7 @@ class FormFactorOneHalfpToOneHalfp(FormFactor):
         self._name: str            = "OneHalfpToOneHalfp_FFBase"
         self._internalparams: dict = {
             "Mb"         : self.par[f'm_{self.B}'],
-            "Mc"         : self.par[f'm_{self.V}'],
+            "Mc"         : self.par[f'm_{self.C}'],
         }
 
     @property
@@ -23,7 +23,7 @@ class FormFactorOneHalfpToOneHalfp(FormFactor):
         return self._B
     @property
     def C(self) -> str:
-        """The Charmed Vector meson"""
+        """The final state hadron"""
         return self._C
     
     def w(self, q2: float) -> float:
