@@ -5,7 +5,7 @@ from slophep.Predictions.FormFactorsBaryonic.FormFactorOneHalfpToOneHalfp import
 
 
 class DKMR_OneHalfpToOneHalfp(FormFactorOneHalfpToOneHalfp):
-    def __init__(self, B: str, C: str, par: dict = None, scale: float = None):
+    def __init__(self, B: str, C: str, par: dict = None, scale: float = None, *ffargs):
         super().__init__(B, C, par, scale)
 
         self._name = "OneHalfpToOneHalfp_DKMR"
@@ -77,54 +77,54 @@ class DKMR_OneHalfpToOneHalfp(FormFactorOneHalfpToOneHalfp):
         z1m = self.z(q2, m1m)
 
         fV_t = 1.0/(1. - (q2/(m0p**2)))*(
-            self.internalparams["aV_t0"]
-            + self.internalparams["aV_t1"]*z0p
-            + self.internalparams["aV_t2"]*(z0p**2)
+            self.ffpar["aV_t0"]
+            + self.ffpar["aV_t1"]*z0p
+            + self.ffpar["aV_t2"]*(z0p**2)
         )
-        fV_l = 1.0/(1. - (q2/(m1m)))*(
-            self.internalparams["aV_l0"]
-            + self.internalparams["aV_l1"]*z1m
-            + self.internalparams["aV_l2"]*(z1m**2)
+        fV_l = 1.0/(1. - (q2/(m1m**2)))*(
+            self.ffpar["aV_l0"]
+            + self.ffpar["aV_l1"]*z1m
+            + self.ffpar["aV_l2"]*(z1m**2)
         )
-        fV_p = 1.0/(1. - (q2/(m1m)))*(
-            self.internalparams["aV_p0"]
-            + self.internalparams["aV_p1"]*z1m
-            + self.internalparams["aV_p2"]*(z1m**2)
+        fV_p = 1.0/(1. - (q2/(m1m**2)))*(
+            self.ffpar["aV_p0"]
+            + self.ffpar["aV_p1"]*z1m
+            + self.ffpar["aV_p2"]*(z1m**2)
         )
         fA_t = 1.0/(1. - (q2/(m0m**2)))*(
-            self.internalparams["aA_t0"]
-            + self.internalparams["aA_t1"]*z0m
-            + self.internalparams["aA_t2"]*(z0m**2)
+            self.ffpar["aA_t0"]
+            + self.ffpar["aA_t1"]*z0m
+            + self.ffpar["aA_t2"]*(z0m**2)
         )
-        fA_l = 1.0/(1. - (q2/(m1p)))*(
-            self.internalparams["aA_l0"]
-            + self.internalparams["aA_l1"]*z1p
-            + self.internalparams["aA_l2"]*(z1p**2)
+        fA_l = 1.0/(1. - (q2/(m1p**2)))*(
+            self.ffpar["aA_l0"]
+            + self.ffpar["aA_l1"]*z1p
+            + self.ffpar["aA_l2"]*(z1p**2)
         )
-        fA_p = 1.0/(1. - (q2/(m1p)))*(
-            self.internalparams["aA_l0"]
-            + self.internalparams["aA_p1"]*z1p
-            + self.internalparams["aA_p2"]*(z1p**2)
+        fA_p = 1.0/(1. - (q2/(m1p**2)))*(
+            self.ffpar["aA_l0"]
+            + self.ffpar["aA_p1"]*z1p
+            + self.ffpar["aA_p2"]*(z1p**2)
         )
-        fT_l = 1.0/(1. - (q2/(m1m)))*(
-            self.internalparams["aT_l0"]
-            + self.internalparams["aT_l1"]*z1m
-            + self.internalparams["aT_l2"]*(z1m**2)
+        fT_l = 1.0/(1. - (q2/(m1m**2)))*(
+            self.ffpar["aT_l0"]
+            + self.ffpar["aT_l1"]*z1m
+            + self.ffpar["aT_l2"]*(z1m**2)
         )
-        fT_p = 1.0/(1. - (q2/(m1m)))*(
-            self.internalparams["aT_p0"]
-            + self.internalparams["aT_p1"]*z1m
-            + self.internalparams["aT_p2"]*(z1m**2)
+        fT_p = 1.0/(1. - (q2/(m1m**2)))*(
+            self.ffpar["aT_p0"]
+            + self.ffpar["aT_p1"]*z1m
+            + self.ffpar["aT_p2"]*(z1m**2)
         )
-        fT5_l = 1.0/(1. - (q2/(m1p)))*(
-            self.internalparams["aT5_l0"]
-            + self.internalparams["aT5_l1"]*z1p
-            + self.internalparams["aT5_l2"]*(z1p**2)
+        fT5_l = 1.0/(1. - (q2/(m1p**2)))*(
+            self.ffpar["aT5_l0"]
+            + self.ffpar["aT5_l1"]*z1p
+            + self.ffpar["aT5_l2"]*(z1p**2)
         )
-        fT5_p = 1.0/(1. - (q2/(m1p)))*(
-            self.internalparams["aT5_l0"]
-            + self.internalparams["aT5_p1"]*z1p
-            + self.internalparams["aT5_p2"]*(z1p**2)
+        fT5_p = 1.0/(1. - (q2/(m1p**2)))*(
+            self.ffpar["aT5_l0"]
+            + self.ffpar["aT5_p1"]*z1p
+            + self.ffpar["aT5_p2"]*(z1p**2)
         )
 
         ff = {
