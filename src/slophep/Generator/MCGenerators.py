@@ -7,6 +7,7 @@ from slophep.Predictions.Observables import BToPEllNuPrediction, BToVEllNuPredic
 class MCGeneratorBToV(MCGenerator):
     def __init__(self, obs: BToVEllNuPrediction, seed: int = None):
         super().__init__(obs, seed)
+        self._coords = ["q2", "costhetax", "costhetal", "chi"]
     
     def get_random_point(self) -> list[float]:        
         q2min, q2max = self.obs.q2min, self.obs.q2max
@@ -22,6 +23,7 @@ class MCGeneratorBToV(MCGenerator):
 class MCGeneratorBToP(MCGenerator):
     def __init__(self, obs: BToPEllNuPrediction, seed: int = None):
         super().__init__(obs, seed)
+        self._coords = ["q2", "costhetal"]
     
     def get_random_point(self) -> list[float]:        
         q2min, q2max = self.obs.q2min, self.obs.q2max

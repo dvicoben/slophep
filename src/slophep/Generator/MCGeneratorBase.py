@@ -11,6 +11,7 @@ class MCGenerator:
         self._maxprob = 0
         # self._point_max_attempts = None
         self._rng = random.Random(seed)
+        self._coords = []
 
     @property
     def obs(self) -> BToVEllNuPrediction:
@@ -24,7 +25,9 @@ class MCGenerator:
     @property
     def rng(self) -> random.Random:
         return self._rng
-    
+    @property
+    def coords(self) -> list[str]:
+        return self._coords
     
     def get_max_BF(self):
         q2min, q2max = self.obs.q2min, self.obs.q2max
@@ -41,20 +44,20 @@ class MCGenerator:
 
     def generate_point(self):
         if self.maxBF < 0:
-            raise ValueError(f"Max BF for rejection method is {self.maxBF}, unphysical. Remember to run get_mac_BF.")
+            raise ValueError(f"Max BF for rejection method is {self.maxBF}, unphysical. Remember to run get_max_BF.")
         point = []
         while len(point) < 1:
             ptrial = self.get_random_point()
-            pbf = self.obs.dBRdq2(p[0])
+            pbf = self.obs.dBRdq2(ptrial[0])
             pq2 = self.rng.uniform(0, 1)
             if pq2 > pbf:
                 continue
-            p = self.obs.PDF(*ptrial)
+            p = self.obs.PDF_norm(*ptrial)
             if p > self.maxprob:
                 self._maxprob = p
             if p <=0: 
                 continue
-            prob = self.rng.uniform(0, 1.9)
+            prob = self.rng.uniform(0, 1.66)
             if prob < p:
                 point = ptrial
         return point
