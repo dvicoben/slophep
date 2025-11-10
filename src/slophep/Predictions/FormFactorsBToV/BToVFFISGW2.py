@@ -11,7 +11,7 @@ class ISGW2_BToV(FormFactorBToV):
         self._ffpar = {
         }
         self._params = []
-
+        # from https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarISGW2.cc#L83
         internalparams = {
             "msb" : 5.2,
             "msd" : 0.33,

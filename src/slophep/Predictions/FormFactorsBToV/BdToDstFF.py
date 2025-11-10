@@ -1,5 +1,11 @@
 import slophep.Predictions.FormFactorsBToV as FFBToV
 
+
+class ISGW2(FFBToV.ISGW2_BToV):
+    def __init__(self, par: dict = None, scale: float = None, *ffargs):
+        super().__init__("B0", "D*+", par, scale, *ffargs)
+        self._name = "BdToDst_ISGW2"
+
 class BLPR(FFBToV.BLPR_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("B0", "D*+", par, scale, *ffargs)
