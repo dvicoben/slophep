@@ -10,12 +10,14 @@ class FigureOfMerit:
                  param_manager: ParameterManager,
                  data: np.ndarray,
                  dataErr: np.ndarray = np.array([]),
-                 normPDF_before_eval: bool = False):
+                 normPDF_before_eval: bool = False,
+                 ignore_constraint: bool = False):
         
         self._data = data
         self._dataNorm = np.sum(self.data)
         self._dataErr = dataErr
         self._scaleFactorW2 = (dataErr**2)/np.where(data != 0, data, 1.0)
+        self._ignore_constraint = ignore_constraint
 
         self._param_manager = param_manager
         self._param_list = [ikey for ikey in self.param_manager.id_map]
@@ -39,12 +41,18 @@ class FigureOfMerit:
     def dataErr(self) -> np.ndarray: return self._dataErr
     @property
     def scaleFactorW2(self) -> np.ndarray: return self._scaleFactorW2
+    @property
+    def ignore_constraint(self) -> bool: return self._ignore_constraint
 
     def setVal(self, parname_man: str, val: float):
         self.param_manager.setVal(parname_man, val)
 
     def setVals(self, pars_man: dict[str, float]):
         self.param_manager.setVals(pars_man)
+
+    def updateVals(self, paramvals: list[float]):
+        params = {parname : parval for parname, parval in zip(self.param_list, paramvals)}
+        self.param_manager.setVals(params)
 
     def get_model(self):
         if self._normPDF_before_eval:
@@ -54,6 +62,9 @@ class FigureOfMerit:
         return self.pdf.pdf()
 
     def get_constraint_term(self):
+        if self.ignore_constraint:
+            return 0.0
+        
         consterm = 0.0
         for iparcode, ipar in self.pdf.param_manager.params.items():
             if ipar.constrain:
@@ -61,8 +72,7 @@ class FigureOfMerit:
         return consterm
 
     def __call__(self, paramvals: list[float]) -> float:
-        params = {parname : parval for parname, parval in zip(self.param_list, paramvals)}
-        self.param_manager.setVals(params)
+        self.updateVals(paramvals)
         # return self.nll()
         raise Exception("FOM __call__ specified in derived class")
 
@@ -73,8 +83,7 @@ class FigureOfMerit:
         return cf.poisson_chi2_W2(self.data, self.get_model(), self.scaleFactorW2) + self.get_constraint_term()
     
     def calc_nllW2(self, paramvals: list[float]):
-        params = {parname : parval for parname, parval in zip(self.param_list, paramvals)}
-        self.param_manager.setVals(params)
+        self.updateVals(paramvals)
         return self.nllW2()
 
     def chi2_uncorrelated(self):
@@ -95,8 +104,7 @@ class Chi2Uncorrelated(FigureOfMerit):
         super().__init__(pdf=pdf, param_manager=param_manager, data=data, dataErr=dataErr, normPDF_before_eval=normPDF_before_eval)
 
     def __call__(self, paramvals: list[float]) -> float:
-        params = {parname : parval for parname, parval in zip(self.param_list, paramvals)}
-        self.param_manager.setVals(params)
+        self.updateVals(paramvals)
         return self.chi2_uncorrelated()
 
 
@@ -126,6 +134,5 @@ class Chi2Correlated(FigureOfMerit):
         return chi2 + self.get_constraint_term()
 
     def __call__(self, paramvals: list[float]) -> float:
-        params = {parname : parval for parname, parval in zip(self.param_list, paramvals)}
-        self.param_manager.setVals(params)
+        self.updateVals(paramvals)
         return self.chi2_correlated()
