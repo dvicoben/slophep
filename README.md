@@ -1,19 +1,12 @@
 # Semi-Leptonic Observable Predictions (SLOP)
 
-Repository for $B^0 \to D^*\ell\nu$ angular analysis predicitons. Plan to expand to generalised $b\to c\ell\nu$ prediction tool.
+Repository for $b\to c\ell\nu$ (and some $b\to u\ell\nu$) observable predictions with varying form factors and Wilson coefficients.
 
 To be used to generate bands from fit results and to generate predictions for fits/fit models (e.g. for an unfolded fit).
 
 Predictions are made using `flavio` to compute the amplitudes and observables. ***Note that angular conventions may differ***. ***PDF/observable normalizations can also differ*** - literature and prediction tools vary in what factors are absorbed by the FFs, amplitudes, observables, decay rate and BR. For consistency it is best to look at rate-normalised observables.
 
-# Notes on Recent Changes
-For detailed changes see changelong and merge requests. This here is just to note new changes that may break existing scripts.
-
-- In v1.0.0 some of the nomenclature was changed, which means some minor changes may need to be performed to scripts due to changes in nomenclature
-    - In particular the nomenclature changed `BToDst` $\to$ `BdToDst` in both FFs and observable, so `BToDstEllNuPrediction` $\to$ `BdToDstEllNuPrediction` and `BToDstFF` $\to$ `BdToDstFF`
-- In v1.1.0 classes were added made to be direct Hammer equivalents, which are named `BGL_Hammer`, `CLN_Hammer`, `BLP_Hammer`. This is to make projection of Hammer fits easier. 
-    - In principle the only impact was when trying to make FF projections in $B \to V$ BGL, where Hammer has a $1/\eta_{EW}V_{cb}$ scaling that is not present in SLOP. If coefficients were not adjusted for this, one could get FF bands that were off by this factor.
-    - Note also that the $B \to P$ basis in Hammer differs in $f_T$ from the one used in flavio and therefore in SLOP for the calculation of observables (by a factor of $m_B + m_P$). Because of this, take care when comparing $f_T$ (and any observables it affects) from `BLPR_Hammer` in $B\to P$ and other FF schemes (`BGL_Hammer` and `CLN_Hammer` are SM only so this is not an issue as $f_T = 0$). This should only matter if you specifically want to plot out $f_T$ in the Hammer basis. Otherwise you can used the usual `BLPR`.
+In case of questions, issues, or a particular request you can contact me by mattermost or email (david.vico.benet@cern.ch).
 
 # Requirements
 Requirements are listed in `requirements.txt`
@@ -52,6 +45,10 @@ which should install the package (`slophep`) and the required dependencies.
 
 
 # About the Predictions
+For predicting absolute values (e.g. the BR of a decay mode over $q^2$), SLOP uses hadron masses, $G_F$, CKM matrix elements, and hadron lifetimes from `flavio`'s `default_parameters`. This can result in slight differences with respect to predictions from elsewhere (e.g. EOS) even if the FF and amplitude/observable computation is the same due to these differing factors. For rate normalised observables or ratios these factors should cancel and there should be no difference.
+
+Also important to note: Wilson coefficients are defined at a particular scale. In SLOP the scale is set to $\mu = 4.8$ by default, but this can be changed when initialising the prediction. For plotting error bands this is particularly important as your fitter may not assume the same scale.
+
 For $B \to P$ predictions, the decomposition of the decay rate, up to normalisation constant, follows the form:
 $$\frac{\mathrm{d}\Gamma}{\mathrm{d}q^2 \mathrm{d}\cos\theta_\ell} \propto
 a(q^2) + b(q^2)\cos\theta_\ell + c(q^2)\cos^2\theta_\ell
@@ -70,17 +67,18 @@ J_{1c}\cos^2\theta_V + J_{1s}\sin^2\theta_V
 \Bigg]$$
 
 
-# Available FF Schemes
-## $B \to \pi$ (needs testing)
+# Available Decay Modes & FF Schemes
+## $B \to \pi$
 
 | FF Scheme | Notes | Refs. |
 |-----------|-------|-------|
 | BSZ       | Implementation reproduces flavio's. FF from fit to LCSR + zero recoil lattice. Resonances used taken from [arXiv:1811.00983](https://arxiv.org/abs/1811.00983). Should match EOS implementation (`BSZ2015`). Defaults are set to EOS values (see [EOS docs](https://eoshep.org/doc/reference/parameters.html#parameters-in-b-to-p-form-factor-parametrizations)). | [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [arXiv:1811.00983](https://arxiv.org/abs/1811.00983), [flavio source](https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_p/bsz.py), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bsz2015-impl.hh) |
 
-## $B \to D$ (needs testing)
-Largely untested! Make sure to check before use that desired/expected values are produced correctly.
+## $B \to D$
 
-Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`.
+Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`. Note that the $B \to P$ basis in Hammer differs in $f_T$ from the one used in flavio and therefore in SLOP for the calculation of observables (by a factor of $m_B + m_P$). Because of this, take care when comparing $f_T$ (and any observables it affects) from `BLPR_Hammer` in $B\to P$ and other FF schemes (`BGL_Hammer` and `CLN_Hammer` are SM only so this is not an issue as $f_T = 0$).
+
+For BGL parameterizations, references vary in the resonance masses used in the Blaschke factors as well as the $\chi$'s used in the outer functions. A one-to-one correspondence is not expected unless all of these match with SLOP, even if one sets the same expansion coefficients.
 
 | FF Scheme | Notes | Refs. |
 |-----------|-------|-------|
@@ -92,7 +90,9 @@ Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`.
 
 ## $B \to D^*$
 
-Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`.
+Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`. `BGL_Hammer` has the additional $1/\eta_{EW}V_{cb}$ that is present in Hammer but not in SLOP's `BGL`.
+
+For BGL parameterizations, references vary in the resonance masses used in the Blaschke factors as well as the $\chi$'s used in the outer functions. A one-to-one correspondence is not expected unless all of these match with SLOP, even if one sets the same expansion coefficients.
 
 | FF Scheme | Notes | Refs. |
 |-----------|-------|-------|
@@ -104,12 +104,12 @@ Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`.
 | HPQCD     | Implementation from ancillary files in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). FF from fit to non-zero recoil lattice QCD in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2), as described in Sec. IV B. | [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) |
 
 
-## $B_s \to D_s^*$ (needs testing)
-Largely untested! Make sure to check before use that desired/expected values are produced correctly.
+## $B_s \to D_s^*$
+Implementation in most cases is the same as $B \to D^*$ but with the appropriate meson masses. Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which is not available in SLOP.
 
 Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`.
 
-Implementation in most cases is the same as $B \to D^*$ but with the appropiate meson masses.
+For BGL parameterizations, references vary in the resonance masses used in the Blaschke factors as well as the $\chi$'s used in the outer functions. A one-to-one correspondence is not expected unless all of these match with SLOP, even if one sets the same expansion coefficients.
 
 | FF Scheme | Notes | Refs. |
 |-----------|-------|-------|
@@ -119,6 +119,14 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
 | BLPR      | Implementation reproduces hammer's. Correspondence to $V, A_i, T_i$ obtained from Appendix B in [arXiv:1908.09398](https://arxiv.org/abs/1908.09398) / Eqns. 38-39 in [arXiv:1309.0301](https://arxiv.org/abs/1309.0301) and similar parametrisation in eos (see [EOS BGJvD implementation](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgjvd2019-impl.hh)). Defaults are set to HAMMER values. | [arXiv:1703.05330](https://arxiv.org/abs/1703.05330), [arXiv:1908.09398](https://arxiv.org/abs/1908.09398), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBLPR.cc?ref_type=tags) |
 | HPQCD     | Implementation from ancillary files in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). FF from fit to non-zero recoil lattice QCD in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2), as described in Sec. IV B. | [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) |
 
+## $\Lambda_b \to \Lambda_c$
+Decay rate and observables follow definitions in [arXiv:1907.12554](https://arxiv.org/abs/1907.12554) as in EOS.
+
+Note: SLOP by default uses $\alpha_{-}^{\Lambda_c} = -0.786$
+
+| FF Scheme | Notes | Refs. |
+|-----------|-------|-------|
+| DKMR      | Implementation meant to reproduce EOS's (see [source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-dkmr2017-impl.hh)). | [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-dkmr2017-impl.hh), [arXiv:1702.02243](https://arxiv.org/abs/1702.02243), [arXiv:1907.12554](https://arxiv.org/abs/1907.12554) |
 
 # TO DO
 ### Priority:
@@ -126,13 +134,6 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
 - [ ] Homogenise nomenclature of FF parameters for parameterisations with polynomial expansions
 - [ ] Add ability to get $\langle J_i \rangle$ for a given binning scheme (as in the PDF methods) rather than need to get each individual bin
 - [ ] Maybe move FF param defaults to some `.json` files? In particular for HPQCD this is a lot of parameters - largely a cosmetic thing and would like to keep everything readable from the class so maybe not
-- [ ] Add 1D projections / decay rate in each angle in addtion to $q^2$
-- [ ] Additional decay modes
-    - [x] $B_s \to D_s^*$ (to be tested) - There are also HPQCD results in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which is not accommodated.
-    - [x] $B \to D$ (to be tested)
-    - [x] $B \to \pi$ (to be tested)
-    - [ ] $b$-baryon modes
-- [ ] MC generator - sampling reject method for MC generation
 
 ### Others
 - [ ] Add some `cite` attirbute to return bib entries for each FF scheme - make bookkeeping easier for end-user
@@ -141,31 +142,7 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropiate 
     - In some tests for $B_s \to D_s^*$, obtained larger contours for the low $q^2$ in form factors compared to [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) and what is obtained with LOAD_FIT.py. 
     - Even sampling directly from `gvar` (loading the `pydat` and using `gvar.sample`) produces errors different to those resulting from `gvar` arithmetic
     - The issues does not seem to be computation of the FFs since central values seem fine - need to cross-check directly by calculating similar fluctuations using functions in `LOAD_FIT.py`.
-- [ ] Fitting interface for $\langle J_i \rangle$ fits
-- [ ] Fitting interface for FF fits
-- [ ] For fitting: Optimise binned PDF predictions to avoid unnecessary re-calculations of angular integrals unless explicitly requested
-- [ ] Implement futher FF schemes
+- [ ] Implement more FF schemes
     - BGJvD (see [eos implementation](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgjvd2019-impl.hh), [arXiv:1912.09335](https://arxiv.org/abs/1912.09335)) and BLPRXP (see [hammer implementation](https://gitlab.com/mpapucci/Hammer/-/blob/v1.4.1/src/FormFactors/BLPRXP/FFBtoDstarBLPRXPVar.cc), [arXiv:2206.11281](https://arxiv.org/abs/2206.11281)), are BLPR-like schemes with subsubleading contributions ($\mathcal{O}(\varepsilon_c^2)$, $\mathcal{O}(\varepsilon_b\varepsilon_c)$)
     - `flavio` default FF is also BLPR-like and likely corresponds to [arXiv:1908.09398](https://arxiv.org/abs/1908.09398) - may be similar to EOS's BGJvD
 - [ ] Add ability to switch angular conventions
-
-### Done
-- [x] Clean-up FF implementations 
-    - There are a lot of values in these FF classes that are hidden underneath the `get_ff(q2)` computation - plan to change this to be grouped under some class attribute
-- [x] Make documentation
-- [x] Add bibliography 
-    - Mainly for easy reference of implemented schemes, make it easier to cross-check/verify
-    - Also add it to FF implementation documentation/docstrings
-- [x] Easier binning predictions
-    - At moment need to provide boundaries for single bin to get prediction for that bin, plan to improve this to return predictions for all the range from a provided binning scheme
-- [x] Errorbands / Sampling 
-    - Ideally should be able provide some covariance matrix for FFs (and WCs) to resample from and generate confidence bands
-- [x] Update repo to work like a python module
-    - Need the `.toml` and requirements for an easy `pip` install
-- [x] Add base methods in `FormFactor` to obtain FFs in different basis from currently mandatory $A_i$, i.e.
-    - [x] Common HQET basis $h_{A_i}$
-    - [x] Usual BGL FFs $g/f/F_1/F_2$ 
-    - [x] Standard CLN $h/R_1/R_2/R_0$
-- [x] Moved FF and Prediction setting methods to a base class to inherit in order to reduce redundancy
-- [x] Added $B\to P$ generalised classes
-

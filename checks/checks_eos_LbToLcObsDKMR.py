@@ -6,7 +6,7 @@ import numpy as np
 import eos
 
 
-# Getting the EOS predictions:
+# Things for the EOS predictions:
 slop_to_eos = {
     "afb_comb" : "{}::A_FB^c(q2)",
     "afb_had"  : "{}::A_FB^h(q2)",
@@ -57,8 +57,6 @@ slopObs_aligned.set_alphaL(-0.78)
 q2min, q2max = slopObs.q2min, slopObs.q2max
 qsq = np.linspace(q2min+1e-6, q2max-1e-6, 100)
 
-
-# SLOP predictions
 slop_spectrum = get_slop_spectrum(qsq, slopObs)
 slop_spectrum_aligned = get_slop_spectrum(qsq, slopObs_aligned)
 
