@@ -2,13 +2,11 @@ import slophep.Predictions.Math.BaryonicMathTools as bmt
 from slophep.Predictions.Observables import ObservableBase
 from slophep.Predictions.FormFactorsBaryonic import FormFactorOneHalfpToOneHalfp
 
-import flavio
 from flavio.physics.running import running
 from flavio.physics.bdecays.wilsoncoefficients import get_wceff_fccc_std
-from flavio.physics import ckm
 
 
-class LbToLcEllNuPrediction(ObservableBase):
+class LbToLcEllNuPredictionRaw(ObservableBase):
     def __init__(self,
                  B: str,
                  M: str,
@@ -62,6 +60,9 @@ class LbToLcEllNuPrediction(ObservableBase):
         q2max = (mB-mM)**2
         return q2max
     
+    def set_alphaL(self, alpha: float):
+        self._alphaL = alpha
+
     def _prefactor(self, q2: float) -> float:
         mB = self.par['m_'+self._B]
         mM = self.par['m_'+self._M]
@@ -99,6 +100,14 @@ class LbToLcEllNuPrediction(ObservableBase):
     def dGdq2(self, q2: float) -> float:
         K = self.dJ(q2)
         return self._dGdq2(K)
+    
+    def dBRdq2(self, q2: float) -> float:
+        dG = self.dGdq2(q2)
+        BR = dG*self.par[f"tau_{self.B}"]
+        # tau = 1.471e-12
+        # hbar = 6.58211928e-25
+        # BR = dG*(tau/hbar)
+        return BR
     
     def afb_lep(self, q2: float) -> float:
         K = self.dJ(q2)
