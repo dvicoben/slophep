@@ -1,9 +1,9 @@
 from slophep.Predictions.FormFactorsBaryonic import FormFactorOneHalfpToOneHalfp
-from slophep.Predictions.Observables import LbToLcEllNuPredictionRaw
+from slophep.Predictions.Observables import LbToOneHalfpEllNuPrediction
 
 
 
-class LbToLcEllNuPrediction(LbToLcEllNuPredictionRaw):
+class LbToLcEllNuPrediction(LbToOneHalfpEllNuPrediction):
     def __init__(self, 
                  lep: str, 
                  nu: str,

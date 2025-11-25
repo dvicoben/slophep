@@ -222,3 +222,44 @@ def LbToLcEllNu_observables(q2: float,
         )
     ) / np.sqrt(2.0)
     return K
+
+
+def LbToLcEllNu_PDF(K: dict, ctx: float, ctl: float, phi: float) -> float:
+    """PDF as per Eq. (2.4) in https://arxiv.org/abs/1907.12554
+
+    Parameters
+    ----------
+    K : dict
+        _description_
+    ctx : float
+        _description_
+    ctl : float
+        _description_
+    phi : float
+        _description_
+
+    Returns
+    -------
+    float
+        _description_
+    """
+    prefactor = 3.0/(8.0*np.pi)
+    ctl2 = ctl**2
+    stl2 = 1.0 - ctl2
+    stl = np.sqrt(stl2)
+    stx = np.sqrt(1.0 - ctx**2)
+    cphi = np.cos(phi)
+    sphi = np.sin(phi)
+
+    pdf = prefactor * (
+          K["1ss"] * stl2        
+        + K["1cc"] * ctl2 
+        + K["1c"] * ctl            
+        + (K["2ss"] * stl2 
+           + K["2cc"] * ctl2 + K["2c"]* ctl) * ctx
+        + (K["3sc"] * stl * ctl 
+           + K["3s"] * stl) * stx * sphi
+        + (K["4sc"] * stl * ctl 
+           + K["4s"] * stl) * stx * cphi
+    )
+    return pdf

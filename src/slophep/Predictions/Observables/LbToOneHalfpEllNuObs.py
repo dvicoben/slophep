@@ -2,11 +2,12 @@ import slophep.Predictions.Math.BaryonicMathTools as bmt
 from slophep.Predictions.Observables import ObservableBase
 from slophep.Predictions.FormFactorsBaryonic import FormFactorOneHalfpToOneHalfp
 
+import flavio
 from flavio.physics.running import running
 from flavio.physics.bdecays.wilsoncoefficients import get_wceff_fccc_std
 
 
-class LbToLcEllNuPredictionRaw(ObservableBase):
+class LbToOneHalfpEllNuPrediction(ObservableBase):
     def __init__(self,
                  B: str,
                  M: str,
@@ -173,9 +174,21 @@ class LbToLcEllNuPredictionRaw(ObservableBase):
         dG = self._dGdq2(K)
         return 3.0 / 2.0 * K["1c"] / dG
     
+    def afb_lep_bin(self, q2min: float, q2max: float) -> float:
+        """Leptonic Afb, binned"""
+        K = self.dJ_bin(q2min, q2max)
+        dG = self._dGdq2(K)
+        return 3.0 / 2.0 * K["1c"] / dG
+
     def afb_had(self, q2: float) -> float:
         """Hadronic Afb"""
         K = self.dJ(q2)
+        dG = self._dGdq2(K)
+        return 1.0 / 2.0 * (2.0 * K["2ss"] + K["2cc"]) / dG
+    
+    def afb_had_bin(self, q2min: float, q2max: float) -> float:
+        """Hadronic Afb, binned"""
+        K = self.dJ_bin(q2min, q2max)
         dG = self._dGdq2(K)
         return 1.0 / 2.0 * (2.0 * K["2ss"] + K["2cc"]) / dG
     
@@ -184,9 +197,118 @@ class LbToLcEllNuPredictionRaw(ObservableBase):
         K = self.dJ(q2)
         dG = self._dGdq2(K)
         return 3.0 / 4.0 * K["2c"] / dG
+
+    def afb_comb_bin(self, q2min: float, q2max: float) -> float:
+        """Combined Afb, binned"""
+        K = self.dJ_bin(q2min, q2max)
+        dG = self._dGdq2(K)
+        return 3.0 / 4.0 * K["2c"] / dG
     
     def f0(self, q2: float) -> float:
         """F0 Observable"""
         K = self.dJ(q2)
         dG = self._dGdq2(K)
         return (2.0 * K["1ss"] - K["1cc"]) / dG
+    
+    def f0_bin(self, q2min: float, q2max: float) -> float:
+        """F0 Observable, binned"""
+        K = self.dJ_bin(q2min, q2max)
+        dG = self._dGdq2(K)
+        return (2.0 * K["1ss"] - K["1cc"]) / dG
+    
+    def _obsq2Bin(self, obs: str | int, q2min: float, q2max: float) -> float:
+        def evalObs(q2):
+            return self.dJ(q2)[obs]
+        return flavio.math.integrate.nintegrate(evalObs, q2min, q2max)
+
+    def dJ_bin(self, q2min: float, q2max: float) -> dict:
+        """Calculate binned angular observable
+
+        Parameters
+        ----------
+        q2min : float
+        q2max : float
+
+        Returns
+        -------
+        dict
+            Dictionary of observables, integrated over q2min, q2max
+        """
+        return {iobs: self._obsq2Bin(iobs, q2min, q2max) for iobs in self.obslist}
+
+    def J_bin(self, q2min: float, q2max: float) -> dict:
+        """Calculate rate normalised binned angular observable
+
+        Parameters
+        ----------
+        q2min : float
+        q2max : float
+
+        Returns
+        -------
+        dict
+            Dictionary of observables, integrated over q2min, q2max
+        """
+        J = self.dJ_bin(q2min, q2max)
+        norm = self._dGdq2(J)
+        return {iobs : J[iobs]/norm for iobs in self.obslist}
+
+    def dJ_q2int(self) -> dict:
+        """Calculate q2-integrated observable
+
+        Returns
+        -------
+        dict
+            Dictionary of observables
+        """
+        return self.dJ_bin(self.q2min, self.q2max)
+    
+    def J_q2int(self) -> dict:
+        """Calculate rate-normalised q2-integrated observable
+
+        Returns
+        -------
+        dict
+            Dictionary of observables
+        """
+        J = self.dJ_q2int()
+        norm = self._dGdq2(J)
+        return {iobs : J[iobs]/norm for iobs in self.obslist}
+    
+    def PDF(self, q2: float, ctx: float, ctl: float, phi: float) -> float:
+        """Evaluate 4D PDF (up to normalisation) at phase-space point
+        as per Eq. (2.4) in https://arxiv.org/abs/1907.12554
+
+        Parameters
+        ----------
+        q2 : float
+        ctx : float
+        ctl : float
+        phi : float
+
+        Returns
+        -------
+        float
+            pdf (up to normalisation)
+        """
+        J = self.dJ(q2)
+        return bmt.LbToLcEllNu_PDF(J, ctx, ctl, phi)
+    
+    def PDF_norm(self, q2: float, ctx: float, ctl: float, phi: float) -> float:
+        """Evaluate 4D PDF (up to normalisation) at phase-space point
+        as per Eq. (2.4) in https://arxiv.org/abs/1907.12554. Rate-normalised.
+
+        Parameters
+        ----------
+        q2 : float
+        ctx : float
+        ctl : float
+        phi : float
+
+        Returns
+        -------
+        float
+            pdf (up to normalisation)
+        """
+        J = self.J(q2)
+        return bmt.LbToLcEllNu_PDF(J, ctx, ctl, phi)
