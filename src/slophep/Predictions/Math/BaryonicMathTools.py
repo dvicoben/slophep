@@ -230,18 +230,14 @@ def LbToLcEllNu_PDF(K: dict, ctx: float, ctl: float, phi: float) -> float:
     Parameters
     ----------
     K : dict
-        _description_
     ctx : float
-        _description_
     ctl : float
-        _description_
     phi : float
-        _description_
 
     Returns
     -------
     float
-        _description_
+        PDF
     """
     prefactor = 3.0/(8.0*np.pi)
     ctl2 = ctl**2

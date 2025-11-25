@@ -42,6 +42,8 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../auto.html">slophep.Predictions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html#slophep-fitting">slophep.Fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html#slophep-generator">slophep.Generator</a></li>
 </ul>
 
         </div>
@@ -70,7 +72,31 @@
              
   <h1>Source code for slophep.Predictions.FormFactorsBToV.BsToDsstFF</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">slophep.Predictions.FormFactorsBToV</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">FFBToV</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<div class="viewcode-block" id="ISGW2">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToV.BsToDsstFF.html#slophep.Predictions.FormFactorsBToV.BsToDsstFF.ISGW2">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ISGW2</span><span class="p">(</span><span class="n">FFBToV</span><span class="o">.</span><span class="n">ISGW2_BToV</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Bs&quot;</span><span class="p">,</span> <span class="s2">&quot;Ds*&quot;</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BsToDsst_ISGW2&quot;</span>
+        <span class="c1"># from https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarISGW2.cc#L95</span>
+        <span class="n">internalparams</span> <span class="o">=</span> <span class="p">{</span> 
+            <span class="s2">&quot;msb&quot;</span> <span class="p">:</span> <span class="mf">5.2</span><span class="p">,</span>
+            <span class="s2">&quot;msd&quot;</span> <span class="p">:</span> <span class="mf">0.55</span><span class="p">,</span>
+            <span class="s2">&quot;bb2&quot;</span> <span class="p">:</span> <span class="mf">0.54</span><span class="o">*</span><span class="mf">0.54</span><span class="p">,</span>
+            <span class="s2">&quot;mbb&quot;</span> <span class="p">:</span> <span class="mf">5.38</span><span class="p">,</span>
+            <span class="s2">&quot;nf&quot;</span>  <span class="p">:</span> <span class="mf">4.0</span><span class="p">,</span>
+            <span class="s2">&quot;cf&quot;</span>  <span class="p">:</span> <span class="mf">0.984</span><span class="p">,</span>
+            <span class="s2">&quot;msq&quot;</span> <span class="p">:</span> <span class="mf">1.82</span><span class="p">,</span>
+            <span class="s2">&quot;bx2&quot;</span> <span class="p">:</span> <span class="mf">0.49</span><span class="o">*</span><span class="mf">0.49</span><span class="p">,</span>
+            <span class="s2">&quot;mbx&quot;</span> <span class="p">:</span> <span class="mf">0.75</span><span class="o">*</span><span class="mf">2.11</span><span class="o">+</span><span class="mf">0.25</span><span class="o">*</span><span class="mf">1.97</span><span class="p">,</span>
+            <span class="s2">&quot;nfp&quot;</span> <span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span>
+            <span class="s2">&quot;mqm&quot;</span> <span class="p">:</span> <span class="mf">0.1</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internalparams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">internalparams</span><span class="p">)</span></div>
+
+
 
 <div class="viewcode-block" id="BLPR">
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToV.BsToDsstFF.html#slophep.Predictions.FormFactorsBToV.BsToDsstFF.BLPR">[docs]</a>

@@ -1,0 +1,267 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>slophep.Predictions.FormFactorsBaryonic.FormFactorDKMR &mdash; SLOP v1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=76e2d817"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            SLOP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html">slophep.Predictions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html#slophep-fitting">slophep.Fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html#slophep-generator">slophep.Generator</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">SLOP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">slophep.Predictions.FormFactorsBaryonic.FormFactorDKMR</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for slophep.Predictions.FormFactorsBaryonic.FormFactorDKMR</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">slophep.Predictions.FormFactorsBaryonic.FormFactorOneHalfpToOneHalfp</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormFactorOneHalfpToOneHalfp</span>
+
+
+<div class="viewcode-block" id="DKMR_OneHalfpToOneHalfp">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBaryonic.html#slophep.Predictions.FormFactorsBaryonic.DKMR_OneHalfpToOneHalfp">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DKMR_OneHalfpToOneHalfp</span><span class="p">(</span><span class="n">FormFactorOneHalfpToOneHalfp</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">C</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;OneHalfpToOneHalfp_DKMR&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ffpar</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;aV_t0&quot;</span>  <span class="p">:</span> <span class="mf">0.74392566003686</span><span class="p">,</span>
+            <span class="s2">&quot;aV_t1&quot;</span>  <span class="p">:</span> <span class="o">-</span><span class="mf">4.6476511382467</span><span class="p">,</span>
+            <span class="s2">&quot;aV_t2&quot;</span>  <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;aA_t0&quot;</span>  <span class="p">:</span> <span class="mf">0.73960499809758</span><span class="p">,</span>
+            <span class="s2">&quot;aA_t1&quot;</span>  <span class="p">:</span> <span class="o">-</span><span class="mf">4.3664554520299</span><span class="p">,</span>
+            <span class="s2">&quot;aA_t2&quot;</span>  <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;aV_l0&quot;</span>  <span class="p">:</span> <span class="mf">0.81458549275845</span><span class="p">,</span>
+            <span class="s2">&quot;aV_l1&quot;</span>  <span class="p">:</span> <span class="o">-</span><span class="mf">4.8987680713973</span><span class="p">,</span>
+            <span class="s2">&quot;aV_l2&quot;</span>  <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;aV_p0&quot;</span>  <span class="p">:</span> <span class="mf">1.077996185173</span><span class="p">,</span>
+            <span class="s2">&quot;aV_p1&quot;</span>  <span class="p">:</span> <span class="o">-</span><span class="mf">6.4170836206134</span><span class="p">,</span>
+            <span class="s2">&quot;aV_p2&quot;</span>  <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;aA_l0&quot;</span>  <span class="p">:</span> <span class="mf">0.6846557018386</span><span class="p">,</span>
+            <span class="s2">&quot;aA_l1&quot;</span>  <span class="p">:</span> <span class="o">-</span><span class="mf">4.4311552783827</span><span class="p">,</span>
+            <span class="s2">&quot;aA_l2&quot;</span>  <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;aA_p1&quot;</span>  <span class="p">:</span> <span class="o">-</span><span class="mf">4.4633624514401</span><span class="p">,</span>
+            <span class="s2">&quot;aA_p2&quot;</span>  <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;aT_l0&quot;</span>  <span class="p">:</span> <span class="mf">0.97518189850197</span><span class="p">,</span>
+            <span class="s2">&quot;aT_l1&quot;</span>  <span class="p">:</span> <span class="o">-</span><span class="mf">5.4999842229709</span><span class="p">,</span>
+            <span class="s2">&quot;aT_l2&quot;</span>  <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;aT_p0&quot;</span>  <span class="p">:</span> <span class="mf">0.70539533108116</span><span class="p">,</span>
+            <span class="s2">&quot;aT_p1&quot;</span>  <span class="p">:</span> <span class="o">-</span><span class="mf">4.3577976693726</span><span class="p">,</span>
+            <span class="s2">&quot;aT_p2&quot;</span>  <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;aT5_l0&quot;</span> <span class="p">:</span> <span class="mf">0.67275080357035</span><span class="p">,</span>
+            <span class="s2">&quot;aT5_l1&quot;</span> <span class="p">:</span> <span class="o">-</span><span class="mf">4.4321757873186</span><span class="p">,</span>
+            <span class="s2">&quot;aT5_l2&quot;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;aT5_p1&quot;</span> <span class="p">:</span> <span class="o">-</span><span class="mf">4.4927847697461</span><span class="p">,</span>
+            <span class="s2">&quot;aT5_p2&quot;</span> <span class="p">:</span> <span class="mf">0.0</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;aV_t0&quot;</span><span class="p">,</span> <span class="s2">&quot;aV_t1&quot;</span><span class="p">,</span> <span class="s2">&quot;aV_t2&quot;</span><span class="p">,</span> <span class="s2">&quot;aA_t0&quot;</span><span class="p">,</span> <span class="s2">&quot;aA_t1&quot;</span><span class="p">,</span> <span class="s2">&quot;aA_t2&quot;</span><span class="p">,</span> 
+            <span class="s2">&quot;aV_l0&quot;</span><span class="p">,</span> <span class="s2">&quot;aV_l1&quot;</span><span class="p">,</span> <span class="s2">&quot;aV_l2&quot;</span><span class="p">,</span> <span class="s2">&quot;aV_p0&quot;</span><span class="p">,</span> <span class="s2">&quot;aV_p1&quot;</span><span class="p">,</span> <span class="s2">&quot;aV_p2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;aA_l0&quot;</span><span class="p">,</span> <span class="s2">&quot;aA_l1&quot;</span><span class="p">,</span> <span class="s2">&quot;aA_l2&quot;</span><span class="p">,</span> <span class="s2">&quot;aA_p1&quot;</span><span class="p">,</span> <span class="s2">&quot;aA_p2&quot;</span><span class="p">,</span> 
+            <span class="s2">&quot;aT_l0&quot;</span><span class="p">,</span> <span class="s2">&quot;aT_l1&quot;</span><span class="p">,</span> <span class="s2">&quot;aT_l2&quot;</span><span class="p">,</span> <span class="s2">&quot;aT_p0&quot;</span><span class="p">,</span> <span class="s2">&quot;aT_p1&quot;</span><span class="p">,</span> <span class="s2">&quot;aT_p2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;aT5_l0&quot;</span><span class="p">,</span> <span class="s2">&quot;aT5_l1&quot;</span><span class="p">,</span> <span class="s2">&quot;aT5_l2&quot;</span><span class="p">,</span> <span class="s2">&quot;aT5_p1&quot;</span><span class="p">,</span> <span class="s2">&quot;aT5_p2&quot;</span>
+        <span class="p">]</span>
+        <span class="c1"># Resonance masses from https://arxiv.org/pdf/1702.02243 (Table 1) and https://arxiv.org/pdf/1503.01421 (Table 7)</span>
+        <span class="n">internalparams</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;m1p&quot;</span> <span class="p">:</span> <span class="mf">6.768</span><span class="p">,</span>
+            <span class="s2">&quot;m1m&quot;</span> <span class="p">:</span> <span class="mf">6.332</span><span class="p">,</span>
+            <span class="s2">&quot;m0p&quot;</span> <span class="p">:</span> <span class="mf">6.725</span><span class="p">,</span>
+            <span class="s2">&quot;m0m&quot;</span> <span class="p">:</span> <span class="mf">6.276</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internalparams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">internalparams</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DKMR_OneHalfpToOneHalfp.z">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBaryonic.html#slophep.Predictions.FormFactorsBaryonic.DKMR_OneHalfpToOneHalfp.z">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">z</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mres</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="c1"># eqns 3.3-3.5 in https://arxiv.org/pdf/1702.02243</span>
+        <span class="n">mB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mb&quot;</span><span class="p">]</span>
+        <span class="n">mM</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mc&quot;</span><span class="p">]</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="p">(</span><span class="n">mB</span><span class="o">-</span><span class="n">mM</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">tp</span> <span class="o">=</span> <span class="p">(</span><span class="n">mres</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">sq2</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">tp</span><span class="o">-</span><span class="n">q2</span><span class="p">)</span>
+        <span class="n">st0</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">tp</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">sq2</span><span class="o">-</span><span class="n">st0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">sq2</span><span class="o">+</span><span class="n">st0</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="DKMR_OneHalfpToOneHalfp.get_ff">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBaryonic.html#slophep.Predictions.FormFactorsBaryonic.DKMR_OneHalfpToOneHalfp.get_ff">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_ff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;DKMR form factors, https://arxiv.org/abs/1702.02243</span>
+<span class="sd">        Implementation reproduces EOS https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-dkmr2017-impl.hh</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2 : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict[str, float]</span>
+<span class="sd">            The FFs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">m0p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;m0p&quot;</span><span class="p">]</span>
+        <span class="n">z0p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">(</span><span class="n">q2</span><span class="p">,</span> <span class="n">m0p</span><span class="p">)</span>
+        <span class="n">m0m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;m0m&quot;</span><span class="p">]</span>
+        <span class="n">z0m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">(</span><span class="n">q2</span><span class="p">,</span> <span class="n">m0m</span><span class="p">)</span>
+        <span class="n">m1p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;m1p&quot;</span><span class="p">]</span>
+        <span class="n">z1p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">(</span><span class="n">q2</span><span class="p">,</span> <span class="n">m1p</span><span class="p">)</span>
+        <span class="n">m1m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;m1m&quot;</span><span class="p">]</span>
+        <span class="n">z1m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">(</span><span class="n">q2</span><span class="p">,</span> <span class="n">m1m</span><span class="p">)</span>
+
+        <span class="n">fV_t</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="p">(</span><span class="n">q2</span><span class="o">/</span><span class="p">(</span><span class="n">m0p</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span><span class="o">*</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aV_t0&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aV_t1&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">z0p</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aV_t2&quot;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">z0p</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fV_l</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="p">(</span><span class="n">q2</span><span class="o">/</span><span class="p">(</span><span class="n">m1m</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span><span class="o">*</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aV_l0&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aV_l1&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">z1m</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aV_l2&quot;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">z1m</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fV_p</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="p">(</span><span class="n">q2</span><span class="o">/</span><span class="p">(</span><span class="n">m1m</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span><span class="o">*</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aV_p0&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aV_p1&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">z1m</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aV_p2&quot;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">z1m</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fA_t</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="p">(</span><span class="n">q2</span><span class="o">/</span><span class="p">(</span><span class="n">m0m</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span><span class="o">*</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aA_t0&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aA_t1&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">z0m</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aA_t2&quot;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">z0m</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fA_l</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="p">(</span><span class="n">q2</span><span class="o">/</span><span class="p">(</span><span class="n">m1p</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span><span class="o">*</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aA_l0&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aA_l1&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">z1p</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aA_l2&quot;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">z1p</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fA_p</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="p">(</span><span class="n">q2</span><span class="o">/</span><span class="p">(</span><span class="n">m1p</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span><span class="o">*</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aA_l0&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aA_p1&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">z1p</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aA_p2&quot;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">z1p</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fT_l</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="p">(</span><span class="n">q2</span><span class="o">/</span><span class="p">(</span><span class="n">m1m</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span><span class="o">*</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aT_l0&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aT_l1&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">z1m</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aT_l2&quot;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">z1m</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fT_p</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="p">(</span><span class="n">q2</span><span class="o">/</span><span class="p">(</span><span class="n">m1m</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span><span class="o">*</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aT_p0&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aT_p1&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">z1m</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aT_p2&quot;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">z1m</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fT5_l</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="p">(</span><span class="n">q2</span><span class="o">/</span><span class="p">(</span><span class="n">m1p</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span><span class="o">*</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aT5_l0&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aT5_l1&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">z1p</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aT5_l2&quot;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">z1p</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fT5_p</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="p">(</span><span class="n">q2</span><span class="o">/</span><span class="p">(</span><span class="n">m1p</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span><span class="o">*</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aT5_l0&quot;</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aT5_p1&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">z1p</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;aT5_p2&quot;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">z1p</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">ff</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Vt&quot;</span>  <span class="p">:</span> <span class="n">fV_t</span><span class="p">,</span>
+            <span class="s2">&quot;V0&quot;</span>  <span class="p">:</span> <span class="n">fV_l</span><span class="p">,</span>
+            <span class="s2">&quot;Vp&quot;</span>  <span class="p">:</span> <span class="n">fV_p</span><span class="p">,</span>
+            <span class="s2">&quot;At&quot;</span>  <span class="p">:</span> <span class="n">fA_t</span><span class="p">,</span>
+            <span class="s2">&quot;A0&quot;</span>  <span class="p">:</span> <span class="n">fA_l</span><span class="p">,</span>
+            <span class="s2">&quot;Ap&quot;</span>  <span class="p">:</span> <span class="n">fA_p</span><span class="p">,</span>
+            <span class="s2">&quot;T0&quot;</span>  <span class="p">:</span> <span class="n">fT_l</span><span class="p">,</span>
+            <span class="s2">&quot;T50&quot;</span> <span class="p">:</span> <span class="n">fT5_l</span><span class="p">,</span>
+            <span class="s2">&quot;Tp&quot;</span>  <span class="p">:</span> <span class="n">fT_p</span><span class="p">,</span>
+            <span class="s2">&quot;T5p&quot;</span> <span class="p">:</span> <span class="n">fT5_p</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">ff</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, dvicoben.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

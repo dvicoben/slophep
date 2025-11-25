@@ -54,6 +54,8 @@
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.BuToDFF.html">slophep.Predictions.FormFactorsBToP.BuToDFF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.BdToDFF.html">slophep.Predictions.FormFactorsBToP.BdToDFF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBToP.BdToPiFF.html">slophep.Predictions.FormFactorsBToP.BdToPiFF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBaryonic.html">slophep.Predictions.FormFactorsBaryonic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.FormFactorsBaryonic.LbToLcFF.html">slophep.Predictions.FormFactorsBaryonic.LbToLcFF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.SamplingTools.html">slophep.Predictions.SamplingTools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.SamplingFluctuate.html">slophep.Predictions.SamplingFluctuate</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">slophep.Predictions.Math.BToVMathTools</a><ul>
@@ -63,12 +65,18 @@
 <li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.Math.BToVMathTools.calc_norm_j"><code class="docutils literal notranslate"><span class="pre">calc_norm_j()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.Math.BToVMathTools.calc_unaing_obs"><code class="docutils literal notranslate"><span class="pre">calc_unaing_obs()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.Math.BToVMathTools.h_to_A"><code class="docutils literal notranslate"><span class="pre">h_to_A()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.Math.BToVMathTools.uniang_chi"><code class="docutils literal notranslate"><span class="pre">uniang_chi()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.Math.BToVMathTools.uniang_ctl"><code class="docutils literal notranslate"><span class="pre">uniang_ctl()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.Math.BToVMathTools.uniang_ctv"><code class="docutils literal notranslate"><span class="pre">uniang_ctv()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.Math.BToPMathTools.html">slophep.Predictions.Math.BToPMathTools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.Math.BaryonicMathTools.html">slophep.Predictions.Math.BaryonicMathTools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slophep.Predictions.Math.integrals.html">slophep.Predictions.Math.integrals</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../auto.html#slophep-fitting">slophep.Fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto.html#slophep-generator">slophep.Generator</a></li>
 </ul>
 
         </div>
@@ -132,6 +140,21 @@ convention of arXiv:1703.05330 for h_T3, which differs by a factor -2
 from the one in arXiv:1309.0301 (see Eq. (11e) in arXiv:1703.05330 and
 Eq. (46b) in arXiv:1309.0301).</p>
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="slophep.Predictions.Math.BToVMathTools.uniang_chi">
+<span class="sig-prename descclassname"><span class="pre">slophep.Predictions.Math.BToVMathTools.</span></span><span class="sig-name descname"><span class="pre">uniang_chi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/Math/BToVMathTools.html#uniang_chi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Math.BToVMathTools.uniang_chi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="slophep.Predictions.Math.BToVMathTools.uniang_ctl">
+<span class="sig-prename descclassname"><span class="pre">slophep.Predictions.Math.BToVMathTools.</span></span><span class="sig-name descname"><span class="pre">uniang_ctl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/Math/BToVMathTools.html#uniang_ctl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Math.BToVMathTools.uniang_ctl" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="slophep.Predictions.Math.BToVMathTools.uniang_ctv">
+<span class="sig-prename descclassname"><span class="pre">slophep.Predictions.Math.BToVMathTools.</span></span><span class="sig-name descname"><span class="pre">uniang_ctv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/Math/BToVMathTools.html#uniang_ctv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.Math.BToVMathTools.uniang_ctv" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 </section>
 

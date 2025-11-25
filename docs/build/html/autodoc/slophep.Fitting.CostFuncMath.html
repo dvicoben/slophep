@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>slophep.Fitting.CostFuncMath &mdash; SLOP v1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=76e2d817"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="slophep.Fitting.CostFuncs" href="slophep.Fitting.CostFuncs.html" />
+    <link rel="prev" title="slophep.Fitting.Parameter" href="slophep.Fitting.Parameter.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SLOP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../auto.html">slophep.Predictions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../auto.html#slophep-fitting">slophep.Fitting</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="slophep.Fitting.Parameter.html">slophep.Fitting.Parameter</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">slophep.Fitting.CostFuncMath</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Fitting.CostFuncMath.cash_statistic"><code class="docutils literal notranslate"><span class="pre">cash_statistic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Fitting.CostFuncMath.chi2_template_DA"><code class="docutils literal notranslate"><span class="pre">chi2_template_DA()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Fitting.CostFuncMath.log_or_zero"><code class="docutils literal notranslate"><span class="pre">log_or_zero()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Fitting.CostFuncMath.nll_gaussian"><code class="docutils literal notranslate"><span class="pre">nll_gaussian()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Fitting.CostFuncMath.poisson_chi2"><code class="docutils literal notranslate"><span class="pre">poisson_chi2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Fitting.CostFuncMath.poisson_chi2_W2"><code class="docutils literal notranslate"><span class="pre">poisson_chi2_W2()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Fitting.CostFuncs.html">slophep.Fitting.CostFuncs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Fitting.PDFBase.html">slophep.Fitting.PDFBase</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Fitting.Fitter.html">slophep.Fitting.Fitter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto.html#slophep-generator">slophep.Generator</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SLOP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../auto.html">slophep.Predictions</a></li>
+      <li class="breadcrumb-item active">slophep.Fitting.CostFuncMath</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/autodoc/slophep.Fitting.CostFuncMath.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-slophep.Fitting.CostFuncMath">
+<span id="slophep-fitting-costfuncmath"></span><h1>slophep.Fitting.CostFuncMath<a class="headerlink" href="#module-slophep.Fitting.CostFuncMath" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="slophep.Fitting.CostFuncMath.cash_statistic">
+<span class="sig-prename descclassname"><span class="pre">slophep.Fitting.CostFuncMath.</span></span><span class="sig-name descname"><span class="pre">cash_statistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/slophep/Fitting/CostFuncMath.html#cash_statistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.CostFuncMath.cash_statistic" title="Link to this definition"></a></dt>
+<dd><p>Cash statistic, as defined in in 10.1140/epjc/s10052-022-11019-z</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>np.ndarray</em>) – Argument.</p></li>
+<li><p><strong>lam</strong> (<em>np.ndarray</em>) – Argument.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>c</strong> – Bin-wise cash statistic</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="slophep.Fitting.CostFuncMath.chi2_template_DA">
+<span class="sig-prename descclassname"><span class="pre">slophep.Fitting.CostFuncMath.</span></span><span class="sig-name descname"><span class="pre">chi2_template_DA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nvar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">muvar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/slophep/Fitting/CostFuncMath.html#chi2_template_DA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.CostFuncMath.chi2_template_DA" title="Link to this definition"></a></dt>
+<dd><p>Implements the figure of merit as per Eq. (24) in 10.1140/epjc/s10052-022-11019-z</p>
+<p>NOTE: As is stated in the paper, this method is particularly sensitive to bins with few simulation entries.
+In the cases where this is an issue (e.g. with several q2 bins), this FoM is not good.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>np.ndarray</em>) – Observed counts - sum of weights</p></li>
+<li><p><strong>nvar</strong> (<em>np.ndarray</em>) – Variance of observed counts (NOT error) - sum of weights square</p></li>
+<li><p><strong>mu</strong> (<em>np.ndarray</em>) – Expected counts</p></li>
+<li><p><strong>muvar</strong> (<em>np.ndarray</em>) – Variance of expected counts (NOT error)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>q</strong> – The figure of merit - should be chi2-like</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="slophep.Fitting.CostFuncMath.log_or_zero">
+<span class="sig-prename descclassname"><span class="pre">slophep.Fitting.CostFuncMath.</span></span><span class="sig-name descname"><span class="pre">log_or_zero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/slophep/Fitting/CostFuncMath.html#log_or_zero"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.CostFuncMath.log_or_zero" title="Link to this definition"></a></dt>
+<dd><p>Evaluate to log(x) for x &gt; 0 and to 0 otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>np.ndarray</em>) – Argument.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>logx</strong> – Elementwise contains log(x) for x &gt; 0 and zero otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="slophep.Fitting.CostFuncMath.nll_gaussian">
+<span class="sig-prename descclassname"><span class="pre">slophep.Fitting.CostFuncMath.</span></span><span class="sig-name descname"><span class="pre">nll_gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/slophep/Fitting/CostFuncMath.html#nll_gaussian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.CostFuncMath.nll_gaussian" title="Link to this definition"></a></dt>
+<dd><p>Returns -2ln(Gaussian). Meant for gaussian constraints in likelihoods.</p>
+<p>NOTE: The constant terms -0.5*ln(2pi) and -ln(sigma) are neglected</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>float</em>) – Point to evaluate at</p></li>
+<li><p><strong>mu</strong> (<em>float</em>) – Guassian mean</p></li>
+<li><p><strong>sigma</strong> (<em>float</em>) – Standard deviation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>-2ln(Gaussian(x ; mu, sigma))</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="slophep.Fitting.CostFuncMath.poisson_chi2">
+<span class="sig-prename descclassname"><span class="pre">slophep.Fitting.CostFuncMath.</span></span><span class="sig-name descname"><span class="pre">poisson_chi2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/slophep/Fitting/CostFuncMath.html#poisson_chi2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.CostFuncMath.poisson_chi2" title="Link to this definition"></a></dt>
+<dd><p>Compute asymptotically chi2-distributed cost for Poisson-distributed data.</p>
+<p>See Baker &amp; Cousins, NIM 221 (1984) 437-442.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>np.ndarray</em>) – Observed counts.</p></li>
+<li><p><strong>mu</strong> (<em>np.ndarray</em>) – Expected counts per bin.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>nll</strong> – Cost function value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="slophep.Fitting.CostFuncMath.poisson_chi2_W2">
+<span class="sig-prename descclassname"><span class="pre">slophep.Fitting.CostFuncMath.</span></span><span class="sig-name descname"><span class="pre">poisson_chi2_W2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalefactorW2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/slophep/Fitting/CostFuncMath.html#poisson_chi2_W2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.CostFuncMath.poisson_chi2_W2" title="Link to this definition"></a></dt>
+<dd><p>Likelihood using scaling (error * error) / yield, implemented as in RooFit (<a class="reference external" href="https://github.com/root-project/root/blob/master/math/mathcore/src/FitUtil.cxx#L1434">https://github.com/root-project/root/blob/master/math/mathcore/src/FitUtil.cxx#L1434</a>) L1566-1586</p>
+<p>This is to be used solely to compute the covariance matrix which should follow the SumW2Error approach (<a class="reference external" href="https://root.cern/doc/master/classRooAbsPdf.html#RooAbsPdf:fitTo">https://root.cern/doc/master/classRooAbsPdf.html#RooAbsPdf:fitTo</a>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>np.ndarray</em>) – Observed counts.</p></li>
+<li><p><strong>mu</strong> (<em>np.ndarray</em>) – Expected counts per bin.</p></li>
+<li><p><strong>scalefactorW2</strong> (<em>np.ndarray</em>) – Bin-wise (error * error) / yield</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>nllw2</strong> – Cost function value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="slophep.Fitting.Parameter.html" class="btn btn-neutral float-left" title="slophep.Fitting.Parameter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="slophep.Fitting.CostFuncs.html" class="btn btn-neutral float-right" title="slophep.Fitting.CostFuncs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, dvicoben.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

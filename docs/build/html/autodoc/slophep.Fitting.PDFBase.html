@@ -1,0 +1,262 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>slophep.Fitting.PDFBase &mdash; SLOP v1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=76e2d817"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="slophep.Fitting.Fitter" href="slophep.Fitting.Fitter.html" />
+    <link rel="prev" title="slophep.Fitting.CostFuncs" href="slophep.Fitting.CostFuncs.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SLOP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../auto.html">slophep.Predictions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../auto.html#slophep-fitting">slophep.Fitting</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="slophep.Fitting.Parameter.html">slophep.Fitting.Parameter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Fitting.CostFuncMath.html">slophep.Fitting.CostFuncMath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Fitting.CostFuncs.html">slophep.Fitting.CostFuncs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">slophep.Fitting.PDFBase</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase"><code class="docutils literal notranslate"><span class="pre">PDFBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.binning"><code class="docutils literal notranslate"><span class="pre">PDFBase.binning</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.getVal"><code class="docutils literal notranslate"><span class="pre">PDFBase.getVal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.link_param"><code class="docutils literal notranslate"><span class="pre">PDFBase.link_param()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.link_params"><code class="docutils literal notranslate"><span class="pre">PDFBase.link_params()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.link_params_check"><code class="docutils literal notranslate"><span class="pre">PDFBase.link_params_check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.name"><code class="docutils literal notranslate"><span class="pre">PDFBase.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.normpdf"><code class="docutils literal notranslate"><span class="pre">PDFBase.normpdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.param_manager"><code class="docutils literal notranslate"><span class="pre">PDFBase.param_manager</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.params_link"><code class="docutils literal notranslate"><span class="pre">PDFBase.params_link</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.params_list"><code class="docutils literal notranslate"><span class="pre">PDFBase.params_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.pdf"><code class="docutils literal notranslate"><span class="pre">PDFBase.pdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.predobj"><code class="docutils literal notranslate"><span class="pre">PDFBase.predobj</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.setVal"><code class="docutils literal notranslate"><span class="pre">PDFBase.setVal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.setVals"><code class="docutils literal notranslate"><span class="pre">PDFBase.setVals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.set_binning"><code class="docutils literal notranslate"><span class="pre">PDFBase.set_binning()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.PDFBase.PDFBase.set_param_manager"><code class="docutils literal notranslate"><span class="pre">PDFBase.set_param_manager()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Fitting.Fitter.html">slophep.Fitting.Fitter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto.html#slophep-generator">slophep.Generator</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SLOP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../auto.html">slophep.Predictions</a></li>
+      <li class="breadcrumb-item active">slophep.Fitting.PDFBase</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/autodoc/slophep.Fitting.PDFBase.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-slophep.Fitting.PDFBase">
+<span id="slophep-fitting-pdfbase"></span><h1>slophep.Fitting.PDFBase<a class="headerlink" href="#module-slophep.Fitting.PDFBase" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">slophep.Fitting.PDFBase.</span></span><span class="sig-name descname"><span class="pre">PDFBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predobj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="slophep.Predictions.Observables.html#slophep.Predictions.Observables.ObservableBase" title="slophep.Predictions.Observables.ObservableBase.ObservableBase"><span class="pre">ObservableBase</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/PDFBase.html#PDFBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.binning">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">binning</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.binning" title="Link to this definition"></a></dt>
+<dd><p>PDF binning scheme, optional</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.getVal">
+<span class="sig-name descname"><span class="pre">getVal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/PDFBase.html#PDFBase.getVal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.getVal" title="Link to this definition"></a></dt>
+<dd><p>Get a PDF parameter value</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.link_param">
+<span class="sig-name descname"><span class="pre">link_param</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_int</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/PDFBase.html#PDFBase.link_param"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.link_param" title="Link to this definition"></a></dt>
+<dd><p>Link a PDF shape parameter to parameter in the manager</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.link_params">
+<span class="sig-name descname"><span class="pre">link_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/PDFBase.html#PDFBase.link_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.link_params" title="Link to this definition"></a></dt>
+<dd><p>Link multiple parameters, using dictionary of form {internal_name : manager_name}</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.link_params_check">
+<span class="sig-name descname"><span class="pre">link_params_check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/PDFBase.html#PDFBase.link_params_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.link_params_check" title="Link to this definition"></a></dt>
+<dd><p>Check that all existing parameter links are in manager</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.name">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.name" title="Link to this definition"></a></dt>
+<dd><p>PDF name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.normpdf">
+<span class="sig-name descname"><span class="pre">normpdf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/slophep/Fitting/PDFBase.html#PDFBase.normpdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.normpdf" title="Link to this definition"></a></dt>
+<dd><p>Normalised PDF. Returns pdf() normalised to sum to 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Normalised PDF histogram</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.param_manager">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">param_manager</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="slophep.Fitting.Parameter.html#slophep.Fitting.Parameter.ParameterManager" title="slophep.Fitting.Parameter.ParameterManager"><span class="pre">ParameterManager</span></a></em><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.param_manager" title="Link to this definition"></a></dt>
+<dd><p>Manager for PDF parameters</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.params_link">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">params_link</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.params_link" title="Link to this definition"></a></dt>
+<dd><p>Correspondence between names of shape parameters used internally in PDF
+and names of parameters themselves</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.params_list">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">params_list</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.params_list" title="Link to this definition"></a></dt>
+<dd><p>List of PDF parameters</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.pdf">
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/slophep/Fitting/PDFBase.html#PDFBase.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.pdf" title="Link to this definition"></a></dt>
+<dd><p>Produce predicted histogram using values in parameter manager</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>PDF histogram</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>NotImplementedError</strong> – PDF implemented by user in a derived class</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.predobj">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">predobj</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="slophep.Predictions.Observables.html#slophep.Predictions.Observables.ObservableBase" title="slophep.Predictions.Observables.ObservableBase.ObservableBase"><span class="pre">ObservableBase</span></a></em><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.predobj" title="Link to this definition"></a></dt>
+<dd><p>Observable object used for PDF</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.setVal">
+<span class="sig-name descname"><span class="pre">setVal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/PDFBase.html#PDFBase.setVal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.setVal" title="Link to this definition"></a></dt>
+<dd><p>Set a PDF parameter value</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.setVals">
+<span class="sig-name descname"><span class="pre">setVals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pars</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/PDFBase.html#PDFBase.setVals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.setVals" title="Link to this definition"></a></dt>
+<dd><p>Set several PDF parameter value, using dictinoary of form {internal_name : value}</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.set_binning">
+<span class="sig-name descname"><span class="pre">set_binning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">binning</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/PDFBase.html#PDFBase.set_binning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.set_binning" title="Link to this definition"></a></dt>
+<dd><p>Set PDF binning, optional</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.PDFBase.PDFBase.set_param_manager">
+<span class="sig-name descname"><span class="pre">set_param_manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="slophep.Fitting.Parameter.html#slophep.Fitting.Parameter.ParameterManager" title="slophep.Fitting.Parameter.ParameterManager"><span class="pre">ParameterManager</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/PDFBase.html#PDFBase.set_param_manager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.PDFBase.PDFBase.set_param_manager" title="Link to this definition"></a></dt>
+<dd><p>Set parameter manager of PDF</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="slophep.Fitting.CostFuncs.html" class="btn btn-neutral float-left" title="slophep.Fitting.CostFuncs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="slophep.Fitting.Fitter.html" class="btn btn-neutral float-right" title="slophep.Fitting.Fitter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, dvicoben.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
