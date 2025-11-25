@@ -66,6 +66,18 @@ class DKMR_OneHalfpToOneHalfp(FormFactorOneHalfpToOneHalfp):
         return (sq2-st0)/(sq2+st0)
     
     def get_ff(self, q2: float) -> dict[str, float]:
+        """DKMR form factors, https://arxiv.org/abs/1702.02243
+        Implementation reproduces EOS https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-dkmr2017-impl.hh
+
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        dict[str, float]
+            The FFs
+        """
         
         m0p = self.internalparams["m0p"]
         z0p = self.z(q2, m0p)

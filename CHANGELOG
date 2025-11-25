@@ -1,3 +1,11 @@
+2025-XX-XX --- Version 1.2.0
+    Additions:
+     - General classes for some baryonic transitions
+     - Lb->Lc predictions, with DKMR FFs
+     - B->V ISGW2 FFs 
+     - Preliminary fitting framework
+     - MC Generator utilities
+
 2025-09-12 --- Version 1.1.1
     Fixes:
      - Fixed inheritance bug in BToV CLN_Hammer

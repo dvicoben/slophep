@@ -13,15 +13,24 @@ class imFitter:
         self._m = None
 
     @property
-    def fom(self) -> FigureOfMerit: return self._fom
+    def fom(self) -> FigureOfMerit: 
+        """Figure of merit to minimise"""
+        return self._fom
     @property
-    def param_manager(self) -> ParameterManager: return self.fom.param_manager
+    def param_manager(self) -> ParameterManager: 
+        """Parameter manager"""
+        return self.fom.param_manager
     @property
-    def m(self) -> Minuit: return self._m
+    def m(self) -> Minuit: 
+        """iminuit object"""
+        return self._m
     @property
-    def param_list(self) -> list[str]: return self.fom.param_list
+    def param_list(self) -> list[str]: 
+        """Parameter list"""
+        return self.fom.param_list
 
     def migrad(self):
+        """Minimise FoM using migrad"""
         vals = [self.param_manager.getVal(ipar) for ipar in self.param_list]
         self._m = Minuit(self.fom, vals)
         for i in range(len(self.param_list)):
@@ -34,9 +43,11 @@ class imFitter:
         self.m.migrad(ncall=ncall)
 
     def hesse(self):
+        """Calculate Hessian"""
         self.m.hesse()
 
     def fit(self, sumW2error: bool = False):
+        """Perform fit minimisation and calculate hessian"""
         self.migrad()
         self.hesse()
         
@@ -63,7 +74,21 @@ class imFitter:
         
         return res_list, err
     
-    def corr(self, savepath: str = None, labels: list[str] = []):
+    def corr(self, savepath: str = None, labels: list[str] = []) -> np.ndarray:
+        """Parameter correlation matrix
+
+        Parameters
+        ----------
+        savepath : str, optional
+            Path to save correlation matrix to, if desired, by default None
+        labels : list[str], optional
+            Labels to use for parameters if not their names, by default []
+
+        Returns
+        -------
+        np.ndarray
+            Correlation matrix
+        """
         corr = self.m.covariance.correlation()
         if savepath:
             fig, ax = plt.subplots(1, 1)

@@ -44,7 +44,8 @@ def LbToLcEllNu_amplitudes(q2: float,
                            mb: float, mlight: float, 
                            ml: float, ff: dict, wc: dict, 
                            N: float) -> dict:
-    """Calculate decay amplitudes
+    """Calculate decay amplitudes.
+    Replicates EOS implementation https://github.com/eos/eos/blob/v1.0.13/eos/b-decays/lambdab-to-lambdac-l-nu.cc.
 
     Parameters
     ----------
@@ -110,7 +111,8 @@ def LbToLcEllNu_amplitudes(q2: float,
 def LbToLcEllNu_observables(q2: float, 
                             mB: float, mM: float, ml: float, 
                             A: dict, alpha: float) -> dict:
-    """_summary_
+    """Calculation of Lb->LcEllNu observables, as per https://arxiv.org/abs/1907.12554.
+    Replicates EOS implementation https://github.com/eos/eos/blob/v1.0.13/eos/b-decays/lambdab-to-lambdac-l-nu.cc.
 
     Parameters
     ----------

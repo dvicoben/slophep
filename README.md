@@ -126,7 +126,7 @@ Note: SLOP by default uses $\alpha_{-}^{\Lambda_c} = -0.786$
 
 | FF Scheme | Notes | Refs. |
 |-----------|-------|-------|
-| DKMR      | Implementation meant to reproduce EOS's (see [source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-dkmr2017-impl.hh)). | [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-dkmr2017-impl.hh), [arXiv:1702.02243](https://arxiv.org/abs/1702.02243), [arXiv:1907.12554](https://arxiv.org/abs/1907.12554) |
+| DKMR      | Implementation meant to reproduce EOS's (see [source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-dkmr2017-impl.hh)), which implements [arXiv:1702.02243](https://arxiv.org/abs/1702.02243) FFs and calculates observables as per [arXiv:1907.12554](https://arxiv.org/abs/1907.12554).  | [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-dkmr2017-impl.hh), [arXiv:1702.02243](https://arxiv.org/abs/1702.02243), [arXiv:1907.12554](https://arxiv.org/abs/1907.12554) |
 
 # TO DO
 ### Priority:
