@@ -1,5 +1,26 @@
 import slophep.Predictions.FormFactorsBToV as FFBToV
-import numpy as np
+
+
+class ISGW2(FFBToV.ISGW2_BToV):
+    def __init__(self, par: dict = None, scale: float = None, *ffargs):
+        super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        self._name = "BsToDsst_ISGW2"
+        # from https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarISGW2.cc#L95
+        internalparams = { 
+            "msb" : 5.2,
+            "msd" : 0.55,
+            "bb2" : 0.54*0.54,
+            "mbb" : 5.38,
+            "nf"  : 4.0,
+            "cf"  : 0.984,
+            "msq" : 1.82,
+            "bx2" : 0.49*0.49,
+            "mbx" : 0.75*2.11+0.25*1.97,
+            "nfp" : 3.0,
+            "mqm" : 0.1
+        }
+        self._internalparams.update(internalparams)
+
 
 class BLPR(FFBToV.BLPR_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):

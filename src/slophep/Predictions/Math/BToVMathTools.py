@@ -34,6 +34,7 @@ def h_to_A(mB, mV, h, q2):
                 ) / (8 * mB * (mB - mV) * mV**2)
     return ff
 
+
 def calc_norm_j(j: dict[float]) -> dict[float]:
     norm = 3/4. * (2 * j['1s'] + j['1c']) - 1/4. * (2 * j['2s'] + j['2c'])
     return {k : j[k]/norm for k in j}
@@ -48,6 +49,28 @@ def calc_unaing_obs(j: dict[float]) -> float:
         9 : j[9]
     }
     return obs
+
+
+def uniang_ctl(ctl: float, J: dict):
+    a0 = 3/8. * (J['1c'] + 2*J['1s'])
+    a1 = 3/8. * (J['6c'] + 2*J['6s']) * ctl
+    a2 = 3/8. * (J['2c'] + 2*J['2s']) * (2*(ctl**2)-1)
+    return a0+a1+a2
+
+
+def uniang_ctv(ctv: float, J: dict):
+    csq = -3/8. * (-3*J['1c'] + J['2c']) * (ctv**2)
+    ssq = -3/8. * (-3*J['1s'] + J['2s']) * (1-ctv**2)
+    return csq+ssq
+
+
+def uniang_chi(chi: float, J: dict):
+    a0 = 1./(8.*np.pi) * (3*J['1c'] + 6*J['1s'] - J['2c'] - 2*J['2s'])
+    c2 = 1./(2.*np.pi) * J[3] * np.cos(2*chi)
+    s2 = 1/(2*np.pi) * J[9] * np.sin(2*chi)
+    return a0 + c2 + s2
+
+
 
 def angularPDF(ctx: float, ctl: float, chi: float, j: dict[float]) -> float:
     ctx2 = ctx*ctx

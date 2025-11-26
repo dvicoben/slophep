@@ -45,12 +45,9 @@ hammerFF_defaults = {
 slopFF = BdToDstFF.BGL()
 slopFF_spectrum = chk.get_spectrum_slop(slopFF, qsq, "get_ff_gfF1F2_basis")
 
-slopFF_aligned = BdToDstFF.BGL()
+slopFF_aligned = BdToDstFF.BGL_Hammer()
 slopFF_aligned.set_ff(**hammerFF_defaults)
 slopFF_aligned_spectrum = chk.get_spectrum_slop(slopFF_aligned, qsq, "get_ff_gfF1F2_basis")
-# Add hammer factor of etaEW*Vcb
-etaEWVcb = slopFF_aligned.internalparams["Vcb"]*slopFF_aligned.internalparams["etaEW"]
-slopFF_aligned_spectrum = {k : slopFF_aligned_spectrum[k]/etaEWVcb for k in slopFF_aligned_spectrum}
 
 # Adjusting hammer for equivalennt basis
 Mb = slopFF.internalparams["Mb"]
@@ -90,8 +87,8 @@ annotation = r"""Notes:
 for iff, ifflabel in zip(ff, fflabel):
     savepath = f"checks/check_hammer_BdToDstFFBGL_{iff}.png"
     cplot = chk.ComparisonPlot(ifflabel)
-    cplot.add_slop_prediction(qsq, slopFF_spectrum[iff], "SLOP (default)")
-    cplot.add_slop_prediction(qsq, slopFF_aligned_spectrum[iff], "SLOP (aligned)")
+    cplot.add_slop_prediction(qsq, slopFF_spectrum[iff], "SLOP (default, BGL)")
+    cplot.add_slop_prediction(qsq, slopFF_aligned_spectrum[iff], "SLOP (aligned, BGL-Hammer)")
     cplot.add_comparison_prediction(qsq, hammerFF_spectrum[iff], "Hammer v1.2.1")
     cplot.annotate(annotation, 1.01, 0.5)
     cplot.makeplot()

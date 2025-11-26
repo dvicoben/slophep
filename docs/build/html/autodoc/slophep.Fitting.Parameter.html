@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>slophep.Fitting.Parameter &mdash; SLOP v1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=76e2d817"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="slophep.Fitting.CostFuncMath" href="slophep.Fitting.CostFuncMath.html" />
+    <link rel="prev" title="slophep.Predictions.Math.integrals" href="slophep.Predictions.Math.integrals.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SLOP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../auto.html">slophep.Predictions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../auto.html#slophep-fitting">slophep.Fitting</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">slophep.Fitting.Parameter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter"><code class="docutils literal notranslate"><span class="pre">Parameter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter.constrain"><code class="docutils literal notranslate"><span class="pre">Parameter.constrain</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter.constrainto"><code class="docutils literal notranslate"><span class="pre">Parameter.constrainto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter.constraintvals"><code class="docutils literal notranslate"><span class="pre">Parameter.constraintvals</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter.fix"><code class="docutils literal notranslate"><span class="pre">Parameter.fix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter.fixed"><code class="docutils literal notranslate"><span class="pre">Parameter.fixed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter.getVal"><code class="docutils literal notranslate"><span class="pre">Parameter.getVal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter.limhi"><code class="docutils literal notranslate"><span class="pre">Parameter.limhi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter.limlo"><code class="docutils literal notranslate"><span class="pre">Parameter.limlo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter.name"><code class="docutils literal notranslate"><span class="pre">Parameter.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter.setVal"><code class="docutils literal notranslate"><span class="pre">Parameter.setVal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter.setlim"><code class="docutils literal notranslate"><span class="pre">Parameter.setlim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter.uuid"><code class="docutils literal notranslate"><span class="pre">Parameter.uuid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter.val"><code class="docutils literal notranslate"><span class="pre">Parameter.val</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Fitting.Parameter.ParameterManager"><code class="docutils literal notranslate"><span class="pre">ParameterManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.ParameterManager.addParam"><code class="docutils literal notranslate"><span class="pre">ParameterManager.addParam()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.ParameterManager.getParam"><code class="docutils literal notranslate"><span class="pre">ParameterManager.getParam()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.ParameterManager.getVal"><code class="docutils literal notranslate"><span class="pre">ParameterManager.getVal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.ParameterManager.id_map"><code class="docutils literal notranslate"><span class="pre">ParameterManager.id_map</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.ParameterManager.params"><code class="docutils literal notranslate"><span class="pre">ParameterManager.params</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.ParameterManager.setVal"><code class="docutils literal notranslate"><span class="pre">ParameterManager.setVal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Fitting.Parameter.ParameterManager.setVals"><code class="docutils literal notranslate"><span class="pre">ParameterManager.setVals()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Fitting.CostFuncMath.html">slophep.Fitting.CostFuncMath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Fitting.CostFuncs.html">slophep.Fitting.CostFuncs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Fitting.PDFBase.html">slophep.Fitting.PDFBase</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slophep.Fitting.Fitter.html">slophep.Fitting.Fitter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto.html#slophep-generator">slophep.Generator</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SLOP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../auto.html">slophep.Predictions</a></li>
+      <li class="breadcrumb-item active">slophep.Fitting.Parameter</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/autodoc/slophep.Fitting.Parameter.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-slophep.Fitting.Parameter">
+<span id="slophep-fitting-parameter"></span><h1>slophep.Fitting.Parameter<a class="headerlink" href="#module-slophep.Fitting.Parameter" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.Parameter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">slophep.Fitting.Parameter.</span></span><span class="sig-name descname"><span class="pre">Parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limlo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limhi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/Parameter.html#Parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.Parameter.Parameter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.Parameter.constrain">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">constrain</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#slophep.Fitting.Parameter.Parameter.constrain" title="Link to this definition"></a></dt>
+<dd><p>Whether parameter is constrained</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.Parameter.constrainto">
+<span class="sig-name descname"><span class="pre">constrainto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/Parameter.html#Parameter.constrainto"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.Parameter.Parameter.constrainto" title="Link to this definition"></a></dt>
+<dd><p>Set parameter constraints</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.Parameter.constraintvals">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">constraintvals</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#slophep.Fitting.Parameter.Parameter.constraintvals" title="Link to this definition"></a></dt>
+<dd><p>The values for gaussian constraint, in form [mu, sigma]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.Parameter.fix">
+<span class="sig-name descname"><span class="pre">fix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/Parameter.html#Parameter.fix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.Parameter.Parameter.fix" title="Link to this definition"></a></dt>
+<dd><p>Fix parameter to val</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.Parameter.fixed">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#slophep.Fitting.Parameter.Parameter.fixed" title="Link to this definition"></a></dt>
+<dd><p>Whether parameter is fixed</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.Parameter.getVal">
+<span class="sig-name descname"><span class="pre">getVal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/Parameter.html#Parameter.getVal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.Parameter.Parameter.getVal" title="Link to this definition"></a></dt>
+<dd><p>Return parameter value</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.Parameter.limhi">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">limhi</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#slophep.Fitting.Parameter.Parameter.limhi" title="Link to this definition"></a></dt>
+<dd><p>Upper limit</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.Parameter.limlo">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">limlo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#slophep.Fitting.Parameter.Parameter.limlo" title="Link to this definition"></a></dt>
+<dd><p>Lower limit</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.Parameter.name">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#slophep.Fitting.Parameter.Parameter.name" title="Link to this definition"></a></dt>
+<dd><p>Parameter name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.Parameter.setVal">
+<span class="sig-name descname"><span class="pre">setVal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/Parameter.html#Parameter.setVal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.Parameter.Parameter.setVal" title="Link to this definition"></a></dt>
+<dd><p>Set parameter value</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.Parameter.setlim">
+<span class="sig-name descname"><span class="pre">setlim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/Parameter.html#Parameter.setlim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.Parameter.Parameter.setlim" title="Link to this definition"></a></dt>
+<dd><p>Set parameter limits</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.Parameter.uuid">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">uuid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#slophep.Fitting.Parameter.Parameter.uuid" title="Link to this definition"></a></dt>
+<dd><p>Unique hash ID</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.Parameter.val">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">val</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#slophep.Fitting.Parameter.Parameter.val" title="Link to this definition"></a></dt>
+<dd><p>Parameter value</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.ParameterManager">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">slophep.Fitting.Parameter.</span></span><span class="sig-name descname"><span class="pre">ParameterManager</span></span><a class="reference internal" href="../_modules/slophep/Fitting/Parameter.html#ParameterManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.Parameter.ParameterManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.ParameterManager.addParam">
+<span class="sig-name descname"><span class="pre">addParam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter" title="slophep.Fitting.Parameter.Parameter"><span class="pre">Parameter</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/Parameter.html#ParameterManager.addParam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.Parameter.ParameterManager.addParam" title="Link to this definition"></a></dt>
+<dd><p>Add parameter to manager</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>par</strong> (<a class="reference internal" href="#slophep.Fitting.Parameter.Parameter" title="slophep.Fitting.Parameter.Parameter"><em>Parameter</em></a>)</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>KeyError</strong> – If there is already an existing parameter with the same name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.ParameterManager.getParam">
+<span class="sig-name descname"><span class="pre">getParam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter" title="slophep.Fitting.Parameter.Parameter"><span class="pre">Parameter</span></a></span></span><a class="reference internal" href="../_modules/slophep/Fitting/Parameter.html#ParameterManager.getParam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.Parameter.ParameterManager.getParam" title="Link to this definition"></a></dt>
+<dd><p>Get Parameter object from manager</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parname</strong> (<em>str</em>) – Name of the parameter</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter" title="slophep.Fitting.Parameter.Parameter">Parameter</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.ParameterManager.getVal">
+<span class="sig-name descname"><span class="pre">getVal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/Parameter.html#ParameterManager.getVal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.Parameter.ParameterManager.getVal" title="Link to this definition"></a></dt>
+<dd><p>Get value of a parameter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parname</strong> (<em>str</em>) – The name of the parameter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.ParameterManager.id_map">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id_map</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#slophep.Fitting.Parameter.ParameterManager.id_map" title="Link to this definition"></a></dt>
+<dd><p>Correspondence of parameter names to hash ID</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.ParameterManager.params">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#slophep.Fitting.Parameter.Parameter" title="slophep.Fitting.Parameter.Parameter"><span class="pre">Parameter</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#slophep.Fitting.Parameter.ParameterManager.params" title="Link to this definition"></a></dt>
+<dd><p>Dictionary of all parameters in manager, indexed by their uniue hash ID</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.ParameterManager.setVal">
+<span class="sig-name descname"><span class="pre">setVal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/Parameter.html#ParameterManager.setVal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.Parameter.ParameterManager.setVal" title="Link to this definition"></a></dt>
+<dd><p>Set value of a parameter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parname</strong> (<em>str</em>) – The name of the parameter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Fitting.Parameter.ParameterManager.setVals">
+<span class="sig-name descname"><span class="pre">setVals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parvals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Fitting/Parameter.html#ParameterManager.setVals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Fitting.Parameter.ParameterManager.setVals" title="Link to this definition"></a></dt>
+<dd><p>Set value of several parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parvals</strong> (<em>dict</em>) – Dictionary in form {parameter_name : value}</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="slophep.Predictions.Math.integrals.html" class="btn btn-neutral float-left" title="slophep.Predictions.Math.integrals" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="slophep.Fitting.CostFuncMath.html" class="btn btn-neutral float-right" title="slophep.Fitting.CostFuncMath" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, dvicoben.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

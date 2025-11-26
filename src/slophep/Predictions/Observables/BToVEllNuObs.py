@@ -39,7 +39,7 @@ class BToVEllNuPrediction(ObservableBase):
         return self._B
     @property
     def V(self) -> str:
-        """The Charmed Vector meson"""
+        """The Vector meson"""
         return self._V
     @property
     def lep(self) -> str: 
@@ -175,7 +175,232 @@ class BToVEllNuPrediction(ObservableBase):
         """
         J = self.dJ(q2)
         return 3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
+
+    def dGdq2_bin(self, q2min: float, q2max: float) -> float:
+        """Caclulate binned q2 distriution
+
+        Parameters
+        ----------
+        q2min : float
+        q2max : float
+
+        Returns
+        -------
+        float
+            dGamma/dq2 (up to normalisation) integrated over the bin
+        """
+        J = self.dJ_bin(q2min, q2max)
+        return 3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
+
+    def dGdq2_hist(self, q2_bins: int | list):
+        """Create 1D histogram of dG/dq2
+
+        Parameters
+        ----------
+        q2_bins : int | list
+            Binning in q2, specify either number of bins or bin edges. If an int is not provided it is
+            assumed an iterable for bin edges has been provided.
+        
+        Returns
+        -------
+        h : list[float]
+            PDF histogram
+        q2_edges : list[float]
+            List of bin edges used
+        """
+        q2_edges = q2_bins if type(q2_bins) != int else np.linspace(self.q2min, self.q2max, q2_bins+1, endpoint=True)
+        h = np.zeros(len(q2_edges)-1)
+        for iq2 in range(len(q2_edges)-1):
+            idG = self.dGdq2_bin(q2_edges[iq2], q2_edges[iq2+1])
+            h[iq2] = idG
+        return h, q2_edges
+
+    def dGdq2dctl(self, q2: float, ctl: float) -> float:
+        """Decay rate in ctl for particular q2
+
+        Parameters
+        ----------
+        q2 : float
+        ctl : float
+
+        Returns
+        -------
+        float
+            dGamma/dq2dctl
+        """
+        J = self.dJ(q2)
+        return mt.uniang_ctl(ctl, J)
     
+    def dGdq2dctl_norm(self, q2: float, ctl: float) -> float:
+        """Decay rate in ctl for particular q2, normalised to dGamma/dq2
+
+        Parameters
+        ----------
+        q2 : float
+        ctl : float
+
+        Returns
+        -------
+        float
+            dGamma/dq2dctl, normalised to dGamma/dq2
+        """
+        J = self.J(q2)
+        return mt.uniang_ctl(ctl, J)
+    
+    def dGdctl(self, ctl: float) -> float:
+        """Decay rate in ctl, marginalised over q2 and other angles
+
+        Parameters
+        ----------
+        ctl : float
+
+        Returns
+        -------
+        float
+            dGamma/dctl
+        """
+        J = self.dJ_q2int()
+        return mt.uniang_ctl(ctl, J)
+    
+    def dGdctl_norm(self, ctl: float) -> float:
+        """Decay rate in ctl, marginalised over q2 and other angles, normalised to total decay rate
+
+        Parameters
+        ----------
+        ctl : float
+
+        Returns
+        -------
+        float
+            dGamma/dctl
+        """
+        J = self.J_q2int()
+        return mt.uniang_ctl(ctl, J)
+
+    def dGdq2dctv(self, q2: float, ctv: float) -> float:
+        """Decay rate in ctv for particular q2
+
+        Parameters
+        ----------
+        q2 : float
+        ctv : float
+
+        Returns
+        -------
+        float
+            dGamma/dq2dctv
+        """
+        J = self.dJ(q2)
+        return mt.uniang_ctv(ctv, J)
+
+    def dGdq2dctv_norm(self, q2: float, ctv: float) -> float:
+        """Decay rate in ctv for particular q2, normalised to dGamma/dq2
+
+        Parameters
+        ----------
+        q2 : float
+        ctv : float
+
+        Returns
+        -------
+        float
+            dGamma/dq2dctv, normalised to dGamma/dq2
+        """
+        J = self.J(q2)
+        return mt.uniang_ctv(ctv, J)
+    
+    def dGdctv(self, ctv: float) -> float:
+        """Decay rate in ctv, marginalised over q2 and other angles
+
+        Parameters
+        ----------
+        ctv : float
+
+        Returns
+        -------
+        float
+            dGamma/dctv
+        """
+        J = self.dJ_q2int()
+        return mt.uniang_ctv(ctv, J)
+    
+    def dGdctv_norm(self, ctv: float) -> float:
+        """Decay rate in ctv, marginalised over q2 and other angles, normalised to total decay rate
+
+        Parameters
+        ----------
+        ctv : float
+
+        Returns
+        -------
+        float
+            dGamma/dctv
+        """
+        J = self.J_q2int()
+        return mt.uniang_ctv(ctv, J)
+
+    def dGdq2dchi(self, q2: float, chi: float) -> float:
+        """Decay rate in chi for particular q2
+
+        Parameters
+        ----------
+        q2 : float
+        chi : float
+
+        Returns
+        -------
+        float
+            dGamma/dq2dchi
+        """
+        J = self.dJ(q2)
+        return mt.uniang_chi(chi, J)
+
+    def dGdq2dchi(self, q2: float, chi: float) -> float:
+        """Decay rate in chi for particular q2, normalised to dGamma/dq2
+
+        Parameters
+        ----------
+        q2 : float
+        chi : float
+
+        Returns
+        -------
+        float
+            dGamma/dq2dchi, normalised to dGamma/dq2
+        """
+        J = self.J(q2)
+        return mt.uniang_chi(chi, J)
+
+    def dGdchi(self, chi: float) -> float:
+        """Decay rate in chi, marginalised over q2 and other angles
+
+        Parameters
+        ----------
+        ctv : float
+
+        Returns
+        -------
+        float
+            dGamma/dchi
+        """
+        J = self.dJ_q2int()
+        return mt.uniang_chi(chi, J)
+    
+    def dGdchi_norm(self, chi: float) -> float:
+        """Decay rate in chi, marginalised over q2 and other angles, normalised to total decay rate
+
+        Parameters
+        ----------
+        chi : float
+
+        Returns
+        -------
+        float
+            dGamma/dchi
+        """
+        J = self.J_q2int()
+        return mt.uniang_chi(chi, J)
+
     def dBRdq2(self, q2: float) -> float:
         """Calculate differential BR, dBR/dq2
         

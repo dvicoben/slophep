@@ -1,4 +1,14 @@
-2025-09-12 --- Version 1.1.1
+2025-11-26 --- Version 1.2.0
+    Additions:
+     - General classes for some baryonic transitions
+     - Added Lb->Lc predictions
+     - Lb->Lc DKMR FFs (https://arxiv.org/pdf/1702.02243)
+     - B->V ISGW2 FFs 
+     - 1D angular projections in B->V
+     - Preliminary fitting framework
+     - MC Generator utilities
+
+2025-11-05 --- Version 1.1.1
     Fixes:
      - Fixed inheritance bug in BToV CLN_Hammer
 

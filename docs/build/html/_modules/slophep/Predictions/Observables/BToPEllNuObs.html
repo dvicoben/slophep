@@ -42,6 +42,8 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../auto.html">slophep.Predictions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html#slophep-fitting">slophep.Fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html#slophep-generator">slophep.Generator</a></li>
 </ul>
 
         </div>
@@ -243,6 +245,51 @@
         <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">J</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">J</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">3.</span><span class="p">)</span></div>
 
     
+<div class="viewcode-block" id="BToPEllNuPrediction.dGdq2_bin">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.dGdq2_bin">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dGdq2_bin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">q2max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Caclulate binned q2 distriution</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2min : float</span>
+<span class="sd">        q2max : float</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            dGamma/dq2 (up to normalisation) integrated over the bin</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">J</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dJ_bin</span><span class="p">(</span><span class="n">q2min</span><span class="p">,</span> <span class="n">q2max</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">J</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">J</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">3.</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BToPEllNuPrediction.dGdq2_hist">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.dGdq2_hist">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dGdq2_hist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create 1D histogram of dG/dq2</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2_bins : int | list</span>
+<span class="sd">            Binning in q2, specify either number of bins or bin edges. If an int is not provided it is</span>
+<span class="sd">            assumed an iterable for bin edges has been provided.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        h : list[float]</span>
+<span class="sd">            PDF histogram</span>
+<span class="sd">        q2_edges : list[float]</span>
+<span class="sd">            List of bin edges used</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">q2_edges</span> <span class="o">=</span> <span class="n">q2_bins</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">q2_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q2min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">q2max</span><span class="p">,</span> <span class="n">q2_bins</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">q2_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">iq2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">q2_edges</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">idG</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dGdq2_bin</span><span class="p">(</span><span class="n">q2_edges</span><span class="p">[</span><span class="n">iq2</span><span class="p">],</span> <span class="n">q2_edges</span><span class="p">[</span><span class="n">iq2</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">h</span><span class="p">[</span><span class="n">iq2</span><span class="p">]</span> <span class="o">=</span> <span class="n">idG</span>
+        <span class="k">return</span> <span class="n">h</span><span class="p">,</span> <span class="n">q2_edges</span></div>
+
+
 <div class="viewcode-block" id="BToPEllNuPrediction.dBRdq2">
 <a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Observables.html#slophep.Predictions.Observables.BToPEllNuPrediction.dBRdq2">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">dBRdq2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
