@@ -115,7 +115,21 @@ class BLPRXP_BToV(FormFactorBToV):
         )
         return Xi
     
-    def Li1(self, w: float, IWs: dict[str, float]) -> list[float]:
+    def IW(self, w: float) -> dict:
+        IWs = {
+            "CHI2"  : self.ffpar["Chi21"] + (w-1.0)*self.ffpar["Chi2p"],
+            "CHI3"  : self.ffpar["Chi3"]*(w-1.0),
+            "ETA"   : self.ffpar["Eta1"] + (w-1.0)*self.ffpar["Etap"],
+            "BETA1" : self.internalparams["la1/laB2"]/4.0,
+            "BETA2" : self.ffpar["Beta21"],
+            "BETA3" : self.internalparams["la2/laB2"]/8.0 + self.ffpar["Beta3p"]*(w-1.0),
+            "PHI1"  : (self.internalparams["la1/laB2"]/3. - self.internalparams["la2/laB2"]/2.)/2. + (self.ffpar["Phi1p"])*(w-1.),
+            "PHI1Q" : self.ffpar["Phi1p"]
+        }
+        return IWs
+
+    def Li1(self, w: float, IWs: dict = None) -> list[float]:
+        IWs = IWs if IWs is not None else self.IW(w)
         li1 = [
             0.0,
             4.*(3.* IWs["CHI3"] - (w-1.)*IWs["CHI2"]),
@@ -126,38 +140,42 @@ class BLPRXP_BToV(FormFactorBToV):
             -2.* (IWs["ETA"] + 1.)/(w + 1.)
         ]
         return li1
+    
+    def Li2(self, w: float, IWs: dict = None) -> list[float]:
+        IWs = IWs if IWs is not None else self.IW(w)
+        la2OverlaB2 = self.internalparams["la2/laB2"]
+        Li2 = [
+            0.0,
+            2.*IWs["BETA1"] + 4.*(3.*IWs["BETA3"] - (w-1.)*IWs["BETA2"]),
+            2.*IWs["BETA1"] - 4.*IWs["BETA3"],
+            4.*IWs["BETA2"],
+            3*la2OverlaB2 + 2.*(w+1.)*IWs["PHI1"],
+            la2OverlaB2 + 2.*(w+1.)*IWs["PHI1"],
+            4.*IWs["PHI1"],
+        ]
+        return Li2
 
-    def get_ff(self, q2: float) -> dict:
-        """FF in BLPRXP parameterisation from ARXIV REF as in HAMMER v1.4.1
+    def Mi(self, w: float, IWs: dict = None) -> list[float]:
+        IWs = IWs if IWs is not None else self.IW(w)
+        la1OverlaB2 = self.internalparams["la1/laB2"]
+        la2OverlaB2 = self.internalparams["la2/laB2"]
+        Mi = np.zeros(25) 
+        Mi[8] = (
+            la1OverlaB2+ 6.* la2OverlaB2/(w + 1.)
+            -2.*(w-1.)*IWs["PHI1"] 
+            - 2.*(2.*IWs["ETA"] - 1.)*(w - 1.)/(w + 1.)
+        )
+        Mi[9] = 3.*la2OverlaB2/(w+1.) + 2.*IWs["PHI1"] - (2.*IWs["ETA"] - 1.) * (w - 1.)/(w + 1.)
+        Mi[10] = (
+            la1OverlaB2/3. 
+            - la2OverlaB2*(w+4.)/(2.*(w+1.))
+            + 2.*(w + 2.)*IWs["PHI1Q"] - (2.*IWs["ETA"] - 1.)/(w + 1.)
+        )
+        return Mi
 
-        Parameters
-        ----------
-        q2 : float
-            q2 value to calculate FF at
-
-        Returns
-        -------
-        dict
-            FF dictionary
-        """
-        Mb = self.internalparams["Mb"]
-        Mc = self.internalparams["Mc"]
-
+    def get_hhat(self, q2: float) -> dict:
         w = max(self.w(q2), 1)
         zBC = self.internalparams["zBC"]
-
-        # a = self.internalparams["a"]
-        # a2 = a**2
-        # a4 = a**4
-        # zCon = self.z_of_w(w, a)
-        # zCon1 = (1.-a)/(1.+a)
-        # RhoSq = self.ffpar["RhoStSq"]
-        # cSt = self.ffpar["cSt"]
-        # Xi = (
-        #     (1. - 8*a2*RhoSq*zCon + 16.*(2*cSt * a4 - RhoSq * a2)*zCon*zCon)
-        #     /(1. - 8*a2*RhoSq*zCon1 + 16.*(2*cSt * a4 - RhoSq * a2)*zCon1*zCon1)
-        # )
-        Xi = self.xi(w)
 
         # Hps = 1.
         Hv  = 1.
@@ -194,34 +212,9 @@ class BLPRXP_BToV(FormFactorBToV):
         eb = self.internalparams["eb"]
         ec = self.internalparams["ec"]
 
-        IWs = {
-            "CHI2"  : self.ffpar["Chi21"] + (w-1.0)*self.ffpar["Chi2p"],
-            "CHI3"  : self.ffpar["Chi3"]*(w-1.0),
-            "ETA"   : self.ffpar["Eta1"] + (w-1.0)*self.ffpar["Etap"],
-            "BETA1" : self.internalparams["la1/laB2"]/4.0,
-            "BETA2" : self.ffpar["Beta21"],
-            "BETA3" : self.internalparams["la2/laB2"]/8.0 + self.ffpar["Beta3p"]*(w-1.0),
-            "PHI1"  : (self.internalparams["la1/laB2"]/3. - self.internalparams["la2/laB2"]/2.)/2. + (self.ffpar["Phi1p"])*(w-1.),
-            "PHI1Q" : self.ffpar["Phi1p"]
-        }
-        IWsCHI2  = self.ffpar["Chi21"] + (w-1.0)*self.ffpar["Chi2p"]
-        IWsCHI3  = self.ffpar["Chi3"]*(w-1.0)
-        IWsETA   = self.ffpar["Eta1"] + (w-1.0)*self.ffpar["Etap"]
-        IWsBETA1 = self.internalparams["la1/laB2"]/4.0
-        IWsBETA2 = self.ffpar["Beta21"]
-        IWsBETA3 = self.internalparams["la2/laB2"]/8.0 + self.ffpar["Beta3p"]*(w-1.0)
-        IWsPHI1  = (self.internalparams["la1/laB2"]/3. - self.internalparams["la2/laB2"]/2.)/2. + (self.ffpar["Phi1p"])*(w-1.)
-        IWsPHI1Q = self.ffpar["Phi1p"]
+        IWs = self.IW(w)
+        Li1 = self.Li1(w, IWs)
         
-        Li1 = [
-            0.0,
-            4.*(3.* IWsCHI3 - (w-1.)*IWsCHI2),
-            -4.*IWsCHI3,
-            4.*IWsCHI2,
-            2.* IWsETA - 1.,
-            -1.0,
-            -2.* (IWsETA + 1.)/(w + 1.)
-        ]
         Hps += ec*(Li1[2]+Li1[3]*(w-1)+Li1[5]-Li1[6]*(w+1)) + eb*(Li1[1]-Li1[4])
         Hv  += ec*(Li1[2]-Li1[5]) + eb*(Li1[1]-Li1[4])
         Ha1 += ec*(Li1[2]-Li1[5]*(w-1)/(w+1)) + eb*(Li1[1]-Li1[4]*(w-1)/(w+1))
@@ -245,17 +238,7 @@ class BLPRXP_BToV(FormFactorBToV):
 
         # Epsilon c squared
         ec2 = ec*ec
-        la1OverlaB2 = self.internalparams["la1/laB2"]
-        la2OverlaB2 = self.internalparams["la2/laB2"]
-        Li2 = [
-            0.0,
-            2.*IWsBETA1 + 4.*(3.*IWsBETA3 - (w-1.)*IWsBETA2),
-            2.*IWsBETA1 - 4.*IWsBETA3,
-            4.*IWsBETA2,
-            3*la2OverlaB2 + 2.*(w+1.)*IWsPHI1,
-            la2OverlaB2 + 2.*(w+1.)*IWsPHI1,
-            4.*IWsPHI1,
-        ]
+        Li2 = self.Li2(w, IWs)
         # Hps += ec2*(Li2[2]+Li2[3]*(w-1)+Li2[5]-Li2[6]*(w+1))
         Hv  += ec2*(Li2[2]-Li2[5])
         Ha1 += ec2*(Li2[2]-Li2[5]*(w-1)/(w+1))
@@ -280,18 +263,7 @@ class BLPRXP_BToV(FormFactorBToV):
         # Epsilon b * Epsilon c
         if self.internalparams["With1OverMbMc"]:
             eceb = ec*eb
-            Mi = np.zeros(25) 
-            Mi[8] = (
-                la1OverlaB2+ 6.* la2OverlaB2/(w + 1.)
-                -2.*(w-1.)*IWsPHI1 
-                - 2.*(2.*IWsETA - 1.)*(w - 1.)/(w + 1.)
-            )
-            Mi[9] = 3.*la2OverlaB2/(w+1.) + 2.*IWsPHI1 - (2.*IWsETA - 1.) * (w - 1.)/(w + 1.)
-            Mi[10] = (
-                la1OverlaB2/3. 
-                - la2OverlaB2*(w+4.)/(2.*(w+1.))
-                + 2.*(w + 2.)*IWsPHI1Q - (2.*IWsETA - 1.)/(w + 1.)
-            )
+            Mi = self.Mi(w, IWs)
             Hv  += eceb * ((Mi[2]+Mi[9]) - (Mi[16]+Mi[18]))
             Ha1 += eceb * ((Mi[2]+Mi[9]) - (w-1.)/(w+1.)*(Mi[16]+Mi[18]))
             Ha2 += eceb * ((Mi[3]-Mi[10]) + (Mi[17]-Mi[19]))
@@ -336,34 +308,41 @@ class BLPRXP_BToV(FormFactorBToV):
             Ht2 += aseb * ((Li1[4] - Li1[5]*w)*Ct2 + (Li1[1]*(1 + w)*(Ct2 + Ct3))/2. - Li1[4]*(Ct1 + ((1 + w)*(Ct2 + Ct3))/2.) + (-1 + pow(w,2))*(dCt2 + dCt3))
             Ht3 += aseb * ((Li1[1] - Li1[4] - 2*Li1[5])*Ct2 - ((Li1[4] - 3*Li1[5])*Ct2)/(1 + w) + 2*(-1 + w)*dCt2)
 
-
+        # alpha_s**2 for Ha1
         if self.internalparams["WithHA1As2"]:
             Ha1 += -0.944*(4./3.)*ash*ash
-        
-
 
         h = {
-            "V"  : Xi*Hv,
-            "A1" : Xi*Ha1,
-            "A2" : Xi*Ha2,
-            "A3" : Xi*Ha3,
-            "T1" : Xi*Ht1,
-            "T2" : Xi*Ht2,
-            "T3" : Xi*Ht3
+            "V"  : Hv,
+            "A1" : Ha1,
+            "A2" : Ha2,
+            "A3" : Ha3,
+            "T1" : Ht1,
+            "T2" : Ht2,
+            "T3" : Ht3
         }
+        return h
+
+    def get_ff(self, q2: float) -> dict:
+        """FF in BLPRXP parameterisation from ARXIV REF as in HAMMER v1.4.1
+
+        Parameters
+        ----------
+        q2 : float
+            q2 value to calculate FF at
+
+        Returns
+        -------
+        dict
+            FF dictionary
+        """
+        Mb = self.internalparams["Mb"]
+        Mc = self.internalparams["Mc"]
+        w = max(self.w(q2), 1)
+        # IG
+        Xi = self.xi(w)
+        hhat = self.get_hhat(q2)
+        h = {iff : Xi*hhat[iff] for iff in hhat}
         # NOTE: this performs the translation https://arxiv.org/pdf/1309.0301 eqns. 38-39,
         # should be analgous to eqns B7-B13 in https://arxiv.org/pdf/1908.09398
         return h_to_A(Mb, Mc, h, q2)
-
-    def get_hhat(self, q2: float) -> dict:
-        
-        hhat = {
-            # "V"  : Hv,
-            # "A1" : Ha1,
-            # "A2" : Ha2,
-            # "A3" : Ha3,
-            # "T1" : Ht1,
-            # "T2" : Ht2,
-            # "T3" : Ht3
-        }
-        return hhat
