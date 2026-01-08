@@ -34,6 +34,12 @@ class BLPR_Hammer(FFBToV.BLPR_BToV_Hammer):
         self._name = "BsToDsst_BLPR_Hammer"
 
 
+class BLPRXP(FFBToV.BLPRXP_BToV):
+    def __init__(self, par: dict = None, scale: float = None, *ffargs):
+        super().__init__("Bs", "Ds*", par, scale, *ffargs)
+        self._name = "BsToDsst_BLPRXP"
+
+
 class CLN(FFBToV.CLN_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("Bs", "Ds*", par, scale, *ffargs)
