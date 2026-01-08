@@ -3,7 +3,7 @@ import numpy as np
 from slophep.Predictions.FormFactorsBToV import FormFactorBToV
 from flavio.physics.bdecays.formfactors import hqet
 from flavio.physics.bdecays.formfactors.b_v.cln import h_to_A
-from slophep.Predictions.Math.derivatives import derivative
+import slophep.Predictions.Math.derivatives as md
 
 
 class BLPRXP_BToV(FormFactorBToV):
@@ -118,7 +118,7 @@ class BLPRXP_BToV(FormFactorBToV):
     def IW(self, w: float) -> dict:
         IWs = {
             "CHI2"  : self.ffpar["Chi21"] + (w-1.0)*self.ffpar["Chi2p"],
-            "CHI3"  : self.ffpar["Chi3"]*(w-1.0),
+            "CHI3"  : self.ffpar["Chi3p"]*(w-1.0),
             "ETA"   : self.ffpar["Eta1"] + (w-1.0)*self.ffpar["Etap"],
             "BETA1" : self.internalparams["la1/laB2"]/4.0,
             "BETA2" : self.ffpar["Beta21"],
@@ -215,7 +215,7 @@ class BLPRXP_BToV(FormFactorBToV):
         IWs = self.IW(w)
         Li1 = self.Li1(w, IWs)
         
-        Hps += ec*(Li1[2]+Li1[3]*(w-1)+Li1[5]-Li1[6]*(w+1)) + eb*(Li1[1]-Li1[4])
+        # Hps += ec*(Li1[2]+Li1[3]*(w-1)+Li1[5]-Li1[6]*(w+1)) + eb*(Li1[1]-Li1[4])
         Hv  += ec*(Li1[2]-Li1[5]) + eb*(Li1[1]-Li1[4])
         Ha1 += ec*(Li1[2]-Li1[5]*(w-1)/(w+1)) + eb*(Li1[1]-Li1[4]*(w-1)/(w+1))
         Ha2 += ec*(Li1[3]+Li1[6])
@@ -281,14 +281,15 @@ class BLPRXP_BToV(FormFactorBToV):
             cmagb = self.internalparams["cmagb"]
             Cv2 = hqet.CV2(w, zBC)
             Cv3 = hqet.CV3(w, zBC)
-            # dCps = derivative(lambda x: hqet.CP(x, zBC),  w, bound_lo = 1.0)
-            dCv1 = derivative(lambda x: hqet.CV1(x, zBC), w, bound_lo = 1.0)
-            dCa1 = derivative(lambda x: hqet.CA1(x, zBC), w, bound_lo = 1.0)
-            dCa2 = derivative(lambda x: hqet.CA2(x, zBC), w, bound_lo = 1.0)
-            dCa3 = derivative(lambda x: hqet.CA3(x, zBC), w, bound_lo = 1.0)
-            dCt1 = derivative(lambda x: hqet.CT1(x, zBC), w, bound_lo = 1.0)
-            dCt2 = derivative(lambda x: hqet.CT2(x, zBC), w, bound_lo = 1.0)
-            dCt3 = derivative(lambda x: hqet.CT3(x, zBC), w, bound_lo = 1.0)
+            bound_lo = 1.0 + md._DER_EPS
+            # dCps = md.derivative(lambda x: hqet.CP(x, zBC),  w, bound_lo = bound_lo)
+            dCv1 = md.derivative(lambda x: hqet.CV1(x, zBC), w, bound_lo = bound_lo)
+            dCa1 = md.derivative(lambda x: hqet.CA1(x, zBC), w, bound_lo = bound_lo)
+            dCa2 = md.derivative(lambda x: hqet.CA2(x, zBC), w, bound_lo = bound_lo)
+            dCa3 = md.derivative(lambda x: hqet.CA3(x, zBC), w, bound_lo = bound_lo)
+            dCt1 = md.derivative(lambda x: hqet.CT1(x, zBC), w, bound_lo = bound_lo)
+            dCt2 = md.derivative(lambda x: hqet.CT2(x, zBC), w, bound_lo = bound_lo)
+            dCt3 = md.derivative(lambda x: hqet.CT3(x, zBC), w, bound_lo = bound_lo)
 
             Hv  += asec * (cmagc*Li1[2] + (Li1[2] - Li1[5])*Cv1 - (Li1[4] - Li1[5])*Cv3 + 2*(-1 + w)*dCv1)
             Ha1 += asec * (cmagc*Li1[2] + (Li1[2] - (Li1[5]*(-1 + w))/(1 + w))*Ca1 + ((Li1[4] - Li1[5])*(-1 + w)*Ca3)/(1 + w) + 2*(-1 + w)*dCa1)

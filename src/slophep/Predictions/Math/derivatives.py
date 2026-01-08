@@ -18,6 +18,6 @@ def derivative(f, val: float, eps: float = _DER_EPS,
     if val <= bound_lo:
         return derivative_right(f, bound_lo, eps)
     if val >= bound_hi:
-        return derivative_right(f, bound_hi, eps)
+        return derivative_left(f, bound_hi, eps)
     
     return derivative_centre(f, val, eps)
