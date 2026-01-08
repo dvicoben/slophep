@@ -322,7 +322,7 @@ class BLPRXP_BToV(FormFactorBToV):
         return h
 
     def get_ff(self, q2: float) -> dict:
-        """FF in BLPRXP parameterisation from ARXIV REF as in HAMMER v1.4.1
+        """FF in BLPRXP parameterisation from https://arxiv.org/abs/2206.11281 as in HAMMER v1.4.1
 
         Parameters
         ----------
