@@ -1,3 +1,8 @@
+2026-01-XX --- Version 1.X.X
+    Additions:
+     - Added BLPRXP for B->D
+     - Added BLPRXP for B->Dst
+
 2025-11-26 --- Version 1.2.0
     Additions:
      - General classes for some baryonic transitions
