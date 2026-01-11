@@ -460,7 +460,7 @@ class BToPEllNuPrediction(ObservableBase):
             obs_vals = np.array([self.J(iq2)[obs] for iq2 in q2])
 
         fig, ax = None, None
-        if type(plot) == type(None):
+        if plot is None:
             fig, ax = plt.subplots(1, 1)
             ax.set(xlabel=r"$q^2$ [GeV$^2$]", xlim=(q2min, q2max))
         else:

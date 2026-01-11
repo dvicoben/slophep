@@ -5,15 +5,10 @@ project (UserProject LANGUAGES CXX)
 
 set(Hammer_CompileOptions ;-D_FILE_OFFSET_BITS=64;-Wno-unknown-pragmas)
 set(Hammer_PIC TRUE)
-set(Hammer_Include /home/vicobenet/miniforge3/envs/pyROOT/include)
+set(Hammer_Include $ENV{CONDA_PREFIX}/include)
 set(Hammer_Libs )
 SET(CMAKE_CXX_STANDARD 20)
 set(Hammer_LIBTYPE "STATIC")
-
-if(OFF)
-    set(CMAKE_MODULE_PATH "/home/vicobenet/miniforge3/envs/pyROOT/share/Hammer/examples/CMakeModules" ${CMAKE_MODULE_PATH})
-    find_package(Sanitizers)
-endif()
 
 # don't use configuration-specific subdirectories in Xcode
 if (CMAKE_GENERATOR STREQUAL "Xcode")
@@ -26,23 +21,23 @@ foreach(libname HammerCore Amplitudes FormFactors HammerTools HammerBase Rates)
     if(Hammer_LIBTYPE STREQUAL "STATIC")
         add_library(${libname} STATIC IMPORTED)
         set_target_properties(${libname} PROPERTIES
-            IMPORTED_LOCATION "/home/vicobenet/miniforge3/envs/pyROOT/lib/Hammer/${CMAKE_STATIC_LIBRARY_PREFIX}${libname}${CMAKE_STATIC_LIBRARY_SUFFIX}"
-            INTERFACE_INCLUDE_DIRECTORIES "/home/vicobenet/miniforge3/envs/pyROOT/include"
+            IMPORTED_LOCATION "$ENV{CONDA_PREFIX}/lib/Hammer/${CMAKE_STATIC_LIBRARY_PREFIX}${libname}${CMAKE_STATIC_LIBRARY_SUFFIX}"
+            INTERFACE_INCLUDE_DIRECTORIES "$ENV{CONDA_PREFIX}/include"
         )
     else()
         add_library(${libname} SHARED IMPORTED)
         set_target_properties(${libname} PROPERTIES
-            IMPORTED_LOCATION "/home/vicobenet/miniforge3/envs/pyROOT/lib/Hammer/${CMAKE_SHARED_LIBRARY_PREFIX}${libname}${CMAKE_SHARED_LIBRARY_SUFFIX}"
-            INTERFACE_INCLUDE_DIRECTORIES "/home/vicobenet/miniforge3/envs/pyROOT/include"
+            IMPORTED_LOCATION "$ENV{CONDA_PREFIX}/lib/Hammer/${CMAKE_SHARED_LIBRARY_PREFIX}${libname}${CMAKE_SHARED_LIBRARY_SUFFIX}"
+            INTERFACE_INCLUDE_DIRECTORIES "$ENV{CONDA_PREFIX}/include"
         )
     endif()
 endforeach()
 
 add_library(ThirdParty::YamlCpp INTERFACE IMPORTED)
-set_property(TARGET ThirdParty::YamlCpp PROPERTY INTERFACE_LINK_LIBRARIES /home/vicobenet/miniforge3/envs/pyROOT/lib/libyaml-cpp.so)
+set_property(TARGET ThirdParty::YamlCpp PROPERTY INTERFACE_LINK_LIBRARIES $ENV{CONDA_PREFIX}/lib/libyaml-cpp.so)
 
-SET(BOOST_INCLUDEDIR /home/vicobenet/miniforge3/envs/pyROOT/include)
-SET(BOOST_LIBRARYDIR /home/vicobenet/miniforge3/envs/pyROOT/lib)
+SET(BOOST_INCLUDEDIR $ENV{CONDA_PREFIX}/include)
+SET(BOOST_LIBRARYDIR $ENV{CONDA_PREFIX}/lib)
 find_package(Boost 1.50.0 QUIET COMPONENTS thread)
 if(NOT Boost_FOUND)
 	message (FATAL_ERROR "Boost not found. You should install it before installing Hammer.")
@@ -60,22 +55,22 @@ endif()
 
 if(TRUE)
     add_library(ThirdParty::ROOT INTERFACE IMPORTED)
-    set_property(TARGET ThirdParty::ROOT PROPERTY INTERFACE_INCLUDE_DIRECTORIES /home/vicobenet/miniforge3/envs/pyROOT/include)
-    set_property(TARGET ThirdParty::ROOT PROPERTY INTERFACE_LINK_LIBRARIES -L/home/vicobenet/miniforge3/envs/pyROOT/lib -lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lROOTVecOps -lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lMultiProc -lROOTDataFrame -Wl,-rpath,/home/vicobenet/miniforge3/envs/pyROOT/lib -pthread -lm -ldl -rdynamic)
+    set_property(TARGET ThirdParty::ROOT PROPERTY INTERFACE_INCLUDE_DIRECTORIES $ENV{CONDA_PREFIX}/include)
+    set_property(TARGET ThirdParty::ROOT PROPERTY INTERFACE_LINK_LIBRARIES -L$ENV{CONDA_PREFIX}/lib -lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lROOTVecOps -lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -lMultiProc -lROOTDataFrame -Wl,-rpath,$ENV{CONDA_ENV}/lib -pthread -lm -ldl -rdynamic)
 endif()
 if(TRUE)
     add_library(ThirdParty::HepMC INTERFACE IMPORTED)
-    set_property(TARGET ThirdParty::HepMC PROPERTY INTERFACE_INCLUDE_DIRECTORIES /home/vicobenet/miniforge3/envs/pyROOT/include)
-    set_property(TARGET ThirdParty::HepMC PROPERTY INTERFACE_LINK_LIBRARIES /home/vicobenet/miniforge3/envs/pyROOT/lib/libHepMC.so)
+    set_property(TARGET ThirdParty::HepMC PROPERTY INTERFACE_INCLUDE_DIRECTORIES $ENV{CONDA_PREFIX}/include)
+    set_property(TARGET ThirdParty::HepMC PROPERTY INTERFACE_LINK_LIBRARIES $ENV{CONDA_PREFIX}/lib/libHepMC.so)
 endif()
 
 function(new_example name)
-    add_executable(${name}
-                  ${name}.cc)
+    add_executable(${name}.exe
+                   ${name}.cc)
 
-    target_compile_options(${name} PRIVATE ${Hammer_CompileOptions})
+    target_compile_options(${name}.exe PRIVATE ${Hammer_CompileOptions})
 
-    set_target_properties(${name} PROPERTIES
+    set_target_properties(${name}.exe PROPERTIES
                                   POSITION_INDEPENDENT_CODE ${Hammer_PIC})
 
     set(LIBS HammerCore Amplitudes FormFactors HammerTools HammerBase Rates ThirdParty::YamlCpp Boost::thread)
@@ -86,9 +81,9 @@ function(new_example name)
         set(LIBS ${LIBS} ThirdParty::HepMC)
     endif()
     if(OFF)
-        add_sanitizers(${name})
+        add_sanitizers(${name}.exe)
     endif()
-    target_link_libraries(${name} PRIVATE ${LIBS})
+    target_link_libraries(${name}.exe PRIVATE ${LIBS})
 endfunction()
 
 

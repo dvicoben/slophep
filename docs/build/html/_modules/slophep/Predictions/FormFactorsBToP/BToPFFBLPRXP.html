@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>slophep.Predictions.FormFactorsBToP.BToPFFBLPRXP &mdash; SLOP v1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=76e2d817"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            SLOP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html">slophep.Predictions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html#slophep-fitting">slophep.Fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html#slophep-generator">slophep.Generator</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">SLOP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">slophep.Predictions.FormFactorsBToP.BToPFFBLPRXP</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for slophep.Predictions.FormFactorsBToP.BToPFFBLPRXP</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">slophep.Predictions.FormFactorsBToP</span><span class="w"> </span><span class="kn">import</span> <span class="n">FormFactorBToP</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flavio.physics.bdecays.formfactors</span><span class="w"> </span><span class="kn">import</span> <span class="n">hqet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flavio.physics.bdecays.formfactors.b_p.cln</span><span class="w"> </span><span class="kn">import</span> <span class="n">h_to_f</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">slophep.Predictions.Math.derivatives</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">md</span>
+
+
+<div class="viewcode-block" id="BLPRXP_BToP">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.html#slophep.Predictions.FormFactorsBToP.BLPRXP_BToP">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BLPRXP_BToP</span><span class="p">(</span><span class="n">FormFactorBToP</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">B</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">P</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">par</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">ffargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;BToP_BLPRXP&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ffpar</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;RhoStSq&quot;</span> <span class="p">:</span> <span class="mf">1.104</span><span class="p">,</span>
+            <span class="s2">&quot;cSt&quot;</span>     <span class="p">:</span> <span class="mf">2.392</span><span class="p">,</span>
+            <span class="s2">&quot;Chi21&quot;</span>   <span class="p">:</span> <span class="o">-</span><span class="mf">0.116</span><span class="p">,</span>
+            <span class="s2">&quot;Chi2p&quot;</span>   <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;Chi3p&quot;</span>   <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;Eta1&quot;</span>    <span class="p">:</span> <span class="mf">0.336</span><span class="p">,</span>
+            <span class="s2">&quot;Etap&quot;</span>    <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;Phi1p&quot;</span>   <span class="p">:</span> <span class="mf">0.252</span><span class="p">,</span>
+            <span class="s2">&quot;Beta21&quot;</span>  <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+            <span class="s2">&quot;Beta3p&quot;</span>  <span class="p">:</span> <span class="mf">0.0</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RhoStSq&quot;</span><span class="p">,</span> <span class="s2">&quot;cSt&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;Chi21&quot;</span><span class="p">,</span> <span class="s2">&quot;Chi2p&quot;</span><span class="p">,</span> <span class="s2">&quot;Chi3p&quot;</span><span class="p">,</span> <span class="s2">&quot;Eta1&quot;</span><span class="p">,</span> <span class="s2">&quot;Etap&quot;</span><span class="p">,</span> 
+                        <span class="s2">&quot;Phi1p&quot;</span><span class="p">,</span> <span class="s2">&quot;Beta21&quot;</span><span class="p">,</span> <span class="s2">&quot;Beta3p&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculate_internal</span><span class="p">()</span>
+
+<div class="viewcode-block" id="BLPRXP_BToP.calculate_internal">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.html#slophep.Predictions.FormFactorsBToP.BLPRXP_BToP.calculate_internal">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_internal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rawinternalpar</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
+        <span class="c1"># 1S scheme: mb1S = 4710, mbBar = 5313, lambda1 = -3 10^5 MeV^2, delta mb-mc = 3400, alpha_s = 26/100</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;a&quot;</span>             <span class="p">:</span> <span class="mf">1.509</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">),</span>
+            <span class="s2">&quot;as&quot;</span>            <span class="p">:</span> <span class="mf">0.27</span><span class="p">,</span>
+            <span class="s2">&quot;mb&quot;</span>            <span class="p">:</span> <span class="mf">4.707</span><span class="p">,</span>
+            <span class="s2">&quot;mc&quot;</span>            <span class="p">:</span> <span class="mf">4.707</span> <span class="o">-</span> <span class="mf">3.407</span><span class="p">,</span>
+            <span class="s2">&quot;mBBar&quot;</span>         <span class="p">:</span> <span class="mf">5.313</span><span class="p">,</span>
+            <span class="s2">&quot;mDBar&quot;</span>         <span class="p">:</span> <span class="mf">1.973</span><span class="p">,</span>
+            <span class="s2">&quot;rho1&quot;</span>          <span class="p">:</span> <span class="o">-</span><span class="mf">0.363</span><span class="p">,</span>
+            <span class="s2">&quot;la2&quot;</span>           <span class="p">:</span> <span class="mf">0.12</span><span class="p">,</span>
+            <span class="s2">&quot;rD&quot;</span>            <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_D0&#39;</span><span class="p">]</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">par</span><span class="p">[</span><span class="s1">&#39;m_B0&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;With1OverMb2&quot;</span>  <span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;With1OverMbMc&quot;</span> <span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;WithAsOverM&quot;</span>   <span class="p">:</span> <span class="kc">True</span>
+        <span class="p">}</span>
+        <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">rawinternalpar</span><span class="p">)</span>
+
+        <span class="n">_as</span>    <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;as&quot;</span><span class="p">]</span>
+        <span class="n">_ash</span>   <span class="o">=</span> <span class="n">_as</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+        <span class="n">_mb</span>    <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;mb&quot;</span><span class="p">]</span>
+        <span class="n">_mc</span>    <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;mc&quot;</span><span class="p">]</span>
+        <span class="n">_mBBar</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;mBBar&quot;</span><span class="p">]</span>
+        <span class="n">_mDBar</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;mDBar&quot;</span><span class="p">]</span>
+        <span class="n">_rho1</span>  <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;rho1&quot;</span><span class="p">]</span>
+        <span class="n">_la2</span>   <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;la2&quot;</span><span class="p">]</span>
+        <span class="c1"># Some additional calculations to avoid recomputing:        </span>
+        <span class="n">zBC</span> <span class="o">=</span> <span class="n">_mc</span><span class="o">/</span><span class="n">_mc</span>
+        <span class="n">laB</span> <span class="o">=</span> <span class="p">(</span><span class="n">_mb</span><span class="o">*</span><span class="n">_mBBar</span> <span class="o">-</span> <span class="n">_mc</span><span class="o">*</span><span class="n">_mDBar</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">_mb</span><span class="o">-</span><span class="n">_mc</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">_mb</span><span class="o">+</span><span class="n">_mc</span><span class="p">)</span> <span class="o">+</span> <span class="n">_rho1</span><span class="o">/</span><span class="p">(</span><span class="mf">4.</span><span class="o">*</span><span class="n">_mb</span><span class="o">*</span><span class="n">_mc</span><span class="p">)</span>
+        <span class="n">la1</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">_mb</span><span class="o">*</span><span class="n">_mc</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">_mb</span> <span class="o">-</span> <span class="n">_mc</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">_mBBar</span> <span class="o">-</span> <span class="n">_mDBar</span> <span class="o">-</span> <span class="p">(</span><span class="n">_mb</span><span class="o">-</span><span class="n">_mc</span><span class="p">))</span> <span class="o">+</span> <span class="n">_rho1</span><span class="o">*</span><span class="p">(</span><span class="n">_mb</span><span class="o">+</span><span class="n">_mc</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">_mb</span><span class="o">*</span><span class="n">_mc</span><span class="p">)</span>
+        <span class="c1"># _eb = laB/(2.*_mb)</span>
+        <span class="c1"># _ec = laB/(2.*_mc)</span>
+        <span class="c1"># _la2OverlaB2 = _la2/(laB*laB)</span>
+        <span class="c1"># _la1OverlaB2 = la1/(laB*laB)</span>
+        <span class="n">corr1S</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="n">_as</span><span class="o">/</span><span class="mf">3.</span> <span class="o">*</span> <span class="mf">0.796</span><span class="p">,</span> <span class="mf">2.</span><span class="p">)</span>
+        <span class="n">dmbc</span> <span class="o">=</span> <span class="n">_mb</span> <span class="o">-</span> <span class="n">_mc</span>
+        <span class="n">mb_1</span> <span class="o">=</span> <span class="n">_mb</span> <span class="o">*</span> <span class="n">corr1S</span>
+        <span class="n">mc_1</span> <span class="o">=</span> <span class="n">_mb</span> <span class="o">*</span> <span class="n">corr1S</span>
+        <span class="n">LambdaBar_0</span> <span class="o">=</span> <span class="p">(</span><span class="n">_mb</span><span class="o">*</span><span class="n">_mBBar</span> <span class="o">-</span> <span class="n">_mc</span><span class="o">*</span><span class="n">_mDBar</span><span class="p">)</span><span class="o">/</span><span class="n">dmbc</span> <span class="o">-</span> <span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">_mb</span><span class="o">-</span><span class="n">dmbc</span><span class="p">)</span> <span class="o">+</span> <span class="n">_rho1</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">_mb</span><span class="o">*</span><span class="n">_mc</span><span class="p">)</span>
+        <span class="n">LambdaBar_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">mb_1</span> <span class="o">*</span> <span class="n">_mBBar</span> <span class="o">-</span> <span class="n">mc_1</span> <span class="o">*</span> <span class="n">_mDBar</span><span class="p">)</span><span class="o">/</span><span class="n">dmbc</span> <span class="o">-</span> <span class="mf">2.</span><span class="o">*</span><span class="n">mb_1</span>
+        <span class="n">_upsilonb</span> <span class="o">=</span> <span class="n">LambdaBar_1</span><span class="o">/</span><span class="n">LambdaBar_0</span> <span class="o">-</span> <span class="n">mb_1</span><span class="o">/</span><span class="n">_mb</span>
+        <span class="n">_upsilonc</span> <span class="o">=</span> <span class="n">LambdaBar_1</span><span class="o">/</span><span class="n">LambdaBar_0</span> <span class="o">-</span> <span class="n">mc_1</span><span class="o">/</span><span class="n">_mc</span>
+
+        <span class="n">internalparams</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;ash&quot;</span>      <span class="p">:</span> <span class="n">_ash</span><span class="p">,</span>
+            <span class="s2">&quot;zBC&quot;</span>      <span class="p">:</span> <span class="n">zBC</span><span class="p">,</span>
+            <span class="s2">&quot;cmagb&quot;</span>    <span class="p">:</span> <span class="mf">3.</span><span class="o">/</span><span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">zBC</span><span class="p">)</span> <span class="o">+</span> <span class="mf">13.</span><span class="o">/</span><span class="mf">9.</span><span class="p">),</span>
+            <span class="s2">&quot;cmagc&quot;</span>    <span class="p">:</span> <span class="o">-</span><span class="mf">3.</span><span class="o">/</span><span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">zBC</span><span class="p">)</span> <span class="o">+</span> <span class="mf">13.</span><span class="o">/</span><span class="mf">9.</span><span class="p">),</span>
+            <span class="s2">&quot;laB&quot;</span>      <span class="p">:</span> <span class="n">laB</span><span class="p">,</span>
+            <span class="s2">&quot;la1&quot;</span>      <span class="p">:</span> <span class="n">la1</span><span class="p">,</span>
+            <span class="s2">&quot;la2/laB2&quot;</span> <span class="p">:</span> <span class="n">_la2</span><span class="o">/</span><span class="p">(</span><span class="n">laB</span><span class="o">*</span><span class="n">laB</span><span class="p">),</span>
+            <span class="s2">&quot;la1/laB2&quot;</span> <span class="p">:</span> <span class="n">la1</span><span class="o">/</span><span class="p">(</span><span class="n">laB</span><span class="o">*</span><span class="n">laB</span><span class="p">),</span>
+            <span class="s2">&quot;corr1S&quot;</span>   <span class="p">:</span> <span class="n">corr1S</span><span class="p">,</span>
+            <span class="s2">&quot;dmbc&quot;</span>     <span class="p">:</span> <span class="n">dmbc</span><span class="p">,</span>
+            <span class="s2">&quot;mb1&quot;</span>      <span class="p">:</span> <span class="n">mb_1</span><span class="p">,</span>
+            <span class="s2">&quot;mc1&quot;</span>      <span class="p">:</span> <span class="n">mc_1</span><span class="p">,</span>
+            <span class="s2">&quot;LamBar0&quot;</span>  <span class="p">:</span> <span class="n">LambdaBar_0</span><span class="p">,</span>
+            <span class="s2">&quot;LamBar1&quot;</span>  <span class="p">:</span> <span class="n">LambdaBar_1</span><span class="p">,</span>
+            <span class="s2">&quot;eb&quot;</span>       <span class="p">:</span> <span class="n">laB</span><span class="o">/</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">_mb</span><span class="p">),</span>
+            <span class="s2">&quot;ec&quot;</span>       <span class="p">:</span> <span class="n">laB</span><span class="o">/</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">_mc</span><span class="p">),</span>
+            <span class="s2">&quot;upsilonb&quot;</span> <span class="p">:</span> <span class="n">_upsilonb</span><span class="p">,</span>
+            <span class="s2">&quot;upsilonc&quot;</span> <span class="p">:</span> <span class="n">_upsilonc</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">internalparams</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BLPRXP_BToP.z_of_w">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.html#slophep.Predictions.FormFactorsBToP.BLPRXP_BToP.z_of_w">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">z_of_w</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">sqrt2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">sqrt2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">sqrt2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BLPRXP_BToP.xi">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.html#slophep.Predictions.FormFactorsBToP.BLPRXP_BToP.xi">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">xi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span>
+        <span class="n">a2</span> <span class="o">=</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">a4</span> <span class="o">=</span> <span class="n">a</span><span class="o">**</span><span class="mi">4</span>
+        <span class="n">zCon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_of_w</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+        <span class="n">zCon1</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">1.</span><span class="o">+</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">RhoSq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;RhoStSq&quot;</span><span class="p">]</span>
+        <span class="n">cSt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;cSt&quot;</span><span class="p">]</span>
+        <span class="n">Xi</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="mi">8</span><span class="o">*</span><span class="n">a2</span><span class="o">*</span><span class="n">RhoSq</span><span class="o">*</span><span class="n">zCon</span> <span class="o">+</span> <span class="mf">16.</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">cSt</span> <span class="o">*</span> <span class="n">a4</span> <span class="o">-</span> <span class="n">RhoSq</span> <span class="o">*</span> <span class="n">a2</span><span class="p">)</span><span class="o">*</span><span class="n">zCon</span><span class="o">*</span><span class="n">zCon</span><span class="p">)</span>
+            <span class="o">/</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="mi">8</span><span class="o">*</span><span class="n">a2</span><span class="o">*</span><span class="n">RhoSq</span><span class="o">*</span><span class="n">zCon1</span> <span class="o">+</span> <span class="mf">16.</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">cSt</span> <span class="o">*</span> <span class="n">a4</span> <span class="o">-</span> <span class="n">RhoSq</span> <span class="o">*</span> <span class="n">a2</span><span class="p">)</span><span class="o">*</span><span class="n">zCon1</span><span class="o">*</span><span class="n">zCon1</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">Xi</span></div>
+
+    
+<div class="viewcode-block" id="BLPRXP_BToP.IW">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.html#slophep.Predictions.FormFactorsBToP.BLPRXP_BToP.IW">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">IW</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">IWs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;CHI2&quot;</span>  <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Chi21&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Chi2p&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;CHI3&quot;</span>  <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Chi3p&quot;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.0</span><span class="p">),</span>
+            <span class="s2">&quot;ETA&quot;</span>   <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Eta1&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Etap&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;BETA1&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;la1/laB2&quot;</span><span class="p">]</span><span class="o">/</span><span class="mf">4.0</span><span class="p">,</span>
+            <span class="s2">&quot;BETA2&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Beta21&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;BETA3&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;la2/laB2&quot;</span><span class="p">]</span><span class="o">/</span><span class="mf">8.0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Beta3p&quot;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.0</span><span class="p">),</span>
+            <span class="s2">&quot;PHI1&quot;</span>  <span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;la1/laB2&quot;</span><span class="p">]</span><span class="o">/</span><span class="mf">3.</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;la2/laB2&quot;</span><span class="p">]</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Phi1p&quot;</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.</span><span class="p">),</span>
+            <span class="s2">&quot;PHI1Q&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ffpar</span><span class="p">[</span><span class="s2">&quot;Phi1p&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">IWs</span></div>
+
+
+<div class="viewcode-block" id="BLPRXP_BToP.Li1">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.html#slophep.Predictions.FormFactorsBToP.BLPRXP_BToP.Li1">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">Li1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">IWs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="n">IWs</span> <span class="o">=</span> <span class="n">IWs</span> <span class="k">if</span> <span class="n">IWs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">IW</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">li1</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="mf">0.0</span><span class="p">,</span>
+            <span class="mf">4.</span><span class="o">*</span><span class="p">(</span><span class="mf">3.</span><span class="o">*</span> <span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;CHI3&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;CHI2&quot;</span><span class="p">]),</span>
+            <span class="o">-</span><span class="mf">4.</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;CHI3&quot;</span><span class="p">],</span>
+            <span class="mf">4.</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;CHI2&quot;</span><span class="p">],</span>
+            <span class="mf">2.</span><span class="o">*</span> <span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;ETA&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">,</span>
+            <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span>
+            <span class="o">-</span><span class="mf">2.</span><span class="o">*</span> <span class="p">(</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;ETA&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">li1</span></div>
+
+    
+<div class="viewcode-block" id="BLPRXP_BToP.Li2">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.html#slophep.Predictions.FormFactorsBToP.BLPRXP_BToP.Li2">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">Li2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">IWs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="n">IWs</span> <span class="o">=</span> <span class="n">IWs</span> <span class="k">if</span> <span class="n">IWs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">IW</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">la2OverlaB2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;la2/laB2&quot;</span><span class="p">]</span>
+        <span class="n">Li2</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="mf">0.0</span><span class="p">,</span>
+            <span class="mf">2.</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;BETA1&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">4.</span><span class="o">*</span><span class="p">(</span><span class="mf">3.</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;BETA3&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;BETA2&quot;</span><span class="p">]),</span>
+            <span class="mf">2.</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;BETA1&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">4.</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;BETA3&quot;</span><span class="p">],</span>
+            <span class="mf">4.</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;BETA2&quot;</span><span class="p">],</span>
+            <span class="mi">3</span><span class="o">*</span><span class="n">la2OverlaB2</span> <span class="o">+</span> <span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mf">1.</span><span class="p">)</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;PHI1&quot;</span><span class="p">],</span>
+            <span class="n">la2OverlaB2</span> <span class="o">+</span> <span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mf">1.</span><span class="p">)</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;PHI1&quot;</span><span class="p">],</span>
+            <span class="mf">4.</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;PHI1&quot;</span><span class="p">],</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">Li2</span></div>
+
+
+<div class="viewcode-block" id="BLPRXP_BToP.Mi">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.html#slophep.Predictions.FormFactorsBToP.BLPRXP_BToP.Mi">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">Mi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">IWs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="n">IWs</span> <span class="o">=</span> <span class="n">IWs</span> <span class="k">if</span> <span class="n">IWs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">IW</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">la1OverlaB2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;la1/laB2&quot;</span><span class="p">]</span>
+        <span class="n">la2OverlaB2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;la2/laB2&quot;</span><span class="p">]</span>
+        <span class="n">Mi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span> 
+        <span class="n">Mi</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">la1OverlaB2</span><span class="o">+</span> <span class="mf">6.</span><span class="o">*</span> <span class="n">la2OverlaB2</span><span class="o">/</span><span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span>
+            <span class="o">-</span><span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;PHI1&quot;</span><span class="p">]</span> 
+            <span class="o">-</span> <span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;ETA&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">Mi</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="mf">3.</span><span class="o">*</span><span class="n">la2OverlaB2</span><span class="o">/</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mf">1.</span><span class="p">)</span> <span class="o">+</span> <span class="mf">2.</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;PHI1&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;ETA&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span>
+        <span class="n">Mi</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">la1OverlaB2</span><span class="o">/</span><span class="mf">3.</span> 
+            <span class="o">-</span> <span class="n">la2OverlaB2</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mf">4.</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mf">1.</span><span class="p">))</span>
+            <span class="o">+</span> <span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="mf">2.</span><span class="p">)</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;PHI1Q&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">IWs</span><span class="p">[</span><span class="s2">&quot;ETA&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">Mi</span></div>
+
+
+<div class="viewcode-block" id="BLPRXP_BToP.get_hhat">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.html#slophep.Predictions.FormFactorsBToP.BLPRXP_BToP.get_hhat">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_hhat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">(</span><span class="n">q2</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">zBC</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;zBC&quot;</span><span class="p">]</span>
+
+        <span class="c1"># Hs = 1.</span>
+        <span class="n">Hp</span> <span class="o">=</span> <span class="mf">1.</span>
+        <span class="n">Hm</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="n">Ht</span> <span class="o">=</span> <span class="mf">1.</span>
+
+        <span class="c1"># QCD correction functions</span>
+        <span class="c1"># Cps = hqet.CP(w, zBC)</span>
+        <span class="n">Cv1</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CV1</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
+        <span class="n">Cv2</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CV2</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
+        <span class="n">Cv3</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CV3</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
+        <span class="n">Ct1</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CT1</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
+        <span class="n">Ct2</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CT2</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
+        <span class="n">Ct3</span> <span class="o">=</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CT3</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">zBC</span><span class="p">)</span>
+        
+        <span class="c1"># alpha_s</span>
+        <span class="n">ash</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;ash&quot;</span><span class="p">]</span>
+        <span class="n">Hp</span> <span class="o">+=</span> <span class="n">ash</span><span class="o">*</span><span class="p">(</span><span class="n">Cv1</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Cv2</span><span class="o">+</span><span class="n">Cv3</span><span class="p">))</span>
+        <span class="n">Hm</span> <span class="o">+=</span> <span class="n">ash</span><span class="o">*</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Cv2</span><span class="o">-</span><span class="n">Cv3</span><span class="p">)</span>
+        <span class="n">Ht</span> <span class="o">+=</span> <span class="n">ash</span><span class="o">*</span><span class="p">(</span><span class="n">Ct1</span><span class="o">-</span><span class="n">Ct2</span><span class="o">+</span><span class="n">Ct3</span><span class="p">)</span>
+
+        <span class="c1"># Epsilon b and epsilon c</span>
+        <span class="n">eb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;eb&quot;</span><span class="p">]</span>
+        <span class="n">ec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;ec&quot;</span><span class="p">]</span>
+
+        <span class="n">IWs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">IW</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">Li1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Li1</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">IWs</span><span class="p">)</span>
+        
+        <span class="n">Hp</span> <span class="o">+=</span> <span class="p">(</span><span class="n">ec</span> <span class="o">+</span> <span class="n">eb</span><span class="p">)</span><span class="o">*</span><span class="n">Li1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">Hm</span> <span class="o">+=</span> <span class="p">(</span><span class="n">ec</span> <span class="o">-</span> <span class="n">eb</span><span class="p">)</span><span class="o">*</span><span class="n">Li1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">Ht</span> <span class="o">+=</span> <span class="p">(</span><span class="n">ec</span> <span class="o">+</span> <span class="n">eb</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Li1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">Li1</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+
+        <span class="c1"># Upsilon Expansion</span>
+        <span class="n">corrb</span> <span class="o">=</span> <span class="n">eb</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;upsilonb&quot;</span><span class="p">]</span>
+        <span class="n">corrc</span> <span class="o">=</span> <span class="n">ec</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;upsilonc&quot;</span><span class="p">]</span>
+        <span class="n">Hp</span> <span class="o">+=</span> <span class="mf">0.</span>
+        <span class="n">Hm</span> <span class="o">+=</span> <span class="o">-</span><span class="p">(</span><span class="n">corrc</span><span class="o">-</span><span class="n">corrb</span><span class="p">)</span>
+        <span class="n">Ht</span> <span class="o">+=</span> <span class="p">(</span><span class="n">corrc</span><span class="o">+</span><span class="n">corrb</span><span class="p">)</span>
+
+        <span class="c1"># Epsilon c squared</span>
+        <span class="n">ec2</span> <span class="o">=</span> <span class="n">ec</span><span class="o">*</span><span class="n">ec</span>
+        <span class="n">Li2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Li2</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">IWs</span><span class="p">)</span>
+        <span class="c1"># Hps += ec2*(Li2[2]+Li2[3]*(w-1)+Li2[5]-Li2[6]*(w+1))</span>
+        <span class="n">Hp</span> <span class="o">+=</span> <span class="n">ec2</span><span class="o">*</span><span class="n">Li2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">Hm</span> <span class="o">+=</span> <span class="n">ec2</span><span class="o">*</span><span class="n">Li2</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">Ht</span> <span class="o">+=</span> <span class="n">ec2</span><span class="o">*</span><span class="p">(</span><span class="n">Li2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">Li2</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+
+        <span class="c1"># Epsilon b squared</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;With1OverMb2&quot;</span><span class="p">]:</span>
+            <span class="n">eb2</span> <span class="o">=</span> <span class="n">eb</span><span class="o">*</span><span class="n">eb</span>
+            <span class="n">Hp</span> <span class="o">+=</span> <span class="o">+</span><span class="n">eb2</span><span class="o">*</span><span class="n">Li2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">Hm</span> <span class="o">+=</span> <span class="o">-</span><span class="n">eb2</span><span class="o">*</span><span class="n">Li2</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">Ht</span> <span class="o">+=</span> <span class="o">+</span><span class="n">eb2</span><span class="o">*</span><span class="p">(</span><span class="n">Li2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">Li2</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+
+        <span class="c1"># Epsilon b * Epsilon c</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;With1OverMbMc&quot;</span><span class="p">]:</span>
+            <span class="n">eceb</span> <span class="o">=</span> <span class="n">ec</span><span class="o">*</span><span class="n">eb</span>
+            <span class="n">Mi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mi</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">IWs</span><span class="p">)</span>
+            <span class="n">Hp</span> <span class="o">+=</span> <span class="n">eceb</span> <span class="o">*</span> <span class="p">(</span><span class="n">Mi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Mi</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+            <span class="n">Hm</span> <span class="o">+=</span> <span class="mf">0.</span>
+            <span class="n">Ht</span> <span class="o">+=</span> <span class="n">eceb</span> <span class="o">*</span> <span class="p">(</span><span class="n">Mi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Mi</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">-</span> <span class="mf">2.</span><span class="o">*</span><span class="n">Mi</span><span class="p">[</span><span class="mi">15</span><span class="p">])</span>
+
+        <span class="c1"># alpha_s/mb, alpha_s/mc</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;WithAsOverM&quot;</span><span class="p">]:</span>
+            <span class="n">asec</span> <span class="o">=</span> <span class="n">ash</span><span class="o">*</span><span class="n">ec</span>
+            <span class="n">aseb</span> <span class="o">=</span> <span class="n">ash</span><span class="o">*</span><span class="n">eb</span>
+            <span class="n">cmagc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;cmagc&quot;</span><span class="p">]</span>
+            <span class="n">cmagb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;cmagb&quot;</span><span class="p">]</span>
+            <span class="n">bound_lo</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="n">md</span><span class="o">.</span><span class="n">_DER_EPS</span>
+            <span class="n">dCv1</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">derivative</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CV1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">zBC</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">bound_lo</span> <span class="o">=</span> <span class="n">bound_lo</span><span class="p">)</span>
+            <span class="n">dCv2</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">derivative</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CV2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">zBC</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">bound_lo</span> <span class="o">=</span> <span class="n">bound_lo</span><span class="p">)</span>
+            <span class="n">dCv3</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">derivative</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CV3</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">zBC</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">bound_lo</span> <span class="o">=</span> <span class="n">bound_lo</span><span class="p">)</span>
+            <span class="n">dCt1</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">derivative</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CT1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">zBC</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">bound_lo</span> <span class="o">=</span> <span class="n">bound_lo</span><span class="p">)</span>
+            <span class="n">dCt2</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">derivative</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CT2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">zBC</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">bound_lo</span> <span class="o">=</span> <span class="n">bound_lo</span><span class="p">)</span>
+            <span class="n">dCt3</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">derivative</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">hqet</span><span class="o">.</span><span class="n">CT3</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">zBC</span><span class="p">),</span> <span class="n">w</span><span class="p">,</span> <span class="n">bound_lo</span> <span class="o">=</span> <span class="n">bound_lo</span><span class="p">)</span>
+
+            <span class="n">Hp</span> <span class="o">+=</span> <span class="n">asec</span> <span class="o">*</span> <span class="p">(</span><span class="n">cmagc</span><span class="o">*</span><span class="n">Li1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Li1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">Cv1</span> <span class="o">-</span> <span class="n">Li1</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="n">Cv3</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Li1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">Li1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="n">Cv2</span> <span class="o">+</span> <span class="n">Cv3</span><span class="p">))</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">dCv1</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">dCv2</span> <span class="o">+</span> <span class="n">dCv3</span><span class="p">))</span><span class="o">/</span><span class="mf">2.</span><span class="p">))</span>
+            <span class="n">Hm</span> <span class="o">+=</span> <span class="n">asec</span> <span class="o">*</span> <span class="p">(</span><span class="n">Li1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">Cv1</span> <span class="o">+</span> <span class="n">Li1</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="n">Cv3</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="n">Li1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">Li1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="n">Cv2</span> <span class="o">-</span> <span class="n">Cv3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">dCv2</span> <span class="o">-</span> <span class="n">dCv3</span><span class="p">)))</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+            <span class="n">Ht</span> <span class="o">+=</span> <span class="n">asec</span> <span class="o">*</span> <span class="p">(</span><span class="n">cmagc</span><span class="o">*</span><span class="n">Li1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Li1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">Ct1</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">Li1</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">Ct3</span> <span class="o">+</span> <span class="n">Li1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">Ct1</span> <span class="o">-</span> <span class="n">Ct2</span> <span class="o">+</span> <span class="n">Ct3</span><span class="p">)</span> <span class="o">+</span> <span class="n">Li1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">Ct2</span> <span class="o">+</span> <span class="n">Ct3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">dCt1</span> <span class="o">-</span> <span class="n">dCt2</span> <span class="o">+</span> <span class="n">dCt3</span><span class="p">))</span>
+            
+            <span class="n">Hp</span> <span class="o">+=</span> <span class="n">aseb</span> <span class="o">*</span> <span class="p">(</span><span class="n">cmagb</span><span class="o">*</span><span class="n">Li1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Li1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">Cv1</span> <span class="o">-</span> <span class="n">Li1</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="n">Cv2</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Li1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">Li1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="n">Cv2</span> <span class="o">+</span> <span class="n">Cv3</span><span class="p">))</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">dCv1</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">dCv2</span> <span class="o">+</span> <span class="n">dCv3</span><span class="p">))</span><span class="o">/</span><span class="mf">2.</span><span class="p">))</span>
+            <span class="n">Hm</span> <span class="o">+=</span> <span class="n">aseb</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">Li1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">Cv1</span><span class="p">)</span> <span class="o">-</span> <span class="n">Li1</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="n">Cv2</span> <span class="o">+</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="n">Li1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">Li1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="n">Cv2</span> <span class="o">-</span> <span class="n">Cv3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">dCv2</span> <span class="o">-</span> <span class="n">dCv3</span><span class="p">)))</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+            <span class="n">Ht</span> <span class="o">+=</span> <span class="n">aseb</span> <span class="o">*</span> <span class="p">(</span><span class="n">cmagb</span><span class="o">*</span><span class="n">Li1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Li1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">Ct1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">Li1</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">Ct2</span> <span class="o">+</span> <span class="n">Li1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">Ct1</span> <span class="o">-</span> <span class="n">Ct2</span> <span class="o">+</span> <span class="n">Ct3</span><span class="p">)</span> <span class="o">-</span> <span class="n">Li1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">Ct2</span> <span class="o">+</span> <span class="n">Ct3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">dCt1</span> <span class="o">-</span> <span class="n">dCt2</span> <span class="o">+</span> <span class="n">dCt3</span><span class="p">))</span>
+
+
+        <span class="n">h</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;h+&quot;</span> <span class="p">:</span> <span class="n">Hp</span><span class="p">,</span>
+            <span class="s2">&quot;h-&quot;</span> <span class="p">:</span> <span class="n">Hm</span><span class="p">,</span>
+            <span class="s2">&quot;hT&quot;</span> <span class="p">:</span> <span class="n">Ht</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">h</span></div>
+
+
+<div class="viewcode-block" id="BLPRXP_BToP.get_ff">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.FormFactorsBToP.html#slophep.Predictions.FormFactorsBToP.BLPRXP_BToP.get_ff">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_ff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;FF in BLPRXP parameterisation from https://arxiv.org/abs/2206.11281 as in HAMMER v1.4.1</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q2 : float</span>
+<span class="sd">            q2 value to calculate FF at</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            FF dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Mb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mb&quot;</span><span class="p">]</span>
+        <span class="n">Mc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internalparams</span><span class="p">[</span><span class="s2">&quot;Mc&quot;</span><span class="p">]</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">(</span><span class="n">q2</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># IG</span>
+        <span class="n">Xi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xi</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">hhat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_hhat</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="p">{</span><span class="n">iff</span> <span class="p">:</span> <span class="n">Xi</span><span class="o">*</span><span class="n">hhat</span><span class="p">[</span><span class="n">iff</span><span class="p">]</span> <span class="k">for</span> <span class="n">iff</span> <span class="ow">in</span> <span class="n">hhat</span><span class="p">}</span>
+        
+        <span class="k">return</span> <span class="n">h_to_f</span><span class="p">(</span><span class="n">Mb</span><span class="p">,</span> <span class="n">Mc</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">q2</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, dvicoben.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -18,6 +18,12 @@ class BLPR_Hammer(FFBToP.BLPR_BToP_Hammer):
         self._name = "BdToD_BLPR_Hammer"
 
 
+class BLPRXP(FFBToP.BLPRXP_BToP):
+    def __init__(self, par: dict = None, scale: float = None, *ffargs):
+        super().__init__("B0", "D+", par, scale, *ffargs)
+        self._name = "BdToD_BLPRXP"
+
+
 class BGL(FFBToP.BGL_BToP):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("B0", "D+", par, scale, *ffargs)

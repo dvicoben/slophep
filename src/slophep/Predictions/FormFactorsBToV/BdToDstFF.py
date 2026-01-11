@@ -6,6 +6,7 @@ class ISGW2(FFBToV.ISGW2_BToV):
         super().__init__("B0", "D*+", par, scale, *ffargs)
         self._name = "BdToDst_ISGW2"
 
+
 class BLPR(FFBToV.BLPR_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("B0", "D*+", par, scale, *ffargs)
@@ -16,6 +17,12 @@ class BLPR_Hammer(FFBToV.BLPR_BToV_Hammer):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("B0", "D*+", par, scale, *ffargs)
         self._name = "BdToDst_BLPR_Hammer"
+
+
+class BLPRXP(FFBToV.BLPRXP_BToV):
+    def __init__(self, par: dict = None, scale: float = None, *ffargs):
+        super().__init__("B0", "D*+", par, scale, *ffargs)
+        self._name = "BdToDst_BLPRXP"
 
 
 class CLN(FFBToV.CLN_BToV):
