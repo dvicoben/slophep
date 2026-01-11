@@ -58,6 +58,18 @@
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.BGL_BToV_Hammer.get_ff"><code class="docutils literal notranslate"><span class="pre">BGL_BToV_Hammer.get_ff()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV"><code class="docutils literal notranslate"><span class="pre">BLPRXP_BToV</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.IW"><code class="docutils literal notranslate"><span class="pre">BLPRXP_BToV.IW()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.Li1"><code class="docutils literal notranslate"><span class="pre">BLPRXP_BToV.Li1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.Li2"><code class="docutils literal notranslate"><span class="pre">BLPRXP_BToV.Li2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.Mi"><code class="docutils literal notranslate"><span class="pre">BLPRXP_BToV.Mi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.calculate_internal"><code class="docutils literal notranslate"><span class="pre">BLPRXP_BToV.calculate_internal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.get_ff"><code class="docutils literal notranslate"><span class="pre">BLPRXP_BToV.get_ff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.get_hhat"><code class="docutils literal notranslate"><span class="pre">BLPRXP_BToV.get_hhat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.xi"><code class="docutils literal notranslate"><span class="pre">BLPRXP_BToV.xi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.z_of_w"><code class="docutils literal notranslate"><span class="pre">BLPRXP_BToV.z_of_w()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.BLPR_BToV"><code class="docutils literal notranslate"><span class="pre">BLPR_BToV</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.BLPR_BToV.get_ff"><code class="docutils literal notranslate"><span class="pre">BLPR_BToV.get_ff()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.BLPR_BToV.get_hhat"><code class="docutils literal notranslate"><span class="pre">BLPR_BToV.get_hhat()</span></code></a></li>
@@ -209,6 +221,69 @@ present here. For that exact correspondence use BGL_Hammer FFs for the decay mod
 </dd>
 </dl>
 </dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToV.BLPRXP_BToV">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">slophep.Predictions.FormFactorsBToV.</span></span><span class="sig-name descname"><span class="pre">BLPRXP_BToV</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">par</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">ffargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToV/BToVFFBLPRXP.html#BLPRXP_BToV"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#slophep.Predictions.FormFactorsBToV.FormFactorBToV" title="slophep.Predictions.FormFactorsBToV.BToVFFBase.FormFactorBToV"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormFactorBToV</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.IW">
+<span class="sig-name descname"><span class="pre">IW</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToV/BToVFFBLPRXP.html#BLPRXP_BToV.IW"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.IW" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.Li1">
+<span class="sig-name descname"><span class="pre">Li1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IWs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToV/BToVFFBLPRXP.html#BLPRXP_BToV.Li1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.Li1" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.Li2">
+<span class="sig-name descname"><span class="pre">Li2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IWs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToV/BToVFFBLPRXP.html#BLPRXP_BToV.Li2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.Li2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.Mi">
+<span class="sig-name descname"><span class="pre">Mi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IWs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToV/BToVFFBLPRXP.html#BLPRXP_BToV.Mi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.Mi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.calculate_internal">
+<span class="sig-name descname"><span class="pre">calculate_internal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rawinternalpar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToV/BToVFFBLPRXP.html#BLPRXP_BToV.calculate_internal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.calculate_internal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.get_ff">
+<span class="sig-name descname"><span class="pre">get_ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToV/BToVFFBLPRXP.html#BLPRXP_BToV.get_ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.get_ff" title="Link to this definition"></a></dt>
+<dd><p>FF in BLPRXP parameterisation from <a class="reference external" href="https://arxiv.org/abs/2206.11281">https://arxiv.org/abs/2206.11281</a> as in HAMMER v1.4.1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>q2</strong> (<em>float</em>) – q2 value to calculate FF at</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>FF dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.get_hhat">
+<span class="sig-name descname"><span class="pre">get_hhat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToV/BToVFFBLPRXP.html#BLPRXP_BToV.get_hhat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.get_hhat" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.xi">
+<span class="sig-name descname"><span class="pre">xi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToV/BToVFFBLPRXP.html#BLPRXP_BToV.xi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.xi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.z_of_w">
+<span class="sig-name descname"><span class="pre">z_of_w</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/slophep/Predictions/FormFactorsBToV/BToVFFBLPRXP.html#BLPRXP_BToV.z_of_w"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#slophep.Predictions.FormFactorsBToV.BLPRXP_BToV.z_of_w" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 

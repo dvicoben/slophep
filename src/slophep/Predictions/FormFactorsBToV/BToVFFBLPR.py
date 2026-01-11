@@ -3,7 +3,6 @@ import numpy as np
 from slophep.Predictions.FormFactorsBToV import FormFactorBToV
 from flavio.physics.bdecays.formfactors import hqet
 from flavio.physics.bdecays.formfactors.b_v.cln import h_to_A
-# from bd2dstlnu.Predictions.BToDstMathTools import h_to_A
 
 
 class BLPR_BToV(FormFactorBToV):
