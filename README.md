@@ -17,7 +17,7 @@ Requirements are listed in `requirements.txt`
 ## Quick
 Ensure you are in a python environment with all requirements in `requirements.txt`, then
 ```
-git clone https://gitlab.cern.ch/dvicoben/slophep.git
+git clone https://github.com/dvicoben/slophep.git
 cd slophep
 source ./setup.sh
 ```
@@ -26,7 +26,7 @@ The script `setup.sh` simply appends `src/` to the `PYTHONPATH` so that contents
 ## Using pip
 In the python environment of your choice, 
 ```
-git clone https://gitlab.cern.ch/dvicoben/slophep.git
+git clone https://github.com/dvicoben/slophep.git
 cd slophep
 pip install -e .
 ```
