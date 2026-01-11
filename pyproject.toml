@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://gitlab.cern.ch/dvicoben/slophep"
+Homepage = "https://github.com/dvicoben/slophep.git"
 
 [build-system]
 requires = [
