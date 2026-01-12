@@ -2,13 +2,16 @@
 
 [![DOI](https://zenodo.org/badge/1132340749.svg)](https://doi.org/10.5281/zenodo.18222257)
 
-Repository for $b\to c\ell\nu$ (and some $b\to u\ell\nu$) observable predictions with varying form factors and Wilson coefficients.
+Repository for $b\to c\ell\nu$ (and some $b\to u\ell\nu$) observable predictions with varying form factors and Wilson coefficients. To be used to generate bands from fit results and to generate predictions for fits/fit models (e.g. for an unfolded fit).
 
-To be used to generate bands from fit results and to generate predictions for fits/fit models (e.g. for an unfolded fit).
+In case of questions, issues, or a particular request please open an issue on GitHub.
 
 Predictions are made using `flavio` to compute the amplitudes and observables. ***Note that angular conventions may differ***. ***PDF/observable normalizations can also differ*** - literature and prediction tools vary in what factors are absorbed by the FFs, amplitudes, observables, decay rate and BR. For consistency it is best to look at rate-normalised observables.
 
-In case of questions, issues, or a particular request you can contact me by mattermost or email (david.vico.benet@cern.ch).
+# Reference
+There is a zenodo doi for the repository. To cite SLOP please obtain your preferred citation from the [zenodo page](https://doi.org/10.5281/zenodo.18222257).
+
+It is stressed that SLOP is a package that relies on or re-implements utilities from elsewhere. As such, any use of SLOP should also cite [flavio](https://flav-io.github.io/), [hammer](https://hammer.physics.lbl.gov/) and [eos](https://eoshep.org/). Please ensure you also cite those tools according to whatever is specified in their documentation.
 
 # Requirements
 Requirements are listed in `requirements.txt`
