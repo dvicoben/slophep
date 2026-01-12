@@ -1,5 +1,7 @@
 # Semi-Leptonic Observable Predictions (SLOP)
 
+[![DOI](https://zenodo.org/badge/1132340749.svg)](https://doi.org/10.5281/zenodo.18222257)
+
 Repository for $b\to c\ell\nu$ (and some $b\to u\ell\nu$) observable predictions with varying form factors and Wilson coefficients.
 
 To be used to generate bands from fit results and to generate predictions for fits/fit models (e.g. for an unfolded fit).
