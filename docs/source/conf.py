@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath('../../src/'))
 project = 'SLOP'
 copyright = '2025, dvicoben'
 author = 'dvicoben'
-release = 'v1.0.0'
+release = 'v1.3.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -38,4 +38,4 @@ autosummary_generate=True
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_rtd_theme'
-html_static_path = ['_static']
+# html_static_path = ['_static']
