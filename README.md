@@ -4,7 +4,7 @@
 
 Repository for $b\to c\ell\nu$ (and some $b\to u\ell\nu$) observable predictions with varying form factors and Wilson coefficients. To be used to generate bands from fit results and to generate predictions for fits/fit models (e.g. for an unfolded fit).
 
-In case of questions, issues, or a particular request please open an issue on GitHub.
+You can find the code documentation online at [https://dvicoben.github.io/slophep/](https://dvicoben.github.io/slophep/). In case of questions, issues, or a particular request please open an issue on GitHub.
 
 Predictions are made using `flavio` to compute the amplitudes and observables. ***Note that angular conventions may differ***. ***PDF/observable normalizations can also differ*** - literature and prediction tools vary in what factors are absorbed by the FFs, amplitudes, observables, decay rate and BR. For consistency it is best to look at rate-normalised observables.
 
@@ -46,7 +46,7 @@ which should install the package (`slophep`) and the required dependencies.
 - Additional FF schemes can be implemented - they need to inherit from `FormFactorBToV` and implement the `get_ff(q2)` method, returning FFs in the basis $V, A_0, A_1, A_{12}, T_1, T_2, T_{23}$. See existing schemes for examples.
 - There is a small example of how to handle comparisons with binned experimental results of the observables (`python/example_FLtau_comparison.py`)
 - There are some preliminary scripts for fits (largely illustrative), `python/test_coef_fit.py` and `python/test_FF_fit.py`. Currently working on more optimised fitting interface.
-- Access (available) documentation in `docs/build/html`, open `index.html` in your preferred browser.
+- Access (available) documentation online at [https://dvicoben.github.io/slophep/](https://dvicoben.github.io/slophep/) or locally in `docs/build/html`, open `index.html` in your preferred browser.
 
 
 # About the Predictions
