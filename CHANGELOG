@@ -1,3 +1,9 @@
+2026-02-10 --- Version 1.4.0
+    Additions:
+     - Added BGLGeneric_BToV for higher order BGL parameterisations
+     - Added BGL_FLabMILC for B->Dst for easy reproduction of https://arxiv.org/pdf/2105.14019
+     - Added BGL_JLQCD for B->Dst for easy reproduction of https://arxiv.org/pdf/2306.05657
+
 2026-01-11 --- Version 1.3.0
     Additions:
      - Added BLPRXP for B->D
