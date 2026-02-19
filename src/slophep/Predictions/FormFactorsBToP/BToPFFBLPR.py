@@ -11,22 +11,25 @@ class BLPR_BToP(FormFactorBToP):
 
         self._name = "BToP_BLPR"
         self._ffpar = {
-            "RhoSq" : 1.24,
-            "Chi21" : -0.06,
-            "Chi2p" : 0.0,
-            "Chi3p" : 0.05,
-            "Eta1"  : 0.30,
-            "Etap"  : -0.05,
-            "dV20"  : 0.0
+            "RhoSq"     : 1.24,
+            "Chi21"     : -0.06,
+            "Chi2p"     : 0.0,
+            "Chi3p"     : 0.05,
+            "Eta1"      : 0.30,
+            "Etap"      : -0.05,
+            "dV20"      : 0.0,
+            "mb"        : 4.710,
+            "delta_mbc" : 3.4,
+            "normscale" : 1.0
         }
         self._params = [
-            "RhoSq", "Chi21", "Chi2p", "Chi3p", "Eta1", "Etap", "dV20"
+            "RhoSq", "Chi21", "Chi2p", "Chi3p", "Eta1", "Etap", "dV20",
+            "mb", "delta_mbc", "normscale"
         ]
         internalparams = {
             "ash"       : 0.26/np.pi,
-            "la"        : 0.57115,
-            "mb"        : 4.710,
-            "delta_mbc" : 3.4,
+            "mbarB"     : 5.313,
+            "lam1"      : -0.3, # GeV^2
             "ebReb"     : 0.861,
             "ecRec"     : 0.822,
             "rD"        : self.par['m_D0']/self.par['m_B0']
@@ -57,10 +60,10 @@ class BLPR_BToP(FormFactorBToP):
 
         w = max(self.w(q2), 1)
         ash = self.internalparams["ash"]
-        la = self.internalparams["la"]
-        mb = self.internalparams["mb"]
+        mb = self.ffpar["mb"]
+        la = self.internalparams["mbarB"] - mb + self.internalparams["lam1"]/(2*mb)
         eb = la/(2*mb)
-        mc = mb - self.internalparams["delta_mbc"]
+        mc = mb - self.ffpar["delta_mbc"]
         ec = la/(2*mc)
         ebReb = self.internalparams["ebReb"]
         ecRec = self.internalparams["ecRec"]
@@ -125,10 +128,11 @@ class BLPR_BToP(FormFactorBToP):
         # Ht = 1.+ash*(Ct1-Ct2+Ct3)+(ec+eb)*L1 - (ec*L4c+eb*L4b)     # HAMMERv1.2.1
         Ht = 1.+ash*(Ct1-Ct2+Ct3)+(ec+eb)*(L1 - L4) - (corrc+corrb)
 
+        normscale = self.ffpar["normscale"]
         ff = {
-            "h+" : xi*Hp,
-            "h-" : xi*Hm,
-            "hT" : xi*Ht
+            "h+" : normscale*xi*Hp,
+            "h-" : normscale*xi*Hm,
+            "hT" : normscale*xi*Ht
         }
         return h_to_f(mB, mP, ff, q2)
     
