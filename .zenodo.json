@@ -1,0 +1,17 @@
+{
+    "access_right": "open",
+    "creators": [
+        {
+            "name": "Vico Benet, David",
+            "orcid": "0009-0009-3494-2825"
+        }
+    ],
+    "description": "SLOP (Semi-Leptonic Observable Predictions) is a python package for computation of semi-leptonic angular observables from varying Wilson coefficients and form factors. The implementation uses flavio and implements form factors from Hammer and EOS to generate predictions and errorbands for either built-in or user-defined form-factors at varying Wilson Coefficients.",
+    "references": [
+        "D. Straub, \"flavio: a Python package for flavour and precision phenomenology in the Standard Model and beyond\" arXiv:1810.08132",
+        "The EOS Authors Collaboration, van Dyk, D., & and others. (2025). EOS: A Software for Flavor Physics Phenomenology (v1.0.19). Zenodo. https://doi.org/10.5281/zenodo.17792609",
+        "Bernlochner, F. U., Duell, S., Ligeti, Z., Papucci, M., & Robinson, D. J. (2024). HAMMER - Helicity Amplitude Module for Matrix Element Reweighting (1.4.1). Zenodo. https://doi.org/10.5281/zenodo.11245573"
+    ],
+    "title": "SLOP: A package for Semi-Leptonic Observable Predictions",
+    "version": "1.4.1"
+}
