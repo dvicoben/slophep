@@ -27,8 +27,8 @@ obs_hpqcd_tau_fluct.fluctuate(Nfluct)
 def get_spectrum_float(qsq, obs, attr, fluct):
     res = {"val" : [], "lo" : [], "hi" : []}
     for iq2 in qsq:
-        o = getattr(obs, attr)(iq2)
         o_err = fluct.get_error(attr, [iq2])
+        o = getattr(obs, attr)(iq2)
         res["val"].append(o)
         res["lo"].append(o_err[0])
         res["hi"].append(o_err[1])

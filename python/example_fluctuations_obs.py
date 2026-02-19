@@ -67,8 +67,8 @@ print(fferr_bsz)
 def get_spectrum_dict(qsq, obs, attr, fluct):
     res = {}
     for iq2 in qsq:
-        o = getattr(obs, attr)(iq2)
         o_err = fluct.get_error(attr, [iq2])
+        o = getattr(obs, attr)(iq2)
         for iobs in o:
             if iobs not in res:
                 res[iobs] = {"val" : [], "lo" : [], "hi" : []}

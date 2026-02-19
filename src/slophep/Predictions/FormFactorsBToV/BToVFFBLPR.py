@@ -11,22 +11,25 @@ class BLPR_BToV(FormFactorBToV):
         
         self._name = "BToV_BLPR"
         self._ffpar = {
-            "RhoSq" : 1.24,
-            "Chi21" : -0.06,
-            "Chi2p" : 0.0,
-            "Chi3p" : 0.05,
-            "Eta1"  : 0.30,
-            "Etap"  : -0.05,
-            "dV20"  : 0.0
-        }
-        self._params = ["RhoSq", "Chi21", "Chi2p", "Chi3p", "Eta1", "Etap", "dV20"]
-        internalparams = {
-            "ash"       : 0.26/np.pi,
-            "la"        : 0.57115,
+            "RhoSq"     : 1.24,
+            "Chi21"     : -0.06,
+            "Chi2p"     : 0.0,
+            "Chi3p"     : 0.05,
+            "Eta1"      : 0.30,
+            "Etap"      : -0.05,
+            "dV20"      : 0.0,
             "mb"        : 4.710,
             "delta_mbc" : 3.4,
+            "normscale" : 1.0
+        }
+        self._params = ["RhoSq", "Chi21", "Chi2p", "Chi3p", "Eta1", "Etap", "dV20",
+                        "mb", "delta_mbc", "normscale"]
+        internalparams = {
+            "ash"       : 0.26/np.pi,
             "ebReb"     : 0.861,
             "ecRec"     : 0.822,
+            "mbarB"     : 5.313,
+            "lam1"      : -0.3, # GeV^2
             "rD"        : self.par['m_D0']/self.par['m_B0']
         }
         self._internalparams.update(internalparams)
@@ -49,16 +52,16 @@ class BLPR_BToV(FormFactorBToV):
 
         w = max(self.w(q2), 1)
         ash = self.internalparams["ash"]
-        la = self.internalparams["la"]
-        mb = self.internalparams["mb"]
+        mb = self.ffpar["mb"]
+        la = self.internalparams["mbarB"] - mb + self.internalparams["lam1"]/(2*mb)
         eb = la/(2*mb)
-        mc = mb - self.internalparams["delta_mbc"]
+        mc = mb - self.ffpar["delta_mbc"]
         ec = la/(2*mc)
         ebReb = self.internalparams["ebReb"]
         ecRec = self.internalparams["ecRec"]
         corrb = eb*(1.-ebReb)
         corrc = ec*(1.-ecRec)
-        zBC = mc/mb
+        zBC   = mc/mb
 
         # z = ffcommon.z(mB, mV, q2, t0='tm')
         RhoSq = self.ffpar["RhoSq"]
@@ -133,15 +136,16 @@ class BLPR_BToV(FormFactorBToV):
         Ht1 = 1.+ash*(Ct1+0.5*(w-1)*(Ct2-Ct3))+ec*(L2)+eb*(L1)
         Ht2 = 0.5*(w+1)*ash*(Ct2+Ct3)+ec*(L5)-eb*(L4) +corrc-corrb
         Ht3 = ash*(Ct2)+ec*(L6-L3) +2.*corrc/(w+1.)
-
+        
+        normscale = self.ffpar["normscale"]
         h = {
-            "V" : xi*Hv,
-            "A1" : xi*Ha1,
-            "A2" : xi*Ha2,
-            "A3" : xi*Ha3,
-            "T1" : xi*Ht1,
-            "T2" : xi*Ht2,
-            "T3" : xi*Ht3
+            "V"  : normscale*xi*Hv,
+            "A1" : normscale*xi*Ha1,
+            "A2" : normscale*xi*Ha2,
+            "A3" : normscale*xi*Ha3,
+            "T1" : normscale*xi*Ht1,
+            "T2" : normscale*xi*Ht2,
+            "T3" : normscale*xi*Ht3
         }
         # NOTE: this performs the translation https://arxiv.org/pdf/1309.0301 eqns. 38-39,
         # should be analgous to eqns B7-B13 in https://arxiv.org/pdf/1908.09398
