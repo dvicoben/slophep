@@ -1,4 +1,5 @@
 import flavio
+from slophep.Predictions.particle_params import get_default_params
 from slophep.Predictions.FormFactorBase import FormFactor
 
 class ObservableBase:
@@ -9,7 +10,7 @@ class ObservableBase:
                  scale: float = 4.8,
                  ):
         """Base class for predictions to handle WC and FF setters"""
-        self._par: dict = flavio.default_parameters.get_central_all()
+        self._par: dict = get_default_params() if par is None else par
         if type(par) == dict:
             self._par = par
         self._scale: float = scale
