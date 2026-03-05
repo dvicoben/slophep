@@ -3,6 +3,8 @@ import numpy as np
 from slophep.Predictions.Observables import ObservableBase
 from slophep.Predictions.FormFactorsBToDstst import FormFactorBToD1
 
+import flavio
+from flavio.physics.running import running
 from flavio.physics.bdecays.wilsoncoefficients import get_wceff_fccc_std
 from flavio.physics import ckm
 
@@ -115,11 +117,18 @@ class BToD1EllNuPrediction(ObservableBase):
         )
         return gamma
 
+    def dGdq2(self, q2: float) -> float:
+        # mb = running.get_mb(self.par, self.scale)
+        # wc = get_wceff_fccc_std(self.wc_obj, self.par, self._qiqj, self.lep, self.nu, mb, self.scale, nf=5)
+        # if self.lep != self.nu and all(C == 0 for C in wc.values()):
+        #     # if all WCs vanish, so does the AC!
+        #     return 0.0
 
-    # def get_rate(self, q2: float) -> float:
-    #     mb = running.get_mb(self.par, self.scale)
-    #     wc = get_wceff_fccc_std(self.wc_obj, self.par, self._qiqj, self.lep, self.nu, mb, self.scale, nf=5)
-    #     if self.lep != self.nu and all(C == 0 for C in wc.values()):
-    #         # if all WCs vanish, so does the AC!
-    #         return 0.0
+        # SM only for now
+        return self.dGdq2_SM(q2)
+
+    def Gamma(self) -> float:
+        return flavio.math.integrate.nintegrate(self.dGdq2, self.q2min, self.q2max)
+
+    
         
