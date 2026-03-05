@@ -5,7 +5,7 @@ from slophep.Predictions.Observables.LbToOneHalfpEllNuObs import LbToOneHalfpEll
 from slophep.Predictions.Observables.ObservablesBToV import BdToDstEllNuPrediction, BsToDsstEllNuPrediction
 from slophep.Predictions.Observables.ObservablesBToP import BuToDEllNuPrediction, BdToDEllNuPrediction, BdToPiEllNuPrediction
 from slophep.Predictions.Observables.ObservablesBaryonic import LbToLcEllNuPrediction
-from slophep.Predictions.Observables.ObservablesBToDstst import BuToD1EllNuPrediction
+from slophep.Predictions.Observables.ObservablesBToDstst import BuToD1EllNuPrediction, BuToD1stEllNuPrediction
 
 __all__ = [
     "ObservableBase",
@@ -13,5 +13,5 @@ __all__ = [
     "BdToDstEllNuPrediction", "BsToDsstEllNuPrediction",
     "BuToDEllNuPrediction", "BdToDEllNuPrediction", "BdToPiEllNuPrediction",
     "LbToLcEllNuPrediction",
-    "BuToD1EllNuPrediction"
+    "BuToD1EllNuPrediction", "BuToD1stEllNuPrediction"
 ]
