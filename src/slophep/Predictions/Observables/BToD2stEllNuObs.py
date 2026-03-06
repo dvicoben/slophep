@@ -66,20 +66,26 @@ class BToD2stEllNuPrediction(ObservableBase):
             Vij = ckm.get_ckm(self.par)[0,2] # V_{ub} for b->u transitions
         if qi_qj == 'bc':
             Vij = ckm.get_ckm(self.par)[1,2] # V_{cb} for b->c transitions
-        # if q2 <= ml**2:
-        #     return 0
+        if q2 <= ml**2:
+            return 0
         
         p = GF*GF*(np.abs(Vij)**2)*(mB**5)
         return p
 
     def dGdq2_SM(self, q2: float) -> float:
+        # From arxiv.org/pdf/1711.03110, eq. 32a
         gamma0 = self._rate_prefactor(q2)
+        if gamma0 <= 0:
+            return 0.
+        
         mB = self.par["m_"+self.B]
         mC = self.par["m_"+self.M]
         r = mC/mB
         rhol = (self.par['m_'+self.lep]**2)/(mB**2)
         q2hat = q2/(mB**2)
         w = (mB**2 + mC**2 - q2) / (2 * mB * mC)
+        if w < 1.:
+            return 0.0
         
         ff = self.FF.get_ff(q2)
         kA1 = ff["kA1"]
@@ -107,7 +113,7 @@ class BToD2stEllNuPrediction(ObservableBase):
                 + 3*kV*kV*q2hat*(q2hat + 0.5*rhol)
                 + 2*kA1*kA2*(
                     2*r*q2hat*wmr
-                    +rhol*(3 - r*r - 2*r*2)
+                    +rhol*(3 - r*r - 2*r*w)
                 )
                 + 4*kA1*kA3*wmr*(q2hat + 2*rhol)
                 + 2*kA2*kA3*(
