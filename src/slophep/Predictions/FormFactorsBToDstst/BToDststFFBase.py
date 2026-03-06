@@ -3,7 +3,7 @@ from math import sqrt
 from slophep.Predictions.FormFactorBase import FormFactor
 
 
-class FormFactorBToDz(FormFactor):
+class FormFactorBToD0st(FormFactor):
     def __init__(self, 
                  B: str,
                  C: str,
@@ -13,7 +13,7 @@ class FormFactorBToDz(FormFactor):
         
         self._B = B
         self._C = C
-        self._name: str            = "BToDz_FFBase"
+        self._name: str            = "BToD0st_FFBase"
         self._internalparams: dict = {
             "Mb"         : self.par[f'm_{self.B}'],
             "Mc"         : self.par[f'm_{self.C}'],
