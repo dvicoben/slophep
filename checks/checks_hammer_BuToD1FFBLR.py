@@ -16,14 +16,14 @@ setPlotParams()
 data = np.loadtxt("checks/checks_hammer_BuToD1FFBLR.txt", float, skiprows=1).T
 qsq = data[0]
 hammerFF_spectrum = {
-    "S"    : data[1],
-    "V1"   : data[2],
-    "V2"   : data[3],
-    "V3"   : data[4],
-    "A"    : data[5],
-    "T1"   : data[6],
-    "T2"   : data[7],
-    "T3"   : data[8]
+    "fS"    : data[1],
+    "fV1"   : data[2],
+    "fV2"   : data[3],
+    "fV3"   : data[4],
+    "fA"    : data[5],
+    "fT1"   : data[6],
+    "fT2"   : data[7],
+    "fT3"   : data[8]
 }
 
 # Initializing slop prediction and aligning parameters
@@ -31,9 +31,8 @@ slopFF = BuToD1FF.BLR()
 # Getting spectrum from SLOP
 slopFF_spectrum = chk.get_spectrum_slop(slopFF, qsq, "get_ff")
 
-ff = ["V1", "V2", "V3", "A", "T1", "T2", "T3"]
-# fflabel = [r"$h_{A1}$", r"$h_{A2}$", r"$h_{A3}$", r"$h_{V}$", r"$h_{T1}$", r"$h_{T2}$", r"$h_{T3}$"]
-fflabel = ff
+ff = ["fV1", "fV2", "fV3", "fA", "fT1", "fT2", "fT3"]
+fflabel = [r"$f_{V_1}$", r"$f_{V_2}$", r"$f_{V_3}$", r"$f_{A}$", r"$f_{T_1}$", r"$f_{T_2}$", r"$f_{T_3}$"]
 for iff, ifflabel in zip(ff, fflabel):
     savepath = f"checks/check_hammer_BuToD1FFBLR_{iff}.png"
     cplot = chk.ComparisonPlot(ifflabel)
