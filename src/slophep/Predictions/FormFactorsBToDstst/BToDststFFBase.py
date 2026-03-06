@@ -86,7 +86,7 @@ class FormFactorBToD1st(FormFactor):
         q2 : float
         """
         return {
-            # "S"  : 0.0,
+            "S"  : 0.0,
             "V1" : 0.0,
             "V2" : 0.0,
             "V3" : 0.0,
@@ -185,12 +185,12 @@ class FormFactorBToD2st(FormFactor):
         q2 : float
         """
         return {
-            "kP"  : 0.0,
-            "kA1" : 0.0,
-            "kA2" : 0.0,
-            "kA3" : 0.0,
-            "kV"  : 0.0,
-            "kT1" : 0.0,
-            "kT2" : 0.0,
-            "kT3" : 0.0
+            "P"  : 0.0,
+            "A1" : 0.0,
+            "A2" : 0.0,
+            "A3" : 0.0,
+            "V"  : 0.0,
+            "T1" : 0.0,
+            "T2" : 0.0,
+            "T3" : 0.0
         }
