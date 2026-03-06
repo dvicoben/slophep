@@ -83,10 +83,10 @@ class BToD1EllNuPrediction(ObservableBase):
         w = (mB**2 + mC**2 - q2) / (2 * mB * mC)
         
         ff = self.FF.get_ff(q2)
-        fV1 = ff["V1"]
-        fV2 = ff["V2"]
-        fV3 = ff["V3"]
-        fa  = ff["A"]
+        fV1 = ff["fV1"]
+        fV2 = ff["fV2"]
+        fV3 = ff["fV3"]
+        fa  = ff["fA"]
         wsqm1 = (w**2 - 1)
 
         gamma = 2*gamma0*(r**3)*np.sqrt(wsqm1)*(q2hat - rhol)**2/(q2hat**3)*(

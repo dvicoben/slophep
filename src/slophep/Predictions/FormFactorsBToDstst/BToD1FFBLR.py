@@ -80,13 +80,14 @@ class BLR_BToD1(FormFactorBToD1):
         Ft3 = (3 - eC*(-10*eta1 - 4*(w-1)*eta2 + 5*eta3 + (-1 + 4*w)*tau1 + 5*tau2) + ash*(3*Ct1 - (2 - w)*Ct2 + 3*Ct3) + 3*eB*Fb)/np.sqrt(6.)
 
         ff = {
-            "V1" : LOIWtau*Fv1,
-            "V2" : LOIWtau*Fv2,
-            "V3" : LOIWtau*Fv3,
-            "A"  : LOIWtau*Fa,
-            "T1" : LOIWtau*Ft1,
-            "T2" : LOIWtau*Ft2,
-            "T3" : LOIWtau*Ft3,
+            "fS"  : 0.0        , #Need to fix for NP contributions 
+            "fV1" : LOIWtau*Fv1,
+            "fV2" : LOIWtau*Fv2,
+            "fV3" : LOIWtau*Fv3,
+            "fA"  : LOIWtau*Fa ,
+            "fT1" : LOIWtau*Ft1,
+            "fT2" : LOIWtau*Ft2,
+            "fT3" : LOIWtau*Ft3,
         }
         return ff
 

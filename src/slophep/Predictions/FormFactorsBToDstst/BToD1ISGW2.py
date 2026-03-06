@@ -90,13 +90,14 @@ class ISGW2_BToD1(FormFactorBToD1):
             smearQ2 = np.sqrt(q2maxmean/q2max)
         
         ffs = {
-            "V1" : smearQ2*Fv1,
-            "V2" : smearQ2*Fv2,
-            "V3" : smearQ2*Fv3,
-            "A"  : smearQ2*Fa,
-            "T1" : 0.0,
-            "T2" : 0.0,
-            "T3" : 0.0
+            "fS"  : 0.0,
+            "fV1" : smearQ2*Fv1,
+            "fV2" : smearQ2*Fv2,
+            "fV3" : smearQ2*Fv3,
+            "fA"  : smearQ2*Fa,
+            "fT1" : 0.0,
+            "fT2" : 0.0,
+            "fT3" : 0.0
         }
 
         return ffs

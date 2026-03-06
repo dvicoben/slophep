@@ -90,14 +90,14 @@ class ISGW2_BToD2st(FormFactorBToD2st):
         Kv = 2*hf*mb*sqmbmx
 
         ffs = {
-            "P"  : 0.0,
-            "A1" : Ka1,
-            "A2" : Ka2,
-            "A3" : Ka3,
-            "V"  : Kv,
-            "T1" : 0.0,
-            "T2" : 0.0,
-            "T3" : 0.0,
+            "kP"  : 0.0,
+            "kA1" : Ka1,
+            "kA2" : Ka2,
+            "kA3" : Ka3,
+            "kV"  : Kv,
+            "kT1" : 0.0,
+            "kT2" : 0.0,
+            "kT3" : 0.0,
         }
 
         return ffs
