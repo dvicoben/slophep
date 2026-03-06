@@ -39,7 +39,7 @@ class BLR_BToD1(FormFactorBToD1):
 
         Mb2 = Mb*Mb
         Mc2 = Mc*Mc
-        w = (Mb2 + Mc2 - q2)/(2.*Mb*Mc)
+        w = max((Mb2 + Mc2 - q2)/(2.*Mb*Mc), 1.0)
         zBC = self.internalparams["mc"]/self.internalparams["mb"]
         eB = 1./(2.*self.internalparams["mb"])
         eC = 1./(2.*self.internalparams["mc"])
