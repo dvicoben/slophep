@@ -53,3 +53,101 @@ class BuToD2stEllNuPrediction(BToD2stEllNuPrediction):
                 scale: float = 4.8,
                 ):
         super().__init__("B+", "D2*0", "bc", lep, nu, FF, ffargs, par, scale)
+
+
+
+class BdToD1EllNuPrediction(BToD1EllNuPrediction):
+   def __init__(self, 
+                lep: str, 
+                nu: str,
+                FF: FormFactorBToD1,
+                ffargs: list = [],
+                par: dict = None,
+                scale: float = 4.8,
+                ):
+        super().__init__("B0", "D1+", "bc", lep, nu, FF, ffargs, par, scale)
+
+
+class BdToD0stEllNuPrediction(BToD0stEllNuPrediction):
+   def __init__(self, 
+                lep: str, 
+                nu: str,
+                FF: FormFactorBToD0st,
+                ffargs: list = [],
+                par: dict = None,
+                scale: float = 4.8,
+                ):
+        super().__init__("B0", "D0*+", "bc", lep, nu, FF, ffargs, par, scale)
+
+
+class BdToD1stEllNuPrediction(BToD1stEllNuPrediction):
+   def __init__(self, 
+                lep: str, 
+                nu: str,
+                FF: FormFactorBToD1st,
+                ffargs: list = [],
+                par: dict = None,
+                scale: float = 4.8,
+                ):
+        super().__init__("B0", "D1*+", "bc", lep, nu, FF, ffargs, par, scale)
+
+
+class BdToD2stEllNuPrediction(BToD2stEllNuPrediction):
+   def __init__(self, 
+                lep: str, 
+                nu: str,
+                FF: FormFactorBToD2st,
+                ffargs: list = [],
+                par: dict = None,
+                scale: float = 4.8,
+                ):
+        super().__init__("B0", "D2*+", "bc", lep, nu, FF, ffargs, par, scale)
+
+
+
+class BsToDs1EllNuPrediction(BToD1EllNuPrediction):
+   def __init__(self, 
+                lep: str, 
+                nu: str,
+                FF: FormFactorBToD1,
+                ffargs: list = [],
+                par: dict = None,
+                scale: float = 4.8,
+                ):
+        super().__init__("Bs", "Ds1+", "bc", lep, nu, FF, ffargs, par, scale)
+
+
+class BsToDs0stEllNuPrediction(BToD0stEllNuPrediction):
+   def __init__(self, 
+                lep: str, 
+                nu: str,
+                FF: FormFactorBToD0st,
+                ffargs: list = [],
+                par: dict = None,
+                scale: float = 4.8,
+                ):
+        super().__init__("Bs", "Ds0*+", "bc", lep, nu, FF, ffargs, par, scale)
+
+
+class BsToDs1stEllNuPrediction(BToD1stEllNuPrediction):
+   def __init__(self, 
+                lep: str, 
+                nu: str,
+                FF: FormFactorBToD1st,
+                ffargs: list = [],
+                par: dict = None,
+                scale: float = 4.8,
+                ):
+        super().__init__("Bs", "Ds1*+", "bc", lep, nu, FF, ffargs, par, scale)
+
+
+class BsToDs2stEllNuPrediction(BToD2stEllNuPrediction):
+   def __init__(self, 
+                lep: str, 
+                nu: str,
+                FF: FormFactorBToD2st,
+                ffargs: list = [],
+                par: dict = None,
+                scale: float = 4.8,
+                ):
+        super().__init__("Bs", "Ds2*+", "bc", lep, nu, FF, ffargs, par, scale)

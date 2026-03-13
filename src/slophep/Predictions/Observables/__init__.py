@@ -5,7 +5,11 @@ from slophep.Predictions.Observables.LbToOneHalfpEllNuObs import LbToOneHalfpEll
 from slophep.Predictions.Observables.ObservablesBToV import BdToDstEllNuPrediction, BsToDsstEllNuPrediction
 from slophep.Predictions.Observables.ObservablesBToP import BuToDEllNuPrediction, BdToDEllNuPrediction, BdToPiEllNuPrediction
 from slophep.Predictions.Observables.ObservablesBaryonic import LbToLcEllNuPrediction
-from slophep.Predictions.Observables.ObservablesBToDstst import BuToD1EllNuPrediction, BuToD0stEllNuPrediction, BuToD1stEllNuPrediction, BuToD2stEllNuPrediction
+from slophep.Predictions.Observables.ObservablesBToDstst import (
+    BuToD1EllNuPrediction, BuToD0stEllNuPrediction, BuToD1stEllNuPrediction, BuToD2stEllNuPrediction,
+    BdToD1EllNuPrediction, BdToD0stEllNuPrediction, BdToD1stEllNuPrediction, BdToD2stEllNuPrediction,
+    BsToDs1EllNuPrediction, BsToDs0stEllNuPrediction, BsToDs1stEllNuPrediction, BsToDs2stEllNuPrediction
+)
 
 __all__ = [
     "ObservableBase",
@@ -13,5 +17,7 @@ __all__ = [
     "BdToDstEllNuPrediction", "BsToDsstEllNuPrediction",
     "BuToDEllNuPrediction", "BdToDEllNuPrediction", "BdToPiEllNuPrediction",
     "LbToLcEllNuPrediction",
-    "BuToD1EllNuPrediction", "BuToD0stEllNuPrediction", "BuToD1stEllNuPrediction", "BuToD2stEllNuPrediction"
+    "BuToD1EllNuPrediction", "BuToD0stEllNuPrediction", "BuToD1stEllNuPrediction", "BuToD2stEllNuPrediction",
+    "BdToD1EllNuPrediction", "BdToD0stEllNuPrediction", "BdToD1stEllNuPrediction", "BdToD2stEllNuPrediction",
+    "BsToDs1EllNuPrediction", "BsToDs0stEllNuPrediction", "BsToDs1stEllNuPrediction", "BsToDs2stEllNuPrediction"
 ]

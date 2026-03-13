@@ -13,6 +13,15 @@ import slophep.Predictions.FormFactorsBToDstst.FFBuToD1 as BuToD1FF
 import slophep.Predictions.FormFactorsBToDstst.FFBuToD0st as BuToD0stFF
 import slophep.Predictions.FormFactorsBToDstst.FFBuToD1st as BuToD1stFF
 import slophep.Predictions.FormFactorsBToDstst.FFBuToD2st as BuToD2stFF
+import slophep.Predictions.FormFactorsBToDstst.FFBdToD1 as BdToD1FF
+import slophep.Predictions.FormFactorsBToDstst.FFBdToD0st as BdToD0stFF
+import slophep.Predictions.FormFactorsBToDstst.FFBdToD1st as BdToD1stFF
+import slophep.Predictions.FormFactorsBToDstst.FFBdToD2st as BdToD2stFF
+import slophep.Predictions.FormFactorsBToDstst.FFBsToDs1 as BsToDs1FF
+import slophep.Predictions.FormFactorsBToDstst.FFBsToDs0st as BsToDs0stFF
+import slophep.Predictions.FormFactorsBToDstst.FFBsToDs1st as BsToDs1stFF
+import slophep.Predictions.FormFactorsBToDstst.FFBsToDs2st as BsToDs2stFF
+
 
 __all__ = [
     "FormFactorBToD0st", "FormFactorBToD1", "FormFactorBToD1st", "FormFactorBToD2st",
@@ -20,5 +29,7 @@ __all__ = [
     "ISGW2_BToD0st", "BLR_BToD0st",
     "ISGW2_BToD1st", "BLR_BToD1st",
     "ISGW2_BToD2st", "BLR_BToD2st",
-    "BuToD1FF", "BuToD0stFF", "BuToD1stFF", "BuToD2stFF"
+    "BuToD1FF", "BuToD0stFF", "BuToD1stFF", "BuToD2stFF",
+    "BdToD1FF", "BdToD0stFF", "BdToD1stFF", "BdToD2stFF",
+    "BsToDs1FF", "BsToDs0stFF", "BsToDs1stFF", "BsToDs2stFF"
 ]

@@ -11,16 +11,15 @@ class ISGW2_BToD0st(FormFactorBToD0st):
         self._params = []
         # from https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoD1starISGW2.cc
         internalparams = {
-            "msb"     : 5.2                    ,
-            "msd"     : 0.33                   ,
-            "bb2"     : 0.431*0.431            ,
-            "mbb"     : 5.31                   ,
-            "msq"     : 1.82                   ,
-            "bx2"     : 0.33*0.33              ,
-            "mbx"     : (3.0*2.49+2.40)/4.0    ,
-            "mqm"     : 0.1                    ,
-            "nfp"     : 3.0                    ,
-            "SmearQ2" : True
+            "msb" : 5.2                    ,
+            "msd" : 0.33                   ,
+            "bb2" : 0.431*0.431            ,
+            "mbb" : 5.31                   ,
+            "msq" : 1.82                   ,
+            "bx2" : 0.33*0.33              ,
+            "mbx" : (3.0*2.49+2.40)/4.0    ,
+            "mqm" : 0.1                    ,
+            "nfp" : 3.0
         }
         self._internalparams.update(internalparams)
 
