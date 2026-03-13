@@ -2,7 +2,7 @@
     Additions:
      - B->D1, B->D0st, B->D1st, B->D2st ISGW2 FFs
      - B->D1, B->D0st, B->D1st, B->D2st BLR FFs (arxiv.org/pdf/1711.03110)
-     - Bu->D1, Bu->D0st, Bu->D1st, Bu->D2st Observable classes, currently only implement SM decay rates from arxiv.org/pdf/1711.0311
+     - B(u/d/s)->D1, B(u/d/s)->D0st, B(u/d/s)->D1st, B(u/d/s)->D2st Observable classes, currently only implement SM decay rates from arxiv.org/pdf/1711.0311
     Fixes:
      - Changed default parameters used in Observable and FF classes to updated version in
        order to include D** masses missing in flavio's default_parameters
