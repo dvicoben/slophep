@@ -70,7 +70,7 @@ class BToD1EllNuPrediction(ObservableBase):
         if q2 <= ml**2:
             return 0
         
-        p = GF*GF*(np.abs(Vij)**2)*(mB**5)
+        p = GF*GF*(np.abs(Vij)**2)*(mB**5)/(192*(np.pi**3))
         return p
 
     def dGdq2_SM(self, q2: float) -> float:
