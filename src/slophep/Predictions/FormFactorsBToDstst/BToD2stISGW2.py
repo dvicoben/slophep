@@ -47,7 +47,7 @@ class ISGW2_BToD2st(FormFactorBToD2st):
         bb2 = self.internalparams["bb2"]
         bx2 = self.internalparams["bx2"]
 
-        mb = self.internalparams["Mb"] if not mB else mB
+        mb = self.internalparams["Mb"] if mB is None else mB
         mx = mC
         mtb = msb + msd
         mtx = msq + msd

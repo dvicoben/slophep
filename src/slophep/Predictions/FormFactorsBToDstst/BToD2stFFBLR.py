@@ -35,7 +35,7 @@ class BLR_BToD2st(FormFactorBToD2st):
         https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoD2starBLR.cc
         """
         Mc = mC
-        Mb = mB if mB else self.internalparams["Mb"]
+        Mb = self.internalparams["Mb"] if mB is None else mB
 
         Mb2 = Mb*Mb
         Mc2 = Mc*Mc

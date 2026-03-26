@@ -3,7 +3,7 @@ from slophep.Predictions.particle_params import get_default_params
 class FormFactor:
     def __init__(self, par: dict = None, scale: float = None):
         self._par: dict            = get_default_params() if par is None else par
-        self._scale: float         = 4.8 if not scale else scale
+        self._scale: float         = 4.8 if scale is None else scale
 
         self._name: str            = "FFBase"
         self._ffpar: dict          = {}

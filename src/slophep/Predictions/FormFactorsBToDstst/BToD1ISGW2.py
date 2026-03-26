@@ -53,7 +53,7 @@ class ISGW2_BToD1(FormFactorBToD1):
         mup = 1.0/(1.0/msq+1.0/msb)
         mum = 1.0/(1.0/msq-1.0/msb)
         bbx2 = 0.5*(bb2+bx2)
-        mb = self.internalparams["Mb"] if not mB else mB
+        mb = self.internalparams["Mb"] if mB is None else mB
         mx = mC
         tm = (mb-mx)*(mb-mx)
         t = q2 if q2 < tm else 0.99*tm

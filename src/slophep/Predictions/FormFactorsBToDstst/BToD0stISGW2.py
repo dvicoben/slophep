@@ -50,7 +50,7 @@ class ISGW2_BToD0st(FormFactorBToD0st):
         mtb = msb+msd
         mtx = msq+msd
         bbx2 = 0.5*(bb2+bx2)
-        mb = self.internalparams["Mb"] if not mB else mB
+        mb = self.internalparams["Mb"] if mB is None else mB
         mx = mC
         tm = (mb-mx)*(mb-mx)
         t = q2 if q2 < tm else 0.99*tm
