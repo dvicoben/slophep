@@ -72,14 +72,14 @@ class BToD1stEllNuPrediction(ObservableBase):
         p = GF*GF*(np.abs(Vij)**2)*(mB**5)/(192*(np.pi**3))
         return p
 
-    def dGdq2_SM(self, q2: float) -> float:
+    def dGdq2dM_SM(self, q2: float, mC: float = None) -> float:
         # From arxiv.org/pdf/1711.03110, eq. 31a
         gamma0 = self._rate_prefactor(q2)
         if gamma0 <= 0:
             return 0.
         
         mB = self.par["m_"+self.B]
-        mC = self.par["m_"+self.M]
+        mC = self.par["m_"+self.M] if mC is None else mC
         r = mC/mB
         rhol = (self.par['m_'+self.lep]**2)/(mB**2)
         q2hat = q2/(mB**2)
@@ -87,7 +87,7 @@ class BToD1stEllNuPrediction(ObservableBase):
         if w < 1.:
             return 0.0
         
-        ff = self.FF.get_ff(q2)
+        ff = self.FF.get_ff(q2) if mC is None else self.FF.get_ff_mmeson(q2, mC)
         fV1 = ff["gV1"]
         fV2 = ff["gV2"]
         fV3 = ff["gV3"]
@@ -122,8 +122,11 @@ class BToD1stEllNuPrediction(ObservableBase):
         )
         return gamma
 
+    def dGdq2_SM(self, q2: float) -> float:
+        return self.dGdq2dM_SM(q2, None)
 
     def dGdq2(self, q2: float) -> float:
+        # Rates with WCs also in https://scoap3-prod-backend.s3.cern.ch/media/files/79991/10.1088/1674-1137/ace821.pdf
         # mb = running.get_mb(self.par, self.scale)
         # wc = get_wceff_fccc_std(self.wc_obj, self.par, self._qiqj, self.lep, self.nu, mb, self.scale, nf=5)
         # if self.lep != self.nu and all(C == 0 for C in wc.values()):
