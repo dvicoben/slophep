@@ -43,7 +43,10 @@ class LLSW_BToD1st(FormFactorBToD1st):
 
         LambdaD12 = -laB + laS*w
         Gb = (-(laB*(2 + w)) + laS*(1 + 2*w))/(1 + w) - 2*(w-1)*zeta1
-        LOIWzeta = zt1 + (w-1)*ztp
+        # The Belle II EvtGen has callculation of LO IW that differs from the EvtGen code
+        # in https://github.com/belle2/basf2/blob/main/generators/evtgen/models/src/EvtLLSWFF.cc
+        # LOIWzeta = zt1 + (w-1)*ztp
+        LOIWzeta = zt1*(1. + (w-1)*ztp)
 
         Gv1 = -1 + w + eC*(LambdaD12 - 2*(w-1)*chi1) - (1 + w)*eB*Gb
         Gv2 = eC*(2*zeta1 - 2*chi2)
