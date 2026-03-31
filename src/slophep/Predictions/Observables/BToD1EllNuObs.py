@@ -75,6 +75,7 @@ class BToD1EllNuPrediction(ObservableBase):
 
     def dGdq2dM_SM(self, q2: float, mC: float = None) -> float:
         # From arxiv.org/pdf/1711.03110, eq. 31a
+        # And https://scoap3-prod-backend.s3.cern.ch/media/files/79991/10.1088/1674-1137/ace821.pdf eq. 109
         gamma0 = self._rate_prefactor(q2)
         if gamma0 <= 0:
             return 0.
@@ -95,7 +96,7 @@ class BToD1EllNuPrediction(ObservableBase):
         fa  = ff["fA"]
         wsqm1 = (w**2 - 1)
 
-        gamma = 2*gamma0*(r**3)*np.sqrt(wsqm1)*(q2hat - rhol)**2/(q2hat**3)*(
+        gamma = gamma0*(1/(mB*mC))*(r**3)*np.sqrt(wsqm1)*(q2hat - rhol)**2/(q2hat**3)*(
             fV1**2 * (
                 2*q2hat*((w - r)**2 + 2*q2hat)
                 + rhol*(4*((w - r)**2) - q2hat)
