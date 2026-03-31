@@ -103,7 +103,7 @@ class BToD1EllNuPrediction(ObservableBase):
             + wsqm1 * (
                 fV2**2 * (
                     2*(r**2)*q2hat*wsqm1
-                    + rhol*(3*q2hat * 4*(r**2)*wsqm1)
+                    + rhol*(3*q2hat + 4*(r**2)*wsqm1)
                 )
                 + fV3**2 * (
                     2*q2hat*wsqm1
