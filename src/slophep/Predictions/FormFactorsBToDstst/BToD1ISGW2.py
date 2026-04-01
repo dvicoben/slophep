@@ -82,12 +82,12 @@ class ISGW2_BToD1(FormFactorBToD1):
         Fv3 = spmsm*sqmbmx
         Fa = 2*vv*sqmbmx
 
-        # Ad hoc smearing, following EvtGen EvtISGW2FF1P1
+        # Ad hoc smearing, following https://repo.hepforge.org/source/evtgen/browse/master/src/EvtGenModels/EvtISGW2FF.cpp
         smearQ2 = 1.0
         if self.internalparams["SmearQ2"]:
             q2max = (mb-mx)**2
             q2maxmean = (self.internalparams["Mb"]-self.internalparams["Mc"])**2
-            smearQ2 = np.sqrt(q2maxmean/q2max)
+            smearQ2 = np.min((np.sqrt(q2maxmean/q2max), 1000.))
         
         ffs = {
             "fS"  : 0.0,
