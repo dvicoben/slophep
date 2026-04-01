@@ -100,7 +100,7 @@ class BToD0stEllNuPrediction(ObservableBase):
             )
             + gp*gp*(w+1)*(
                 rhol*((1+r*r)*(2*w+1) - 2*r*(w+2))
-                + ((1-r)**2)*(w-1)*q2hat
+                + ((1+r)**2)*(w-1)*q2hat
             )
             -2*gm*gp*(1-r*r)*wsqm1*(q2hat + 2*rhol)
         )
