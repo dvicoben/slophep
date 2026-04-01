@@ -21,3 +21,9 @@ class BLR(FFBToDstst.BLR_BToD2st):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("Bs", "Ds2*+", par, scale, *ffargs)
         self._name = "BsToDs2st_BLR"
+
+
+class LLSW(FFBToDstst.LLSW_BToD2st):
+    def __init__(self, par: dict = None, scale: float = None, *ffargs):
+        super().__init__("Bs", "Ds2*+", par, scale, *ffargs)
+        self._name = "BsToDs2st_LLSW"

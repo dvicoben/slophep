@@ -10,6 +10,8 @@ class LLSW_BToD1st(FormFactorBToD1st):
             "zt1"  : 0.68 ,
             "ztp"  : -0.2 ,
             "zeta1": 0.3  ,
+            "chi1" : 0.   ,
+            "chi2" : 0.   ,
         }
         self._params = []
         # from https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoD1starLLSW.cc
@@ -18,8 +20,6 @@ class LLSW_BToD1st(FormFactorBToD1st):
             "mc"   : 1.4  ,
             "laB"  : 0.4  ,
             "laS"  : 0.76 ,
-            "chi1" : 0.   ,
-            "chi2" : 0.   ,
         }
         self._internalparams.update(internalparams)
 
@@ -36,8 +36,8 @@ class LLSW_BToD1st(FormFactorBToD1st):
         zt1 = self.ffpar["zt1"]
         ztp = self.ffpar["ztp"]
         zeta1 = self.ffpar["zeta1"]
-        chi1 = self.internalparams["chi1"]
-        chi2 = self.internalparams["chi2"]
+        chi1 = self.ffpar["chi1"]
+        chi2 = self.ffpar["chi2"]
         laB = self.internalparams["laB"]
         laS = self.internalparams["laS"]
 
