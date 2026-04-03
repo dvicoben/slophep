@@ -1,7 +1,7 @@
 from math import sqrt
 import numpy as np
 
-from flavio.physics.bdecays.formfactors import hqet
+from slophep.Predictions.Math import hqet
 from flavio.physics.bdecays.formfactors.b_p.cln import h_to_f
 from slophep.Predictions.FormFactorsBToP import FormFactorBToP
 

@@ -13,5 +13,5 @@
         "Bernlochner, F. U., Duell, S., Ligeti, Z., Papucci, M., & Robinson, D. J. (2024). HAMMER - Helicity Amplitude Module for Matrix Element Reweighting (1.4.1). Zenodo. https://doi.org/10.5281/zenodo.11245573"
     ],
     "title": "SLOP: A package for Semi-Leptonic Observable Predictions",
-    "version": "1.4.1"
+    "version": "v1.5.0"
 }

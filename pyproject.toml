@@ -1,6 +1,6 @@
 [project]
 name = "slophep"
-version = "1.4.1"
+version = "1.5.0"
 authors = [
     {name="David Vico Benet", email="david.vico.benet@cern.ch"}
 ]
@@ -11,6 +11,7 @@ classifiers = [
 ]
 dependencies = [
     "numpy",
+    "scipy",
     "matplotlib",
     "flavio",
     "iminuit"

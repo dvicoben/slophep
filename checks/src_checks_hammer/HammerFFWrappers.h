@@ -9,12 +9,19 @@
 #include "Hammer/FormFactors/FFBtoDBGL.hh"
 #include "Hammer/FormFactors/FFBtoDCLN.hh"
 #include "Hammer/FormFactors/FFBtoDBLPR.hh"
+#include "Hammer/FormFactors/FFBtoD1BLR.hh"
+#include "Hammer/FormFactors/FFBtoD1ISGW2.hh"
+#include "Hammer/FormFactors/FFBtoD1starBLR.hh"
+#include "Hammer/FormFactors/FFBtoD1starISGW2.hh"
+#include "Hammer/FormFactors/FFBtoD2starBLR.hh"
+#include "Hammer/FormFactors/FFBtoD2starISGW2.hh"
 #include "Hammer/SettingsHandler.hh"
 #include <vector>
 
 const std::vector<double> BdToDst_MASSES  = {5.27966, 2.01026};
 const std::vector<double> BdToD_MASSES    = {5.27966, 1.86966};
 const std::vector<double> BuToD_MASSES    = {5.27934, 1.86484};
+const std::vector<double> BuToD1_MASSES   = {5.27934, 2.421};
 const std::vector<double> BsToDsst_MASSES = {5.36692, 2.1122};
 
 // BdToDst BGL
@@ -172,6 +179,24 @@ public:
 
   void performEvalAtQ2(double qsq) {
     evalAtPSPoint({qsq}, BsToDsst_MASSES);
+  }
+};
+
+
+
+// BuToD1 BLR
+class BuToD1FFBLRWrapper: public Hammer::FFBtoD1BLR {
+public:
+  BuToD1FFBLRWrapper(Hammer::SettingsHandler& sh) 
+    : Hammer::FFBtoD1BLR()
+  {  
+    setSettingsHandler(sh);
+    initSettings();
+    defineSettings();
+  }
+
+  void performEvalAtQ2(double qsq) {
+    evalAtPSPoint({qsq}, BuToD1_MASSES);
   }
 };
 
