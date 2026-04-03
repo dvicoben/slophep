@@ -1,6 +1,6 @@
 import numpy as np
 from slophep.Predictions.FormFactorsBToV import FormFactorBToV
-from flavio.physics.bdecays.formfactors import hqet
+from slophep.Predictions.Math import hqet
 from flavio.physics.bdecays.formfactors.b_v.cln import h_to_A
 import slophep.Predictions.Math.derivatives as md
 
