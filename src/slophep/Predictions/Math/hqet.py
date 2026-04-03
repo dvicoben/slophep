@@ -1,3 +1,8 @@
+"""
+Order alpha_s corrections, as per https://arxiv.org/pdf/1703.05330
+Implementation is almost entirely copied from flavio, with the exception
+of CP and CS which follow Hammer and https://arxiv.org/pdf/1703.05330
+"""
 from math import sqrt, log, pi
 from functools import lru_cache
 import scipy as sp
@@ -30,16 +35,25 @@ def omega(w: float, z: float) -> float:
 
 
 def CS(w: float, z: float) -> float:
+    # From hammer and BLPR paper https://arxiv.org/pdf/1703.05330
     wz = 1 / 2 * (z + 1 / z)
-    return (2.*omega(w, z)*(w - wz)*z + (-1. + z**2)*log(z)-(-1. + w)*(z+1.)*(z+1.)*r(w))/(3.*(w - wz)*z)
-
-
-def CP_Hammer(w: float, z: float) -> float:
-    wz = 1 / 2 * (z + 1 / z)
-    return (2.*omega(w, z)*(w - wz)*z + (-1. + z**2)*log(z) - (1. + w)*(z+1.)*(z+1.)*r(w))/(3.*(w - wz)*z)
+    return (2.*omega(w, z)*(w - wz)*z 
+            + (-1. + z**2)*log(z)
+            -(-1. + w)*(z+1.)*(z+1.)*r(w)
+            )/(3.*(w - wz)*z)
 
 
 def CP(w: float, z: float) -> float:
+    # From hammer and BLPR paper https://arxiv.org/pdf/1703.05330
+    wz = 1 / 2 * (z + 1 / z)
+    return (2.*omega(w, z)*(w - wz)*z 
+            + (-1. + z**2)*log(z) 
+            - (1. + w)*(z-1.)*(z-1.)*r(w)
+            )/(3.*(w - wz)*z)
+
+
+def CP_flavio(w: float, z: float) -> float:
+    # From flavio https://flav-io.github.io/apidoc/flavio/physics/bdecays/formfactors/hqet.html
     wz = 1 / 2 * (z + 1 / z)
     return ((-2 * (-w + wz) * (-1 + z) * z *
              (-1 + z + z * (1 + z) * log(z)) *
