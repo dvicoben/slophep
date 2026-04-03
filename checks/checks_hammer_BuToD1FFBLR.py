@@ -31,8 +31,8 @@ slopFF = BuToD1FF.BLR()
 # Getting spectrum from SLOP
 slopFF_spectrum = chk.get_spectrum_slop(slopFF, qsq, "get_ff")
 
-ff = ["fV1", "fV2", "fV3", "fA", "fT1", "fT2", "fT3"]
-fflabel = [r"$f_{V_1}$", r"$f_{V_2}$", r"$f_{V_3}$", r"$f_{A}$", r"$f_{T_1}$", r"$f_{T_2}$", r"$f_{T_3}$"]
+ff = ["fS", "fV1", "fV2", "fV3", "fA", "fT1", "fT2", "fT3"]
+fflabel = [r"$f_{S}$", r"$f_{V_1}$", r"$f_{V_2}$", r"$f_{V_3}$", r"$f_{A}$", r"$f_{T_1}$", r"$f_{T_2}$", r"$f_{T_3}$"]
 for iff, ifflabel in zip(ff, fflabel):
     savepath = f"checks/check_hammer_BuToD1FFBLR_{iff}.png"
     cplot = chk.ComparisonPlot(ifflabel)
