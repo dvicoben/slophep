@@ -11,6 +11,7 @@ classifiers = [
 ]
 dependencies = [
     "numpy",
+    "scipy",
     "matplotlib",
     "flavio",
     "iminuit"

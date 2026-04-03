@@ -129,12 +129,13 @@ For BGL parameterizations, references vary in the resonance masses used in the B
 | HPQCD     | Implementation from ancillary files in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). FF from fit to non-zero recoil lattice QCD in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2), as described in Sec. IV B. | [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) |
 
 
-## $B_{(s)} \to D_{(s)}^{**}$
-Implementation of $D_0^*$, $D_1$, $D_1^{*}$, $D_2^*$ states. SM only. Calculation of the rates follows [arXiv:1711.03110](https://arxiv.org/abs/1711.03110). NP rate computation to be implemented.
+## $B_{(s)} \to D_{(s)}^{**} (Pending cross-checks)$
+Implementation of $D_0^*$, $D_1$, $D_1^{*}$ ($D_1^\prime$), $D_2^*$ states. SM only. Calculation of the rates follows [arXiv:1711.03110](https://arxiv.org/abs/1711.03110). NP rate computation to be implemented.
 
 | FF Scheme | Notes | Refs. |
 |-----------|-------|-------|
-| ISGW2     | Implementation meant to reproduce Hammer's. Hammer itself is based on the EvtGen model. | [arXiv:hep-ph/9503486](https://arxiv.org/abs/hep-ph/9503486), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors) |
+| ISGW2     | Implementation meant to reproduce Hammer's. Hammer itself is based on the EvtGen model. | [arXiv:hep-ph/9503486](https://arxiv.org/abs/hep-ph/9503486), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors) | 
+| LLSW      | Implementation meant to reproduce [`EvtLLSWFF`](https://github.com/belle2/basf2/blob/main/generators/evtgen/models/src/EvtLLSWFF.cc) in `basf2` | [Phys.Rev.Lett. 78 (1997) 3995-3998](https://doi.org/10.1103/PhysRevLett.78.3995), [Phys.Rev.D 57 (1998) 308-330](https://doi.org/10.1103/PhysRevD.57.308), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoD1LLSW.cc), [basf2 source](https://github.com/belle2/basf2/blob/main/generators/evtgen/models/src/EvtLLSWFF.cc) |
 | BLR      | Implementation meant to reproduce Hammer's. | [arXiv:1711.03110](https://arxiv.org/abs/1711.03110), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors) |
 
 
