@@ -1,6 +1,6 @@
 import numpy as np
 from slophep.Predictions.FormFactorsBToDstst import FormFactorBToD2st
-from flavio.physics.bdecays.formfactors import hqet
+from slophep.Predictions.Math import hqet
 
 class BLR_BToD2st(FormFactorBToD2st):
     def __init__(self, B: str, C: str, par: dict = None, scale: float = None, *ffargs) -> None:
@@ -59,10 +59,8 @@ class BLR_BToD2st(FormFactorBToD2st):
         LOIWtau = t1 + (w-1)*t1*tp
 
         # QCD correction functions
-        # Cps = hqet.CP(w, zBC)
+        Cps = hqet.CP(w, zBC)
         Cv1 = hqet.CV1(w, zBC)
-        # Cv2 = hqet.CV2(w, zBC)
-        # Cv3 = hqet.CV3(w, zBC)
         Ca1 = hqet.CA1(w, zBC)
         Ca2 = hqet.CA2(w, zBC)
         Ca3 = hqet.CA3(w, zBC)
@@ -70,7 +68,7 @@ class BLR_BToD2st(FormFactorBToD2st):
         Ct2 = hqet.CT2(w, zBC)
         Ct3 = hqet.CT3(w, zBC)
 
-        # Kp = 1 + eC*(-2*eta1 - 2*(w-1)*eta2 + eta3 + (1 + 2*w)*tau1 + tau2) + as*Cps + eB*Fb
+        Kp = 1 + eC*(-2*eta1 - 2*(w-1)*eta2 + eta3 + (1 + 2*w)*tau1 + tau2) + ash*Cps + eB*Fb
         Ka1 = -(eC*(-((1 + w)*(2*eta1 - eta3)) + (w-1)*(tau1 - tau2))) + (-1 - w)*(1 + ash*Ca1) - (w-1)*eB*Fb
         Ka2 = -2*eC*(eta2 + tau1) + ash*Ca2
         Ka3 = 1 - eC*(2*eta1 - 2*eta2 - eta3 + tau1 + tau2) + ash*(Ca1 + Ca3) + eB*Fb
@@ -80,7 +78,7 @@ class BLR_BToD2st(FormFactorBToD2st):
         Kt3 = 2*eC*(-eta2 + tau1) - ash*Ct2
 
         ff = {
-            "kP"  : 0.0        , #Need to fix for NP contributions 
+            "kP"  : LOIWtau*Kp ,
             "kA1" : LOIWtau*Ka1,
             "kA2" : LOIWtau*Ka2,
             "kA3" : LOIWtau*Ka3,

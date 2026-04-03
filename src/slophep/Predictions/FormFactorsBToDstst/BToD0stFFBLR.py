@@ -1,6 +1,6 @@
 import numpy as np
 from slophep.Predictions.FormFactorsBToDstst import FormFactorBToD0st
-from flavio.physics.bdecays.formfactors import hqet
+from slophep.Predictions.Math import hqet
 
 class BLR_BToD0st(FormFactorBToD0st):
     def __init__(self, B: str, C: str, par: dict = None, scale: float = None, *ffargs) -> None:
@@ -58,15 +58,10 @@ class BLR_BToD0st(FormFactorBToD0st):
 
         # QCD correction functions
         Cps = hqet.CP(w, zBC)
-        # Cv1 = hqet.CV1(w, zBC)
-        # Cv2 = hqet.CV2(w, zBC)
-        # Cv3 = hqet.CV3(w, zBC)
         Ca1 = hqet.CA1(w, zBC)
         Ca2 = hqet.CA2(w, zBC)
         Ca3 = hqet.CA3(w, zBC)
         Ct1 = hqet.CT1(w, zBC)
-        # Ct2 = hqet.CT2(w, zBC)
-        # Ct3 = hqet.CT3(w, zBC)
         
         gps = eC*(3*LambdaD12 - 2*(-1 + w*w)*zeta1 + (w-1)*(6*chi1 - 2*(1 + w)*chi2)) + (w-1)*(1 + ash*Cps) - (1 + w)*eB*Gb
         gp = -(eC*((3*LambdaD12)/(1 + w) - 2*(w-1)*zeta1)) + ((w-1)*ash*(Ca2 + Ca3))/2. - eB*Gb

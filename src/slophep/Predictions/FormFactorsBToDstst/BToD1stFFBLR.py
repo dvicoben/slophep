@@ -1,6 +1,6 @@
 import numpy as np
 from slophep.Predictions.FormFactorsBToDstst import FormFactorBToD1st
-from flavio.physics.bdecays.formfactors import hqet
+from slophep.Predictions.Math import hqet
 
 class BLR_BToD1st(FormFactorBToD1st):
     def __init__(self, B: str, C: str, par: dict = None, scale: float = None, *ffargs) -> None:
@@ -57,18 +57,16 @@ class BLR_BToD1st(FormFactorBToD1st):
         LOIWzeta = zt1 + (w-1)*zt1*ztp
 
         # QCD correction functions
-        # Cs
+        Cs  = hqet.CS(w, zBC)
         Cv1 = hqet.CV1(w, zBC)
         Cv2 = hqet.CV2(w, zBC)
         Cv3 = hqet.CV3(w, zBC)
         Ca1 = hqet.CA1(w, zBC)
-        # Ca2 = hqet.CA2(w, zBC)
-        # Ca3 = hqet.CA3(w, zBC)
         Ct1 = hqet.CT1(w, zBC)
         Ct2 = hqet.CT2(w, zBC)
         Ct3 = hqet.CT3(w, zBC)
 
-        # Gs  = 1 - eC*(LambdaD12/(1 + w) - 2*(w-1)*zeta1 + 2*chi1 - 2*(1 + w)*chi2) + as*Cs - eB*Gb;
+        Gs  = 1 - eC*(LambdaD12/(1 + w) - 2*(w-1)*zeta1 + 2*chi1 - 2*(1 + w)*chi2) + ash*Cs - eB*Gb
         Gv1 = eC*(LambdaD12 - 2*(w-1)*chi1) + (w-1)*(1 + ash*Cv1) - (1 + w)*eB*Gb
         Gv2 = eC*(2*zeta1 - 2*chi2) - ash*Cv2
         Gv3 = -1 - eC*(LambdaD12/(1 + w) + 2*zeta1 - 2*chi1 + 2*chi2) - ash*(Cv1 + Cv3) + eB*Gb
@@ -78,7 +76,7 @@ class BLR_BToD1st(FormFactorBToD1st):
         Gt3 = eC*(2*zeta1 + 2*chi2) - ash*Ct2
 
         ff = {
-            "gS"  : 0.0         , #Gs, Need to fix for NP contributions 
+            "gS"  : LOIWzeta*Gs ,
             "gV1" : LOIWzeta*Gv1,
             "gV2" : LOIWzeta*Gv2,
             "gV3" : LOIWzeta*Gv3,
