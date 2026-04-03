@@ -10,10 +10,10 @@ sys.path.insert(0, os.path.abspath('../../src/'))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'SLOP'
+project   = 'SLOP'
 copyright = '2026, dvicoben'
-author = 'dvicoben'
-release = 'v1.4.0'
+author    = 'dvicoben'
+release   = 'v1.5.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -27,9 +27,9 @@ extensions = [
     'sphinx.ext.viewcode'
 ]
 
-templates_path = ['_templates']
-exclude_patterns = []
-autosummary_generate=True
+templates_path       = ['_templates']
+exclude_patterns     = []
+autosummary_generate = True
 # If true, the current module name will be prepended to all description unit titles (such as .. function::).
 # add_module_names = False
 
@@ -39,3 +39,11 @@ autosummary_generate=True
 
 html_theme = 'sphinx_rtd_theme'
 # html_static_path = ['_static']
+html_context = {
+    # Show the "Edit on Git" link instead of "View Source"
+    "display_github" : True,
+    "github_host"    : "github.com",
+    "github_user"    : "dvicoben",
+    "github_repo"    : "slophep",
+    "github_version" : "master/docs/source/",
+}

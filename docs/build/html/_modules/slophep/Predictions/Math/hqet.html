@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>slophep.Predictions.Math.hqet &mdash; SLOP v1.5.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=1b13bd6b"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            SLOP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html">slophep.Predictions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html#slophep-fitting">slophep.Fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html#slophep-experimental">slophep.Experimental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto.html#slophep-generator">slophep.Generator</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">SLOP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">slophep.Predictions.Math.hqet</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for slophep.Predictions.Math.hqet</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Order alpha_s corrections, as per https://arxiv.org/pdf/1703.05330</span>
+<span class="sd">Implementation is almost entirely copied from flavio, with the exception</span>
+<span class="sd">of CP and CS which follow Hammer and https://arxiv.org/pdf/1703.05330</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">pi</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">lru_cache</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+
+<div class="viewcode-block" id="li2">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.li2">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">li2</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Complex Dilogarithm&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">spence</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="r">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.r">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">r</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">w</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">log</span><span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="omega_plus">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.omega_plus">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">omega_plus</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">w</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="omega_minus">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.omega_minus">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">omega_minus</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">w</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="omega">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.omega">[docs]</a>
+<span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">omega</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">w</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">li2</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">omega_minus</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+                 <span class="o">-</span> <span class="n">li2</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">omega_minus</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span>
+                 <span class="mi">2</span> <span class="o">*</span> <span class="n">li2</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">omega_plus</span><span class="p">(</span><span class="n">w</span><span class="p">))</span> <span class="o">+</span> <span class="n">li2</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">omega_plus</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+                 <span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">-</span> <span class="n">w</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span><span class="p">(</span><span class="n">w</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="CS">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.CS">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">CS</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="c1"># From hammer and BLPR paper https://arxiv.org/pdf/1703.05330</span>
+    <span class="n">wz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">omega</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span><span class="o">*</span><span class="n">z</span> 
+            <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+            <span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">z</span><span class="o">+</span><span class="mf">1.</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">z</span><span class="o">+</span><span class="mf">1.</span><span class="p">)</span><span class="o">*</span><span class="n">r</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+            <span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">3.</span><span class="o">*</span><span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span><span class="o">*</span><span class="n">z</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="CP">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.CP">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">CP</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="c1"># From hammer and BLPR paper https://arxiv.org/pdf/1703.05330</span>
+    <span class="n">wz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">omega</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span><span class="o">*</span><span class="n">z</span> 
+            <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> 
+            <span class="o">-</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">z</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">z</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span><span class="o">*</span><span class="n">r</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+            <span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">3.</span><span class="o">*</span><span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span><span class="o">*</span><span class="n">z</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="CP_flavio">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.CP_flavio">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">CP_flavio</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="c1"># From flavio https://flav-io.github.io/apidoc/flavio/physics/bdecays/formfactors/hqet.html</span>
+    <span class="n">wz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">((</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">w</span> <span class="o">+</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">*</span>
+             <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">))</span> <span class="o">*</span>
+             <span class="p">((</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span>
+              <span class="p">(</span><span class="n">z</span> <span class="o">*</span> <span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
+               <span class="n">w</span> <span class="o">*</span>
+                 <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span> <span class="o">-</span> <span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
+                  <span class="n">z</span><span class="o">**</span><span class="mi">3</span><span class="p">))</span> <span class="o">*</span> <span class="n">r</span><span class="p">(</span><span class="n">w</span><span class="p">))</span> <span class="o">+</span>
+             <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">omega</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span> <span class="o">/</span>
+            <span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="CV1">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.CV1">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">CV1</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="n">wz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">((</span><span class="mi">12</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">w</span> <span class="o">+</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">-</span>
+             <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span>
+             <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">-</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span>
+             <span class="n">r</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">*</span> <span class="n">omega</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span> <span class="o">/</span>
+            <span class="p">(</span><span class="mf">6.</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="CV2">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.CV2">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">CV2</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="n">wz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">z</span> <span class="o">*</span>
+              <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">w</span> <span class="o">+</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span><span class="p">)</span> <span class="o">+</span>
+               <span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span>
+                  <span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">))</span> <span class="o">+</span>
+              <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">+</span>
+                  <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span>
+                  <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span><span class="p">(</span><span class="n">w</span><span class="p">))</span> <span class="o">/</span>
+            <span class="p">(</span><span class="mf">6.</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="CV3">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.CV3">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">CV3</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="n">wz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">w</span> <span class="o">+</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">+</span>
+             <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span>
+             <span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span>
+             <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">+</span>
+              <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+             <span class="o">*</span> <span class="n">r</span><span class="p">(</span><span class="n">w</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mf">6.</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="CA1">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.CA1">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">CA1</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="n">wz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">((</span><span class="mi">12</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">w</span> <span class="o">+</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">-</span>
+             <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span>
+             <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">-</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span>
+             <span class="n">r</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">*</span> <span class="n">omega</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span> <span class="o">/</span>
+            <span class="p">(</span><span class="mf">6.</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="CA2">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.CA2">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">CA2</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="n">wz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">z</span> <span class="o">*</span>
+              <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">w</span> <span class="o">+</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span><span class="p">)</span> <span class="o">+</span>
+               <span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span>
+                  <span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">))</span> <span class="o">+</span>
+              <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">+</span>
+                  <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
+                  <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span><span class="p">(</span><span class="n">w</span><span class="p">))</span> <span class="o">/</span>
+            <span class="p">(</span><span class="mf">6.</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="CA3">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.CA3">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">CA3</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="n">wz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">w</span> <span class="o">+</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span><span class="p">)</span> <span class="o">-</span>
+             <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span>
+             <span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span>
+             <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">+</span>
+              <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">z</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+             <span class="o">*</span> <span class="n">r</span><span class="p">(</span><span class="n">w</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mf">6.</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="CT1">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.CT1">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">CT1</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="n">wz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(((</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span>
+             <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">-</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">+</span>
+             <span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">w</span> <span class="o">+</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">-</span>
+              <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">))</span> <span class="o">+</span>
+             <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span> <span class="o">*</span> <span class="n">omega</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mf">3.</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="CT2">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.CT2">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">CT2</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="n">wz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w</span> <span class="o">*</span> <span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span><span class="p">(</span><span class="n">w</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mf">3.</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">)</span> <span class="o">*</span> <span class="n">z</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="CT3">
+<a class="viewcode-back" href="../../../../autodoc/slophep.Predictions.Math.hqet.html#slophep.Predictions.Math.hqet.CT3">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">CT3</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="n">wz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span><span class="p">(</span><span class="n">w</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mf">3.</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">wz</span><span class="p">))</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, dvicoben.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

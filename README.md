@@ -129,7 +129,7 @@ For BGL parameterizations, references vary in the resonance masses used in the B
 | HPQCD     | Implementation from ancillary files in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). FF from fit to non-zero recoil lattice QCD in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2), as described in Sec. IV B. | [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) |
 
 
-## $B_{(s)} \to D_{(s)}^{**} (Pending cross-checks)$
+## $B_{(s)} \to D_{(s)}^{**}$ (Pending cross-checks)
 Implementation of $D_0^*$, $D_1$, $D_1^{*}$ ($D_1^\prime$), $D_2^*$ states. SM only. Calculation of the rates follows [arXiv:1711.03110](https://arxiv.org/abs/1711.03110). NP rate computation to be implemented.
 
 | FF Scheme | Notes | Refs. |
