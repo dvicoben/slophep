@@ -2,9 +2,9 @@ import numpy as np
 
 from slophep.Predictions.Observables import ObservableBase
 from slophep.Predictions.FormFactorsBToDstst import FormFactorBToD0st
+from slophep.Predictions.Math.wilson_coefs import get_wceff_fccc
 
 import flavio
-from flavio.physics.bdecays.wilsoncoefficients import get_wceff_fccc_std
 from flavio.physics import ckm
 
 class BToD0stEllNuPrediction(ObservableBase):
@@ -72,7 +72,7 @@ class BToD0stEllNuPrediction(ObservableBase):
         p = GF*GF*(np.abs(Vij)**2)*(mB**5)/(192*(np.pi**3))
         return p
 
-    def dGdq2dM_SM(self, q2: float, mC: float = None) -> float:
+    def dGdq2M_SM(self, q2: float, mC: float = None) -> float:
         # From arxiv.org/pdf/1711.03110, eq. 31a
         # And https://scoap3-prod-backend.s3.cern.ch/media/files/79991/10.1088/1674-1137/ace821.pdf eq. 109
         gamma0 = self._rate_prefactor(q2)
@@ -105,19 +105,71 @@ class BToD0stEllNuPrediction(ObservableBase):
             -2*gm*gp*(1-r*r)*wsqm1*(q2hat + 2*rhol)
         )
         return gamma
+    
+    def dGdq2M(self, q2: float, mC: float) -> float:
+        gammaSM = self.dGdq2M_SM(q2, mC)
+        gamma0 = self._rate_prefactor(q2)
+        if gamma0 <= 0:
+            return 0.
+
+        wc = get_wceff_fccc(self.wc_obj, self.par, self._qiqj, self.lep, self.nu, self.scale, nf=5, withSM = False)
+
+        if self.lep != self.nu and all(C == 0 for C in wc.values()):
+            return 0.0
+        # Early return if no NP
+        if all(C == 0 for C in wc.values()):
+            return gammaSM
+        
+        Cvl = wc["VL"]
+        Cvr = wc["VR"]
+        Csl = wc["SL"]
+        Csr = wc["SR"]
+        Ct  = wc["T"]
+
+        mB = self.par["m_"+self.B]
+        mC = self.par["m_"+self.M] if mC is None else mC
+        r = mC/mB
+        rhol = (self.par['m_'+self.lep]**2)/(mB**2)
+        q2hat = q2/(mB**2)
+        w = (mB**2 + mC**2 - q2) / (2 * mB * mC)
+        if w < 1.:
+            return 0.0
+        
+        ff = self.FF.get_ff_mmeson(q2, mC)
+        gps = ff["gP"]
+        gp  = ff["g+"]
+        gm  = ff["g-"]
+        gt  = ff["gT"]
+        wsqm1 = (w**2 - 1)
+
+        # This should follow https://arxiv.org/pdf/1711.03110 Eq. 30b, needs to be cross-checked 
+        nscale = gamma0*(1/(mB*mC))*(r**3)*np.sqrt(wsqm1)*(q2hat - rhol)**2/(q2hat**2)
+        gamma = gammaSM*np.abs(1. + Cvl - Cvr)**2 + nscale*(
+            3*q2hat*gps*gps*np.abs(Csr - Csl)**2 
+            + 6*(np.real(Csr-Csl) 
+                 + np.real((Csr-Csl)*np.conjugate(Cvl)) 
+                 - np.real((Csr-Csl)*np.conjugate(Cvr))
+                )*gps*np.sqrt(rhol)*(
+                gm*(1+r)*(w-1) 
+                - gp*(1-r)*(w+1)
+            )
+            + 8*gt*wsqm1*(
+                2*np.abs(Ct)*gt*(q2hat + 2*rhol)
+                + 3*np.sqrt(rhol)*(
+                    np.real(Ct) + np.real(Ct*np.conjugate(Cvl)) - np.real(Ct*np.conjugate(Cvr))
+                )*(
+                    gp*(1+r)
+                    - gm*(1-r)
+                )
+            )
+        )
+        return gamma
 
     def dGdq2_SM(self, q2: float) -> float:
-        return self.dGdq2dM_SM(q2, None)
+        return self.dGdq2M_SM(q2, None)
 
     def dGdq2(self, q2: float) -> float:
-        # mb = running.get_mb(self.par, self.scale)
-        # wc = get_wceff_fccc_std(self.wc_obj, self.par, self._qiqj, self.lep, self.nu, mb, self.scale, nf=5)
-        # if self.lep != self.nu and all(C == 0 for C in wc.values()):
-        #     # if all WCs vanish, so does the AC!
-        #     return 0.0
-
-        # SM only for now
-        return self.dGdq2_SM(q2)
+        return self.dGdq2M(q2, None)
 
     def Gamma(self) -> float:
         return flavio.math.integrate.nintegrate(self.dGdq2, self.q2min, self.q2max)
