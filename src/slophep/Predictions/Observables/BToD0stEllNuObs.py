@@ -142,9 +142,9 @@ class BToD0stEllNuPrediction(ObservableBase):
         gt  = ff["gT"]
         wsqm1 = (w**2 - 1)
 
-        # This should follow https://arxiv.org/pdf/1711.03110 Eq. 30b, needs to be cross-checked 
+        # This should follow https://arxiv.org/pdf/1711.03110 Eq. 30b, needs to be checked, high risk of typos
         nscale = gamma0*(1/(mB*mC))*(r**3)*np.sqrt(wsqm1)*(q2hat - rhol)**2/(q2hat**2)
-        gamma = gammaSM*np.abs(1. + Cvl - Cvr)**2 + nscale*(
+        gamma = gammaSM*(np.abs(1. + Cvl - Cvr)**2) + nscale*(
             3*q2hat*gps*gps*np.abs(Csr - Csl)**2 
             + 6*(np.real(Csr-Csl) 
                  + np.real((Csr-Csl)*np.conjugate(Cvl)) 
