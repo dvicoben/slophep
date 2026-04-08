@@ -8,10 +8,11 @@ from slophep.Predictions.FormFactorsBToP.BToPFFHammerEquiv import BGL_BToP_Hamme
 import slophep.Predictions.FormFactorsBToP.BuToDFF as BuToDFF
 import slophep.Predictions.FormFactorsBToP.BdToDFF as BdToDFF
 import slophep.Predictions.FormFactorsBToP.BdToPiFF as BdToPiFF
+import slophep.Predictions.FormFactorsBToP.BsToKFF as BsToKFF
 
 __all__ = [
     "FormFactorBToP",
     "BSZ_BToP", "BLPR_BToP", "BLPRXP_BToP", "BGL_BToP", "CLN_BToP",
     "BGL_BToP_Hammer", "BLPR_BToP_Hammer", "CLN_BToP_Hammer",
-    "BuToDFF", "BdToDFF", "BdToPiFF"
+    "BuToDFF", "BdToDFF", "BdToPiFF", "BsToKFF"
 ]
