@@ -19,3 +19,8 @@ class BSZ(FFBToP.BSZ_BToP):
             'mp': 5.325,
         }
         self._internalparams.update(internalparams)
+
+
+class BCL(FFBToP.BCL_BToP):
+    def __init__(self, par: dict = None, scale: float = None, *ffargs):
+        super().__init__("B0", "pi+", par, scale, *ffargs)
