@@ -3,35 +3,44 @@ import numpy as np
 from scipy.interpolate import CubicSpline
 from typing import Callable
 
-def decrate_int(mres: float, obs) -> float:
-    mB = obs.par['m_'+obs.B]
-    q2min = obs.q2min
-    q2max = (mB - mres)**2
-    def integrand(qsq):
-        rate = obs.dGdq2M(qsq, mres)
-        return rate
-    return flavio.math.integrate.nintegrate(integrand, q2min, q2max)
+import slophep.Experimental.evtgen_tools as et
 
 
-def correction_weight(mres: float, obs, normscale: float = 1.0) -> float:
-    mB = obs.par['m_'+obs.B]
-    q2min = obs.q2min
-    q2max = (mB - mres)**2
-    def integrand(qsq):
-        rate = obs.dGdq2M(qsq, mres)
-        return rate
-    return normscale*mres*flavio.math.integrate.nintegrate(integrand, q2min, q2max)
+def correction_weight_2body(
+        mres: float, 
+        obs, 
+        normscale: float = 1.0
+    ) -> float:
+    return normscale*mres*et.decrate_int(mres, obs)
 
 
-def create_interpolated_weightfunc(obs, 
-                                   mresmin: float,
-                                   mresmax: float,
-                                   Npoints: int = 1000
-                                   ) -> Callable[[float | np.ndarray], float | np.ndarray]:
+def correction_weight_3body(
+        mres: float, 
+        obs, 
+        L: float, 
+        width: float, 
+        daughters: list[str], 
+        normscale: float = 1.0
+    ) -> float:
+    m_nom = obs.par[f"m_{obs.M}"]
+    ls2, ls2_nr = et.threeBody_LS2(mres, m_nom, L, width, daughters, obs.par)
+    rate = et.decrate_int(mres, obs)
+    return normscale*mres*rate*(ls2/ls2_nr)
+
+
+def create_interpolated_weightfunc(
+        weight_func: Callable,
+        obs, 
+        mresmin: float, 
+        mresmax: float, 
+        weight_func_kwargs: dict = {},
+        Npoints: int = 1000
+    ) -> Callable[[float | np.ndarray], float | np.ndarray]:
     mres   = np.linspace(mresmin, mresmax, int(Npoints))
-    wfunc  = np.vectorize(lambda m: decrate_int(m, obs))
+    # wfunc  = np.vectorize(lambda m: et.decrate_int(m, obs))
+    wfunc  = np.vectorize(lambda m: weight_func(m, obs, **weight_func_kwargs))
     gamma  = obs.Gamma()
     spline = CubicSpline(mres, wfunc(mres))
     def correction_func(mass: float | np.ndarray) -> float | np.ndarray:
-        return mass*spline(mass)*(1./gamma)
+        return spline(mass)*(1./gamma)
     return correction_func
