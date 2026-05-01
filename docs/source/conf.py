@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath('../../src/'))
 project   = 'SLOP'
 copyright = '2026, dvicoben'
 author    = 'dvicoben'
-release   = 'v1.5.0'
+release   = 'v1.5.1'
 
 
 # -- General configuration ---------------------------------------------------

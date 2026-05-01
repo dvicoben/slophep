@@ -67,15 +67,3 @@ slophep.Experimental
 
     slophep.Experimental.evtgen_correction
 
-
-
-slophep.Generator
-=================
-
-.. autosummary::
-    :toctree: autodoc
-    :template: custom-module-template.rst
-    :recursive:
-
-    slophep.Generator.MCGeneratorBase
-    slophep.Generator.MCGenerators

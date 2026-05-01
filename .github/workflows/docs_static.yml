@@ -22,22 +22,37 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+  build:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Pages
+      - uses: actions/setup-python@v5
+        name: Set up Python
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          pip install --upgrade setuptools
+          pip install sphinx sphinx_rtd_theme myst-parser
+          pip install -e .
+          cd docs
+          make html
+          cd ..
+      - name: Set up Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: './docs/build/html'
+          path: 'docs/build/html'
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
