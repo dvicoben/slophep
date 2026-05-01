@@ -2,7 +2,6 @@
 **/.ipynb_checkpoints/
 .vscode/
 venv/
-docs/build/doctrees/
 *.egg-info/
 ignore/
 docs/build/

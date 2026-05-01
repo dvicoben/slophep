@@ -20,6 +20,8 @@ release   = 'v1.5.1'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
+    "sphinx_rtd_theme",
+    "myst_parser",
     'sphinx.ext.autodoc',            # To generate autodocs
     'sphinx.ext.autosummary',
     'sphinx.ext.mathjax',           # autodoc with maths
@@ -27,11 +29,22 @@ extensions = [
     'sphinx.ext.viewcode'
 ]
 
+myst_enable_extensions = [
+    "dollarmath", 
+    "amsmath"
+]
+
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.txt': 'markdown',
+    '.md' : 'markdown',
+}
+
 templates_path       = ['_templates']
 exclude_patterns     = []
 autosummary_generate = True
 # If true, the current module name will be prepended to all description unit titles (such as .. function::).
-# add_module_names = False
+add_module_names = False
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -47,3 +60,6 @@ html_context = {
     "github_repo"    : "slophep",
     "github_version" : "master/docs/source/",
 }
+rst_prolog = """
+:github_url: https://github.com/dvicoben/slophep
+"""
