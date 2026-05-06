@@ -1,0 +1,98 @@
+# Available Decay Modes & Form-Factors
+## Details and caveats
+For predicting absolute values (e.g. the BR of a decay mode over $q^2$), SLOP uses hadron masses, $G_F$, CKM matrix elements, and hadron lifetimes from `flavio`'s `default_parameters`. This can result in slight differences with respect to predictions from elsewhere (e.g. EOS) even if the FF and amplitude/observable computation is the same due to these differing factors. For rate normalised observables or ratios these factors should cancel and there should be no difference.
+
+Also important to note: Wilson coefficients are defined at a particular scale. In SLOP the scale is set to $\mu = 4.8$ by default, but this can be changed when initialising the prediction. For plotting error bands this is particularly important as your fitter may not assume the same scale.
+
+For $B \to P$ predictions, the decomposition of the decay rate, up to normalisation constant, follows the form:
+$$\frac{\mathrm{d}\Gamma}{\mathrm{d}q^2 \mathrm{d}\cos\theta_\ell} \propto
+a(q^2) + b(q^2)\cos\theta_\ell + c(q^2)\cos^2\theta_\ell
+$$
+
+For $B \to V$ predictions, the decomposition of the decay rate used throughout, up to a normalisation constant, follows the form:
+
+$$\frac{\mathrm{d}\Gamma}{\mathrm{d}q^2 \mathrm{d}\cos\theta_V \mathrm{d}\cos\theta_\ell \mathrm{d}\chi} 
+\propto \frac{9}{32\pi} \Bigg[ 
+J_{1c}\cos^2\theta_V + J_{1s}\sin^2\theta_V
+\\ +\left(J_{2c}\cos^2\theta_V + J_{2s}\sin^2\theta_V \right)\cos 2\theta_\ell
+\\ +\left(J_{6c}\cos^2\theta_V + J_{6s}\cos^2\theta_V \right)\cos\theta_\ell
+\\ +\left(J_3\cos 2\chi + J_9 \sin 2\chi \right)\sin^2\theta_\ell \sin^2\theta_V
+\\ +\left(J_4 \cos\chi + J_8\sin\chi\right)\sin 2\theta_\ell \sin 2\theta_V
+\\ + \left(J_5 \cos\chi + J_7 \sin\chi \right) \sin\theta_\ell \sin 2\theta_V
+\Bigg]$$
+
+
+## $B \to \pi$
+
+| FF Scheme | Notes | Refs. |
+|-----------|-------|-------|
+| BSZ       | Implementation reproduces flavio's. FF from fit to LCSR + zero recoil lattice. Resonances used taken from [arXiv:1811.00983](https://arxiv.org/abs/1811.00983). Should match EOS implementation (`BSZ2015`). Defaults are set to EOS values (see [EOS docs](https://eoshep.org/doc/reference/parameters.html#parameters-in-b-to-p-form-factor-parametrizations)). | [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [arXiv:1811.00983](https://arxiv.org/abs/1811.00983), [flavio source](https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_p/bsz.py), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bsz2015-impl.hh) |
+
+## $B \to D$
+
+Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`. Note that the $B \to P$ basis in Hammer differs in $f_T$ from the one used in flavio and therefore in SLOP for the calculation of observables (by a factor of $m_B + m_P$). Because of this, take care when comparing $f_T$ (and any observables it affects) from `BLPR_Hammer` in $B\to P$ and other FF schemes (`BGL_Hammer` and `CLN_Hammer` are SM only so this is not an issue as $f_T = 0$).
+
+For BGL parameterizations, references vary in the resonance masses used in the Blaschke factors as well as the $\chi$'s used in the outer functions. A one-to-one correspondence is not expected unless all of these match with SLOP, even if one sets the same expansion coefficients.
+
+| FF Scheme | Notes | Refs. |
+|-----------|-------|-------|
+| CLN       | Implementation reproduces hammer's. Tensor FF $f_T(q^2) = 0$. Use with care for BSM predictions. Defaults are set to HAMMER values. | [arXiv:hep-ph/9712417v1](https://arxiv.org/abs/hep-ph/9712417), [arXiv:1203.2654](https://arxiv.org/abs/1203.2654), [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDCLN.cc?ref_type=tags)
+| BGL       | Implementation reproduces Hammer's. Tensor FF $f_T(q^2) = 0$. Use with care for BSM predictions. Defaults are set to HAMMER values. |  [arXiv:hep-ph/9705252](https://arxiv.org/abs/hep-ph/9705252), [arXiv:1707.09509](https://arxiv.org/abs/1707.09509), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDBGL.cc?ref_type=tags) |
+| BSZ       | Implementation reproduces flavio's. FF from fit to LCSR + zero recoil lattice. Resonances used taken from [arXiv:1811.00983](https://arxiv.org/abs/1811.00983). Should match EOS implementation (`BSZ2015`). Defaults are set to EOS values (see [EOS docs](https://eoshep.org/doc/reference/parameters.html#parameters-in-b-to-p-form-factor-parametrizations)). | [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [arXiv:1811.00983](https://arxiv.org/abs/1811.00983), [flavio source](https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_p/bsz.py), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bsz2015-impl.hh) |
+| BLPR      | Implementation reproduces hammer's. Correspondence to from $h_i$ to $f_i$ should follow Appendix B in [arXiv:1908.09398](https://arxiv.org/abs/1908.09398). Defaults are set to HAMMER values. | [arXiv:1703.05330](https://arxiv.org/abs/1703.05330), [arXiv:1908.09398](https://arxiv.org/abs/1908.09398), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDBLPR.cc?ref_type=tags) |
+| BLPRXP (checks pending) | Implementation intended to reproduce Hammer's. Correspondence to from $h_i$ to $f_i$ should follow Appendix B in [arXiv:1908.09398](https://arxiv.org/abs/1908.09398). Defaults are set to HAMMER values. | [arXiv:2206.11281](https://arxiv.org/abs/2206.11281), [arXiv:1908.09398](https://arxiv.org/abs/1908.09398), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.4.1/src/FormFactors/BLPRXP/FFBtoDstarBLPRXP.cc) |
+
+## $B \to D^*$
+
+Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`. `BGL_Hammer` has the additional $1/\eta_{EW}V_{cb}$ that is present in Hammer but not in SLOP's `BGL`.
+
+For BGL parameterizations, references vary in the resonance masses used in the Blaschke factors as well as the $\chi$'s used in the outer functions. A one-to-one correspondence is not expected unless all of these match with SLOP, even if one sets the same expansion coefficients.
+
+| FF Scheme | Notes | Refs. |
+|-----------|-------|-------|
+| ISGW2     | Implementation meant to reproduce Hammer's (see [source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarISGW2.cc)). Hammer itself is based on the EvtGen model. Correspondence of hammer's basis to flavio/SLOP basis using [Hammer Manual](https://hammer.physics.lbl.gov/HammerManual.pdf) (Appendix D.2) and Appendix B in [arXiv:1908.09398](https://arxiv.org/abs/1908.09398). | [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarISGW2.cc) |
+| CLN       | Implementation reproduces flavio's. Tensor FFs are zero. There is a similar `CLN2` implentation where tensor FFs are obtained as in flavio, using eqn. 11 in [arXiv:1503.05534](https://arxiv.org/abs/1503.05534). Use with care for BSM predictions. Defaults are set to HAMMER values. | [arXiv:hep-ph/9712417v1](https://arxiv.org/abs/hep-ph/9712417), [arXiv:1203.2654](https://arxiv.org/abs/1203.2654), [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [flavio source](https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/clnexp.py), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarCLN.cc?ref_type=tags)
+| BGL       | Implementation reproduces Hammer's. Hammer divides by an additional factor of $\eta_{EW}V_{cb}$. Translation to $V, A_i$ obtained from EOS. Tensor FFs $T_i = 0$, use with care for BSM predictions. Defaults are set to HAMMER values divided by $\eta_{EW}V_{cb}$. |  [arXiv:hep-ph/9705252](https://arxiv.org/abs/hep-ph/9705252), [arXiv:1707.09509](https://arxiv.org/abs/1707.09509), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBGL.cc?ref_type=tags), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgl1997-impl.hh) |
+| BGL_FLabMILC | Implementation meant to reproduce [arXiv:2105.14019](https://arxiv.org/abs/2105.14019) for comparisons with lattice.  Translation to $V, A_i$ obtained from EOS. Tensor FFs $T_i = 0$, use with care for BSM predictions. | [arXiv:2105.14019](https://arxiv.org/abs/2105.14019), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgl1997-impl.hh) |
+| BGL_JLQCD    | Implementation meant to reproduce [arXiv:2306.05657](https://arxiv.org/abs/2306.05657) for comparisons with lattice.  Translation to $V, A_i$ obtained from EOS. Tensor FFs $T_i = 0$, use with care for BSM predictions. | [arXiv:2306.05657](https://arxiv.org/abs/2306.05657), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgl1997-impl.hh) |
+| BSZ       | Implementation reproduces flavio's. FF from fit to LCSR + zero recoil lattice. Resonances used taken from [arXiv:1811.00983](https://arxiv.org/abs/1811.00983). Should match EOS implementation (`BSZ2015` which is default $B\to D^*$ FF scheme in EOS). Defaults are set to EOS values (see [EOS docs](https://eoshep.org/doc/reference/parameters.html#parameters-in-b-to-v-form-factor-parametrizations)). | [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [arXiv:1811.00983](https://arxiv.org/abs/1811.00983), [flavio source](https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/bsz.py), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bsz2015-impl.hh) |
+| BLPR      | Implementation reproduces hammer's. Correspondence to $V, A_i, T_i$ obtained from Appendix B in [arXiv:1908.09398](https://arxiv.org/abs/1908.09398) / Eqns. 38-39 in [arXiv:1309.0301](https://arxiv.org/abs/1309.0301) and similar parametrisation in eos (see [EOS BGJvD implementation](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgjvd2019-impl.hh)). Defaults are set to HAMMER values. | [arXiv:1703.05330](https://arxiv.org/abs/1703.05330), [arXiv:1908.09398](https://arxiv.org/abs/1908.09398), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBLPR.cc?ref_type=tags) |
+| BLPRXP (checks pending) | Implementation intended to reproduce Hammer's. Correspondence to $V, A_i, T_i$ obtained from Appendix B in [arXiv:1908.09398](https://arxiv.org/abs/1908.09398) / Eqns. 38-39 in [arXiv:1309.0301](https://arxiv.org/abs/1309.0301) and similar parametrisation in eos (see [EOS BGJvD implementation](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgjvd2019-impl.hh)). Defaults are set to HAMMER values. | [arXiv:2206.11281](https://arxiv.org/abs/2206.11281), [arXiv:1908.09398](https://arxiv.org/abs/1908.09398), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.4.1/src/FormFactors/BLPRXP/FFBtoDstarBLPRXP.cc) |
+| HPQCD     | Implementation from ancillary files in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). FF from fit to non-zero recoil lattice QCD in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2), as described in Sec. IV B. | [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) |
+
+
+## $B_s \to D_s^*$
+Implementation in most cases is the same as $B \to D^*$ but with the appropriate meson masses. Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which is not available in SLOP.
+
+Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`.
+
+For BGL parameterizations, references vary in the resonance masses used in the Blaschke factors as well as the $\chi$'s used in the outer functions. A one-to-one correspondence is not expected unless all of these match with SLOP, even if one sets the same expansion coefficients.
+
+| FF Scheme | Notes | Refs. |
+|-----------|-------|-------|
+| ISGW2     | Implementation meant to reproduce Hammer's (see [source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarISGW2.cc)). Hammer itself is based on the EvtGen model. Correspondence of hammer's basis to flavio/SLOP basis using [Hammer Manual](https://hammer.physics.lbl.gov/HammerManual.pdf) (Appendix D.2) and Appendix B in [arXiv:1908.09398](https://arxiv.org/abs/1908.09398). | [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarISGW2.cc), [arXiv:hep-ph/9503486](https://arxiv.org/abs/hep-ph/9503486) |
+| CLN       | Implementation reproduces flavio's. Tensor FFs are zero. There is a similar `CLN2` implentation where tensor FFs are obtained as in flavio, using eqn. 11 in [arXiv:1503.05534](https://arxiv.org/abs/1503.05534). Use with care for BSM predictions. Defaults are set to HAMMER values. | [arXiv:hep-ph/9712417v1](https://arxiv.org/abs/hep-ph/9712417), [arXiv:1203.2654](https://arxiv.org/abs/1203.2654), [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [flavio source](https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/clnexp.py), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarCLN.cc?ref_type=tags)
+| BGL       | Implementation reproduces Hammer's. Hammer divides by an additional factor of $\eta_{EW}V_{cb}$. Translation to $V, A_i$ obtained from EOS. Tensor FFs $T_i = 0$, use with care for BSM predictions. Defaults are set to HAMMER values divided by $\eta_{EW}V_{cb}$. |  [arXiv:hep-ph/9705252](https://arxiv.org/abs/hep-ph/9705252), [arXiv:1707.09509](https://arxiv.org/abs/1707.09509), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBGL.cc?ref_type=tags) |
+| BLPR      | Implementation reproduces hammer's. Correspondence to $V, A_i, T_i$ obtained from Appendix B in [arXiv:1908.09398](https://arxiv.org/abs/1908.09398) / Eqns. 38-39 in [arXiv:1309.0301](https://arxiv.org/abs/1309.0301) and similar parametrisation in eos (see [EOS BGJvD implementation](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgjvd2019-impl.hh)). Defaults are set to HAMMER values. | [arXiv:1703.05330](https://arxiv.org/abs/1703.05330), [arXiv:1908.09398](https://arxiv.org/abs/1908.09398), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBLPR.cc?ref_type=tags) |
+| BLPRXP (checks pending) | Implementation intended to reproduce Hammer's. Correspondence to $V, A_i, T_i$ obtained from Appendix B in [arXiv:1908.09398](https://arxiv.org/abs/1908.09398) / Eqns. 38-39 in [arXiv:1309.0301](https://arxiv.org/abs/1309.0301) and similar parametrisation in eos (see [EOS BGJvD implementation](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bgjvd2019-impl.hh)). Defaults are set to HAMMER values. | [arXiv:2206.11281](https://arxiv.org/abs/2206.11281), [arXiv:1908.09398](https://arxiv.org/abs/1908.09398), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.4.1/src/FormFactors/BLPRXP/FFBtoDstarBLPRXP.cc) |
+| HPQCD     | Implementation from ancillary files in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). FF from fit to non-zero recoil lattice QCD in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2), as described in Sec. IV B. | [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) |
+
+
+## $B_{(s)} \to D_{(s)}^{**}$ (Pending cross-checks)
+Implementation of $D_0^*$, $D_1$, $D_1^{*}$ ($D_1^\prime$), $D_2^*$ states. SM only. Calculation of the rates follows [arXiv:1711.03110](https://arxiv.org/abs/1711.03110). NP rate computation to be implemented.
+
+| FF Scheme | Notes | Refs. |
+|-----------|-------|-------|
+| ISGW2     | Implementation meant to reproduce Hammer's. Hammer itself is based on the EvtGen model. | [arXiv:hep-ph/9503486](https://arxiv.org/abs/hep-ph/9503486), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors) | 
+| LLSW      | Implementation meant to reproduce [`EvtLLSWFF`](https://github.com/belle2/basf2/blob/main/generators/evtgen/models/src/EvtLLSWFF.cc) in `basf2` | [Phys.Rev.Lett. 78 (1997) 3995-3998](https://doi.org/10.1103/PhysRevLett.78.3995), [Phys.Rev.D 57 (1998) 308-330](https://doi.org/10.1103/PhysRevD.57.308), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoD1LLSW.cc), [basf2 source](https://github.com/belle2/basf2/blob/main/generators/evtgen/models/src/EvtLLSWFF.cc) |
+| BLR      | Implementation meant to reproduce Hammer's. | [arXiv:1711.03110](https://arxiv.org/abs/1711.03110), [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors) |
+
+
+## $\Lambda_b \to \Lambda_c$
+Decay rate and observables follow definitions in [arXiv:1907.12554](https://arxiv.org/abs/1907.12554) as in EOS.
+
+Note: SLOP by default uses $\alpha_{-}^{\Lambda_c} = -0.786$
+
+| FF Scheme | Notes | Refs. |
+|-----------|-------|-------|
+| DKMR      | Implementation meant to reproduce EOS's (see [source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-dkmr2017-impl.hh)), which implements [arXiv:1702.02243](https://arxiv.org/abs/1702.02243) FFs and calculates observables as per [arXiv:1907.12554](https://arxiv.org/abs/1907.12554).  | [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-dkmr2017-impl.hh), [arXiv:1702.02243](https://arxiv.org/abs/1702.02243), [arXiv:1907.12554](https://arxiv.org/abs/1907.12554) |
