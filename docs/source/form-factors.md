@@ -5,6 +5,7 @@ For predicting absolute values (e.g. the BR of a decay mode over $q^2$), SLOP us
 Also important to note: Wilson coefficients are defined at a particular scale. In SLOP the scale is set to $\mu = 4.8$ by default, but this can be changed when initialising the prediction. For plotting error bands this is particularly important as your fitter may not assume the same scale.
 
 For $B \to P$ predictions, the decomposition of the decay rate, up to normalisation constant, follows the form:
+
 $$\frac{\mathrm{d}\Gamma}{\mathrm{d}q^2 \mathrm{d}\cos\theta_\ell} \propto
 a(q^2) + b(q^2)\cos\theta_\ell + c(q^2)\cos^2\theta_\ell
 $$
@@ -32,7 +33,10 @@ J_{1c}\cos^2\theta_V + J_{1s}\sin^2\theta_V
 
 Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`. Note that the $B \to P$ basis in Hammer differs in $f_T$ from the one used in flavio and therefore in SLOP for the calculation of observables (by a factor of $m_B + m_P$). Because of this, take care when comparing $f_T$ (and any observables it affects) from `BLPR_Hammer` in $B\to P$ and other FF schemes (`BGL_Hammer` and `CLN_Hammer` are SM only so this is not an issue as $f_T = 0$).
 
+```{note}
+
 For BGL parameterizations, references vary in the resonance masses used in the Blaschke factors as well as the $\chi$'s used in the outer functions. A one-to-one correspondence is not expected unless all of these match with SLOP, even if one sets the same expansion coefficients.
+```
 
 | FF Scheme | Notes | Refs. |
 |-----------|-------|-------|
@@ -46,7 +50,10 @@ For BGL parameterizations, references vary in the resonance masses used in the B
 
 Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`. `BGL_Hammer` has the additional $1/\eta_{EW}V_{cb}$ that is present in Hammer but not in SLOP's `BGL`.
 
+```{note}
+
 For BGL parameterizations, references vary in the resonance masses used in the Blaschke factors as well as the $\chi$'s used in the outer functions. A one-to-one correspondence is not expected unless all of these match with SLOP, even if one sets the same expansion coefficients.
+```
 
 | FF Scheme | Notes | Refs. |
 |-----------|-------|-------|
@@ -66,7 +73,10 @@ Implementation in most cases is the same as $B \to D^*$ but with the appropriate
 
 Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`.
 
+```{note}
+
 For BGL parameterizations, references vary in the resonance masses used in the Blaschke factors as well as the $\chi$'s used in the outer functions. A one-to-one correspondence is not expected unless all of these match with SLOP, even if one sets the same expansion coefficients.
+```
 
 | FF Scheme | Notes | Refs. |
 |-----------|-------|-------|
@@ -78,8 +88,12 @@ For BGL parameterizations, references vary in the resonance masses used in the B
 | HPQCD     | Implementation from ancillary files in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). FF from fit to non-zero recoil lattice QCD in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2), as described in Sec. IV B. | [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) |
 
 
-## $B_{(s)} \to D_{(s)}^{**}$ (Pending cross-checks)
-Implementation of $D_0^*$, $D_1$, $D_1^{*}$ ($D_1^\prime$), $D_2^*$ states. SM only. Calculation of the rates follows [arXiv:1711.03110](https://arxiv.org/abs/1711.03110). NP rate computation to be implemented.
+## $B_{(s)} \to D_{(s)}^{**}$ 
+Implementation of $D_0^*$, $D_1$, $D_1^{*}$ ($D_1^\prime$), $D_2^*$ states. SM only. Calculation of the rates follows [arXiv:1711.03110](https://arxiv.org/abs/1711.03110). 
+
+```{warning}
+Only limited cross-checks have been carried out for SM rates. Calculation of rate with non-zero Wilson coefficients has not been cross-checked.
+```
 
 | FF Scheme | Notes | Refs. |
 |-----------|-------|-------|
