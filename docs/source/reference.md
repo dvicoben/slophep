@@ -1,4 +1,4 @@
-# Reference
+# Referencing
 
 There is a zenodo doi for the repository. To cite SLOP please obtain your preferred citation from the [zenodo page](https://doi.org/10.5281/zenodo.18222257).
 
