@@ -156,6 +156,12 @@ class SamplingHelper:
         
         self._fluctuations = np.array(fluct)
     
+    def central_val(self, attr: str, attr_args: list = []):
+        self.obs._fullsetter(self.mean, self.constants)
+        feval = getattr(self.obs, attr)
+        x = feval(*attr_args) if len(attr_args) > 0 else feval()
+        return x
+
     def get_error(self, attr: str, attr_args: list = [], cl: float = 0.683, return_all: bool = False):
         """Gets an error using produced fluctations for a spcified CL
 
