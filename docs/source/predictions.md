@@ -53,7 +53,7 @@ hqet2 = {
 pred.set_ff(hqet2)
 ```
 
-Similarly, you can specify Wilson coefficients using `obs.set_wc`:
+Similarly, you can specify Wilson coefficients using `pred.set_wc`:
 
 ```{code-block} python
 

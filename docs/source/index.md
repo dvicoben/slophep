@@ -8,6 +8,7 @@ SLOP (Semi-leptonic Observable Predictions) is a package for computation of semi
 
 setup.md
 predictions.md
+advanced.md
 form-factors.md
 reference.md
 ```
