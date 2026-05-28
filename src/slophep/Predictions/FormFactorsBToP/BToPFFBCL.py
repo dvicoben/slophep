@@ -53,20 +53,20 @@ class BCL_BToP(FormFactorBToP):
         Nz = len(fp_vec)
         N0 = len(f0_vec)
         Nmax = max(Nz, N0)
-        z_vec  = np.array([z**k for k in range(Nmax)])
-        neg1_z = np.array([(-1.)**(n-Nz)*(n/Nz)*z_vec[Nz]] for n in range(Nz))
+        z_vec  = np.array([z**k for k in range(Nmax+1)])
+        neg1_z = np.array([(-1.)**(n-Nz)*(n/Nz)*z_vec[Nz] for n in range(Nz)])
 
-        f0 = np.sum(f0_vec*z_vec)
+        f0 = np.sum(f0_vec*z_vec[:N0])
         fp = (1/P1m)*np.sum(
-            fp_vec*(z_vec - neg1_z)
+            fp_vec*(z_vec[:Nz] - neg1_z)
         )
 
         if self.internalparams.get("q2cons", False):
-            z0_vec = np.array([z0**k for k in range(Nmax)])
-            neg1_z0 = np.array([(-1.)**(n-Nz)*(n/Nz)*z0_vec[Nz]] for n in range(Nz))
+            z0_vec = np.array([z0**k for k in range(Nmax+1)])
+            neg1_z0 = np.array([(-1.)**(n-Nz)*(n/Nz)*z0_vec[Nz] for n in range(Nz)])
 
-            fpq2 = np.sum(fp_vec*(z_vec - neg1_z0))
-            f0q2 = np.sum(f0_vec*z0_vec)
+            fpq2 = np.sum(fp_vec*(z_vec[:Nz] - neg1_z0[:Nz]))
+            f0q2 = np.sum(f0_vec*z0_vec[:N0])
             f0 += (fpq2 - f0q2)/z0_vec[N0]*z_vec[N0]
 
         ff = {
