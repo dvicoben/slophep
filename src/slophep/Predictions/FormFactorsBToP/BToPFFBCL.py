@@ -44,7 +44,7 @@ class BCL_BToP(FormFactorBToP):
         tm = (Mb - Mu)*(Mb - Mu)
         t0 = tp*(1. - np.sqrt(1. - tm/tp))
         z = (np.sqrt(tp - q2) - np.sqrt(tp - t0))/(np.sqrt(tp - q2) + np.sqrt(tp - t0))
-        z0 = (sqrt(tp) - sqrt(tp - t0))/(sqrt(tp) + sqrt(tp - t0))
+        z0 = (np.sqrt(tp) - np.sqrt(tp - t0))/(np.sqrt(tp) + np.sqrt(tp - t0))
 
         fp_vec = np.array([icoef for icoef in self.ffpar if "f+_" in icoef])
         fp_vec = np.array([self.ffpar[f"f+_{k}"] for k in range(len(fp_vec))])
@@ -54,7 +54,7 @@ class BCL_BToP(FormFactorBToP):
         N0 = len(f0_vec)
         Nmax = max(Nz, N0)
         z_vec  = np.array([z**k for k in range(Nmax+1)])
-        neg1_z = np.array([(-1.)**(n-Nz)*(n/Nz)*z_vec[Nz] for n in range(Nz)])
+        neg1_z = np.array([((-1.)**(n-Nz))*(n/Nz)*z_vec[Nz] for n in range(Nz)])
 
         f0 = np.sum(f0_vec*z_vec[:N0])
         fp = (1/P1m)*np.sum(
@@ -65,7 +65,7 @@ class BCL_BToP(FormFactorBToP):
             z0_vec = np.array([z0**k for k in range(Nmax+1)])
             neg1_z0 = np.array([(-1.)**(n-Nz)*(n/Nz)*z0_vec[Nz] for n in range(Nz)])
 
-            fpq2 = np.sum(fp_vec*(z_vec[:Nz] - neg1_z0[:Nz]))
+            fpq2 = np.sum(fp_vec*(z0_vec[:Nz] - neg1_z0[:Nz]))
             f0q2 = np.sum(f0_vec*z0_vec[:N0])
             f0 += (fpq2 - f0q2)/z0_vec[N0]*z_vec[N0]
 
