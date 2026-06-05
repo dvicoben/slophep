@@ -55,7 +55,7 @@ There is some very limited fitting functionality that is in development. It shou
 # About the Predictions
 Information about the predictions, as well as available form-factor schemes and decay modes, can be found in the online documentation [here](https://dvicoben.github.io/slophep/form-factors.html), or in its source [here](https://github.com/dvicoben/slophep/blob/master/docs/source/form-factors.md).
 
-Note that there can be caveats for different decay modes and form-factors and it is strongly encouraged that users ensure that predictions they are using/plotting work as intended as I cannot cross-check/cover every use-case.
+Note that there can be caveats for different decay modes and form-factors and it is strongly encouraged that users ensure that predictions they are using/plotting work as intended as I cannot cross-check/cover every use-case. There is a separate repository with some cross-checks that can be used as an example, https://github.com/dvicoben/slophep-checks.
 
 
 # TO DO
