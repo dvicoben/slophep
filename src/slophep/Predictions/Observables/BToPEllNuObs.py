@@ -96,6 +96,8 @@ class BToPEllNuPrediction(ObservableBase):
         wc = get_wceff_fccc(self.wc_obj, self.par, self._qiqj, self.lep, self.nu, mb, self.scale, nf=5)
         if self.lep != self.nu and all(C == 0 for C in wc.values()):
             return {'a': 0, 'b': 0, 'c': 0}  # if all WCs vanish, so does the AC!
+        if q2 < self.q2min or q2 >= self.q2max:
+            return {'a': 0, 'b': 0, 'c': 0}
         ml = self.par['m_'+self.lep]
         mB = self.par['m_'+self.B]
         mP = self.par['m_'+self.P]
