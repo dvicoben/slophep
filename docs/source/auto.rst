@@ -15,6 +15,7 @@ slophep.Predictions
     slophep.Predictions.FormFactorsBToP.BuToDFF
     slophep.Predictions.FormFactorsBToP.BdToDFF
     slophep.Predictions.FormFactorsBToP.BdToPiFF
+    slophep.Predictions.FormFactorsBToP.BsToKFF
     slophep.Predictions.FormFactorsBToDstst
     slophep.Predictions.FormFactorsBToDstst.BuToD0stFF
     slophep.Predictions.FormFactorsBToDstst.BuToD1FF

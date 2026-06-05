@@ -25,9 +25,26 @@ J_{1c}\cos^2\theta_V + J_{1s}\sin^2\theta_V
 
 ## $B \to \pi$
 
+```{warning}
+Only limited cross-checks have been carried out for $b \to u$ modes.
+```
+
 | FF Scheme | Notes | Refs. |
 |-----------|-------|-------|
 | BSZ       | Implementation reproduces flavio's. FF from fit to LCSR + zero recoil lattice. Resonances used taken from [arXiv:1811.00983](https://arxiv.org/abs/1811.00983). Should match EOS implementation (`BSZ2015`). Defaults are set to EOS values (see [EOS docs](https://eoshep.org/doc/reference/parameters.html#parameters-in-b-to-p-form-factor-parametrizations)). | [arXiv:1503.05534](https://arxiv.org/abs/1503.05534), [arXiv:1811.00983](https://arxiv.org/abs/1811.00983), [flavio source](https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_p/bsz.py), [eos source](https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-bsz2015-impl.hh) |
+| BCL       | Implementation meant to reproduce Hammer's [see source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.4.1/src/FormFactors/BCL/FFBtoPiBCL.cc). | [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.4.1/src/FormFactors/BCL/FFBtoPiBCL.cc), [arXiv:1901.02561]( https://arxiv.org/pdf/1901.02561), [arXiv:1503.07839](https://arxiv.org/pdf/1503.07839) |
+
+
+## $B_s^0 \to K$
+
+```{warning}
+Only limited cross-checks have been carried out for $b\to u$ modes.
+```
+
+| FF Scheme | Notes | Refs. |
+|-----------|-------|-------|
+| BCL       | Implementation meant to reproduce Hammer's [see source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.4.1/src/FormFactors/BCL/FFBstoKBCL.cc). As in hammer, the $f_+(q^2 = 0) = f_0(q^2 = 0)$ is imposed by default | [hammer source](https://gitlab.com/mpapucci/Hammer/-/blob/v1.4.1/src/FormFactors/BCL/FFBtoPiBCL.cc?ref_type=tags), [arXiv:1901.02561]( https://arxiv.org/pdf/1901.02561), [arXiv:1503.07839](https://arxiv.org/pdf/1503.07839) |
+
 
 ## $B \to D$
 
@@ -68,7 +85,7 @@ For BGL parameterizations, references vary in the resonance masses used in the B
 | HPQCD     | Implementation from ancillary files in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2). FF from fit to non-zero recoil lattice QCD in [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2), as described in Sec. IV B. | [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) |
 
 
-## $B_s \to D_s^*$
+## $B_s^0 \to D_s^*$
 Implementation in most cases is the same as $B \to D^*$ but with the appropriate meson masses. Note that [arXiv:1801.10468](https://arxiv.org/pdf/1801.10468) uses a different angular decomposition for $D^*\to D\gamma$ which is not available in SLOP.
 
 Hammer equivalents available: `CLN_Hammer`, `BGL_Hammer`, `BLPR_Hammer`.

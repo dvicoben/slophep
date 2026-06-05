@@ -11,9 +11,9 @@ sys.path.insert(0, os.path.abspath('../../src/'))
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project   = 'SLOP'
-copyright = '2026, dvicoben'
+copyright = '%Y, dvicoben'
 author    = 'dvicoben'
-release   = 'v1.5.1'
+release   = 'v1.6.0'
 
 
 # -- General configuration ---------------------------------------------------

@@ -1,3 +1,10 @@
+2026-06-05 --- Version 1.6.0
+    Additions:
+     - Bs->KEllNu observable
+     - BCL form factors for B->Pi and Bs->K, following Hammer's implementation
+    Fixes:
+     - Safeguards on B->P prediciton classes for invalid q2 ranges
+
 2026-03-06 --- Version 1.5.0
     Additions:
      - B->D1, B->D0st, B->D1st, B->D2st ISGW2 FFs
