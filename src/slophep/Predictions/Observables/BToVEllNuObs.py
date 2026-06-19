@@ -20,7 +20,7 @@ class BToVEllNuPrediction(ObservableBase):
                  qiqj: str,
                  lep: str,
                  nu: str,
-                 FF: FormFactorBToV,
+                 FF: type[FormFactorBToV],
                  ffargs: list = [],
                  par: dict = None,
                  scale: float = 4.8,

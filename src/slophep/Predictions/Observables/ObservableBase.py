@@ -4,18 +4,16 @@ from slophep.Predictions.FormFactorBase import FormFactor
 
 class ObservableBase:
     def __init__(self, 
-                 FF: FormFactor,
+                 FF: type[FormFactor],
                  ffargs: list = [],
-                 par: dict = None,
+                 par: dict | None = None,
                  scale: float = 4.8,
                  ):
         """Base class for predictions to handle WC and FF setters"""
         self._par: dict = get_default_params() if par is None else par
-        if type(par) == dict:
-            self._par = par
         self._scale: float = scale
 
-        self._FF: FormFactor = FF(par, scale, *ffargs)
+        self._FF: FormFactor = FF(self.par, scale, *ffargs)
         self._wc_obj: flavio.WilsonCoefficients = flavio.WilsonCoefficients()
 
     @property

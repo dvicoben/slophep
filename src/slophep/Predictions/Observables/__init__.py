@@ -16,7 +16,7 @@ from slophep.Predictions.Observables.ObservablesBToDstst import (
 
 __all__ = [
     "ObservableBase",
-    "BToVEllNuPrediction", "BToPEllNuPrediction", "LbToOneHalfpEllNuPredictionn",
+    "BToVEllNuPrediction", "BToPEllNuPrediction", "LbToOneHalfpEllNuPrediction",
     "BdToDstEllNuPrediction", "BsToDsstEllNuPrediction",
     "BuToDEllNuPrediction", "BdToDEllNuPrediction", "BdToPiEllNuPrediction", "BsToKEllNuPrediction",
     "LbToLcEllNuPrediction",

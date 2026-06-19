@@ -14,7 +14,7 @@ class LbToOneHalfpEllNuPrediction(ObservableBase):
                  qiqj: str,
                  lep: str,
                  nu: str,
-                 FF: FormFactorOneHalfpToOneHalfp,
+                 FF: type[FormFactorOneHalfpToOneHalfp],
                  ffargs: list = [],
                  par: dict = None,
                  scale: float = 4.8

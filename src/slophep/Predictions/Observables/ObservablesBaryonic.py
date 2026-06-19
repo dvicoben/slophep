@@ -7,7 +7,7 @@ class LbToLcEllNuPrediction(LbToOneHalfpEllNuPrediction):
     def __init__(self, 
                  lep: str, 
                  nu: str,
-                 FF: FormFactorOneHalfpToOneHalfp,
+                 FF: type[FormFactorOneHalfpToOneHalfp],
                  ffargs: list = [],
                  par: dict = None,
                  scale: float = 4.8,

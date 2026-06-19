@@ -14,7 +14,7 @@ class BToD1EllNuPrediction(ObservableBase):
                  qiqj: str,
                  lep: str,
                  nu: str,
-                 FF: FormFactorBToD1,
+                 FF: type[FormFactorBToD1],
                  ffargs: list = [],
                  par: dict = None,
                  scale: float = 4.8
