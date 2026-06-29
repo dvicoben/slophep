@@ -67,12 +67,13 @@ class BSZ(FFBToV.BSZ_BToV):
 class HPQCD(FFBToV.HPQCD_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
         super().__init__("B0", "D*+", par, scale, *ffargs)
-        self._name = "BdToDst_HPQCD"
+        self._name = "BdToDst_HPQCD2023"
 
 
-class BGL_FLabMILC(FFBToV.BGLGeneric_BToV):
+class BGL_FNALMILC(FFBToV.BGLGeneric_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
-        super().__init__("B0", "D*+", par, scale, 2, 2, 2, 2)
+        super().__init__("B0", "D*+", par, scale, 3, 3, 3, 3)
+        self._name = "BdToDst_FNAL/MILC2021"
         # Meant to reproduce https://arxiv.org/pdf/2105.14019
         # NOTE: c0 is fixed by kinematical constraint in Eq. (72)
         self._ffpar = {
@@ -103,7 +104,8 @@ class BGL_FLabMILC(FFBToV.BGLGeneric_BToV):
 
 class BGL_JLQCD(FFBToV.BGLGeneric_BToV):
     def __init__(self, par: dict = None, scale: float = None, *ffargs):
-        super().__init__("B0", "D*+", par, scale, 2, 2, 2, 2)
+        super().__init__("B0", "D*+", par, scale, 3, 3, 3, 3)
+        self._name = "BdToDst_JLQCD2023"
         # Meant to reproduce https://arxiv.org/pdf/2306.05657
         # NOTE: c0 is fixed by kinematical constraint in Eq. (33)
         self._ffpar = {
