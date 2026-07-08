@@ -146,7 +146,7 @@ class FormFactorBToV(FormFactor):
         mB = self.internalparams["Mb"]
         mV = self.internalparams["Mc"]
         r = mV/mB
-        ffh = self.get_ff_h(q2)
+        ffh = self.get_ff_h_basis(q2)
         hA1 = ffh["hA1"]
         hA2 = ffh["hA2"]
         hA3 = ffh["hA3"]
