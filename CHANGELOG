@@ -1,4 +1,6 @@
-202X-XX-XX --- Version 1.6.X
+202X-XX-XX --- Version 1.7.0
+    Changes:
+     - Shifted MC generation to using pypmc
     Fixes:
      - Bugfix get_ff_R_basis in FormFactorBToV
 

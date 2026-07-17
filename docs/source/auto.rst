@@ -31,6 +31,7 @@ slophep.Predictions
     slophep.Predictions.FormFactorsBToDstst.BsToDs2stFF
     slophep.Predictions.FormFactorsBaryonic
     slophep.Predictions.FormFactorsBaryonic.LbToLcFF
+    slophep.Predictions.MCGenerator
     slophep.Predictions.SamplingTools
     slophep.Predictions.SamplingFluctuate
     slophep.Predictions.Math.BToVMathTools
