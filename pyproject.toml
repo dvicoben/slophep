@@ -14,7 +14,8 @@ dependencies = [
     "scipy",
     "matplotlib",
     "flavio",
-    "iminuit"
+    "iminuit",
+    "pypmc"
 ]
 
 [project.urls]
