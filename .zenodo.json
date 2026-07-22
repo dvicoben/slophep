@@ -14,5 +14,5 @@
         "Florian Herren and Raynette van Tonder, \"On the simulated kinematic distributions of semileptonic BB decays\" arXiv:2602.18378"
     ],
     "title": "SLOP: A package for Semi-Leptonic Observable Predictions",
-    "version": "v1.6.0"
+    "version": "v1.6.1"
 }

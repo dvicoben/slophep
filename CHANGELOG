@@ -1,6 +1,7 @@
-202X-XX-XX --- Version 1.6.X
+2026-07-22 --- Version 1.6.1
     Fixes:
      - Bugfix get_ff_R_basis in FormFactorBToV
+     - Bugfix of calculate_internal for B->V BLPRXP
 
 2026-06-05 --- Version 1.6.0
     Additions:
