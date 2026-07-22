@@ -14,12 +14,21 @@ class Parameter:
     def __init__(self, 
                  name: str,
                  val: T):
+        """_summary_
 
+        Parameters
+        ----------
+        name : str
+            Parameter name
+        val : T
+            Parameter value, arbitrary type T, in general expect float.
+        """
         self._name : str = name
         self._val  : T   = val
 
     @property
-    def name(self) -> str: return self._name
+    def name(self) -> str: 
+        return self._name
     # @property
     # def val(self) -> T: return self._val
 
@@ -38,6 +47,16 @@ class ParameterManager:
     def __init__(self, 
                  physdata: dict[str, float] = DEFAULT_PARAMS, 
                  scale: float = 4.8):
+        """Parameter manager
+
+        Parameters
+        ----------
+        physdata : dict[str, float], optional
+            Dictionary of defualt values (lifetimes, masses), by default DEFAULT_PARAMS which
+            is obtained from `flavio.default_parameters.get_central_all()`
+        scale : float, optional
+            Renorm scale, by default 4.8
+        """
         self._params  : dict[str, Parameter]      = {}
         self._scale   : float                     = scale
         self._wc_obj  : flavio.WilsonCoefficients = flavio.WilsonCoefficients()
@@ -67,6 +86,46 @@ class ParameterManager:
 
     def _update(self, pars: dict[str, Parameter]):
         self.params.update(pars)
+
+    def merge_into(self, other: ParameterManager) -> ParameterManager:
+        """Merges two managers, self into other, meaning parameters/aliases of other are
+        preserved if they are in both.
+
+        Parameters
+        ----------
+        other : ParameterManager
+            Manager to merge into
+
+        Returns
+        -------
+        ParameterManager
+            Merged parameter manager
+        """
+        unique_pars = {iname : ipar for iname, ipar in self.params.items() if iname not in other.params}
+        unique_aliases = {ialias : iparname for ialias, iparname in self.aliases if ialias not in other.aliases}
+        other._update(unique_pars)
+        other.aliases.update(unique_aliases)
+        return other
+
+    def merge_onto(self, other: ParameterManager) -> ParameterManager:
+        """Merges two managers, self onto other, meaning parameters/aliases of self are
+        preserved if they are in both.
+
+        Parameters
+        ----------
+        other : ParameterManager
+            Manager to merge onto
+
+        Returns
+        -------
+        ParameterManager
+            Merged parameter manager
+        """
+        unique_pars = {iname : ipar for iname, ipar in other.params.items() if iname not in self.params}
+        unique_aliases = {ialias : iparname for ialias, iparname in other.aliases if ialias not in self.aliases}
+        self._update(unique_pars)
+        self.aliases.update(unique_aliases)
+        return self
     
     # def merge(self, other_manager: ParameterManager) -> None:
     #     if other_manager is self:
@@ -82,10 +141,8 @@ class ParameterManager:
             dpar = self.get_param(par.name)
             if par is dpar:
                 return
-            
             if par.get_val() != dpar.get_val():
                 logger.warning(f"Parameter {par.name} already in manager with different value. This assignment is being skipped.")
-
             return
 
         self._update({par.name : par})
@@ -160,15 +217,11 @@ class ParameterManager:
 
 
 
-
-
-
-
 class ParameterUser:
     _name: str = ""
-    def __init__(self, manager: ParameterManager):
-        self._pm = manager
-        self._initialize()
+    def __init__(self):
+        self._pm = ParameterManager()
+        self._initialize_params(self.pm)
 
     @property
     def name(self) -> str: return self._name
@@ -182,22 +235,28 @@ class ParameterUser:
     def user_params_defaults(self) -> dict[str, Any]:
         return {f"{self._name}:{ipar}" : ival for ipar, ival in self.define_userparams().items()}
 
-    def _initialize(self) -> None:
+    def _initialize_params(self, manager: ParameterManager) -> None:
         params = copy.deepcopy(self.user_params_defaults())
         for ipar, ival in params.items():
             iname = f"{self.name}:{ipar}"
-            self.pm.register_param(iname, ival)
+            manager.register_param(iname, ival)
 
     def set_parammanager(self, manager: ParameterManager) -> None:
         self._pm = manager
-        self._initialize()
+        self._initialize_params()
 
     # def get_param(self, name: str, prefix: str = None) -> Any:
     #     parname = name if prefix is None else f"{prefix}:{name}"
     #     return self.pm.get_param(parname)
 
     def get_param(self, name: str) -> Any:
-        return self.pm.get_param(name)
+        return self.pm.get_val(name)
+
+    def set_param(self, name: str, val: Any) -> None:
+        self.pm.set_val(name, val)
 
     def get_userparam(self, name: str) -> Any:
-        return self.get_param(name, self.name)
+        return self.get_param(f"{self.name}:{name}")
+
+    def set_userparam(self, name: str, val: Any) -> None:
+        self.pm.set_val(f"{self.name}:{name}", val)
