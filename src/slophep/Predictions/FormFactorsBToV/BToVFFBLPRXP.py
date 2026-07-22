@@ -55,7 +55,7 @@ class BLPRXP_BToV(FormFactorBToV):
         _rho1  = params["rho1"]
         _la2   = params["la2"]
         # Some additional calculations to avoid recomputing:        
-        zBC = _mc/_mc
+        zBC = _mc/_mb
         laB = (_mb*_mBBar - _mc*_mDBar)/(_mb-_mc) - (_mb+_mc) + _rho1/(4.*_mb*_mc)
         la1 = (2.*_mb*_mc)/(_mb - _mc)*(_mBBar - _mDBar - (_mb-_mc)) + _rho1*(_mb+_mc)/(2.*_mb*_mc)
         # _eb = laB/(2.*_mb)
