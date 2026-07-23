@@ -5,7 +5,7 @@ import importlib.resources
 import json
 
 import logging
-logger = logging.getLogger(__file__)
+logger = logging.getLogger(__name__)
 
 
 def load_json_data(pkgpath: str, filename: str) -> dict:

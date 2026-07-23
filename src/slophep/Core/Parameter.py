@@ -6,7 +6,7 @@ from slophep.Core.physdata import DEFAULT_PARAMS
 import copy
 import logging
 
-logger = logging.getLogger(__file__)
+logger = logging.getLogger(__name__)
 
 T = TypeVar("T")
 
@@ -199,12 +199,12 @@ class ParameterManager:
 
     def _get_wc_values(self) -> dict[str, complex]:
         wc = {}
-        for ikey, ival in self.params.items():
+        for ikey, ipar in self.params.items():
             if not (ikey[:5] == "WCRe:" or ikey[5:] == "WCIm:"):
                 continue
             # Handle Wilson Coefficients
             name_wc = ikey[5:]
-            iwc = ival if "WCRe:" in ikey else 1.0j*ival
+            iwc = ipar.get_val() if "WCRe:" in ikey else 1.0j*ipar.get_val()
             if name_wc not in wc:
                 wc[name_wc] = 0.0
             wc[name_wc] += iwc
@@ -230,20 +230,19 @@ class ParameterUser:
 
     def define_userparams(self) -> dict[str, Any]:
         # To implement in derived class!
-        return
+        return {}
 
     def user_params_defaults(self) -> dict[str, Any]:
         return {f"{self._name}:{ipar}" : ival for ipar, ival in self.define_userparams().items()}
 
     def _initialize_params(self, manager: ParameterManager) -> None:
         params = copy.deepcopy(self.user_params_defaults())
-        for ipar, ival in params.items():
-            iname = f"{self.name}:{ipar}"
+        for iname, ival in params.items():
             manager.register_param(iname, ival)
 
     def set_parammanager(self, manager: ParameterManager) -> None:
         self._pm = manager
-        self._initialize_params()
+        self._initialize_params(self.pm)
 
     # def get_param(self, name: str, prefix: str = None) -> Any:
     #     parname = name if prefix is None else f"{prefix}:{name}"
