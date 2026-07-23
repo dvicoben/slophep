@@ -92,11 +92,7 @@ class FFBToV_HPQCD(FormFactorBToV):
             "a^10_hT3" : 0.010426839830565283,
             # internalparams
             "lambdaqcdphys" : 0.5,
-            "LambdaChi"     : 1.0,
             "maxorder"      : 10,
-            "Mk"            : 0.493677,
-            "MPi"           : 0.13957,
-            "MEta"          : 0.547862,
             "fpi"           : 0.130
         }
         return ffpar
@@ -122,7 +118,7 @@ class FFBToV_HPQCD(FormFactorBToV):
         for order in range(int(self.get_userparam("maxorder")+1)):
             param_name = 'a^'+str(order)+'_'+A
             if f"{self.name}:{param_name}" not in self.pm.params:
-                print(f"{self.name} FF parameter {param_name} not found, not contributing")
+                logger.info(f"{self.name} FF parameter {param_name} not found, not contributing")
                 continue
 
             cumulator = self.get_userparam(param_name)
@@ -151,13 +147,13 @@ class FFBToV_HPQCD(FormFactorBToV):
         r=mV/mB
         w = self.w(q2)
         hA1b=self._get_ff_h(q2, 'hA1')
-        hA2b=self._get_ff_h(q2,'hA2')
-        hA3b=self._get_ff_h(q2,'hA3')
-        hVb =self._get_ff_h(q2,'hV')
+        hA2b=self._get_ff_h(q2, 'hA2')
+        hA3b=self._get_ff_h(q2, 'hA3')
+        hVb =self._get_ff_h(q2, 'hV')
         
-        hT1b=self._get_ff_h(q2,'hT1')
-        hT2b=self._get_ff_h(q2,'hT2')
-        hT3b=self._get_ff_h(q2,'hT3')
+        hT1b=self._get_ff_h(q2, 'hT1')
+        hT2b=self._get_ff_h(q2, 'hT2')
+        hT3b=self._get_ff_h(q2, 'hT3')
 
         A0 = ((1.0+w)*hA1b+(r*w-1.0)*hA2b+(r-w)*hA3b)/(2.0*np.sqrt(r))
         A1 = hA1b*(1.0+w)*np.sqrt(r)/(1.0+r)
