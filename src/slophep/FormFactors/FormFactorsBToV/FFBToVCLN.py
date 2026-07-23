@@ -1,13 +1,13 @@
 import numpy as np
-from slophep.Core.Parameter import ParameterUser, ParameterManager
 from slophep.FormFactors.FormFactorsBToV.FFBToVBase import FormFactorBToV
 from slophep.Tools.SamplingTools import fluctsettings, FluctType
 
 import logging
-logger = logging.getLogger(__file__)
+logger = logging.getLogger(__name__)
 
 class FFBToV_CLN(FormFactorBToV):
     _name = "FFBToV@CLN"
+    
     def __init__(self, B: str, V: str):
         logger.warning(f"{self.name} tensor FFs are zero.")
         super().__init__(B, V)
