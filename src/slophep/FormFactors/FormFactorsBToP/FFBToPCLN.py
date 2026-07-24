@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 class FFBToP_CLN(FormFactorBToP):
     _name = "FFBToP@CLN"
     def __init__(self, B: str, P: str):
-        logger.warning(f"{self.name} tensor FFs are zero.")
+        logger.info(f"{self.name} tensor FFs are zero.")
         super().__init__(B, P)
 
     def define_userparams(self):

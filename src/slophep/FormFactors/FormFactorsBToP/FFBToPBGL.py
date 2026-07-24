@@ -11,7 +11,7 @@ class FFBToP_BGLGeneric(FormFactorBToP):
     def __init__(self, B: str, P: str,
                  N_fp : int = 3,
                  N_f0 : int = 3):
-        logger.warning(f"{self.name} tensor FFs are zero.")
+        logger.info(f"{self.name} tensor FFs are zero.")
         self._n = {
             "f+"   : N_fp,
             "f0"   : N_f0,

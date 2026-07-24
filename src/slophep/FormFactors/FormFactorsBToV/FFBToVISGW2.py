@@ -9,7 +9,7 @@ class FFBToV_ISGW2(FormFactorBToV):
     _name = "FFBToV@ISGW2"
     
     def __init__(self, B: str, V: str):
-        logger.warning(f"{self.name} tensor FFs are zero.")
+        logger.info(f"{self.name} tensor FFs are zero.")
         super().__init__(B, V)
 
     def define_userparams(self):

@@ -10,7 +10,7 @@ class FFBToV_CLN2(FormFactorBToV):
     _name = "FFBToV@CLN2"
     
     def __init__(self, B: str, V: str):
-        logger.warning(f"{self.name} Tensor FFs are set assuming eq. 11 in https://arxiv.org/pdf/1503.05534 is unity, use with care for BSM.")
+        logger.info(f"{self.name} Tensor FFs are set assuming eq. 11 in https://arxiv.org/pdf/1503.05534 is unity, use with care for BSM.")
         super().__init__(B, V)
 
     def define_userparams(self):

@@ -15,6 +15,7 @@ from flavio.physics import ckm
 
 
 class BToVEllNuPrediction(Observable):
+    _name = "ObsBToVEllNu"
     def __init__(self, 
                  B: str,
                  V: str,
