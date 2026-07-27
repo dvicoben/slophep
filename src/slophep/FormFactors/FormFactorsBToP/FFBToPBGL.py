@@ -104,7 +104,6 @@ class FFBToP_BGLGeneric(FormFactorBToP):
 class FFBToP_BGL(FFBToP_BGLGeneric):
     _name = "FFBToP@BGL"
     def __init__(self, B: str, P: str):
-        logger.warning(f"{self.name} tensor FFs are zero.")
         super().__init__(B, P, 4, 4)
 
     def define_userparams(self):

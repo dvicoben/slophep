@@ -1,3 +1,6 @@
+"""
+B+->D1 Form-factors
+"""
 import slophep.FormFactors.FormFactorsBToDstst as FFBToDstst
 
 class ISGW2(FFBToDstst.FFBToD1_ISGW2):

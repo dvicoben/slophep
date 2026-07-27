@@ -1,3 +1,6 @@
+"""
+Lb->Lc Form-factors
+"""
 import slophep.FormFactors.FormFactorsBaryonic as FFBar
 
 class DKMR(FFBar.FFBaryonic_DKMR):

@@ -1,3 +1,6 @@
+"""
+Bs->K Form-factors
+"""
 from typing import Any
 import slophep.FormFactors.FormFactorsBToP as FFBToP
 from slophep.Tools.SamplingTools import fluctsettings, FluctType

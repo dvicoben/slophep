@@ -1,3 +1,6 @@
+"""
+B0->D* Form-factors
+"""
 from typing import Any
 import numpy as np
 
@@ -122,7 +125,7 @@ class BGL_JLQCD(FFBToV.FFBToV_BGLGeneric):
         return pars
 
 
-
+# Hammer equivalent classes
 class BGL_Hammer(FFBToV.FFBToV_BGLGeneric):
     _name = "FFBdToDst@BGL_Hammer"
     def __init__(self):
