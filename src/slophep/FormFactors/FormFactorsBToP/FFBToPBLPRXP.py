@@ -185,7 +185,7 @@ class FFBToP_BLPRXP(FormFactorBToP):
         eb = auxparams["eb"]
         ec = auxparams["ec"]
 
-        IWs = self.IW(w)
+        IWs = self.IW(w, auxparams)
         Li1 = calc_Li1(w, IWs)
         Hp += (ec + eb)*Li1[1]
         Hm += (ec - eb)*Li1[4]
@@ -216,7 +216,7 @@ class FFBToP_BLPRXP(FormFactorBToP):
         # Epsilon b * Epsilon c
         if self.get_userparam("With1OverMbMc"):
             eceb = ec*eb
-            Mi = calc_Mi(w, IWs)
+            Mi = calc_Mi(w, IWs, auxparams["la1/laB2"], auxparams["la2/laB2"])
             Hp += eceb * (Mi[1] - Mi[8])
             Hm += 0.
             Ht += eceb * (Mi[1] + Mi[8] - 2.*Mi[15])

@@ -281,5 +281,6 @@ class FFBToV_BGL(FFBToV_BGLGeneric):
             "a_T23_1" : 0.000   , 
             "a_T23_2" : 0.13
         })
+        return ffpar
 
 

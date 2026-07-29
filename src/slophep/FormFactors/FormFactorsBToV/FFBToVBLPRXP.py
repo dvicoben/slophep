@@ -141,6 +141,7 @@ class FFBToV_BLPRXP(FormFactorBToV):
         )
         return Xi
 
+    @fluctsettings(FluctType.DICTNUMERIC)
     def IW(self, w: float, auxparams: dict[str, float]) -> dict:
         IWs = {
             "CHI2"  : self.get_userparam("Chi21") + (w-1.0)*self.get_userparam("Chi2p"),
@@ -194,7 +195,7 @@ class FFBToV_BLPRXP(FormFactorBToV):
         eb = auxparams["eb"]
         ec = auxparams["ec"]
 
-        IWs = self.IW(w)
+        IWs = self.IW(w, auxparams)
         Li1 = calc_Li1(w, IWs)
         
         # Hps += ec*(Li1[2]+Li1[3]*(w-1)+Li1[5]-Li1[6]*(w+1)) + eb*(Li1[1]-Li1[4])
@@ -245,7 +246,7 @@ class FFBToV_BLPRXP(FormFactorBToV):
         # Epsilon b * Epsilon c
         if self.get_userparam("With1OverMbMc"):
             eceb = ec*eb
-            Mi = calc_Li2(w, IWs, auxparams["la1/laB2"], auxparams["la2/laB2"])
+            Mi = calc_Mi(w, IWs, auxparams["la1/laB2"], auxparams["la2/laB2"])
             Hv  += eceb * ((Mi[2]+Mi[9]) - (Mi[16]+Mi[18]))
             Ha1 += eceb * ((Mi[2]+Mi[9]) - (w-1.)/(w+1.)*(Mi[16]+Mi[18]))
             Ha2 += eceb * ((Mi[3]-Mi[10]) + (Mi[17]-Mi[19]))
