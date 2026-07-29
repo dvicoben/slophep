@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from slophep.FormFactors.FormFactorsBToV import FormFactorBToV
-from slophep.Observables import Observable
-from slophep.Predictions.Math import BToVMathTools as mt
+from slophep.Observables.ObservableImpl.ObservableBase import Observable
+from slophep.Math import BToVMathTools as mt
 from slophep.Tools.SamplingTools import fluctsettings, FluctType
 
 import flavio
