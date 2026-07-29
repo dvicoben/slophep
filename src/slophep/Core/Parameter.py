@@ -142,7 +142,7 @@ class ParameterManager:
             if par is dpar:
                 return
             else:
-                logger.warning(f"Parameter {par.name} already in manager. This assignment is being skipped.")
+                logger.debug(f"Parameter {par.name} already in manager. This assignment is being skipped.")
             return
 
         self._update({par.name : par})
