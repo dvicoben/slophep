@@ -141,8 +141,8 @@ class ParameterManager:
             dpar = self.get_param(par.name)
             if par is dpar:
                 return
-            if par.get_val() != dpar.get_val():
-                logger.warning(f"Parameter {par.name} already in manager with different value. This assignment is being skipped.")
+            else:
+                logger.warning(f"Parameter {par.name} already in manager. This assignment is being skipped.")
             return
 
         self._update({par.name : par})
