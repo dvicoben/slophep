@@ -1,3 +1,3 @@
 rm -rf ./build
-rm ./source/autodoc/*.rst
+rm ./source/api/*.rst
 make html

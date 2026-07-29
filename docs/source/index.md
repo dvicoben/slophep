@@ -18,5 +18,5 @@ reference.md
 :maxdepth: 1
 :caption: Python API:
 
-auto.rst
+api.rst
 ```

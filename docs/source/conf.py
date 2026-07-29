@@ -13,19 +13,20 @@ sys.path.insert(0, os.path.abspath('../../src/'))
 project   = 'SLOP'
 copyright = '%Y, dvicoben'
 author    = 'dvicoben'
-release   = 'v1.6.1'
+release   = 'v2.0.0'
 
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    "sphinx_rtd_theme",
-    "myst_parser",
-    'sphinx.ext.autodoc',            # To generate autodocs
-    'sphinx.ext.autosummary',
-    'sphinx.ext.mathjax',           # autodoc with maths
-    'sphinx.ext.napoleon',           # For auto-doc configuration
+    "sphinx_rtd_theme"      ,
+    "myst_parser"           ,
+    "autoclasstoc"          ,
+    'sphinx.ext.autodoc'    , # To generate autodocs
+    'sphinx.ext.autosummary', 
+    'sphinx.ext.mathjax'    , # autodoc with maths
+    'sphinx.ext.napoleon'   , # For auto-doc configuration
     'sphinx.ext.viewcode'
 ]
 
@@ -45,6 +46,8 @@ exclude_patterns     = []
 autosummary_generate = True
 # If true, the current module name will be prepended to all description unit titles (such as .. function::).
 add_module_names = False
+# autosummary_imported_members = True
+autosummary_ignore_module_all = False
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
