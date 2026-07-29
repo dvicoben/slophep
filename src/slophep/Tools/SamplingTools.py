@@ -3,9 +3,10 @@ import scipy.stats as stats
 from enum import StrEnum
 
 class FluctType(StrEnum):
-    DICTNUMERIC = "dictnumeric",
-    NUMERIC     = "numeric"
-    NONE        = "None"
+    ARRAYNUMERIC = "arraynumeric",
+    DICTNUMERIC  = "dictnumeric",
+    NUMERIC      = "numeric"
+    NONE         = "None"
 
 
 def fluctsettings(flucttype: FluctType):
