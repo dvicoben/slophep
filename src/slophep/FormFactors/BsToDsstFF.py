@@ -63,7 +63,7 @@ class BGL(FFBToV.FFBToV_BGL):
         super().__init__("Bs", "Ds*")
 
 
-class HPQCD(FFBToV.FFBToV_HPQCD):
+class HPQCD2023(FFBToV.FFBToV_HPQCD):
     _name = "FFBsToDsst@HPQCD2023"
     def __init__(self):
         super().__init__("Bs", "Ds*")

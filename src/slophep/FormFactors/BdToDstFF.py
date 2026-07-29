@@ -50,13 +50,13 @@ class BSZ(FFBToV.FFBToV_BSZ):
         super().__init__("B0", "D*+")
 
 
-class HPQCD(FFBToV.FFBToV_HPQCD):
+class HPQCD2023(FFBToV.FFBToV_HPQCD):
     _name = "FFBdToDst@HPQCD2023"
     def __init__(self):
         super().__init__("B0", "D*+")
 
 
-class BGL_FNALMILC(FFBToV.FFBToV_BGLGeneric):
+class BGL_FNALMILC2021(FFBToV.FFBToV_BGLGeneric):
     _name = "FFBdToDst@BGL_FNAL/MILC2021"
     def __init__(self):
         super().__init__("B0", "D*+", 3, 3, 3, 3, 0, 0, 0)
@@ -91,7 +91,7 @@ class BGL_FNALMILC(FFBToV.FFBToV_BGLGeneric):
 
 
 
-class BGL_JLQCD(FFBToV.FFBToV_BGLGeneric):
+class BGL_JLQCD2023(FFBToV.FFBToV_BGLGeneric):
     _name = "FFBdToDst@BGL_JLQCD2023"
     def __init__(self):
         super().__init__("B0", "D*+", 3, 3, 3, 3, 0, 0, 0)
