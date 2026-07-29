@@ -409,7 +409,7 @@ class BToD1stEllNuPrediction(Observable):
                  M   : str,
                  lep : str,
                  nu  : str,
-                 FF  : FormFactorBToD1):
+                 FF  : FormFactorBToD1st):
         super().__init__(FF)
         self._B: str = B
         self._M: str = M
@@ -624,7 +624,7 @@ class BToD2stEllNuPrediction(Observable):
                  M   : str,
                  lep : str,
                  nu  : str,
-                 FF  : FormFactorBToD1):
+                 FF  : FormFactorBToD2st):
         super().__init__(FF)
         self._B: str = B
         self._M: str = M
