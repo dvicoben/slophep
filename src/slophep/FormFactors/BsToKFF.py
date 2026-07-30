@@ -14,13 +14,13 @@ class BCL(FFBToP.FFBToP_BCLGeneric):
     def define_userparams(self):
         ffpar = super().define_userparams()
         ffpar.update({
-            "f+_0" : 0.374 , 
-            "f+_1" : -0.672, 
-            "f+_2" : 0.07  , 
-            "f+_3" : 1.34  ,
-            "f0_0" : 0.2203, 
-            "f0_1" : 0.089 , 
-            "f0_2" : 0.24  ,
+            "a_f+_0" : 0.374 , 
+            "a_f+_1" : -0.672, 
+            "a_f+_2" : 0.07  , 
+            "a_f+_3" : 1.34  ,
+            "a_f0_0" : 0.2203, 
+            "a_f0_1" : 0.089 , 
+            "a_f0_2" : 0.24  ,
             #internalparams
             "m1m"    : 5.325,
             "m0p"    : 5.68 ,

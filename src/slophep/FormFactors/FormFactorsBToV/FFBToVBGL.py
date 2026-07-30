@@ -128,10 +128,10 @@ class FFBToV_BGLGeneric(FormFactorBToV):
         chiF2 = self.get_userparam("chiF2")
         chig  = self.get_userparam("chig")
 
-        phif  = (4./Mb2)*np.sqrt(nc/(3*np.pi*chif))      * outer_function_vec(z, rC, 1, 3, 4)
-        phiF1 = (4./Mb3)*np.sqrt(nc/(6*np.pi*chiF1))     * outer_function_vec(z, rC, 1, 5, 5)
-        phiF2 = 8*np.sqrt(2)*np.sqrt(nc/(np.pi*chiF2))   * outer_function_vec(z, rC, 2, -1, 4)
-        phig  = 16*np.sqrt(2)*np.sqrt(nc/(3*np.pi*chig)) * outer_function_vec(z, rC, 2, -1, 4)
+        phif    = (4./Mb2)*np.sqrt(nc/(3*np.pi*chif))    * outer_function_vec(z, rC, 1, 3, 4)
+        phiF1   = (4./Mb3)*np.sqrt(nc/(6*np.pi*chiF1))   * outer_function_vec(z, rC, 1, 5, 5)
+        phiF2   = 8*np.sqrt(2)*np.sqrt(nc/(np.pi*chiF2)) * outer_function_vec(z, rC, 2, -1, 4)
+        phig    = 16*np.sqrt(nc/(3*np.pi*chig))          * outer_function_vec(z, rC, 2, -1, 4)
         phif_0  = (4./Mb2)*np.sqrt(nc/(3*np.pi*chif))    * outer_function_vec(0.0, rC, 1, 3, 4)
         phiF1_0 = (4./Mb3)*np.sqrt(nc/(6*np.pi*chiF1))   * outer_function_vec(0.0, rC, 1, 5, 5)
 

@@ -101,14 +101,14 @@ class FFBToP_BCL(FFBToP_BCLGeneric):
     def define_userparams(self):
         ffpar = super().define_userparams()
         ffpar.update({
-            "f+_a_0" : 0.419 ,
-            "f+_a_1" : -0.495,
-            "f+_a_2" : -0.43 ,
-            "f+_a_3" : 0.22  ,
-            "f0_a_0" : 0.510 ,
-            "f0_a_1" : -1.700,
-            "f0_a_2" : 1.53  ,
-            "f0_a_3" : 4.52  ,
+            "a_f+_0" : 0.419 ,
+            "a_f+_1" : -0.495,
+            "a_f+_2" : -0.43 ,
+            "a_f+_3" : 0.22  ,
+            "a_f0_0" : 0.510 ,
+            "a_f0_1" : -1.700,
+            "a_f0_2" : 1.53  ,
+            "a_f0_3" : 4.52  ,
             #internalparams
             "m1m"    : 5.325  ,
             "q2cons" : False   # impose f_+(q^2=0) = f_0(q^2=0)

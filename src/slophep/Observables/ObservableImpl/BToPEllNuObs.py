@@ -219,7 +219,7 @@ class BToPEllNuPrediction(Observable):
             dBR/dq2
         """
         dGdq2 = self.dGdq2(q2)
-        BR = self.par[f"tau_{self._B}"]*dGdq2
+        BR = self.get_param(f"tau_{self.B}")*dGdq2
         if self.P == 'pi0':
             # factor of 1/2 for neutral pi due to pi = (uubar-ddbar)/sqrt(2)
             return 0.5*BR

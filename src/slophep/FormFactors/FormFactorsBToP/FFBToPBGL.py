@@ -73,7 +73,7 @@ class FFBToP_BGLGeneric(FormFactorBToP):
 
         w = max((Mb**2 + Mc**2 - q2) / (2 * Mb * Mc), 1)
         z = (np.sqrt(w+1) - np.sqrt(2))/(np.sqrt(w+1) + np.sqrt(2))
-        zpow = np.array([z**ik for ik in range(int(self.internalparams["nmax"]))])
+        zpow = np.array([z**ik for ik in range(int(self.n["nmax"]))])
 
         ap = self.get_coef_arr("f+")
         a0 = self.get_coef_arr("f0")

@@ -170,7 +170,7 @@ class LbToOneHalfpEllNuPrediction(Observable):
             dBR/dq2
         """
         dG = self.dGdq2(q2)
-        BR = dG*self.par[f"tau_{self.B}"]
+        BR = dG*self.get_param(f"tau_{self.B}")
         # tau = 1.471e-12
         # hbar = 6.58211928e-25
         # BR = dG*(tau/hbar)

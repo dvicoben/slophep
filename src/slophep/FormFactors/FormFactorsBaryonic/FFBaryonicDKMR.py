@@ -77,54 +77,54 @@ class FFBaryonic_DKMR(FormFactorOneHalfpToOneHalfp):
         z1m = self.z(q2, m1m)
 
         fV_t = 1.0/(1. - (q2/(m0p**2)))*(
-            self.get_userparam("aV_t0")
-            + self.get_userparam("aV_t1")*z0p
-            + self.get_userparam("aV_t2")*(z0p**2)
+            self.get_userparam("a_Vt_0")
+            + self.get_userparam("a_Vt_1")*z0p
+            + self.get_userparam("a_Vt_2")*(z0p**2)
         )
         fV_l = 1.0/(1. - (q2/(m1m**2)))*(
-            self.get_userparam("aV_l0")
-            + self.get_userparam("aV_l1")*z1m
-            + self.get_userparam("aV_l2")*(z1m**2)
+            self.get_userparam("a_Vl_0")
+            + self.get_userparam("a_Vl_1")*z1m
+            + self.get_userparam("a_Vl_2")*(z1m**2)
         )
         fV_p = 1.0/(1. - (q2/(m1m**2)))*(
-            self.get_userparam("aV_p0")
-            + self.get_userparam("aV_p1")*z1m
-            + self.get_userparam("aV_p2")*(z1m**2)
+            self.get_userparam("a_Vp_0")
+            + self.get_userparam("a_Vp_1")*z1m
+            + self.get_userparam("a_Vp_2")*(z1m**2)
         )
         fA_t = 1.0/(1. - (q2/(m0m**2)))*(
-            self.get_userparam("aA_t0")
-            + self.get_userparam("aA_t1")*z0m
-            + self.get_userparam("aA_t2")*(z0m**2)
+            self.get_userparam("a_At_0")
+            + self.get_userparam("a_At_1")*z0m
+            + self.get_userparam("a_At_2")*(z0m**2)
         )
         fA_l = 1.0/(1. - (q2/(m1p**2)))*(
-            self.get_userparam("aA_l0")
-            + self.get_userparam("aA_l1")*z1p
-            + self.get_userparam("aA_l2")*(z1p**2)
+            self.get_userparam("a_Al_0")
+            + self.get_userparam("a_Al_1")*z1p
+            + self.get_userparam("a_Al_2")*(z1p**2)
         )
         fA_p = 1.0/(1. - (q2/(m1p**2)))*(
-            self.get_userparam("aA_l0")
-            + self.get_userparam("aA_p1")*z1p
-            + self.get_userparam("aA_p2")*(z1p**2)
+            self.get_userparam("a_Al_0")
+            + self.get_userparam("a_Ap_1")*z1p
+            + self.get_userparam("a_Ap_2")*(z1p**2)
         )
         fT_l = 1.0/(1. - (q2/(m1m**2)))*(
-            self.get_userparam("aT_l0")
-            + self.get_userparam("aT_l1")*z1m
-            + self.get_userparam("aT_l2")*(z1m**2)
+            self.get_userparam("a_Tl_0")
+            + self.get_userparam("a_Tl_1")*z1m
+            + self.get_userparam("a_Tl_2")*(z1m**2)
         )
         fT_p = 1.0/(1. - (q2/(m1m**2)))*(
-            self.get_userparam("aT_p0")
-            + self.get_userparam("aT_p1")*z1m
-            + self.get_userparam("aT_p2")*(z1m**2)
+            self.get_userparam("a_Tp_0")
+            + self.get_userparam("a_Tp_1")*z1m
+            + self.get_userparam("a_Tp_2")*(z1m**2)
         )
         fT5_l = 1.0/(1. - (q2/(m1p**2)))*(
-            self.get_userparam("aT5_l0")
-            + self.get_userparam("aT5_l1")*z1p
-            + self.get_userparam("aT5_l2")*(z1p**2)
+            self.get_userparam("a_T5l_0")
+            + self.get_userparam("a_T5l_1")*z1p
+            + self.get_userparam("a_T5l_2")*(z1p**2)
         )
         fT5_p = 1.0/(1. - (q2/(m1p**2)))*(
-            self.get_userparam("aT5_l0")
-            + self.get_userparam("aT5_p1")*z1p
-            + self.get_userparam("aT5_p2")*(z1p**2)
+            self.get_userparam("a_T5l_0")
+            + self.get_userparam("a_T5p_1")*z1p
+            + self.get_userparam("a_T5p_2")*(z1p**2)
         )
 
         ff = {
