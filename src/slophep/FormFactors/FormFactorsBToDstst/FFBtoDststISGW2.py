@@ -91,7 +91,7 @@ class FFBToD1_ISGW2(FormFactorBToD1):
         smearQ2 = 1.0
         if self.get_userparam("SmearQ2"):
             q2max = (mb-mx)**2
-            q2maxmean = (self.get_param(f"m_{self.B}")-self.get_userparam(f"m_{self.C}"))**2
+            q2maxmean = (self.get_param(f"m_{self.B}")-self.get_param(f"m_{self.C}"))**2
             smearQ2 = np.min((np.sqrt(q2maxmean/q2max), 1000.))
 
         ffs = {
@@ -352,7 +352,7 @@ class FFBToD1st_ISGW2(FormFactorBToD1st):
         r2 = (
             3.0/(4.0*msb*msq)
             +3*msd*msd/(2*mbb*mbx*bbx2) 
-            + (16.0/(mbb*mbx*(33.0-2.0*self.internalparams["nfp"])))*np.log(self.get_as(mqm, mqm)/self.get_as(msq, msq))
+            + (16.0/(mbb*mbx*(33.0-2.0*nfp)))*np.log(self.get_as(mqm, mqm)/self.get_as(msq, msq))
         )
         f5 = np.sqrt(mtx/mtb)*np.power(np.sqrt(bx2*bb2)/bbx2,5.0/2.0)/(np.power((1.0+r2*(tm-t)/18.0),3.0))
         f5q = f5*np.power(( mbb / mtb ),-0.5)*np.power((mbx/mtx),-0.5)
@@ -375,7 +375,7 @@ class FFBToD1st_ISGW2(FormFactorBToD1st):
         smearQ2 = 1.0
         if self.get_userparam("SmearQ2"):
             q2max = (mb-mx)**2
-            q2maxmean = (self.get_param(f"m_{self.B}")-self.get_userparam(f"m_{self.C}"))**2
+            q2maxmean = (self.get_param(f"m_{self.B}")-self.get_param(f"m_{self.C}"))**2
             smearQ2 = np.min((np.sqrt(q2maxmean/q2max), 1000.))
 
         ffs = {
