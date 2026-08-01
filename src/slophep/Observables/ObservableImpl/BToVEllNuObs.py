@@ -81,7 +81,7 @@ class BToVEllNuPrediction(Observable):
         return 4*GF/sqrt(2)*Vij
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_angularcoeff(self, q2: float) -> dict:
+    def _dJ(self, q2: float) -> dict:
         """Calculate angular coefficients, flavio is used for these calculations, method essentially follows
         flavio.physics.bdecays.bvlnu._get_angularcoeff from https://flav-io.github.io/apidoc/flavio/physics/bdecays/bvlnu.m.html
 
@@ -111,7 +111,7 @@ class BToVEllNuPrediction(Observable):
         return J
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_norm_coeff(self, q2: float) -> dict:
+    def _J(self, q2: float) -> dict:
         """Calculate rate normalised angular coefficients, flavio is used for these calculations, method essentially follows
         flavio.physics.bdecays.bvlnu._get_angularcoeff from https://flav-io.github.io/apidoc/flavio/physics/bdecays/bvlnu.m.html
 
@@ -124,42 +124,53 @@ class BToVEllNuPrediction(Observable):
         dict
             Dictionary of coefficients J_i
         """
-        J = self.get_angularcoeff(q2)
+        J = self._dJ(q2)
         norm =  3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
         # Can lead to Nan if dG==0 i.e. outside kinematic range, so:
         if norm <= 0.0:
             return {k : 0 for k in J}
         return {k : J[k]/norm for k in J}
-    
+
+    def _obsq2Bin(self, obs: str | int, q2min: float, q2max: float) -> float:
+        def evalObs(q2):
+            return self._dJ(q2)[obs]
+        return flavio.math.integrate.nintegrate(evalObs, q2min, q2max)
+
     @fluctsettings(FluctType.DICTNUMERIC)
-    def dJ(self, q2: float) -> dict:
-        """Alias for get\_angularcoeff
+    def _dJ_bin(self, q2min: float, q2max: float) -> dict:
+        """Calculate binned angular observable
 
         Parameters
         ----------
-        q2 : float
+        q2min : float
+        q2max : float
 
         Returns
         -------
         dict
-            Dictionary of coefficents J_i
+            Dictionary of observable <J_i>, integrated over q2min, q2max
         """
-        return self.get_angularcoeff(q2)
+        return {iobs: self._obsq2Bin(iobs, q2min, q2max) for iobs in self.obslist}
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def J(self, q2: float) -> dict:
-        """Alias for get\_norm\_coeff
+    def _J_bin(self, q2min: float, q2max: float) -> dict:
+        """Calculate rate normalised binned angular observable
 
         Parameters
         ----------
-        q2 : float
+        q2min : float
+        q2max : float
 
         Returns
         -------
         dict
-            Dictionary of coefficients J_i
+            Dictionary of observable <J_i>, integrated over q2min, q2max
         """
-        return self.get_norm_coeff(q2)
+        J = self._dJ_bin(q2min, q2max)
+        norm = 3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
+        # den = flavio.math.integrate.nintegrate(self.dGdq2, q2min, q2max)
+        # return {iobs : num[iobs]/den for iobs in self.obslist}
+        return {iobs : J[iobs]/norm for iobs in self.obslist}
     
     @fluctsettings(FluctType.NUMERIC)
     def dGdq2(self, q2: float) -> float:
@@ -174,7 +185,7 @@ class BToVEllNuPrediction(Observable):
         float
             dGamma/dq2 (up to normalisation)
         """
-        J = self.dJ(q2)
+        J = self._dJ(q2)
         return 3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
 
     @fluctsettings(FluctType.NUMERIC)
@@ -191,7 +202,7 @@ class BToVEllNuPrediction(Observable):
         float
             dGamma/dq2 (up to normalisation) integrated over the bin
         """
-        J = self.dJ_bin(q2min, q2max)
+        J = self._dJ_bin(q2min, q2max)
         return 3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
 
     def dGdq2_hist(self, q2_bins: int | list):
@@ -216,6 +227,62 @@ class BToVEllNuPrediction(Observable):
             idG = self.dGdq2_bin(q2_edges[iq2], q2_edges[iq2+1])
             h[iq2] = idG
         return h, q2_edges
+
+    @fluctsettings(FluctType.NUMERIC)
+    def dBRdq2(self, q2: float) -> float:
+        """Calculate differential BR, dBR/dq2
+        
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        float
+            dBR/dq2
+        """
+        dGdq2 = self.dGdq2(q2)
+        BR = self.get_param(f"tau_{self.B}")*dGdq2
+        if self.V == 'rho0' or self.V == 'omega':
+            # factor of 1/2 for neutral rho due to rho = (uubar-ddbar)/sqrt(2)
+            # and also for omega = (uubar+ddbar)/sqrt(2)
+            return 0.5*BR
+        return BR
+    
+
+
+
+
+class MixinBToVAngular:
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def dJ(self, q2: float) -> dict:
+        """Alias for get\_angularcoeff
+
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        dict
+            Dictionary of coefficents J_i
+        """
+        return self._dJ(q2)
+
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def J(self, q2: float) -> dict:
+        """Alias for get\_norm\_coeff
+
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        dict
+            Dictionary of coefficients J_i
+        """
+        return self._J(q2)
 
     @fluctsettings(FluctType.NUMERIC)
     def dGdq2dctl(self, q2: float, ctl: float) -> float:
@@ -414,33 +481,7 @@ class BToVEllNuPrediction(Observable):
         """
         J = self.J_q2int()
         return mt.uniang_chi(chi, J)
-
-    @fluctsettings(FluctType.NUMERIC)
-    def dBRdq2(self, q2: float) -> float:
-        """Calculate differential BR, dBR/dq2
-        
-        Parameters
-        ----------
-        q2 : float
-
-        Returns
-        -------
-        float
-            dBR/dq2
-        """
-        dGdq2 = self.dGdq2(q2)
-        BR = self.get_param(f"tau_{self.B}")*dGdq2
-        if self.V == 'rho0' or self.V == 'omega':
-            # factor of 1/2 for neutral rho due to rho = (uubar-ddbar)/sqrt(2)
-            # and also for omega = (uubar+ddbar)/sqrt(2)
-            return 0.5*BR
-        return BR
-
-    def _obsq2Bin(self, obs: str | int, q2min: float, q2max: float) -> float:
-        def evalObs(q2):
-            return self.dJ(q2)[obs]
-        return flavio.math.integrate.nintegrate(evalObs, q2min, q2max)
-
+    
     @fluctsettings(FluctType.DICTNUMERIC)
     def dJ_bin(self, q2min: float, q2max: float) -> dict:
         """Calculate binned angular observable
@@ -455,7 +496,7 @@ class BToVEllNuPrediction(Observable):
         dict
             Dictionary of observable <J_i>, integrated over q2min, q2max
         """
-        return {iobs: self._obsq2Bin(iobs, q2min, q2max) for iobs in self.obslist}
+        return self._dJ_bin(q2min, q2max)
 
     @fluctsettings(FluctType.DICTNUMERIC)
     def J_bin(self, q2min: float, q2max: float) -> dict:
@@ -471,11 +512,7 @@ class BToVEllNuPrediction(Observable):
         dict
             Dictionary of observable <J_i>, integrated over q2min, q2max
         """
-        J = self.dJ_bin(q2min, q2max)
-        norm = 3/4. * (2 * J['1s'] + J['1c']) - 1/4. * (2 * J['2s'] + J['2c'])
-        # den = flavio.math.integrate.nintegrate(self.dGdq2, q2min, q2max)
-        # return {iobs : num[iobs]/den for iobs in self.obslist}
-        return {iobs : J[iobs]/norm for iobs in self.obslist}
+        return self._J_bin(q2min, q2max)
 
     @fluctsettings(FluctType.DICTNUMERIC)
     def dJ_q2int(self) -> dict:
@@ -612,9 +649,9 @@ class BToVEllNuPrediction(Observable):
     
     @fluctsettings(FluctType.NUMERIC)
     def PDF_norm_bin(self, q2_min: float, q2_max: float,
-                     ctx_min: float, ctx_max: float,
-                     ctl_min: float, ctl_max: float,
-                     chi_min: float, chi_max: float) -> float:
+                        ctx_min: float, ctx_max: float,
+                        ctl_min: float, ctl_max: float,
+                        chi_min: float, chi_max: float) -> float:
         """Evaluate 4D PDF integrated over phase-space bin, using rate-normalised angular observables
 
         Parameters

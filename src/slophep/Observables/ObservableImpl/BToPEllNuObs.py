@@ -84,7 +84,7 @@ class BToPEllNuPrediction(Observable):
         return 4.0*GF/sqrt(2)*Vij
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_angularcoeff(self, q2: float) -> dict:
+    def _dJ(self, q2: float) -> dict:
         """Calculate angular coefficients, flavio is used for these calculations, method essentially follows
         flavio.physics.bdecays.bplnu._get_angularcoeff from https://flav-io.github.io/apidoc/flavio/physics/bdecays/bplnu.m.html
 
@@ -112,24 +112,9 @@ class BToPEllNuPrediction(Observable):
         h = angular.helicity_amps_p(q2, mB, mP, mb, mlight, ml, 0.0, ff, wc, N)
         J = angular.angularcoeffs_general_p(h, q2, mB, mP, mb, mlight, ml, 0)
         return J
-
+    
     @fluctsettings(FluctType.DICTNUMERIC)
-    def dJ(self, q2: float) -> dict:
-        """Alias for get\_angularcoeff
-
-        Parameters
-        ----------
-        q2 : float
-
-        Returns
-        -------
-        dict
-            Dictionary of coefficents a, b, c
-        """
-        return self.get_angularcoeff(q2)
-
-    @fluctsettings(FluctType.DICTNUMERIC)
-    def J(self, q2: float) -> float:
+    def _J(self, q2: float) -> float:
         """Calculate rate normalised angular coefficients, flavio is used for these calculations, method essentially follows
         flavio.physics.bdecays.bplnu._get_angularcoeff from https://flav-io.github.io/apidoc/flavio/physics/bdecays/bplnu.m.html
 
@@ -142,12 +127,54 @@ class BToPEllNuPrediction(Observable):
         dict
             Dictionary of coefficients a, b, c
         """
-        dJ = self.dJ(q2)
+        dJ = self._dJ(q2)
         dG = 2 * (dJ['a'] + dJ['c']/3.)
         # Can lead to Nan if dG==0 i.e. outside kinematic range, so:
         if dG <= 0.0:
             return {k : 0 for k in dJ}
         return {k : dJ[k]/dG for k in dJ}
+    
+    @fluctsettings(FluctType.NUMERIC)
+    def _obsq2Bin(self, obs: str | int, q2min: float, q2max: float) -> float:
+        def evalObs(q2):
+            return self._dJ(q2)[obs]
+        return flavio.math.integrate.nintegrate(evalObs, q2min, q2max)
+
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def _dJ_bin(self, q2min: float, q2max: float) -> dict:
+        """Calculate binned angular observable
+
+        Parameters
+        ----------
+        q2min : float
+        q2max : float
+
+        Returns
+        -------
+        dict
+            Dictionary of observables, integrated over q2min, q2max
+        """
+        return {iobs: self._obsq2Bin(iobs, q2min, q2max) for iobs in self.obslist}
+
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def _J_bin(self, q2min: float, q2max: float) -> dict:
+        """Calculate rate normalised binned angular observable
+
+        Parameters
+        ----------
+        q2min : float
+        q2max : float
+
+        Returns
+        -------
+        dict
+            Dictionary of observables, integrated over q2min, q2max
+        """
+        dJ = self._dJ_bin(q2min, q2max)
+        norm = 2 * (dJ['a'] + dJ['c']/3.)
+        # den = flavio.math.integrate.nintegrate(self.dGdq2, q2min, q2max)
+        # return {iobs : num[iobs]/den for iobs in self.obslist}
+        return {iobs : dJ[iobs]/norm for iobs in self.obslist}
 
     @fluctsettings(FluctType.NUMERIC)
     def dGdq2(self, q2: float) -> float:
@@ -162,25 +189,25 @@ class BToPEllNuPrediction(Observable):
         float
             dGamma/dq2 (up to normalisation)
         """
-        J = self.dJ(q2)
+        J = self._dJ(q2)
         return 2 * (J['a'] + J['c']/3.)
 
     @fluctsettings(FluctType.NUMERIC)
     def dGdq2_bin(self, q2min: float, q2max: float) -> float:
-            """Caclulate binned q2 distriution
-    
-            Parameters
-            ----------
-            q2min : float
-            q2max : float
-    
-            Returns
-            -------
-            float
-                dGamma/dq2 (up to normalisation) integrated over the bin
-            """
-            J = self.dJ_bin(q2min, q2max)
-            return 2 * (J['a'] + J['c']/3.)
+        """Caclulate binned q2 distriution
+
+        Parameters
+        ----------
+        q2min : float
+        q2max : float
+
+        Returns
+        -------
+        float
+            dGamma/dq2 (up to normalisation) integrated over the bin
+        """
+        J = self._dJ_bin(q2min, q2max)
+        return 2 * (J['a'] + J['c']/3.)
     
     def dGdq2_hist(self, q2_bins: int | list):
         """Create 1D histogram of dG/dq2
@@ -224,12 +251,41 @@ class BToPEllNuPrediction(Observable):
             # factor of 1/2 for neutral pi due to pi = (uubar-ddbar)/sqrt(2)
             return 0.5*BR
         return BR
-    
-    @fluctsettings(FluctType.NUMERIC)
-    def _obsq2Bin(self, obs: str | int, q2min: float, q2max: float) -> float:
-        def evalObs(q2):
-            return self.dJ(q2)[obs]
-        return flavio.math.integrate.nintegrate(evalObs, q2min, q2max)
+
+
+
+
+class MixinBToPAngular:
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def dJ(self, q2: float) -> dict:
+        """Alias for get\_angularcoeff
+
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        dict
+            Dictionary of coefficents a, b, c
+        """
+        return self._dJ(q2)
+
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def J(self, q2: float) -> float:
+        """Calculate rate normalised angular coefficients, flavio is used for these calculations, method essentially follows
+        flavio.physics.bdecays.bplnu._get_angularcoeff from https://flav-io.github.io/apidoc/flavio/physics/bdecays/bplnu.m.html
+
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        dict
+            Dictionary of coefficients a, b, c
+        """
+        return self._J(q2)
 
     @fluctsettings(FluctType.DICTNUMERIC)
     def dJ_bin(self, q2min: float, q2max: float) -> dict:
@@ -245,7 +301,7 @@ class BToPEllNuPrediction(Observable):
         dict
             Dictionary of observables, integrated over q2min, q2max
         """
-        return {iobs: self._obsq2Bin(iobs, q2min, q2max) for iobs in self.obslist}
+        return self._dJ_bin(q2min, q2max)
 
     @fluctsettings(FluctType.DICTNUMERIC)
     def J_bin(self, q2min: float, q2max: float) -> dict:
@@ -261,11 +317,7 @@ class BToPEllNuPrediction(Observable):
         dict
             Dictionary of observables, integrated over q2min, q2max
         """
-        dJ = self.dJ_bin(q2min, q2max)
-        norm = 2 * (dJ['a'] + dJ['c']/3.)
-        # den = flavio.math.integrate.nintegrate(self.dGdq2, q2min, q2max)
-        # return {iobs : num[iobs]/den for iobs in self.obslist}
-        return {iobs : dJ[iobs]/norm for iobs in self.obslist}
+        return self._J_bin(q2min, q2max)
 
     @fluctsettings(FluctType.DICTNUMERIC)
     def dJ_q2int(self) -> dict:

@@ -1,8 +1,8 @@
-from slophep.Observables.ObservableImpl import LbToOneHalfpEllNuPrediction
+from slophep.Observables.ObservableImpl import LbToOneHalfpEllNuPrediction, MixinLbToOneHalfpAngular
 from slophep.FormFactors.FormFactorsBaryonic import FormFactorOneHalfpToOneHalfp
 
 
-class LbToLcEllNuPrediction(LbToOneHalfpEllNuPrediction):
+class LbToLcEllNuPrediction(LbToOneHalfpEllNuPrediction, MixinLbToOneHalfpAngular):
     _name = "ObsLbToLcEllNu"
     def __init__(self, 
                  lep: str, 

@@ -75,7 +75,7 @@ class LbToOneHalfpEllNuPrediction(Observable):
         return bmt.LbToLcEllNu_norm_EOS(q2, mB, mM, ml, self.pm, self._qiqj)
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_angularcoeff(self, q2: float) -> dict:
+    def _dJ(self, q2: float) -> dict:
         """Calculate angular coefficients, as per https://arxiv.org/abs/1907.12554,
         reproducing the EOS implementation https://github.com/eos/eos/blob/v1.0.13/eos/b-decays/lambdab-to-lambdac-l-nu.cc
 
@@ -105,22 +105,7 @@ class LbToOneHalfpEllNuPrediction(Observable):
         return K
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def dJ(self, q2: float) -> dict:
-            """Alias for get\_angularcoeff
-    
-            Parameters
-            ----------
-            q2 : float
-    
-            Returns
-            -------
-            dict
-                Dictionary of coefficents K_i
-            """
-            return self.get_angularcoeff(q2)
-    
-    @fluctsettings(FluctType.DICTNUMERIC)
-    def J(self, q2: float) -> dict:
+    def _J(self, q2: float) -> dict:
         """Rate-normalised angular coefficients
 
         Parameters
@@ -132,13 +117,52 @@ class LbToOneHalfpEllNuPrediction(Observable):
         dict
             Dictionary of coefficents K_i
         """
-        K = self.dJ(q2)
+        K = self._dJ(q2)
         norm = self._dGdq2(K)
         return {iobs : ik/norm for iobs, ik in K.items()}
 
-    @fluctsettings(FluctType.NUMERIC)
     def _dGdq2(self, K: dict) -> float:
         return 2.0*K["1ss"] + K["1cc"]
+
+    @fluctsettings(FluctType.NUMERIC)
+    def _obsq2Bin(self, obs: str | int, q2min: float, q2max: float) -> float:
+        def evalObs(q2):
+            return self._dJ(q2)[obs]
+        return flavio.math.integrate.nintegrate(evalObs, q2min, q2max)
+
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def _dJ_bin(self, q2min: float, q2max: float) -> dict:
+        """Calculate binned angular observable
+
+        Parameters
+        ----------
+        q2min : float
+        q2max : float
+
+        Returns
+        -------
+        dict
+            Dictionary of observables, integrated over q2min, q2max
+        """
+        return {iobs: self._obsq2Bin(iobs, q2min, q2max) for iobs in self.obslist}
+
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def _J_bin(self, q2min: float, q2max: float) -> dict:
+        """Calculate rate normalised binned angular observable
+
+        Parameters
+        ----------
+        q2min : float
+        q2max : float
+
+        Returns
+        -------
+        dict
+            Dictionary of observables, integrated over q2min, q2max
+        """
+        J = self._dJ_bin(q2min, q2max)
+        norm = self._dGdq2(J)
+        return {iobs : J[iobs]/norm for iobs in self.obslist}
 
     @fluctsettings(FluctType.NUMERIC)
     def dGdq2(self, q2: float) -> float:
@@ -153,7 +177,7 @@ class LbToOneHalfpEllNuPrediction(Observable):
         float
             dGamma/dq2 (up to normalisation)
         """
-        K = self.dJ(q2)
+        K = self._dJ(q2)
         return self._dGdq2(K)
     
     @fluctsettings(FluctType.NUMERIC)
@@ -175,6 +199,84 @@ class LbToOneHalfpEllNuPrediction(Observable):
         # hbar = 6.58211928e-25
         # BR = dG*(tau/hbar)
         return BR
+
+
+
+
+
+class MixinLbToOneHalfpAngular:
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def dJ(self, q2: float) -> dict:
+        """Alias for get\_angularcoeff
+
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        dict
+            Dictionary of coefficents K_i
+        """
+        return self._dJ(q2)
+
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def J(self, q2: float) -> dict:
+        """Rate-normalised angular coefficients
+
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        dict
+            Dictionary of coefficents K_i
+        """
+        return self._J(q2)
+
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def dJ_bin(self, q2min: float, q2max: float) -> dict:
+        """Calculate binned angular observable
+
+        Parameters
+        ----------
+        q2min : float
+        q2max : float
+
+        Returns
+        -------
+        dict
+            Dictionary of observable <J_i>, integrated over q2min, q2max
+        """
+        return self._dJ_bin(q2min, q2max)
+
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def J_bin(self, q2min: float, q2max: float) -> dict:
+        """Calculate rate normalised binned angular observable
+
+        Parameters
+        ----------
+        q2min : float
+        q2max : float
+
+        Returns
+        -------
+        dict
+            Dictionary of observable <J_i>, integrated over q2min, q2max
+        """
+        return self._J_bin(q2min, q2max)
+
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def dJ_q2int(self) -> dict:
+        """Calculate q2-integrated observable
+
+        Returns
+        -------
+        dict
+            Dictionary of observable <J_i>
+        """
+        return self.dJ_bin(self.q2min, self.q2max)
     
     @fluctsettings(FluctType.NUMERIC)
     def afb_lep(self, q2: float) -> float:
@@ -231,46 +333,6 @@ class LbToOneHalfpEllNuPrediction(Observable):
         K = self.dJ_bin(q2min, q2max)
         dG = self._dGdq2(K)
         return (2.0 * K["1ss"] - K["1cc"]) / dG
-    
-    @fluctsettings(FluctType.NUMERIC)
-    def _obsq2Bin(self, obs: str | int, q2min: float, q2max: float) -> float:
-        def evalObs(q2):
-            return self.dJ(q2)[obs]
-        return flavio.math.integrate.nintegrate(evalObs, q2min, q2max)
-
-    @fluctsettings(FluctType.DICTNUMERIC)
-    def dJ_bin(self, q2min: float, q2max: float) -> dict:
-        """Calculate binned angular observable
-
-        Parameters
-        ----------
-        q2min : float
-        q2max : float
-
-        Returns
-        -------
-        dict
-            Dictionary of observables, integrated over q2min, q2max
-        """
-        return {iobs: self._obsq2Bin(iobs, q2min, q2max) for iobs in self.obslist}
-
-    @fluctsettings(FluctType.DICTNUMERIC)
-    def J_bin(self, q2min: float, q2max: float) -> dict:
-        """Calculate rate normalised binned angular observable
-
-        Parameters
-        ----------
-        q2min : float
-        q2max : float
-
-        Returns
-        -------
-        dict
-            Dictionary of observables, integrated over q2min, q2max
-        """
-        J = self.dJ_bin(q2min, q2max)
-        norm = self._dGdq2(J)
-        return {iobs : J[iobs]/norm for iobs in self.obslist}
 
     @fluctsettings(FluctType.DICTNUMERIC)
     def dJ_q2int(self) -> dict:
@@ -282,7 +344,7 @@ class LbToOneHalfpEllNuPrediction(Observable):
             Dictionary of observables
         """
         return self.dJ_bin(self.q2min, self.q2max)
-    
+
     @fluctsettings(FluctType.DICTNUMERIC)
     def J_q2int(self) -> dict:
         """Calculate rate-normalised q2-integrated observable

@@ -1,8 +1,8 @@
-from slophep.Observables.ObservableImpl import BToPEllNuPrediction
+from slophep.Observables.ObservableImpl import BToPEllNuPrediction, MixinBToPAngular
 from slophep.FormFactors.FormFactorsBToP import FormFactorBToP
 
 
-class BuToDEllNuPrediction(BToPEllNuPrediction):
+class BuToDEllNuPrediction(BToPEllNuPrediction, MixinBToPAngular):
     _name = "ObsBuToDEllNu"
     def __init__(self, 
                  lep: str, 
@@ -13,7 +13,7 @@ class BuToDEllNuPrediction(BToPEllNuPrediction):
 
 
 
-class BdToDEllNuPrediction(BToPEllNuPrediction):
+class BdToDEllNuPrediction(BToPEllNuPrediction, MixinBToPAngular):
     _name = "ObsBdToDEllNu"
     def __init__(self, 
                  lep: str, 
@@ -24,7 +24,7 @@ class BdToDEllNuPrediction(BToPEllNuPrediction):
 
 
 
-class BdToPiEllNuPrediction(BToPEllNuPrediction):
+class BdToPiEllNuPrediction(BToPEllNuPrediction, MixinBToPAngular):
     _name = "ObsBdToPiEllNu"
     def __init__(self, 
                  lep: str, 
