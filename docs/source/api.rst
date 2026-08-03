@@ -73,17 +73,22 @@ Observable Implementation
     :template: custom-module-template.rst
     :recursive:
 
-    slophep.Observables.ObservableImpl
+    slophep.Observables.ObservableImpl.ObservableBase
+    slophep.Observables.ObservableImpl.BToPEllNuObs
+    slophep.Observables.ObservableImpl.BToVEllNuObs
+    slophep.Observables.ObservableImpl.BToDststEllNuObs
+    slophep.Observables.ObservableImpl.LbToOneHalfpEllNuObs
 
 
 
-Experimental
-============
+Tools & Utilities
+=================
 .. autosummary::
     :toctree: api
     :template: custom-module-template.rst
     :recursive:
 
+    slophep.Tools
+    slophep.Tools.errfluct_tools
     slophep.Experimental.evtgen_correction
-
 

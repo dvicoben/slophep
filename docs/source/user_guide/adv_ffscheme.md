@@ -1,6 +1,4 @@
-# Advanced Use
-
-## Making a FF Scheme
+# Making a FF Scheme
 
 It may be that there is a particular form-factor scheme you want to implement. It is possible in SLOP to implement this using the appropriate base class. In this example we will be implementing EvtGen's HQET2 for $B^0 \to D^{*}$ (for illustrative purposes as there is already CLN in SLOP). 
 
@@ -9,40 +7,32 @@ To make a FF scheme that works with SLOP, it must be a class that inherits from 
 ```{code-block} python
 
 from math import sqrt
-from slophep.Predictions.FormFactorBase import FormFactor
+from slophep.FormFactors import FormFactor
 
 class MyHQET2(FormFactor):
-    def __init__(self, par: dict = None, scale: float = None):
-        super().__init__(par, scale)
-
-        self._name = "BToDst_HQET2"
-        self._ffpar = {
+    _name = "FFMyHQET"
+    def define_userparams(self) -> dict[str, Any]:
+        ffpar = {
             "RhoSq" : 1.122,
             "h_A1"  : 0.908,
             "R1"    : 1.270,
             "R2"    : 0.852,
             "R0"    : 1.15
         }
-        self._params = ["RhoSq", "h_A1", "R1", "R2", "R0"]
-
-        internalparams = {
-            "Mb" : self.par["m_B0"],
-            "Mc" : self.par["m_D*+"]
-        }
-        self.internalparams.update(internalparams)
+        return ffpar
 
     def get_ff(self, q2: float) -> dict:
-        mB = self.internalparams["Mb"]
-        mV = self.internalparams["Mc"]
+        mB = self.get_param("m_B0")
+        mV = self.get_param("m_D*+")
         w = (mB**2 + mV**2 - q2) / (2*mB*mV)
         z = (sqrt(w+1)-sqrt(2))/(sqrt(w+1)+sqrt(2))
         RV = 2*sqrt(mB*mV)/(mB+mV)
 
-        hA1_1 = self.ffpar['h_A1']
-        R1_1 = self.ffpar['R1']
-        R2_1 = self.ffpar['R2']
-        R0_1 = self.ffpar['R0']
-        rho2 = self.ffpar['RhoSq']
+        hA1_1 = self.get_userparam('h_A1')
+        R1_1  = self.get_userparam('R1')
+        R2_1  = self.get_userparam('R2')
+        R0_1  = self.get_userparam('R0')
+        rho2  = self.get_userparam('RhoSq')
 
         hA1 = hA1_1 * (1 - 8*rho2*z + (53*rho2-15)*z**2 - (231*rho2-91)*z**3)
         R1 = R1_1 - 0.12*(w-1) + 0.05*(w-1)**2
@@ -73,9 +63,9 @@ After that it is a matter of implementing `MyHQET.get_ff` which returns a dictio
 Having implemented this class, we can now use it in predictions:
 ```{code-block} python
 
-from slophep.Predictions.Observables import BdToDstEllNuPrediction
+from slophep.Observables import BdToDstEllNuPrediction
 
-pred = BdToDstEllNuPrediction("mu", "mu", MyHQET2)
+pred = BdToDstEllNuPrediction("mu", "mu", MyHQET2())
 print(pred.J(q2=5.0))
 ```
 which outputs:
