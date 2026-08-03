@@ -3,7 +3,7 @@ Bs->K Form-factors
 """
 from typing import Any
 import slophep.FormFactors.FormFactorsBToP as FFBToP
-from slophep.Tools.SamplingTools import fluctsettings, FluctType
+from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 
 
 class BCL(FFBToP.FFBToP_BCLGeneric):

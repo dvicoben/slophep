@@ -1,7 +1,7 @@
 import slophep.Math.BaryonicMathTools as bmt
 from slophep.Observables.ObservableImpl.ObservableBase import Observable
 from slophep.FormFactors.FormFactorsBaryonic import FormFactorOneHalfpToOneHalfp
-from slophep.Tools.SamplingTools import fluctsettings, FluctType
+from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 
 import flavio
 from flavio.physics.running import running

@@ -1,7 +1,7 @@
 import numpy as np
 from typing import Any
 from slophep.FormFactors.FormFactorsBToV.FFBToVBase import FormFactorBToV
-from slophep.Tools.SamplingTools import fluctsettings, FluctType
+from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 
 import logging
 logger = logging.getLogger(__name__)

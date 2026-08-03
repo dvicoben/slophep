@@ -1,6 +1,6 @@
 import numpy as np
 from slophep.FormFactors.FormFactorsBToP.FFBToPBase import FormFactorBToP
-from slophep.Tools.SamplingTools import fluctsettings, FluctType
+from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 from slophep.FormFactors import hqet
 import slophep.Math.derivatives as md
 from flavio.physics.bdecays.formfactors.b_p.cln import h_to_f

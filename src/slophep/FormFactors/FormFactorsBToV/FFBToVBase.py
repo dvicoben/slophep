@@ -1,6 +1,6 @@
 from math import sqrt
 from slophep.FormFactors.FormFactorBase import FormFactor
-from slophep.Tools.SamplingTools import fluctsettings, FluctType
+from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 
 class FormFactorBToV(FormFactor):
     _name = "FFBToV@Base"

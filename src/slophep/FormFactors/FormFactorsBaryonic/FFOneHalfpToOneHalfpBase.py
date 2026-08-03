@@ -1,5 +1,5 @@
 from slophep.FormFactors.FormFactorBase import FormFactor
-from slophep.Tools.SamplingTools import fluctsettings, FluctType
+from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 
 class FormFactorOneHalfpToOneHalfp(FormFactor):
     _name = "FFBaryonic1/2To1/2@Base"

@@ -2,7 +2,7 @@ import numpy as np
 from slophep.FormFactors.FormFactorsBToDstst.FFBToDststBase import (
     FormFactorBToD0st, FormFactorBToD1, FormFactorBToD1st, FormFactorBToD2st
 )
-from slophep.Tools.SamplingTools import fluctsettings, FluctType
+from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 
 import logging
 logger = logging.getLogger(__name__)

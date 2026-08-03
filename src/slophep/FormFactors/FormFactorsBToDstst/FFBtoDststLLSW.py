@@ -2,6 +2,7 @@ import numpy as np
 from slophep.FormFactors.FormFactorsBToDstst.FFBToDststBase import (
     FormFactorBToD0st, FormFactorBToD1, FormFactorBToD1st, FormFactorBToD2st
 )
+from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 
 import logging
 logger = logging.getLogger(__name__)
@@ -30,6 +31,7 @@ class FFBToD1_LLSW(FormFactorBToD1):
         }
         return ffpar
 
+    @fluctsettings(FluctType.DICTNUMERIC)
     def get_ff_mmeson(self, q2: float, mC: float, mB: float = None) -> dict:
         Mb = mB if mB is not None else self.get_param(f"m_{self.B}")
         Mc = mC
@@ -96,6 +98,7 @@ class FFBToD2st_LLSW(FormFactorBToD2st):
         }
         return ffpar
 
+    @fluctsettings(FluctType.DICTNUMERIC)
     def get_ff_mmeson(self, q2: float, mC: float, mB: float = None) -> dict:
         Mb = mB if mB is not None else self.get_param(f"m_{self.B}")
         Mc = mC
@@ -159,6 +162,7 @@ class FFBToD0st_LLSW(FormFactorBToD0st):
         }
         return ffpar
 
+    @fluctsettings(FluctType.DICTNUMERIC)
     def get_ff_mmeson(self, q2: float, mC: float, mB: float = None) -> dict:
         Mb = mB if mB is not None else self.get_param(f"m_{self.B}")
         Mc = mC
@@ -216,6 +220,7 @@ class FFBToD1st_LLSW(FormFactorBToD1st):
         }
         return ffpar
 
+    @fluctsettings(FluctType.DICTNUMERIC)
     def get_ff_mmeson(self, q2: float, mC: float, mB: float = None) -> dict:
         Mb = mB if mB is not None else self.get_param(f"m_{self.B}")
         Mc = mC

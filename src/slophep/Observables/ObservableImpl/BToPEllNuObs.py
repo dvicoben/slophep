@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from slophep.FormFactors.FormFactorsBToP import FormFactorBToP
 from slophep.Observables.ObservableImpl import Observable
 import slophep.Math.BToPMathTools as mt
-from slophep.Tools.SamplingTools import fluctsettings, FluctType
+from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 
 import flavio
 from flavio.physics.running import running
@@ -258,7 +258,7 @@ class BToPEllNuPrediction(Observable):
 class MixinBToPAngular:
     @fluctsettings(FluctType.DICTNUMERIC)
     def dJ(self, q2: float) -> dict:
-        """Alias for get\_angularcoeff
+        """Calculate angular coefficients
 
         Parameters
         ----------

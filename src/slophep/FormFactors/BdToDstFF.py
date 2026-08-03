@@ -5,7 +5,7 @@ from typing import Any
 import numpy as np
 
 import slophep.FormFactors.FormFactorsBToV as FFBToV
-from slophep.Tools.SamplingTools import fluctsettings, FluctType
+from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 
 
 class ISGW2(FFBToV.FFBToV_ISGW2):

@@ -1,6 +1,6 @@
 import numpy as np
 from slophep.FormFactors.FormFactorsBToV.FFBToVBase import FormFactorBToV
-from slophep.Tools.SamplingTools import fluctsettings, FluctType
+from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 from flavio.physics.running import running
 
 import logging

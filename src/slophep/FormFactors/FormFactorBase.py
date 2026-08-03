@@ -1,6 +1,6 @@
 from typing import Any
 from slophep.Core.Parameter import ParameterUser, ParameterManager
-from slophep.Tools.SamplingTools import fluctsettings, FluctType
+from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 
 class FormFactor(ParameterUser):
     _name = "FFBase"

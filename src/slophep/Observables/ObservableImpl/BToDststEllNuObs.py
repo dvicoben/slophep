@@ -6,7 +6,7 @@ from slophep.FormFactors.FormFactorsBToDstst import (
     FormFactorBToD0st, FormFactorBToD1, FormFactorBToD1st, FormFactorBToD2st
 )
 from slophep.Observables.ObservableImpl import Observable
-from slophep.Tools.SamplingTools import fluctsettings, FluctType
+from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 
 from slophep.Math.wilson_coefs import get_wceff_fccc
 
