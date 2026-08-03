@@ -75,10 +75,10 @@ class ErrorSampler:
                             param_user : ParameterUser, 
                             attr       : str, 
                             attr_args  : list = []) -> list:
-        logger.info(f"Computing {attr} with {attr_args} for {len(self.fluctuations)} fluctuations")
+        logger.info(f"Computing {param_user.name}.{attr} with {attr_args} for {len(self.fluctuations)} fluctuations")
         res = []
-        init_vals = {param_user.get_param(kpar) for kpar in self.mean}
-        init_vals.update({param_user.get_param(kpar) for kpar in self.constants})
+        init_vals = {kpar : param_user.get_param(kpar) for kpar in self.mean}
+        init_vals.update({kpar : param_user.get_param(kpar) for kpar in self.constants})
 
         for ifluct in self.fluctuations:
             ipar = {self.params[k] : ifluct[k] for k in range(len(self.params))}
@@ -93,12 +93,12 @@ class ErrorSampler:
 
         return res
 
-    def central_val(self, 
+    def get_central(self, 
                     param_user : ParameterUser, 
                     attr       : str, 
                     attr_args  : list = []):
-        init_vals = {param_user.get_param(kpar) for kpar in self.mean}
-        init_vals.update({param_user.get_param(kpar) for kpar in self.constants})
+        init_vals = {kpar : param_user.get_param(kpar) for kpar in self.mean}
+        init_vals.update({kpar : param_user.get_param(kpar) for kpar in self.constants})
         vals = {**self.mean, **self.constants}
         param_user.pm.set_vals(vals)
         feval = getattr(param_user, attr)
