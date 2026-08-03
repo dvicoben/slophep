@@ -1,33 +1,38 @@
 {
+  "Comments" : [
+    "FF parameters and their uncertainties from fit to LCSR+Lattice from arXiv:1811.00983",
+    "Parameters and uncertianties taken from BD_LCSR-Lattice.json in ancillary files in https://arxiv.org/abs/1811.00983",
+    "Note that Lattice only provided input here at zero recoil"
+  ],
   "Params": [
-    "f+_0",
-    "f+_1",
-    "f+_2",
-    "f0_1",
-    "f0_2",
-    "fT_0",
-    "fT_1",
-    "fT_2"
+    "FFBdToPi@BSZ:f+_0",
+    "FFBdToPi@BSZ:f+_1",
+    "FFBdToPi@BSZ:f+_2",
+    "FFBdToPi@BSZ:f0_1",
+    "FFBdToPi@BSZ:f0_2",
+    "FFBdToPi@BSZ:fT_0",
+    "FFBdToPi@BSZ:fT_1",
+    "FFBdToPi@BSZ:fT_2"
   ],
   "Mean": {
-    "f+_0": 0.1959500850585235,
-    "f+_1": -0.7763565146997043,
-    "f+_2": -0.1966053721924302,
-    "f0_1": -0.01446803146697799,
-    "f0_2": -0.1952966741104731,
-    "fT_0": 0.1731165482248272,
-    "fT_1": -0.409037165241304,
-    "fT_2": -0.2580355775883392
+    "FFBdToPi@BSZ:f+_0": 0.1959500850585235,
+    "FFBdToPi@BSZ:f+_1": -0.7763565146997043,
+    "FFBdToPi@BSZ:f+_2": -0.1966053721924302,
+    "FFBdToPi@BSZ:f0_1": -0.01446803146697799,
+    "FFBdToPi@BSZ:f0_2": -0.1952966741104731,
+    "FFBdToPi@BSZ:fT_0": 0.1731165482248272,
+    "FFBdToPi@BSZ:fT_1": -0.409037165241304,
+    "FFBdToPi@BSZ:fT_2": -0.2580355775883392
   },
   "Error": {
-    "f+_0": 0.02094201395789157,
-    "f+_1": 0.12199636013692769,
-    "f+_2": 0.22009581592216554,
-    "f0_1": 0.09007353118616725,
-    "f0_2": 0.09924268524769217,
-    "fT_0": 0.030213291867466126,
-    "fT_1": 0.4726216256157875,
-    "fT_2": 6.639707164356717
+    "FFBdToPi@BSZ:f+_0": 0.02094201395789157,
+    "FFBdToPi@BSZ:f+_1": 0.12199636013692769,
+    "FFBdToPi@BSZ:f+_2": 0.22009581592216554,
+    "FFBdToPi@BSZ:f0_1": 0.09007353118616725,
+    "FFBdToPi@BSZ:f0_2": 0.09924268524769217,
+    "FFBdToPi@BSZ:fT_0": 0.030213291867466126,
+    "FFBdToPi@BSZ:fT_1": 0.4726216256157875,
+    "FFBdToPi@BSZ:fT_2": 6.639707164356717
   },
   "Cov": [
     [
