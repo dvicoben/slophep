@@ -1,10 +1,9 @@
-from slophep.Predictions.Observables import BdToDstEllNuPrediction
-from slophep.Predictions.FormFactorsBToV import BdToDstFF
+from slophep.Observables import BdToDstEllNuPrediction
+from slophep.FormFactors import BdToDstFF
 
 
-obs_cln = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.CLN2)
-print(obs_cln.FF.ffpar) # print the default FF parameters
-ffdefaults = obs_cln.FF.ffpar.copy()
+obs_cln = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.CLN())
+ffdefaults = obs_cln.FF.define_userparams()
 
 # Plot out the FL prediction
 p = obs_cln.plot_obs_prediction("FL", label="SM, Hammer defaults")
@@ -19,7 +18,6 @@ hqet2 = {
     "R0"    : 1.15
 }
 obs_cln.set_ff(hqet2)
-print(obs_cln.FF.ffpar) # print FF parameters again - should have changed!
 p = obs_cln.plot_obs_prediction("FL", label="SM, HQET2", plot=p)
 
 # Now consider changing Coefficients to NP

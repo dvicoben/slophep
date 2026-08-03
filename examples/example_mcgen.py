@@ -1,13 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import pypmc
 
-from slophep.Predictions.Observables import BdToDstEllNuPrediction
-from slophep.Predictions.FormFactorsBToV import BdToDstFF
+from slophep.Observables import BdToDstEllNuPrediction
+from slophep.FormFactors import BdToDstFF
 
-from slophep.Predictions.MCGenerator import MCGenerator
+from slophep.Tools import MCGenerator
 
-pred = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.CLN)
+pred = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.CLN())
 norm = pred.dGdq2_bin(pred.q2min, pred.q2max)
 
 
@@ -27,7 +26,10 @@ gen.prerun(preruns, pre_N)
 parameter_samples = gen.sample(N, stride)
 
 
-fig, axs = plt.subplots(1, 4, figsize=(15, 5))
+from slophep.utils import setPlotParams
+setPlotParams()
+
+fig, axs = plt.subplots(1, 4, figsize=(20, 5))
 Nbins = 30
 ax = axs.flat
 predfuncs = [
@@ -36,6 +38,7 @@ predfuncs = [
     pred.dGdctl_norm,
     pred.dGdchi_norm,
 ]
+labels = [r"$q^2$", r"$\cos\theta_D$", r"$\cos\theta_\ell$", r"$\chi$"]
 
 for i in range(len(axs.flat)):
     iax = axs[i]
@@ -53,5 +56,5 @@ for i in range(len(axs.flat)):
     predv = [predfuncs[i](ip) for ip in predpoints]
     ax[i].plot(predpoints, predv, "r-")
     ax[i].set_ylim(bottom=0)
-    ax[i].set(xlim=ibnds)
+    ax[i].set(xlim=ibnds, xlabel=labels[i])
     # ax[i].hist(parameter_samples.T[varidx], bins=Nbins, range=(lower_bnds[varidx], upper_bnds[varidx]))

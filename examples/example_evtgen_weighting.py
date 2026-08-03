@@ -1,12 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from slophep.Predictions.Observables import BuToD1stEllNuPrediction
-from slophep.Predictions.FormFactorsBToDstst import BuToD1stFF
+from slophep.Observables import BuToD1stEllNuPrediction
+from slophep.FormFactors import BuToD1stFF
 from slophep.Experimental.evtgen_correction import correction_weight_2body, correction_weight_3body, create_interpolated_weightfunc
 from slophep.utils import setPlotParams
 
-obs = BuToD1stEllNuPrediction("mu", "mu", BuToD1stFF.ISGW2)
+obs = BuToD1stEllNuPrediction("mu", "mu", BuToD1stFF.ISGW2())
 gamma = obs.Gamma()
 
 mvals = np.linspace(2., 5., 50)
@@ -20,7 +20,7 @@ weights_2body = np.array([correction_weight_2body(im, obs, normscale=1./gamma) f
 ax_2body.plot(mvals, weights_2body, label="Full")
 # Can alternatively create a weight function that is constructed through interpolation
 # this takes a bit of time to create the function, but the subsequent evaluations are faster
-correction_func_2body = create_interpolated_weightfunc(correction_weight_2body, obs, 2., 5., Npoints=1000)
+correction_func_2body = create_interpolated_weightfunc(correction_weight_2body, obs, 2., 5., Npoints=1000, weight_func_kwargs={"normscale" : 1./gamma})
 ax_2body.plot(mvals, correction_func_2body(mvals), 'k--', label="Interpolated")
 ax_2body.legend()
 ax_2body.set(xlabel = r"$m(D^{**})$ [GeV/$c$]", ylabel = "Weight (up to norm.)")
@@ -36,7 +36,7 @@ ax_3body.plot(mvals, weights_3body, label="Full")
 # this takes a bit of time to create the function, but the subsequent evaluations are faster
 correction_func_3body = create_interpolated_weightfunc(
     correction_weight_3body, obs, 2., 5., Npoints=1000,
-    weight_func_kwargs={"L" : 0, "width" : 314.0e-3, "daughters" : ["D0", "pi0", "pi0"]}
+    weight_func_kwargs={"L" : 0, "width" : 314.0e-3, "daughters" : ["D0", "pi0", "pi0"], "normscale" : 1./gamma}
 )
 ax_3body.plot(mvals, correction_func_3body(mvals), 'k--', label="Interpolated")
 ax_3body.legend()
