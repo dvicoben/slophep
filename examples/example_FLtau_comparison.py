@@ -7,7 +7,7 @@ This produces three plots:
 - Binned prediction (HPQCD), with error, and experimental result
 - Unbinned prediction (HPQCD) i.e. full q2 range, with error, and experimental result
 """
-from slophep.Tools.SamplingFluctuate import SamplingHelper
+from slophep.Tools import ErrorSampler
 from slophep.Observables import BdToDstEllNuPrediction
 from slophep.FormFactors import BdToDstFF
 from slophep.utils import setPlotParams
@@ -52,12 +52,11 @@ fl_pred = np.array([obs_hpqcd.fl_bin(iq, jq) for iq, jq in zip(q2_bin_edges[:-1]
 print(f"HPQCD Prediction: {fl_pred}")
 # Fluctuations for errorbands
 Nfluct = 2000
-fluct = SamplingHelper(obs_hpqcd)
-fluct.set_params_from_configfile("data/BToDstFF_HPQCD_COV_arXiv230403137.json")
+fluct = ErrorSampler.create_from_configfile("data/BToDstFF_HPQCD_COV_arXiv230403137.json")
 fluct.fluctuate(Nfluct)
 # Getting errorbands for the binned prediction
 # This has to carry out the integration for every fluctuation - can take a bit of time
-fl_pred_err = np.array([fluct.get_error("fl_bin", [iq, jq]) for iq, jq in zip(q2_bin_edges[:-1], q2_bin_edges[1:])])
+fl_pred_err = np.array([fluct.get_error(obs_hpqcd, "fl_bin", [iq, jq]) for iq, jq in zip(q2_bin_edges[:-1], q2_bin_edges[1:])])
 fl_pred_errlo = np.array([ifl[0] for ifl in fl_pred_err])
 fl_pred_errhi = np.array([ifl[1] for ifl in fl_pred_err])
 # Plotting:
@@ -78,7 +77,7 @@ def get_spectrum_dict(qsq, obs, attr, fluct):
     res = {"val": [], "lo": [], "hi": []}
     for iq2 in qsq:
         o = getattr(obs, attr)(iq2)
-        o_err = fluct.get_error(attr, [iq2])
+        o_err = fluct.get_error(obs, attr, [iq2])
         
         res["val"].append(o)
         res["lo"].append(o_err[0])
