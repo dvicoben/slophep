@@ -25,11 +25,11 @@ class ErrorSampler:
                  params     : list[str], 
                  mean       : dict[str, float],
                  fluctuator : errflt.Fluctuator,
-                 constants  : dict[str, float] = {}):
+                 constants  : dict[str, float] | None):
         self._fluctuations  : list              = []
         self._params        : list[str]         = params
         self._mean          : dict[str, float]  = mean
-        self._constants     : dict[str, float]  = constants
+        self._constants     : dict[str, float]  = constants if constants is not None else {}
         self._fluctuator    : errflt.Fluctuator = fluctuator
 
     @property
@@ -54,7 +54,7 @@ class ErrorSampler:
 
     def fluctuate(self, 
                   N: int, 
-                  rng: np.random.Generator = np.random.default_rng()) -> None:
+                  rng: np.random.Generator | None = None) -> None:
         """Produce N gaussian/bifurcated gaussian fluctuations
 
         Parameters
@@ -64,6 +64,7 @@ class ErrorSampler:
         rng: np.random.Generator, optional
             numpy generator
         """
+        rng = rng if rng is not None else np.random.default_rng()
         flucts = self.fluctuator.generate(N, rng)
         if len(flucts) < 1:
             logger.info("No fluctuations generated, no changes")
@@ -74,7 +75,8 @@ class ErrorSampler:
     def compute_fluctations(self, 
                             param_user : ParameterUser, 
                             attr       : str, 
-                            attr_args  : list = []) -> list:
+                            attr_args  : list | None = None) -> list:
+        attr_args = attr_args if attr_args is not None else []
         logger.info(f"Computing {param_user.name}.{attr} with {attr_args} for {len(self.fluctuations)} fluctuations")
         res = []
         init_vals = {kpar : param_user.get_param(kpar) for kpar in self.mean}
@@ -96,7 +98,8 @@ class ErrorSampler:
     def get_central(self, 
                     param_user : ParameterUser, 
                     attr       : str, 
-                    attr_args  : list = []):
+                    attr_args  : list | None = None):
+        attr_args = attr_args if attr_args is not None else []
         init_vals = {kpar : param_user.get_param(kpar) for kpar in self.mean}
         init_vals.update({kpar : param_user.get_param(kpar) for kpar in self.constants})
         vals = {**self.mean, **self.constants}
@@ -109,7 +112,7 @@ class ErrorSampler:
     def get_error(self, 
                   param_user : ParameterUser, 
                   attr       : str, 
-                  attr_args  : list = [], 
+                  attr_args  : list | None = None, 
                   cl         : float = 0.683):
         """Compute error bands using sampling for a particular user method
 
@@ -119,12 +122,13 @@ class ErrorSampler:
             The ParameterUser whose values will be fluctuated
         attr : str
             The attribute/method in self.obs to compute
-        attr_args : list
+        attr_args : list, optioal
             Arguments to be passed to that attribute, by default an empty
             list which means no arguments to pass
         cl : float, optional
             CL to asses error for, by default 0.683
-        """ 
+        """
+        attr_args = attr_args if attr_args is not None else []
         res = self.compute_fluctations(param_user, attr, attr_args)
         alpha = 1.0-cl
         feval = getattr(param_user, attr)
@@ -142,8 +146,8 @@ class ErrorSampler:
     def create_custom(cls, 
             params       : list[str], 
             mean         : dict[str, float],
-            fluctuations : list = [],
-            constants    : dict[str, float] = {}) -> ErrorSampler:
+            fluctuations : list,
+            constants    : dict[str, float] | None = None) -> ErrorSampler:
         sampler = cls(params, mean, errflt.Fluctuator(), constants)
         sampler._fluctuations = fluctuations
         return sampler
@@ -153,7 +157,7 @@ class ErrorSampler:
             params    : list[str],
             mean      : dict[str, float],
             cov       : np.ndarray,
-            constants : dict[str, float] = {}) -> ErrorSampler:
+            constants : dict[str, float] | None = None) -> ErrorSampler:
         mvec = [mean[ipar] for ipar in params]
         fluctuator = errflt.FlucutatorGaussian(mvec, cov)
         sampler = cls(params, mean, fluctuator, constants)
@@ -165,7 +169,7 @@ class ErrorSampler:
             mean      : dict[str, float],
             err       : dict[str, float],
             corr      : np.ndarray,
-            constants : dict[str, float] = {}) -> ErrorSampler:
+            constants : dict[str, float] | None = None) -> ErrorSampler:
         mvec = [mean[ipar] for ipar in params]
         errvec = [err[ipar] for ipar in params]
         cov = errflt.cov_from_corr(corr, np.array(errvec))
@@ -180,7 +184,7 @@ class ErrorSampler:
             errlo     : dict[str, float],
             errhi     : dict[str, float],
             corr      : np.ndarray,
-            constants : dict[str, float] = {}) -> ErrorSampler:
+            constants : dict[str, float] | None = None) -> ErrorSampler:
         mvec = [mean[ipar] for ipar in params]
         errlovec = [errlo[ipar] for ipar in params]
         errhivec = [errhi[ipar] for ipar in params]

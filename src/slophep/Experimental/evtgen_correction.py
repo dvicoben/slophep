@@ -32,11 +32,12 @@ def create_interpolated_weightfunc(
         obs, 
         mresmin: float, 
         mresmax: float, 
-        weight_func_kwargs: dict = {},
+        weight_func_kwargs: dict = None,
         Npoints: int = 1000
     ) -> Callable[[float | np.ndarray], float | np.ndarray]:
     mres   = np.linspace(mresmin, mresmax, int(Npoints))
     # wfunc  = np.vectorize(lambda m: et.decrate_int(m, obs))
+    weight_func_kwargs = weight_func_kwargs if weight_func_kwargs is not None else {}
     wfunc  = np.vectorize(lambda m: weight_func(m, obs, **weight_func_kwargs))
     spline = CubicSpline(mres, wfunc(mres))
     def correction_func(mass: float | np.ndarray) -> float | np.ndarray:

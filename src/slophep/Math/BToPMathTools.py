@@ -3,7 +3,7 @@ import numpy as np
 
 from slophep.Math import integrals as aint
 
-def h_to_f(mB, mP, h, q2):
+def h_to_f(mB: float, mP: float, h: dict[str, float], q2: float):
     """Convert HQET form factors to the standard basis.
 
     See e.g. arXiv:1309.0301, eq. (31)"""
@@ -16,11 +16,11 @@ def h_to_f(mB, mP, h, q2):
     return ff
 
 
-def angularPDF(ctl: float, j: dict) -> float:
+def angularPDF(ctl: float, j: dict[str, float]) -> float:
     return j["a"] + j["b"]*np.cos(ctl) + j["c"]*(np.cos(ctl)**2)
 
 
-def angular_integrals(ctl_min: float, ctl_max: float) -> dict:
+def angular_integrals(ctl_min: float, ctl_max: float) -> dict[str, float]:
     angint = {
         "a" : aint.int_one(ctl_min, ctl_max),
         "b" : aint.int_x(ctl_min, ctl_max),
@@ -28,7 +28,7 @@ def angular_integrals(ctl_min: float, ctl_max: float) -> dict:
     }
     return angint
 
-def angularPDF_binned(ctl_min: float, ctl_max: float, j: dict) -> float:
+def angularPDF_binned(ctl_min: float, ctl_max: float, j: dict[str, float]) -> float:
     angint = angular_integrals(ctl_min, ctl_max)
     pdf = j["a"]*angint["a"] + j["b"]*angint["b"] + j["c"]*angint["c"]
     return pdf

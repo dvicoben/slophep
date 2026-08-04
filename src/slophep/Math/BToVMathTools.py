@@ -1,7 +1,7 @@
 import numpy as np
 from slophep.Math import integrals as aint
 
-def h_to_A(mB, mV, h, q2):
+def h_to_A(mB: float, mV: float, h: dict[str, float], q2: float) -> dict[str, float]:
     """Convert HQET form factors to the basis used by flavio.
 
     See e.g. arXiv:1309.0301, eqs. (38), (39) but notice that we use the
@@ -72,7 +72,7 @@ def uniang_chi(chi: float, J: dict):
 
 
 
-def angularPDF(ctx: float, ctl: float, chi: float, j: dict[float]) -> float:
+def angularPDF(ctx: float, ctl: float, chi: float, j: dict) -> float:
     ctx2 = ctx*ctx
     stx2 = 1 - ctx2
     # tx = np.arccos(ctx)

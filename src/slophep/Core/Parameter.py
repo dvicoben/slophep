@@ -45,7 +45,7 @@ class Parameter:
 
 class ParameterManager:
     def __init__(self, 
-                 physdata: dict[str, float] = DEFAULT_PARAMS, 
+                 physdata: dict[str, float] | None = None, 
                  scale: float = 4.8):
         """Parameter manager
 
@@ -61,7 +61,7 @@ class ParameterManager:
         self._scale   : float                     = scale
         self._wc_obj  : flavio.WilsonCoefficients = flavio.WilsonCoefficients()
         self._aliases : dict[str, str]            = {}
-        self._load_physdata(physdata)
+        self._load_physdata(physdata if physdata is not None else DEFAULT_PARAMS)
 
     @property
     def params(self) -> dict[str, Parameter]: return self._params
@@ -233,7 +233,7 @@ class ParameterUser:
         return {}
 
     def user_params_defaults(self) -> dict[str, Any]:
-        return {f"{self._name}:{ipar}" : ival for ipar, ival in self.define_userparams().items()}
+        return {f"{self.name}:{ipar}" : ival for ipar, ival in self.define_userparams().items()}
 
     def _initialize_params(self, manager: ParameterManager) -> None:
         params = copy.deepcopy(self.user_params_defaults())
