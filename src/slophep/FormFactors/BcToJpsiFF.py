@@ -1,5 +1,5 @@
 """
-B0->D* Form-factors
+Bc->J/psi Form-factors
 """
 from typing import Any
 import numpy as np

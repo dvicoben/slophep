@@ -24,3 +24,11 @@ class BsToDsstEllNuPrediction(BToVEllNuPrediction, MixinBToVAngular):
 
 
 
+class BcToJpsiEllNuPrediction(BToVEllNuPrediction):
+    _name = "ObsBcToJpsiEllNu"
+    def __init__(self, 
+                 lep: str, 
+                 nu: str,
+                 FF: FormFactorBToV,
+                 ):
+        super().__init__("Bc", "J/psi", "bc", lep, nu, FF)
