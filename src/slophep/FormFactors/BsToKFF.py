@@ -4,8 +4,10 @@ Bs->K Form-factors
 from typing import Any
 import slophep.FormFactors.FormFactorsBToP as FFBToP
 from slophep.Tools.errfluct_tools import fluctsettings, FluctType
+from slophep.Core.user_registry import FFregistry
 
 
+@FFregistry.register
 class BCL(FFBToP.FFBToP_BCLGeneric):
     _name = "FFBsToK@BCL"
     def __init__(self):

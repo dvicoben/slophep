@@ -3,35 +3,41 @@ B0->D+ Form-factors
 """
 import numpy as np
 import slophep.FormFactors.FormFactorsBToP as FFBToP
+from slophep.Core.user_registry import FFregistry
 
 import logging
 logger = logging.getLogger(__name__)
 
 
+@FFregistry.register
 class BSZ(FFBToP.FFBToP_BSZ):
     _name = "FFBdToD@BSZ"
     def __init__(self):
         super().__init__("B0", "D+")
 
 
+@FFregistry.register
 class BLPR(FFBToP.FFBToP_BLPR):
     _name = "FFBdToD@BLPR"
     def __init__(self):
         super().__init__("B0", "D+")
 
 
+@FFregistry.register
 class BLPRXP(FFBToP.FFBToP_BLPRXP):
     _name = "FFBdToD@BLPRXP"
     def __init__(self):
         super().__init__("B0", "D+")
 
 
+@FFregistry.register
 class BGL(FFBToP.FFBToP_BGL):
     _name = "FFBdToD@BGL"
     def __init__(self):
         super().__init__("B0", "D+")
 
 
+@FFregistry.register
 class CLN(FFBToP.FFBToP_CLN):
     _name = "FFBdToD@CLN"
     def __init__(self):
@@ -40,6 +46,7 @@ class CLN(FFBToP.FFBToP_CLN):
 
 # Hammer equivalent classes
 
+@FFregistry.register
 class CLN_Hammer(FFBToP.FFBToP_CLN):
     _name = "FFBdToD@CLN_Hammer"
     def __init__(self):
@@ -58,6 +65,7 @@ class CLN_Hammer(FFBToP.FFBToP_CLN):
         return ffpar
 
 
+@FFregistry.register
 class BGL_Hammer(FFBToP.FFBToP_BGLGeneric):
     _name = "FFBdToD@BGL_Hammer"
     def __init__(self):
@@ -85,6 +93,7 @@ class BGL_Hammer(FFBToP.FFBToP_BGLGeneric):
         return ffpar
     
 
+@FFregistry.register
 class BLPR_Hammer(FFBToP.FFBToP_BLPR):
     _name = "FFBdToD@BLPR_Hammer"
     def __init__(self):

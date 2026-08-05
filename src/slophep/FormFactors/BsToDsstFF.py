@@ -6,10 +6,12 @@ import numpy as np
 
 import slophep.FormFactors.FormFactorsBToV as FFBToV
 from slophep.Tools.errfluct_tools import fluctsettings, FluctType
+from slophep.Core.user_registry import FFregistry
 
 import logging
 logger = logging.getLogger(__name__)
 
+@FFregistry.register
 class ISGW2(FFBToV.FFBToV_ISGW2):
     _name = "FFBsToDsst@ISGW2"
     def __init__(self):
@@ -32,30 +34,35 @@ class ISGW2(FFBToV.FFBToV_ISGW2):
         return ffpar
         
 
+@FFregistry.register
 class BLPR(FFBToV.FFBToV_BLPR):
     _name = "FFBsToDsst@BLPR"
     def __init__(self):
         super().__init__("Bs", "Ds*")
 
 
+@FFregistry.register
 class BLPRXP(FFBToV.FFBToV_BLPRXP):
     _name = "FFBsToDsst@BLPRXP"
     def __init__(self):
         super().__init__("Bs", "Ds*")
     
 
+@FFregistry.register
 class CLN(FFBToV.FFBToV_CLN):
     _name = "FFBsToDsst@CLN"
     def __init__(self):
         super().__init__("Bs", "Ds*")
 
 
+@FFregistry.register
 class CLN2(FFBToV.FFBToV_CLN2):
     _name = "FFBsToDsst@CLN2"
     def __init__(self):
         super().__init__("Bs", "Ds*")
 
 
+@FFregistry.register
 class BGL(FFBToV.FFBToV_BGL):
     _name = "FFBsToDsst@BGL"
     def __init__(self):
@@ -63,6 +70,7 @@ class BGL(FFBToV.FFBToV_BGL):
         super().__init__("Bs", "Ds*")
 
 
+@FFregistry.register
 class HPQCD2023(FFBToV.FFBToV_HPQCD):
     _name = "FFBsToDsst@HPQCD2023"
     def __init__(self):
@@ -180,6 +188,7 @@ class HPQCD2023(FFBToV.FFBToV_HPQCD):
 
 
 
+@FFregistry.register
 class BGL_Hammer(FFBToV.FFBToV_BGLGeneric):
     _name = "FFBsToDsst@BGL_Hammer"
     def __init__(self):
@@ -235,6 +244,7 @@ class BGL_Hammer(FFBToV.FFBToV_BGLGeneric):
         return {k : ff[k]/etaEWVcb for k in ff}
 
 
+@FFregistry.register
 class BLPR_Hammer(FFBToV.FFBToV_BLPR):
     _name = "FFBsToDsst@BLPR_Hammer"
     def __init__(self):
@@ -262,6 +272,7 @@ class BLPR_Hammer(FFBToV.FFBToV_BLPR):
         return ffpar
 
 
+@FFregistry.register
 class CLN_Hammer(FFBToV.FFBToV_CLN):
     _name = "FFBsToDsst@CLN_Hammer"
     def __init__(self):

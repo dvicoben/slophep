@@ -2,7 +2,9 @@
 Bs->Ds2* Form-factors
 """
 import slophep.FormFactors.FormFactorsBToDstst as FFBToDstst
+from slophep.Core.user_registry import FFregistry
 
+@FFregistry.register
 class ISGW2(FFBToDstst.FFBToD2st_ISGW2):
     _name = "BsToDs2st@ISGW2"
     def __init__(self):
@@ -23,12 +25,14 @@ class ISGW2(FFBToDstst.FFBToD2st_ISGW2):
         return ffpar
 
 
+@FFregistry.register
 class LLSW(FFBToDstst.FFBToD2st_LLSW):
     _name = "BsToDs2st@LLSW"
     def __init__(self):
         super().__init__("Bs", "Ds2*+")
 
 
+@FFregistry.register
 class BLR(FFBToDstst.FFBToD2st_BLR):
     _name = "BsToDs2st@BLR"
     def __init__(self):

@@ -3,7 +3,9 @@ B0->Pi Form-factors
 """
 from typing import Any
 import slophep.FormFactors.FormFactorsBToP as FFBToP
+from slophep.Core.user_registry import FFregistry
 
+@FFregistry.register
 class BSZ(FFBToP.FFBToP_BSZ):
     _name = "FFBdToPi@BSZ"
     def __init__(self):
@@ -26,6 +28,7 @@ class BSZ(FFBToP.FFBToP_BSZ):
         return ffpar
 
 
+@FFregistry.register
 class BCL(FFBToP.FFBToP_BCL):
     _name = "FFBdToPi@BCL"
     def __init__(self):

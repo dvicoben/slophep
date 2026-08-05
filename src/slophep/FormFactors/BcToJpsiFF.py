@@ -7,10 +7,12 @@ import numpy as np
 # import slophep.FormFactors.FormFactorsBToV as FFBToV
 from slophep.FormFactors.FormFactorsBToV import FormFactorBToV
 from slophep.Tools.errfluct_tools import fluctsettings, FluctType
+from slophep.Core.user_registry import FFregistry
 
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
+@FFregistry.register
 class HPQCD2020(FormFactorBToV):
     _name = "FFBcToJpsi@HPQCD2020"
     def __init__(self):

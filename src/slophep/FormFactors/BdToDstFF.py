@@ -6,56 +6,66 @@ import numpy as np
 
 import slophep.FormFactors.FormFactorsBToV as FFBToV
 from slophep.Tools.errfluct_tools import fluctsettings, FluctType
+from slophep.Core.user_registry import FFregistry
 
 
+@FFregistry.register
 class ISGW2(FFBToV.FFBToV_ISGW2):
     _name = "FFBdToDst@ISGW2"
     def __init__(self):
         super().__init__("B0", "D*+")
 
 
+@FFregistry.register
 class BLPR(FFBToV.FFBToV_BLPR):
     _name = "FFBdToDst@BLPR"
     def __init__(self):
         super().__init__("B0", "D*+")
 
 
+@FFregistry.register
 class BLPRXP(FFBToV.FFBToV_BLPRXP):
     _name = "FFBdToDst@BLPRXP"
     def __init__(self):
         super().__init__("B0", "D*+")
     
 
+@FFregistry.register
 class CLN(FFBToV.FFBToV_CLN):
     _name = "FFBdToDst@CLN"
     def __init__(self):
         super().__init__("B0", "D*+")
 
 
+@FFregistry.register
 class CLN2(FFBToV.FFBToV_CLN2):
     _name = "FFBdToDst@CLN2"
     def __init__(self):
         super().__init__("B0", "D*+")
 
 
+@FFregistry.register
 class BGL(FFBToV.FFBToV_BGL):
     _name = "FFBdToDst@BGL"
     def __init__(self):
         super().__init__("B0", "D*+")
 
 
+@FFregistry.register
 class BSZ(FFBToV.FFBToV_BSZ):
     _name = "FFBdToDst@BSZ"
     def __init__(self):
         super().__init__("B0", "D*+")
 
 
+@FFregistry.register
 class HPQCD2023(FFBToV.FFBToV_HPQCD):
     _name = "FFBdToDst@HPQCD2023"
     def __init__(self):
         super().__init__("B0", "D*+")
 
 
+@FFregistry.register
 class BGL_FNALMILC2021(FFBToV.FFBToV_BGLGeneric):
     _name = "FFBdToDst@BGL_FNAL/MILC2021"
     def __init__(self):
@@ -91,6 +101,7 @@ class BGL_FNALMILC2021(FFBToV.FFBToV_BGLGeneric):
 
 
 
+@FFregistry.register
 class BGL_JLQCD2023(FFBToV.FFBToV_BGLGeneric):
     _name = "FFBdToDst@BGL_JLQCD2023"
     def __init__(self):
@@ -126,6 +137,7 @@ class BGL_JLQCD2023(FFBToV.FFBToV_BGLGeneric):
 
 
 # Hammer equivalent classes
+@FFregistry.register
 class BGL_Hammer(FFBToV.FFBToV_BGLGeneric):
     _name = "FFBdToDst@BGL_Hammer"
     def __init__(self):
@@ -181,6 +193,7 @@ class BGL_Hammer(FFBToV.FFBToV_BGLGeneric):
         return {k : ff[k]/etaEWVcb for k in ff}
 
 
+@FFregistry.register
 class BLPR_Hammer(FFBToV.FFBToV_BLPR):
     _name = "FFBToDst@BLPR_Hammer"
     def __init__(self):
@@ -208,6 +221,7 @@ class BLPR_Hammer(FFBToV.FFBToV_BLPR):
         return ffpar
 
 
+@FFregistry.register
 class CLN_Hammer(FFBToV.FFBToV_CLN):
     _name = "FFBdToDst@CLN_Hammer"
     def __init__(self):
