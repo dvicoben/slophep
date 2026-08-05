@@ -73,6 +73,9 @@ class ParameterManager:
     def __getitem__(self, parname: str) -> Any:
         return self.get_val(parname)
 
+    def __contains__(self, parname: str) -> bool:
+        return (parname in self.params) or (parname in self.aliases)
+
     def get(self, parname: str, default: Any = None) -> Any:
         name = self.aliases.get(parname, parname)
         par = self.params.get(name)
@@ -126,15 +129,17 @@ class ParameterManager:
         self._update(unique_pars)
         self.aliases.update(unique_aliases)
         return self
-    
-    # def merge(self, other_manager: ParameterManager) -> None:
-    #     if other_manager is self:
-    #         return
-    #     self.update(other_manager.params)
 
     def add_param(self, par: Parameter, override = False) -> None:
         if override:
+            if par.name in self.aliases:
+                logger.warning(f"Parameter {par.name} registered as an alias {par.name}->{self.aliases[par.name]}. Alias will be removed.")
+                self.remove_alias(par.name)
             self._update({par.name : par})
+            return
+        
+        if par.name in self.aliases:
+            logger.warning(f"Parameter {par.name} registered as an alias {par.name}->{self.aliases[par.name]}. This assignment is being skipped.")
             return
         
         if par.name in self.params:
@@ -157,6 +162,10 @@ class ParameterManager:
         if alias in self.aliases:
             logger.warning(f"Alias {alias} already exists and is linked to {self.aliases[alias]}. Will be overriden.")
         self.aliases[alias] = parname
+
+    def remove_alias(self, alias: str) -> None:
+        parname = self.aliases.pop(alias)
+        logger.info(f"Removed alias {alias} linked to {parname}")
     
     def get_val(self, parname: str) -> float:
         return self.get_param(parname).get_val()
@@ -236,7 +245,7 @@ class ParameterUser:
         return {f"{self.name}:{ipar}" : ival for ipar, ival in self.define_userparams().items()}
 
     def _initialize_params(self, manager: ParameterManager) -> None:
-        params = copy.deepcopy(self.user_params_defaults())
+        params = self.user_params_defaults()
         for iname, ival in params.items():
             manager.register_param(iname, ival)
 
