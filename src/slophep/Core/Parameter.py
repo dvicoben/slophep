@@ -3,7 +3,6 @@ import flavio
 from typing import TypeVar, Any
 
 from slophep.Core.physdata import DEFAULT_PARAMS
-import copy
 import logging
 
 logger = logging.getLogger(__name__)
@@ -186,13 +185,17 @@ class ParameterManager:
         print(f"ParameterManager at {hex(id(self))}, parameters:")
         for ipar in self.params.values():
             print(f"  {ipar.name:<36} : {ipar}")
+        for ialias, ipname in self.aliases.items():
+            print(f"  {ialias:<36} : ALIAS->{ipname}")
 
     def print_values(self) -> None:
             print(f"ParameterManager at {hex(id(self))}, parameters:")
             for ipar in self.params.values():
                 print(f"  {ipar.name:<36} : {ipar.get_val()}")
+            for ialias, ipname in self.aliases.items():
+                print(f"  {ialias:<36} : ALIAS->{ipname}")
     
-    def set_wc(self, wc: dict[str, complex], eft="WET", basis="flavio") -> None:
+    def set_wc(self, wc: dict[str, complex], eft: str = "WET", basis: str = "flavio") -> None:
         for iwc, ival in wc.items():
             if "WCRe:"+iwc not in self.params:
                 self.register_param("WCRe:"+iwc, ival.real)
@@ -203,13 +206,13 @@ class ParameterManager:
                 self.register_param("WCIm:"+iwc, ival.imag)
             else:
                 self.set_val("WCIm:"+iwc, ival.imag)
-        # Need to use _getWC_values() to ensure still use any values that are unchanged
+        # Need to use _get_wc_values() to ensure still use any values that are unchanged
         self._wc_obj.set_initial(self._get_wc_values(), self.scale, eft, basis)
 
     def _get_wc_values(self) -> dict[str, complex]:
         wc = {}
         for ikey, ipar in self.params.items():
-            if not (ikey[:5] == "WCRe:" or ikey[5:] == "WCIm:"):
+            if not (ikey[:5] == "WCRe:" or ikey[:5] == "WCIm:"):
                 continue
             # Handle Wilson Coefficients
             name_wc = ikey[5:]
@@ -219,7 +222,7 @@ class ParameterManager:
             wc[name_wc] += iwc
         return wc
 
-    def get_wc(self, eft="WET", basis="flavio") -> flavio.WilsonCoefficients:
+    def get_wc(self, eft: str ="WET", basis: str = "flavio") -> flavio.WilsonCoefficients:
         wc = self._get_wc_values()
         self._wc_obj.set_initial(wc, self.scale, eft, basis)
         return self._wc_obj
