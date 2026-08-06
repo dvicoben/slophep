@@ -114,3 +114,7 @@ def test_param_user():
     pm = spar.ParameterManager()
     pu.set_parammanager(pm)
     assert pu.pm is pm
+
+    # Test parameter setting
+    pu.set_param("m_B0", 2.)
+    assert pu.get_param("m_B0") == 2.
