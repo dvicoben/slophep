@@ -40,7 +40,7 @@ def test_param_manager():
     assert "testparam2" in pm
     assert pm.get_val("testparam2") == 4.
 
-    # Test not overwriting
+    # Test not overwriting by default
     p2 = spar.Parameter("testparam", 3.)
     pm.add_param(p2)
     assert pm.get_val("testparam") != 3.
@@ -64,9 +64,44 @@ def test_param_manager():
     with pytest.raises(KeyError):
         pm.set_val("dummyparam", 2.)
 
-# Add some test for ParameterManager merging and WCs
+    # Test WCs
+    wcstr = "CVR_bcmunumu"
+    wcoeffs = {
+        wcstr : 0.1+0.5j,
+    }
+    pm.set_wc(wcoeffs)
+    # Correctly register and set new WCs
+    assert pm.get_val("WCRe:CVR_bcmunumu") == 0.1
+    assert pm.get_val("WCIm:CVR_bcmunumu") == 0.5
+    # Retrieve correct WCs
+    assert pm._get_wc_values()[wcstr] == wcoeffs[wcstr]
+    # Properly change existing WCs
+    pm.set_wc({wcstr : 0.0})
+    assert pm.get_val("WCRe:CVR_bcmunumu") == 0.0
+    assert pm.get_val("WCIm:CVR_bcmunumu") == 0.0
+    assert pm._get_wc_values()[wcstr] == 0.0
 
 
+def test_param_manager_merge_into():
+    pm1 = spar.ParameterManager()
+    pm2 = spar.ParameterManager()
+    pm1.register_param("test", 1.)
+    pm2.register_param("test", 2.)
+
+    pm_merged = pm1.merge_into(pm2)
+    # Test we obtain the value from pm2
+    assert pm_merged.get_val("test") == 2.
+
+
+def test_param_manager_merge_onto():
+    pm1 = spar.ParameterManager()
+    pm2 = spar.ParameterManager()
+    pm1.register_param("test", 1.)
+    pm2.register_param("test", 2.)
+
+    pm_merged = pm1.merge_onto(pm2)
+    # Test we obtain the value from pm1
+    assert pm_merged.get_val("test") == 1.
 
 
 def test_param_user():
