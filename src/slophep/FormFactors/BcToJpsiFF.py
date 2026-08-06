@@ -45,7 +45,7 @@ class HPQCD2020(FormFactorBToV):
         return ffpar
 
     def get_coef_arr(self, ff: str, nmax: int) -> np.ndarray:
-        return np.array([self.get_userparam(f"a^{i}_{ff}" for i in range(nmax))])
+        return np.array([self.get_userparam(f"a^{i}_{ff}") for i in range(nmax)])
 
     def pole(self, q2: float, tp: float, mres: np.ndarray) -> float:
         poles = (np.sqrt(tp - q2) - np.sqrt(tp - mres**2)) / (np.sqrt(tp - q2) + np.sqrt(tp - mres**2))

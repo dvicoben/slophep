@@ -43,7 +43,7 @@ class FFBToV_ISGW2(FormFactorBToV):
 
     @fluctsettings(FluctType.DICTNUMERIC)
     def get_ff(self, q2: float) -> dict:
-        """ISGW2 FFs - in general not good
+        """ISGW2 FFs
 
         Parameters
         ----------
@@ -74,8 +74,9 @@ class FFBToV_ISGW2(FormFactorBToV):
         t = q2 if q2 < tm else 0.99*tm
         wt=1.0+(tm-t)/(2.0*mbb*mbx)
         mqm = self.get_userparam("mqm")
+        nfp = self.get_userparam("nfp")
 
-        r2=3.0/(4.0*msb*msq)+3*msd*msd/(2*mbb*mbx*bbx2) + (16.0/(mbb*mbx*(33.0-2.0*self.internalparams["nfp"])))*np.log(self.get_as(mqm,mqm) / self.get_as(msq,msq))
+        r2 = 3.0/(4.0*msb*msq)+3*msd*msd/(2*mbb*mbx*bbx2) + (16.0/(mbb*mbx*(33.0-2.0*nfp)))*np.log(self.get_as(mqm,mqm) / self.get_as(msq,msq))
         ai = -1.0* ( 6.0/( 33.0 - 2.0*self.get_userparam("nf")))
         cji = np.power((self.get_as(msb,msb) / self.get_as(msq,msq)), ai)
         zji = msq / msb
