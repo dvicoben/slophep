@@ -57,17 +57,22 @@ class ParameterManager:
             Renorm scale, by default 4.8
         """
         self._params  : dict[str, Parameter]      = {}
-        self._scale   : float                     = scale
         self._wc_obj  : flavio.WilsonCoefficients = flavio.WilsonCoefficients()
         self._aliases : dict[str, str]            = {}
+        # Load default params - masses, lifetimes, etc.
         self._load_physdata(physdata if physdata is not None else DEFAULT_PARAMS)
+        # Add scale parameter
+        self.register_param("SCALE", scale)
 
     @property
     def params(self) -> dict[str, Parameter]: return self._params
     @property
-    def scale(self) -> float: return self._scale
+    def scale(self) -> float: return self.get_val("SCALE")
     @property
     def aliases(self) -> dict[str, str]: return self._aliases
+
+    def set_scale(self, scale: float) -> None:
+        self.set_val("SCALE", scale)
 
     def __getitem__(self, parname: str) -> Any:
         return self.get_val(parname)
@@ -91,7 +96,7 @@ class ParameterManager:
 
     def merge_into(self, other: ParameterManager) -> ParameterManager:
         """Merges two managers, self into other, meaning parameters/aliases of other are
-        preserved if they are in both.
+        preserved if they are in both. Note this alters and returns other, it does not create a new manager.
 
         Parameters
         ----------
@@ -101,7 +106,7 @@ class ParameterManager:
         Returns
         -------
         ParameterManager
-            Merged parameter manager
+            Merged parameter manager, other with the contents of self without overwriting other
         """
         unique_pars = {iname : ipar for iname, ipar in self.params.items() if iname not in other.params}
         unique_aliases = {ialias : iparname for ialias, iparname in self.aliases if ialias not in other.aliases}
@@ -111,7 +116,7 @@ class ParameterManager:
 
     def merge_onto(self, other: ParameterManager) -> ParameterManager:
         """Merges two managers, self onto other, meaning parameters/aliases of self are
-        preserved if they are in both.
+        preserved if they are in both. Note this alters and returns self, it does not create a new manager.
 
         Parameters
         ----------
@@ -121,7 +126,7 @@ class ParameterManager:
         Returns
         -------
         ParameterManager
-            Merged parameter manager
+            Merged parameter manager, self with the contents of other without overwriting self
         """
         unique_pars = {iname : ipar for iname, ipar in other.params.items() if iname not in self.params}
         unique_aliases = {ialias : iparname for ialias, iparname in other.aliases if ialias not in self.aliases}
