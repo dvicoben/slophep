@@ -24,7 +24,7 @@ correction_func_2body = create_interpolated_weightfunc(correction_weight_2body, 
 ax_2body.plot(mvals, correction_func_2body(mvals), 'k--', label="Interpolated")
 ax_2body.legend()
 ax_2body.set(xlabel = r"$m(D^{**})$ [GeV/$c$]", ylabel = "Weight (up to norm.)")
-fig_2body.savefig("output/correction_weight_BuToD1pMuNu_D1p2body.png", dpi=100, bbox_inches="tight")
+fig_2body.savefig("output/example_evtgen_weights_BuToD1pMuNu_D1p2body.png", dpi=100, bbox_inches="tight")
 
 
 # A D1'->3-body example (D1p->D0PiPi):
@@ -41,4 +41,4 @@ correction_func_3body = create_interpolated_weightfunc(
 ax_3body.plot(mvals, correction_func_3body(mvals), 'k--', label="Interpolated")
 ax_3body.legend()
 ax_3body.set(xlabel = r"$m(D^{**})$ [GeV/$c$]", ylabel = "Weight (up to norm.)")
-fig_3body.savefig("output/correction_weight_BuToD1pMuNu_D1p3body.png", dpi=100, bbox_inches="tight")
+fig_3body.savefig("output/example_evtgen_weights_BuToD1pMuNu_D1p3body.png", dpi=100, bbox_inches="tight")

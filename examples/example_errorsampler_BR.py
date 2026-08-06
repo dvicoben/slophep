@@ -7,14 +7,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Number of fluctuations we will use for errorbands
-Nfluct = 5000
+Nfluct = 2000
 
 # Initialise observables we will fluctuate
 obs_hpqcd_mu = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.HPQCD2023())
 obs_hpqcd_tau = BdToDstEllNuPrediction("tau", "tau", BdToDstFF.HPQCD2023())
 
 # Both predictions use the same parameter, so only need one error sampler
-fconfig_hpqcd = "data/BToDstFF_HPQCD_COV_arXiv230403137.json"
+fconfig_hpqcd = "data/BdToDstFF_HPQCD_COV_arXiv230403137.json"
 errsampler = ErrorSampler.create_from_configfile(fconfig_hpqcd)
 errsampler.fluctuate(Nfluct)
 
@@ -59,4 +59,4 @@ tau_res = get_spectrum_float(qsq, obs_hpqcd_tau, "dBRdq2", errsampler)
 plot_spectrum(qsq, [mu_res, tau_res], 
               [r"$B^0 \to D^* \mu\nu$", r"$B^0 \to D^* \tau \nu$"],
               r"$\mathrm{d}\mathcal{B}/\mathrm{d}q^2$",
-              "output/plot_q2spectrum_dBR_mutau.png")
+              "output/example_errorsampler_BR.png")

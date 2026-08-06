@@ -58,3 +58,5 @@ for i in range(len(axs.flat)):
     ax[i].set_ylim(bottom=0)
     ax[i].set(xlim=ibnds, xlabel=labels[i])
     # ax[i].hist(parameter_samples.T[varidx], bins=Nbins, range=(lower_bnds[varidx], upper_bnds[varidx]))
+
+fig.savefig("output/example_mcgen.png", bbox_inches="tight")

@@ -14,9 +14,9 @@ obs_hpqcd = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.HPQCD2023())
 obs_bsz = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.BSZ())
 
 # Generate parameter fluctations
-hpqcd_errfluct = ErrorSampler.create_from_configfile("data/BToDstFF_HPQCD_COV_arXiv230403137.json")
+hpqcd_errfluct = ErrorSampler.create_from_configfile("data/BdToDstFF_HPQCD_COV_arXiv230403137.json")
 hpqcd_errfluct.fluctuate(Nfluct)
-bsz_errfluct = ErrorSampler.create_from_configfile("data/BToDstFF_BSZ_COV_arXiv181100983.json")
+bsz_errfluct = ErrorSampler.create_from_configfile("data/BdToDstFF_BSZ_COV_arXiv181100983.json")
 bsz_errfluct.fluctuate(Nfluct)
 
 # Print nominal values and errors at particular q2 value
@@ -24,16 +24,6 @@ print(hpqcd_errfluct.get_central(obs_hpqcd, "J", [5.0]))
 print(hpqcd_errfluct.get_error(obs_hpqcd, "J", [5.0]))
 print(bsz_errfluct.get_central(obs_bsz, "J", [5.0]))
 print(bsz_errfluct.get_error(obs_bsz, "J", [5.0]))
-
-# Lets do the same for the form factors:
-ff_hpqcd = BdToDstFF.HPQCD2023()
-ff_bsz = BdToDstFF.BSZ()
-
-print(hpqcd_errfluct.get_central(ff_hpqcd, "get_ff", [5.0]))
-print(hpqcd_errfluct.get_error(ff_hpqcd, "get_ff", [5.0]))
-print(bsz_errfluct.get_central(ff_bsz, "get_ff", [5.0]))
-print(bsz_errfluct.get_error(ff_bsz, "get_ff", [5.0]))
-
 
 # We are interested in the full q2 range, so some helper functions for that:
 def get_spectrum_dict(qsq: list[float], 
@@ -68,7 +58,7 @@ def plot_spectrum_dict(qsq: list[float],
         plt.xlabel(r"$q^2$")
         plt.ylabel(ilobs)
         plt.legend()
-        plt.savefig(f"output/plot_q2sepctrum_{iobs}.png", bbox_inches='tight')
+        plt.savefig(f"output/example_errorsampler_obs_{iobs}.png", bbox_inches='tight')
         plt.clf()
         plt.close()
 
@@ -78,13 +68,6 @@ npoints = 100
 qsq = np.linspace(obs_hpqcd.q2min+1e-6, obs_hpqcd.q2max-1e-6, npoints)
 
 setPlotParams()
-
-hpqcd_ff_res = get_spectrum_dict(qsq, ff_hpqcd, "get_ff", hpqcd_errfluct)
-bsz_ff_res = get_spectrum_dict(qsq, ff_bsz, "get_ff", bsz_errfluct)
-plot_spectrum_dict(qsq, ["A0", "A1", "A12", "V", "T1", "T2", "T23"], 
-                   [hpqcd_ff_res, bsz_ff_res], 
-                   ["HPQCD arXiv:2304.03137", "BSZ arXiv:1811.00983"],
-                   [r"$A_0$", r"$A_1$", r"$A_{12}$", r"$V$", r"$T_1$", r"$T_2$", r"$T_{23}$"])
 
 hpqcd_J_res = get_spectrum_dict(qsq, obs_hpqcd, "J", hpqcd_errfluct)
 bsz_J_res = get_spectrum_dict(qsq, obs_bsz, "J", bsz_errfluct)

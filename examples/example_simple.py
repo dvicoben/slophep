@@ -1,14 +1,14 @@
 from slophep.Observables import BdToDstEllNuPrediction
 from slophep.FormFactors import BdToDstFF
 
+q2 = 5.0
+obs = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.CLN())
+# We save for later use here a dictionary of the default values
+ffdefaults = obs.FF.define_userparams()
 
-obs_cln = BdToDstEllNuPrediction("mu", "mu", BdToDstFF.CLN())
-ffdefaults = obs_cln.FF.define_userparams()
 
-# Plot out the FL prediction
-p = obs_cln.plot_obs_prediction("FL", label="SM, Hammer defaults")
-p[1].set(ylabel = r"$F_L$")
-
+print("Observables at default values:")
+print(obs.J(q2))
 # Now change FF parameters to ones in HQET2 decfiles
 hqet2 = {
     "RhoSq" : 1.122,
@@ -17,8 +17,9 @@ hqet2 = {
     "R2"    : 0.852,
     "R0"    : 1.15
 }
-obs_cln.set_ff(hqet2)
-p = obs_cln.plot_obs_prediction("FL", label="SM, HQET2", plot=p)
+obs.set_ff(hqet2)
+print("Observables at HQET2 values:")
+print(obs.J(q2))
 
 # Now consider changing Coefficients to NP
 # We are using CLN here which makes assumptions to get the tensor FFs, but this is simply illustrative
@@ -29,12 +30,12 @@ wcoeffs = {
     'CSR_bcmunumu': 0.0,
     'CT_bcmunumu': 0.0
 }
-obs_cln.set_wc(wcoeffs)
+obs.set_wc(wcoeffs)
 
-# Lets plot now NP for both sets of ff parameters
-obs_cln.set_ff(ffdefaults)
-p = obs_cln.plot_obs_prediction("FL", label="NP, Hammer defaults", plot=p)
-obs_cln.set_ff(hqet2)
-p = obs_cln.plot_obs_prediction("FL", label="NP, HQET2", plot=p)
-p[1].legend()
-p[0].show()
+obs.set_ff(ffdefaults)
+print("Observables at default values and CVR=0.5:")
+print(obs.J(q2))
+
+obs.set_ff(hqet2)
+print("Observables at HQET2 values and CVR=0.5:")
+print(obs.J(q2))

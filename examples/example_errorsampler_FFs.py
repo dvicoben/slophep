@@ -15,11 +15,11 @@ ff_hpqcd    = BdToDstFF.HPQCD2023()
 ff_fnalmilc = BdToDstFF.BGL_FNALMILC2021()
 ff_jlqcd    = BdToDstFF.BGL_JLQCD2023()
 
-hpqcd_errfluct = ErrorSampler.create_from_configfile("data/BToDstFF_HPQCD_COV_arXiv230403137.json")
+hpqcd_errfluct = ErrorSampler.create_from_configfile("data/BdToDstFF_HPQCD_COV_arXiv230403137.json")
 hpqcd_errfluct.fluctuate(Nfluct)
-fnalmilc_errfluct = ErrorSampler.create_from_configfile("data/BToDstFF_BGL_FNALMILC_COV_arXiv210514019.json")
+fnalmilc_errfluct = ErrorSampler.create_from_configfile("data/BdToDstFF_BGL_FNALMILC_COV_arXiv210514019.json")
 fnalmilc_errfluct.fluctuate(Nfluct)
-jlqcd_errfluct = ErrorSampler.create_from_configfile("data/BToDstFF_BGL_JLQCD_COV_arXiv230605657.json")
+jlqcd_errfluct = ErrorSampler.create_from_configfile("data/BdToDstFF_BGL_JLQCD_COV_arXiv230605657.json")
 jlqcd_errfluct.fluctuate(Nfluct)
 
 # We are interested in the full q2 range, so some helper functions for that:
@@ -55,7 +55,7 @@ def plot_spectrum_dict(qsq: list[float],
         plt.xlabel(r"$q^2$")
         plt.ylabel(ilobs)
         plt.legend()
-        plt.savefig(f"output/plot_lattice_comp_{iobs}.png", bbox_inches='tight')
+        plt.savefig(f"output/example_errorsampler_FFs_{iobs}.png", bbox_inches='tight')
         plt.clf()
         plt.close()
 

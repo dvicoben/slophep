@@ -42,17 +42,17 @@ p[1].errorbar(q2_bin_c, fl_exp, xerr=q2_bin_w, yerr=fl_exp_err,
               color='k', markersize=2, fmt='o', capsize=2, label="LHCb-PAPER-2023-020")
 p[1].set(ylabel=r"$F_L$")
 p[1].legend()
-p[0].savefig("output/FLtau_comparison.png", bbox_inches='tight', dpi=150)
+p[0].savefig("output/example_FLtau_comparison_0.png", bbox_inches='tight', dpi=150)
 
 
 
 # Now get the binned prediction and error - will use the HPQCD FFs for this
 # The central values
 fl_pred = np.array([obs_hpqcd.fl_bin(iq, jq) for iq, jq in zip(q2_bin_edges[:-1], q2_bin_edges[1:])])
-print(f"HPQCD Prediction: {fl_pred}")
+print(f"Prediction using HPQCD FFs: {fl_pred}")
 # Fluctuations for errorbands
 Nfluct = 2000
-fluct = ErrorSampler.create_from_configfile("data/BToDstFF_HPQCD_COV_arXiv230403137.json")
+fluct = ErrorSampler.create_from_configfile("data/BdToDstFF_HPQCD_COV_arXiv230403137.json")
 fluct.fluctuate(Nfluct)
 # Getting errorbands for the binned prediction
 # This has to carry out the integration for every fluctuation - can take a bit of time
@@ -67,7 +67,7 @@ ax.stairs(fl_pred_errhi, q2_bin_edges, baseline=fl_pred_errlo,
 ax.errorbar(q2_bin_c, fl_exp, xerr=q2_bin_w, yerr=fl_exp_err, 
             color='k', markersize=2, fmt='o', capsize=2, label="LHCb-PAPER-2023-020")
 ax.legend()
-fig.savefig("output/FLtau_bin_comparison.png", bbox_inches='tight', dpi=150)
+fig.savefig("output/example_FLtau_comparison_1.png", bbox_inches='tight', dpi=150)
 
 
 
@@ -76,7 +76,7 @@ fig.savefig("output/FLtau_bin_comparison.png", bbox_inches='tight', dpi=150)
 def get_spectrum_dict(qsq, obs, attr, fluct):
     res = {"val": [], "lo": [], "hi": []}
     for iq2 in qsq:
-        o = getattr(obs, attr)(iq2)
+        o = fluct.get_central(obs, attr, [iq2])
         o_err = fluct.get_error(obs, attr, [iq2])
         
         res["val"].append(o)
@@ -96,4 +96,4 @@ ax.fill_between(q2_points, fl_full["lo"], fl_full["hi"],
 ax.errorbar(q2_bin_c, fl_exp, xerr=q2_bin_w, yerr=fl_exp_err, 
             color='k', markersize=2, fmt='o', capsize=2, label="LHCb-PAPER-2023-020")
 ax.legend()
-fig.savefig("output/FLtau_full_comparison.png", bbox_inches='tight', dpi=150)
+fig.savefig("output/example_FLtau_comparison_2.png", bbox_inches='tight', dpi=150)
