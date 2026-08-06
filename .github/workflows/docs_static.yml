@@ -39,7 +39,7 @@ jobs:
           pip install particle==0.26.2
           pip install -e .
           cd docs
-          make html
+          source makedocs.sh
           cd ..
       - name: Set up Pages
         uses: actions/configure-pages@v5

@@ -10,6 +10,27 @@ The implementation in SLOP produces an unnormalised correction, i.e. only the $m
 
 $$w_\mathrm{SLOP}(m_R) = m_R \int \mathrm{d}q^2 \frac{\mathrm{d}\Gamma}{\mathrm{d}q^2}\Bigg|_{m_R}$$
 
-and it is up to the user to rescale the weights to the effective statistical size they desire. Note that $m_R$ is assumed to be in GeV in SLOP. An example of making this weighting function can be found [here](https://github.com/dvicoben/slophep/blob/master/python/evtgen_weighting.py).
+and it is up to the user to rescale the weights to the effective statistical size they desire. Note that $m_R$ is assumed to be in GeV in SLOP. For example, for a correction of $B^+ \to D_1^\prime(\to D^*\pi) \mu\nu$:
 
-For the phase-space factors in three-body modes, additional parameters are required (e.g. the width), and to avoid hard-coding them these have to be supplied by the user according to the contents of the `evt.pdl` in the version of EvtGen that was used to generate the sample. An example is also shown [here](https://github.com/dvicoben/slophep/blob/master/python/evtgen_weighting.py).
+```{code-block} python
+
+from slophep.Observables import BuToD1stEllNuPrediction
+from slophep.FormFactors import BuToD1stFF
+from slophep.Experimental.evtgen_correction import correction_weight_2body
+
+obs = BuToD1stEllNuPrediction("mu", "mu", BuToD1stFF.ISGW2())
+# We obtain then a correction at a particular value of m_R with
+weight = correction_weight_2body(2.9, obs)
+```
+Again, the correction here can be rescaled, you can specify a `normscale` parameter:
+
+
+```{code-block} python
+
+gamma = obs.Gamma()
+weight = correction_weight_2body(2.9, obs, normscale=1./gamma)
+```
+
+There is some additional functionality showcased in the [example here](https://github.com/dvicoben/slophep/blob/master/python/evtgen_weighting.py).
+
+For the phase-space factors in three-body modes, additional parameters are required (e.g. the width), and to avoid hard-coding them these have to be supplied by the user according to the contents of the `evt.pdl` in the version of EvtGen that was used to generate the sample. An example is also shown [here](https://github.com/dvicoben/slophep/blob/master/examples/example_evtgen_weighting.py).

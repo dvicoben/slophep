@@ -16,6 +16,14 @@ reference.md
 
 ```{toctree}
 :maxdepth: 1
+:caption: Defaults:
+
+reference/form-factor-defaults.md
+```
+
+
+```{toctree}
+:maxdepth: 1
 :caption: Python API:
 
 api.rst

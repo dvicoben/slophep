@@ -1,3 +1,4 @@
+(baseuse-producing-errorbands)=
 # Producing Errorbands
 
 It is often desirable to get an errorband/uncertainty for a particular prediction based on uncertainties on the form-factor parameters. In SLOP this can be done provided central values and a covariance matrix. Fluctuations around the central values are produced sampling from a multivariate Gaussian. Observables can be recomputed for each fluctuation in order to obtain an uncertainty for a particular confidence interval.
@@ -10,10 +11,10 @@ from slophep.Tools import ErrorSampler
 import slophep.FormFactors import BdToDstFF
 
 ff_hpqcd = BdToDstFF.HPQCD()
-sampler = ErrorSampler.create_from_configfile("data/BToDstFF_HPQCD_COV_arXiv230403137.json")
+sampler = ErrorSampler.create_from_configfile("data/BdToDstFF_HPQCD_COV_arXiv230403137.json")
 sampler.fluctuate(5000)
 ```
-This creates a sampler, loads in central values and a covariance matrix from [data/BToDstFF_HPQCD_COV_arXiv230403137.json](https://github.com/dvicoben/slophep/blob/master/data/BToDstFF_HPQCD_COV_arXiv230403137.json), and generates 5000 fluctuations.
+This creates a sampler, loads in central values and a covariance matrix from [data/BdToDstFF_HPQCD_COV_arXiv230403137.json](https://github.com/dvicoben/slophep/blob/master/data/BdToDstFF_HPQCD_COV_arXiv230403137.json), and generates 5000 fluctuations.
 
 
 ```{note}

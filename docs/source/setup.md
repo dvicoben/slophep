@@ -6,7 +6,7 @@ SLOP is python-based. There is currently no `pyPI` installation, but SLOP can be
 ## Requirements
 Requirements are listed in [`requirements.txt`](https://github.com/dvicoben/slophep/blob/master/requirements.txt)
 - Predictions use `flavio` to go from FFs and WCs to amplitudes and observables
-- Internally also uses standard libraries (`numpy`, `matplotlib`), and `iminuit` for the (currently very limited) fitting functionality
+- Internally also uses common libraries (`numpy`, `matplotlib`, `scipy`), and `pypmc` for MCMC sampling
 
 
 ## Using pip
