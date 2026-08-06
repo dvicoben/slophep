@@ -2,6 +2,8 @@ from typing import Callable
 import numpy as np
 import pypmc
 
+import logging
+logger = logging.getLogger(__name__)
 
 SamplingFunction = Callable[[*tuple[float, ...]], float]
 
@@ -64,10 +66,10 @@ class MCGenerator:
 
     def prerun(self, preruns: int, preN: int) -> None:
         for i in range(preruns):
-            print(f'Prerun {i} out of {preruns}')
+            logger.info(f'Prerun {i} out of {preruns}')
             accept_count = self.sampler.run(preN)
             accept_rate  = accept_count / preN * 100
-            print(f'Prerun {i}: acceptance rate is {accept_rate:3.0f}%')
+            logger.info(f'Prerun {i}: acceptance rate is {accept_rate:3.0f}%')
             self.sampler.adapt()
         self.sampler.clear()
 

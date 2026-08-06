@@ -1,7 +1,7 @@
 from math import sqrt
 
 from slophep.FormFactors.FormFactorsBaryonic.FFOneHalfpToOneHalfpBase import FormFactorOneHalfpToOneHalfp
-
+from slophep.Tools.errfluct_tools import FluctType, fluctsettings
 
 class FFBaryonic_DKMR(FormFactorOneHalfpToOneHalfp):
     _name = "FFBaryonic@DKMR"
@@ -54,6 +54,7 @@ class FFBaryonic_DKMR(FormFactorOneHalfpToOneHalfp):
         st0 = sqrt(tp-t0)
         return (sq2-st0)/(sq2+st0)
 
+    @fluctsettings(FluctType.DICTNUMERIC)
     def get_ff(self, q2: float) -> dict[str, float]:
         """DKMR form factors, https://arxiv.org/abs/1702.02243
         Implementation reproduces EOS https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-dkmr2017-impl.hh

@@ -6,7 +6,7 @@ from slophep.Core.user_registry import FFregistry
 
 @FFregistry.register
 class ISGW2(FFBToDstst.FFBToD1st_ISGW2):
-    _name = "BsToDs1st@ISGW2"
+    _name = "FFBsToDs1st@ISGW2"
     def __init__(self):
         super().__init__("Bs", "Ds1*+")
 
@@ -28,13 +28,13 @@ class ISGW2(FFBToDstst.FFBToD1st_ISGW2):
 
 @FFregistry.register
 class LLSW(FFBToDstst.FFBToD1st_LLSW):
-    _name = "BsToDs1st@LLSW"
+    _name = "FFBsToDs1st@LLSW"
     def __init__(self):
         super().__init__("Bs", "Ds1*+")
 
 
 @FFregistry.register
 class BLR(FFBToDstst.FFBToD1st_BLR):
-    _name = "BsToDs1st@BLR"
+    _name = "FFBsToDs1st@BLR"
     def __init__(self):
         super().__init__("Bs", "Ds1*+")

@@ -6,7 +6,7 @@ import slophep.FormFactors.FormFactorsBToP as FFBToP
 from slophep.Core.user_registry import FFregistry
 
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 @FFregistry.register
 class BSZ(FFBToP.FFBToP_BSZ):
@@ -95,7 +95,7 @@ class BGL_Hammer(FFBToP.FFBToP_BGLGeneric):
 class BLPR_Hammer(FFBToP.FFBToP_BLPR):
     _name = "FFBuToD@BLPR_Hammer"
     def __init__(self):
-        logger.warning("B->P BLPR_Hammer basis differs in fT from standard SLOP basis, use with care for predictions.")
+        logger.info("B->P BLPR_Hammer basis differs in fT from standard SLOP basis, use with care for predictions.")
         super().__init__("B+", "D0")
 
     def define_userparams(self):
