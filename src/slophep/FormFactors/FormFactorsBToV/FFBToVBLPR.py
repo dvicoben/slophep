@@ -11,6 +11,8 @@ class FFBToV_BLPR(FormFactorBToV):
     _name = "FFBToV@BLPR"
     def define_userparams(self):
         ffpar = {
+            "a"         : 1.509/np.sqrt(2),
+            "rD"        : 1867./5280.,
             "RhoSq"     : 1.24      ,
             "Chi21"     : -0.06     ,
             "Chi2p"     : 0.0       ,
@@ -89,8 +91,11 @@ class FFBToV_BLPR(FormFactorBToV):
         Ct3 = hqet.CT3(w, zBC)
 
         # From Sec. III-A in https://arxiv.org/pdf/1703.05330 - Variables for leading IW function (derived from G(1))
-        rD = self.get_param('m_D0')/self.get_param('m_B0')
-        a = np.sqrt((1+rD)/(2*np.sqrt(rD)))
+        # rD = self.get_param('m_D0')/self.get_param('m_B0')
+        # a = np.sqrt((1+rD)/(2*np.sqrt(rD)))
+        # # Values differ slightly in hammer source, where a=1.509 / sqrt2 and rD=1867./5280.:
+        rD = self.get_userparam("rD")
+        a = self.get_userparam("a")
         V21 = 57.0
         V20 = 7.5 + self.get_userparam("dV20")
         zCon = (np.sqrt(w+1.0) - np.sqrt(2.0)*a)/(np.sqrt(w+1.0) + np.sqrt(2.0)*a)
@@ -150,63 +155,63 @@ class FFBToV_BLPR(FormFactorBToV):
     
     @fluctsettings(FluctType.DICTNUMERIC)
     def get_hhat(self, q2: float) -> dict[str, float]:
-            w = max(self.w(q2), 1)
-            ash = self.get_userparam("ash")
-            mb = self.get_userparam("mb")
-            la = self.get_userparam("mbarB") - mb + self.get_userparam("lam1")/(2*mb)
-            eb = la/(2*mb)
-            mc = mb - self.get_userparam("delta_mbc")
-            ec = la/(2*mc)
-            ebReb = self.get_userparam("ebReb")
-            ecRec = self.get_userparam("ecRec")
-            corrb = eb*(1.-ebReb)
-            corrc = ec*(1.-ecRec)
-            zBC   = mc/mb
-    
-            RhoSq = self.get_userparam("RhoSq")
-            chi21 = self.get_userparam("Chi21")
-            chi2p = self.get_userparam("Chi2p")
-            chi3p = self.get_userparam("Chi3p")
-            eta1  = self.get_userparam("Eta1" )
-            etap  = self.get_userparam("Etap" )
-    
-            L1 = -4.0*(w-1.0)*(chi21 + (w-1.0)*chi2p)+12.0*chi3p*(w-1.0)
-            L2 = -4.0*chi3p*(w-1.0)
-            L3 = 4.0*(chi21 + (w-1.0)*chi2p)
-            L4 = 2.*(eta1 + etap*(w-1.))-1.
-            # L4 = (2.0*(eta1 + etap*(w-1.0))-1.0*ebReb)
-            L5 = -1.0
-            # L5 = -ecRec
-            L6 = -2.*(1+(eta1 + etap*(w-1.)))/(w+1.)
-            # L6 = -2.0*(ecRec + (eta1 + etap*(w-1.0)))/(w+1.0)
-    
-            # QCD correction functions
-            Cv1 = hqet.CV1(w, zBC)
-            # CV2 = hqet.CV2(w, zBC)
-            # CV3 = hqet.CV3(w, zBC)
-            Ca1 = hqet.CA1(w, zBC)
-            Ca2 = hqet.CA2(w, zBC)
-            Ca3 = hqet.CA3(w, zBC)
-            Ct1 = hqet.CT1(w, zBC)
-            Ct2 = hqet.CT2(w, zBC)
-            Ct3 = hqet.CT3(w, zBC)
-            
-            # Hps = 1.+ash*Cps+ec*(L2+L3*(w-1)+L5-L6*(w+1))+eb*(L1-L4)-(corrc + corrb)
-            Hv = 1.+ash*Cv1+ec*(L2-L5)+eb*(L1-L4) -(corrc + corrb)
-            Ha1 = 1.+ash*Ca1+ec*(L2-L5*(w-1)/(w+1))+eb*(L1-L4*(w-1)/(w+1)) -(corrc + corrb)*(w-1)/(w+1)
-            Ha2 = ash*Ca2+ec*(L3+L6) +2.*corrc/(w+1.)
-            Ha3 = 1.+ash*(Ca1+Ca3)+ec*(L2-L3-L5+L6)+eb*(L1-L4) -(corrc * (w-1.)/(w+1.)+corrb)
-            Ht1 = 1.+ash*(Ct1+0.5*(w-1)*(Ct2-Ct3))+ec*(L2)+eb*(L1)
-            Ht2 = 0.5*(w+1)*ash*(Ct2+Ct3)+ec*(L5)-eb*(L4) +corrc-corrb
-            Ht3 = ash*(Ct2)+ec*(L6-L3) +2.*corrc/(w+1.)
-            
-            hhat = {
-                "V"  : Hv,
-                "A1" : Ha1,
-                "A2" : Ha2,
-                "A3" : Ha3,
-                "T1" : Ht1,
-                "T2" : Ht2,
-                "T3" : Ht3
-            }
-            return hhat
+        w = max(self.w(q2), 1)
+        ash = self.get_userparam("ash")
+        mb = self.get_userparam("mb")
+        la = self.get_userparam("mbarB") - mb + self.get_userparam("lam1")/(2*mb)
+        eb = la/(2*mb)
+        mc = mb - self.get_userparam("delta_mbc")
+        ec = la/(2*mc)
+        ebReb = self.get_userparam("ebReb")
+        ecRec = self.get_userparam("ecRec")
+        corrb = eb*(1.-ebReb)
+        corrc = ec*(1.-ecRec)
+        zBC   = mc/mb
+
+        RhoSq = self.get_userparam("RhoSq")
+        chi21 = self.get_userparam("Chi21")
+        chi2p = self.get_userparam("Chi2p")
+        chi3p = self.get_userparam("Chi3p")
+        eta1  = self.get_userparam("Eta1" )
+        etap  = self.get_userparam("Etap" )
+
+        L1 = -4.0*(w-1.0)*(chi21 + (w-1.0)*chi2p)+12.0*chi3p*(w-1.0)
+        L2 = -4.0*chi3p*(w-1.0)
+        L3 = 4.0*(chi21 + (w-1.0)*chi2p)
+        L4 = 2.*(eta1 + etap*(w-1.))-1.
+        # L4 = (2.0*(eta1 + etap*(w-1.0))-1.0*ebReb)
+        L5 = -1.0
+        # L5 = -ecRec
+        L6 = -2.*(1+(eta1 + etap*(w-1.)))/(w+1.)
+        # L6 = -2.0*(ecRec + (eta1 + etap*(w-1.0)))/(w+1.0)
+
+        # QCD correction functions
+        Cv1 = hqet.CV1(w, zBC)
+        # CV2 = hqet.CV2(w, zBC)
+        # CV3 = hqet.CV3(w, zBC)
+        Ca1 = hqet.CA1(w, zBC)
+        Ca2 = hqet.CA2(w, zBC)
+        Ca3 = hqet.CA3(w, zBC)
+        Ct1 = hqet.CT1(w, zBC)
+        Ct2 = hqet.CT2(w, zBC)
+        Ct3 = hqet.CT3(w, zBC)
+        
+        # Hps = 1.+ash*Cps+ec*(L2+L3*(w-1)+L5-L6*(w+1))+eb*(L1-L4)-(corrc + corrb)
+        Hv = 1.+ash*Cv1+ec*(L2-L5)+eb*(L1-L4) -(corrc + corrb)
+        Ha1 = 1.+ash*Ca1+ec*(L2-L5*(w-1)/(w+1))+eb*(L1-L4*(w-1)/(w+1)) -(corrc + corrb)*(w-1)/(w+1)
+        Ha2 = ash*Ca2+ec*(L3+L6) +2.*corrc/(w+1.)
+        Ha3 = 1.+ash*(Ca1+Ca3)+ec*(L2-L3-L5+L6)+eb*(L1-L4) -(corrc * (w-1.)/(w+1.)+corrb)
+        Ht1 = 1.+ash*(Ct1+0.5*(w-1)*(Ct2-Ct3))+ec*(L2)+eb*(L1)
+        Ht2 = 0.5*(w+1)*ash*(Ct2+Ct3)+ec*(L5)-eb*(L4) +corrc-corrb
+        Ht3 = ash*(Ct2)+ec*(L6-L3) +2.*corrc/(w+1.)
+        
+        hhat = {
+            "V"  : Hv,
+            "A1" : Ha1,
+            "A2" : Ha2,
+            "A3" : Ha3,
+            "T1" : Ht1,
+            "T2" : Ht2,
+            "T3" : Ht3
+        }
+        return hhat

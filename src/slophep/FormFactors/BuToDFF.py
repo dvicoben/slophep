@@ -3,6 +3,7 @@ B+->D0 Form-factors
 """
 import numpy as np
 import slophep.FormFactors.FormFactorsBToP as FFBToP
+from slophep.Tools.errfluct_tools import FluctType, fluctsettings
 from slophep.Core.user_registry import FFregistry
 
 import logging
@@ -62,6 +63,14 @@ class CLN_Hammer(FFBToP.FFBToP_CLN):
         }
         return ffpar
 
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def get_ff(self, q2: float):
+        """B->P Hammer basis differs in fT from standard SLOP basis, use with care for predictions."""
+        scale = self.get_param(f"m_{self.B}") + self.get_param(f"m_{self.P}")
+        ffs = super().get_ff(q2)
+        ffs["fT"] *= 1./scale
+        return ffs
+
 
 @FFregistry.register
 class BGL_Hammer(FFBToP.FFBToP_BGLGeneric):
@@ -89,6 +98,14 @@ class BGL_Hammer(FFBToP.FFBToP_BGLGeneric):
             "nc"        : 2.6
         })
         return ffpar
+
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def get_ff(self, q2: float):
+        """B->P Hammer basis differs in fT from standard SLOP basis, use with care for predictions - SM only so shouldn't matter"""
+        scale = self.get_param(f"m_{self.B}") + self.get_param(f"m_{self.P}")
+        ffs = super().get_ff(q2)
+        ffs["fT"] *= 1./scale
+        return ffs
     
 
 @FFregistry.register
@@ -100,6 +117,8 @@ class BLPR_Hammer(FFBToP.FFBToP_BLPR):
 
     def define_userparams(self):
         ffpar = {
+            "a"         : 1.509/np.sqrt(2),
+            "rD"        : 1867./5280.,
             "RhoSq"     : 1.24,
             "Chi21"     : -0.06,
             "Chi2p"     : 0.0,
@@ -117,3 +136,11 @@ class BLPR_Hammer(FFBToP.FFBToP_BLPR):
             "ecRec"     : 0.822,
         }
         return ffpar
+
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def get_ff(self, q2: float):
+        """B->P Hammer basis differs in fT from standard SLOP basis, use with care for predictions."""
+        scale = self.get_param(f"m_{self.B}") + self.get_param(f"m_{self.P}")
+        ffs = super().get_ff(q2)
+        ffs["fT"] *= 1./scale
+        return ffs

@@ -11,6 +11,8 @@ class FFBToP_BLPR(FormFactorBToP):
     _name = "FFBToP@BLPR"
     def define_userparams(self):
         ffpar = {
+            "a"         : 1.509/np.sqrt(2),
+            "rD"        : 1867./5280.,
             "RhoSq"     : 1.24,
             "Chi21"     : -0.06,
             "Chi2p"     : 0.0,
@@ -76,8 +78,12 @@ class FFBToP_BLPR(FormFactorBToP):
         # L4b = (2.*(eta1 + etap*(w-1.))-1.*ebReb) # HAMMERv1.2.1
         # L4c = (2.*(eta1 + etap*(w-1.))-1.*ecRec) # HAMMERv1.2.1
 
-        rD = self.get_param("m_D0")/self.get_param("m_B0")
-        a = np.sqrt((1+rD)/(2*np.sqrt(rD)))
+        # # From Sec. III-A in https://arxiv.org/pdf/1703.05330 - Variables for leading IW function (derived from G(1))
+        # rD = self.get_param("m_D0")/self.get_param("m_B0")
+        # a = np.sqrt((1+rD)/(2*np.sqrt(rD)))
+        # # Values differ slightly in hammer source, where a=1.509 / sqrt2 and rD=1867./5280.:
+        rD = self.get_userparam("rD")
+        a = self.get_userparam("a")
         V21 = 57.0
         V20 = 7.5 + self.get_userparam("dV20")
         zCon = (np.sqrt(w+1.0) - np.sqrt(2.0)*a)/(np.sqrt(w+1.0) + np.sqrt(2.0)*a)

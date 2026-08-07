@@ -201,6 +201,8 @@ class BLPR_Hammer(FFBToV.FFBToV_BLPR):
 
     def define_userparams(self):
         ffpar = {
+            "a"         : 1.509/np.sqrt(2),
+            "rD"        : 1867./5280.,
             "RhoSq"     : 1.24      ,
             "Chi21"     : -0.06     ,
             "Chi2p"     : 0.0       ,
