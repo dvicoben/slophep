@@ -50,6 +50,8 @@ def calc_Mi(w: float, IWs: dict[str, float], la1OverlaB2: float, la2OverlaB2: fl
 
 
 class FFBToV_BLPRXP(FormFactorBToV):
+    """FF in BLPRXP parameterisation from https://arxiv.org/abs/2206.11281 as in HAMMER v1.4.1
+    """
     _name = "FFBToV@BLPRXP"
     def define_userparams(self):
         ffpar = {
@@ -308,26 +310,26 @@ class FFBToV_BLPRXP(FormFactorBToV):
         return h
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict:
-            """FF in BLPRXP parameterisation from https://arxiv.org/abs/2206.11281 as in HAMMER v1.4.1
-    
-            Parameters
-            ----------
-            q2 : float
-                q2 value to calculate FF at
-    
-            Returns
-            -------
-            dict
-                FF dictionary
-            """
-            Mb = self.get_param(f"m_{self.B}")
-            Mc = self.get_param(f"m_{self.V}")
-            w = max(self.w(q2), 1)
-            # IG
-            Xi = self.xi(w)
-            hhat = self.get_hhat(q2)
-            h = {iff : Xi*hhat[iff] for iff in hhat}
-            # NOTE: this performs the translation https://arxiv.org/pdf/1309.0301 eqns. 38-39,
-            # should be analgous to eqns B7-B13 in https://arxiv.org/pdf/1908.09398
-            return h_to_A(Mb, Mc, h, q2)
+    def get_ff(self, q2: float) -> dict[str, float]:
+        """FF in BLPRXP parameterisation from https://arxiv.org/abs/2206.11281 as in HAMMER v1.4.1
+
+        Parameters
+        ----------
+        q2 : float
+            q2 value to calculate FF at
+
+        Returns
+        -------
+        dict[str, float]
+            FF dictionary
+        """
+        Mb = self.get_param(f"m_{self.B}")
+        Mc = self.get_param(f"m_{self.V}")
+        w = max(self.w(q2), 1)
+        # IG
+        Xi = self.xi(w)
+        hhat = self.get_hhat(q2)
+        h = {iff : Xi*hhat[iff] for iff in hhat}
+        # NOTE: this performs the translation https://arxiv.org/pdf/1309.0301 eqns. 38-39,
+        # should be analgous to eqns B7-B13 in https://arxiv.org/pdf/1908.09398
+        return h_to_A(Mb, Mc, h, q2)

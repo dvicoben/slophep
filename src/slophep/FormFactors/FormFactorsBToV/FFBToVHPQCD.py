@@ -6,6 +6,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 class FFBToV_HPQCD(FormFactorBToV):
+    """FF caclculation according to HPQCD https://arxiv.org/abs/2304.03137
+    """
     _name = "FFBToV@HPQCD"
     
     def define_userparams(self):
@@ -129,7 +131,7 @@ class FFBToV_HPQCD(FormFactorBToV):
         return value
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[float]:
+    def get_ff(self, q2: float) -> dict[str, float]:
         """Implements FF caclculation according to https://arxiv.org/abs/2304.03137.
         Directly lifted from the ancillary files (LOAD_FIT.py)
 
@@ -139,7 +141,7 @@ class FFBToV_HPQCD(FormFactorBToV):
 
         Returns
         -------
-        dict[float]
+        dict[str, float]
             FF dictionary
         """
         mB = self.get_param(f"m_{self.B}")

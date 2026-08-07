@@ -8,6 +8,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 class FFBToV_BLPR(FormFactorBToV):
+    """FF in BLPR parameterisation from https://arxiv.org/pdf/1703.05330 as in HAMMER v1.4.1
+    """
     _name = "FFBToV@BLPR"
     def define_userparams(self):
         ffpar = {
@@ -43,7 +45,7 @@ class FFBToV_BLPR(FormFactorBToV):
 
         Returns
         -------
-        dict
+        dict[str, float]
             FF dictionary
         """
         mB = self.get_param(f"m_{self.B}")

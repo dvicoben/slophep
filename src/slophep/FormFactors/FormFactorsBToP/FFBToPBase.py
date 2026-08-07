@@ -5,6 +5,7 @@ from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 class FormFactorBToP(FormFactor):
     _name = "FFBToP@Base"
     def __init__(self, B: str, P: str):
+        """B->P form-factor"""
         self._B = B
         self._P = P
         super().__init__()

@@ -8,7 +8,9 @@ logger = logging.getLogger(__name__)
 
 
 def outer_function_vec(z: float, r: float, a: int, b: int, c: int) -> float:
-    """missing a prefactor that is dependent on the exact FF"""
+    """Calculate outer function, following https://arxiv.org/pdf/2606.23410 Eq. C19. 
+    Missing a prefactor that is dependent on the exact FF
+    """
     phi = np.power(r*(1+z), a) * np.power(1-z, 0.5*b) / np.power(
         (1+r)*(1-z) + 2*np.sqrt(r)*(1+z), c
     )
@@ -16,7 +18,9 @@ def outer_function_vec(z: float, r: float, a: int, b: int, c: int) -> float:
 
 
 def outer_function_ten(q2: float, tp: float, tm: float, t0: float, a: int, b: int, c: int) -> float:
-    """missing a prefactor that is dependent on the exact FF"""
+    """Calculate outer function, following https://arxiv.org/pdf/2606.23410 Eq. C20. 
+    Missing a prefactor that is dependent on the exact FF
+    """
     phi = (
         np.power((tp - q2)/(tp - t0), 0.25)
         *(np.sqrt(tp - q2) + np.sqrt(tp-t0))
@@ -28,8 +32,9 @@ def outer_function_ten(q2: float, tp: float, tm: float, t0: float, a: int, b: in
 
 
 class FFBToV_BGLGeneric(FormFactorBToV):
+    """Generalised B->V BGL form factor computation, following https://arxiv.org/pdf/2606.23410
+    """
     _name = "FFBToV@BGLGen"
-    
     def __init__(self, B: str, V: str,
                  N_g   : int = 3, 
                  N_f   : int = 3, 
@@ -38,7 +43,7 @@ class FFBToV_BGLGeneric(FormFactorBToV):
                  N_T1  : int = 0, 
                  N_T2  : int = 0, 
                  N_T23 : int = 0):
-        """Generalised B->V BGL form factor computation
+        """Generalised B->V BGL form factor computation, following https://arxiv.org/pdf/2606.23410
 
         Parameters
         ----------
@@ -251,7 +256,7 @@ class FFBToV_BGLGeneric(FormFactorBToV):
 class FFBToV_BGL(FFBToV_BGLGeneric):
     _name = "FFBToV@BGL"
     def __init__(self, B: str, V: str):
-        """BGL 2nd order in all FFs. Defualts are set from Type-A Baysian
+        """B->V BGL 2nd order in all FFs. Defualts are set from Type-A Baysian
         combined fit in https://arxiv.org/pdf/2606.23410 (Table 1 + Table 5 for tensor FFs)
         """
         super().__init__(B, V, 3, 3, 3, 3, 3, 3, 3)

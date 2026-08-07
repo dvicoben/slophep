@@ -5,6 +5,7 @@ from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 class FormFactorBToV(FormFactor):
     _name = "FFBToV@Base"
     def __init__(self, B: str, V: str):
+        """B->V Form factor"""
         self._B = B
         self._V = V
         super().__init__()
@@ -34,7 +35,7 @@ class FormFactorBToV(FormFactor):
 
         Returns
         -------
-        dict
+        dict[str, float]
             dictionary with FFs V, A0, A1, A12, T1, T2, T23
         """
         return {

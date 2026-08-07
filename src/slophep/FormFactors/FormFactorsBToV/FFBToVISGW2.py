@@ -6,9 +6,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 class FFBToV_ISGW2(FormFactorBToV):
+    """ISGW2 form-factors
+    """
     _name = "FFBToV@ISGW2"
     
     def __init__(self, B: str, V: str):
+        """ISGW2 form-factors
+        """
         logger.info(f"{self.name} tensor FFs are zero.")
         super().__init__(B, V)
 
@@ -42,7 +46,7 @@ class FFBToV_ISGW2(FormFactorBToV):
         return value
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict:
+    def get_ff(self, q2: float) -> dict[str, float]:
         """ISGW2 FFs
 
         Parameters
@@ -52,7 +56,7 @@ class FFBToV_ISGW2(FormFactorBToV):
 
         Returns
         -------
-        dict
+        dict[str, float]
             FF dictionary
         """
         msb = self.get_userparam("msb")

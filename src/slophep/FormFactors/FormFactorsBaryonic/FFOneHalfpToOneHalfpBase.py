@@ -6,6 +6,7 @@ class FormFactorOneHalfpToOneHalfp(FormFactor):
     def __init__(self, 
                  B: str,
                  C: str):
+        """Baryonic 1/2+ -> 1/2+ form-factors"""
         self._B = B
         self._C = C
         super().__init__()

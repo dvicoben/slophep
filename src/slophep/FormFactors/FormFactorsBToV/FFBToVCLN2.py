@@ -7,6 +7,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class FFBToV_CLN2(FormFactorBToV):
+    """CLN form-factors, tensor FFs obtained using Eq. 11 in https://arxiv.org/pdf/1503.05534"""
     _name = "FFBToV@CLN2"
     
     def __init__(self, B: str, V: str):
@@ -87,7 +88,7 @@ class FFBToV_CLN2(FormFactorBToV):
 
         Returns
         -------
-        dict
+        dict[str, float]
             FF dictionary
         """
         mB = self.get_param(f"m_{self.B}")

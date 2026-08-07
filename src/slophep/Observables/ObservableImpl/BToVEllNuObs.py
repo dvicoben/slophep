@@ -23,6 +23,7 @@ class BToVEllNuPrediction(Observable):
                  lep: str,
                  nu: str,
                  FF: FormFactorBToV):
+        """B->Vlnu Observables class"""
         super().__init__(FF)
         self._B: str = B
         self._V: str = V

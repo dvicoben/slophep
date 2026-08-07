@@ -24,6 +24,7 @@ class BToPEllNuPrediction(Observable):
                  lep : str,
                  nu  : str,
                  FF  : FormFactorBToP):
+        """B->Plnu Observables class"""
         super().__init__(FF)
         self._B: str = B
         self._P: str = P

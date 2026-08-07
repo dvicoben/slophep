@@ -6,6 +6,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class FFBToV_CLN(FormFactorBToV):
+    """CLN Form-factors"""
     _name = "FFBToV@CLN"
     
     def __init__(self, B: str, V: str):
@@ -38,7 +39,7 @@ class FFBToV_CLN(FormFactorBToV):
 
         Returns
         -------
-        dict
+        dict[str, float]
             FF dictionary
         """
 

@@ -6,6 +6,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 class FFBToV_BSZ(FormFactorBToV):
+    """BSZ form factors, following https://arxiv.org/pdf/1503.05534 and https://arxiv.org/pdf/1811.00983.
+    """
     _name = "FFBToV@BSZ"
 
     def define_userparams(self):
@@ -37,32 +39,32 @@ class FFBToV_BSZ(FormFactorBToV):
         return ffpar
 
     def z(self, mB: float, mM: float, q2: float, t0: float = None):
-            """Form factor expansion parameter z.
-    
-            Parameters
-            ----------
-    
-            mB : float
-                initial pseudoscalar meson mass
-            mM : float
-                final meson meson mass
-            q2 : float
-                momentum transfer squared q2
-            t0 : float
-                parameter t_0.
-                If not given, chosen as t_0 = t_+ (1 - sqrt(1 - t\_-/t_+))$ where
-                t_+- = (m_B +- m_M)^2.
-                If equal to `tm`, set to t_0=t\_-
-            """
-            tm = (mB-mM)**2
-            tp = (mB+mM)**2
-            if t0 is None:
-                t0 = tp*(1-np.sqrt(1-tm/tp))
-            elif t0 == 'tm':
-                t0 = tm
-            sq2 = np.sqrt(tp-q2)
-            st0 = np.sqrt(tp-t0)
-            return (sq2-st0)/(sq2+st0)
+        """Form factor expansion parameter z.
+
+        Parameters
+        ----------
+
+        mB : float
+            initial pseudoscalar meson mass
+        mM : float
+            final meson meson mass
+        q2 : float
+            momentum transfer squared q2
+        t0 : float
+            parameter t_0.
+            If not given, chosen as t_0 = t_+ (1 - sqrt(1 - t\_-/t_+))$ where
+            t_+- = (m_B +- m_M)^2.
+            If equal to `tm`, set to t_0=t\_-
+        """
+        tm = (mB-mM)**2
+        tp = (mB+mM)**2
+        if t0 is None:
+            t0 = tp*(1-np.sqrt(1-tm/tp))
+        elif t0 == 'tm':
+            t0 = tm
+        sq2 = np.sqrt(tp-q2)
+        st0 = np.sqrt(tp-t0)
+        return (sq2-st0)/(sq2+st0)
     
     def zs(self, mB: float, mV: float, q2: float, t0: float = None):
         zq2 = self.z(mB, mV, q2, t0)
@@ -84,7 +86,7 @@ class FFBToV_BSZ(FormFactorBToV):
 
         Returns
         -------
-        dict
+        dict[str, float]
             FF dictionary
         """
         # Resonance masses used in arXiv:1811.00983

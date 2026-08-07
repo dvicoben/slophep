@@ -7,6 +7,8 @@ logger = logging.getLogger(__name__)
 
 
 class FFBToP_BCLGeneric(FormFactorBToP):
+    """BCL form-factors
+    """
     _name = "FFBToP@BCLGen"
     def __init__(self, B: str, P: str,
                  N_fp : int, N_f0 : int):
@@ -38,8 +40,8 @@ class FFBToP_BCLGeneric(FormFactorBToP):
     
     @fluctsettings(FluctType.DICTNUMERIC)
     def get_ff(self, q2: float) -> dict:
-        """Calculates BGL FFs.
-        Implementation lifted from Hammer https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDBGL.cc, 
+        """Calculates BCL FFs.
+        Implementation lifted from Hammer https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDBCL.cc, 
 
         Parameters
         ----------
