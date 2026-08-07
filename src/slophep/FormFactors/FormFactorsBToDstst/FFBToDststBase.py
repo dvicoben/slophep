@@ -6,7 +6,7 @@ from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 class FormFactorBToD0st(FormFactor):
     _name = "FFBToD0st@Base"
     def __init__(self, B: str, C: str):
-        """B->D_0^{*(0/+)} form-factors"""
+        """B->D0*(0/+) form-factors"""
         self._B = B
         self._C = C
         super().__init__()

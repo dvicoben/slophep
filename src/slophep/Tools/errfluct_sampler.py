@@ -110,7 +110,7 @@ class ErrorSampler:
         Returns
         -------
         list
-            List of the output param_user.attr(*attr_args) for each fluctuation
+            List of the output `param_user.attr(*attr_args)` for each fluctuation
         """
         attr_args = attr_args if attr_args is not None else []
         logger.info(f"Computing {param_user.name}.{attr} with {attr_args} for {len(self.fluctuations)} fluctuations")
@@ -135,7 +135,7 @@ class ErrorSampler:
                     param_user : ParameterUser, 
                     attr       : str, 
                     attr_args  : list | None = None):
-        """Compute central value of param_user.attr(*attr_args) according to self.mean
+        """Compute central value of `param_user.attr(*attr_args)` according to self.mean
 
         Parameters
         ----------
@@ -149,7 +149,7 @@ class ErrorSampler:
         Returns
         -------
         Any
-            Return-type is the same as param_user.attr(*attr_args), evaluated at self.mean and self.constants
+            Return-type is the same as `param_user.attr(*attr_args)`, evaluated at self.mean and self.constants
         """
         init_vals = {kpar : param_user.get_param(kpar) for kpar in self.mean}
         init_vals.update({kpar : param_user.get_param(kpar) for kpar in self.constants})
