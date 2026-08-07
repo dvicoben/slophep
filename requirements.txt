@@ -2,5 +2,4 @@ numpy
 scipy
 matplotlib
 flavio
-iminuit
 pypmc
