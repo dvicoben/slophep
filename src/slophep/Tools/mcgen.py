@@ -5,7 +5,7 @@ import pypmc
 import logging
 logger = logging.getLogger(__name__)
 
-SamplingFunction = Callable[[*tuple[float, ...]], float]
+SamplingFunction = Callable[..., float]
 
 class MCGenerator:
     def __init__(self, seed: int = None):
