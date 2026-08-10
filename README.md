@@ -17,7 +17,7 @@ Any usage of EvtGen correction weightings should cite the work of Florian Herren
 
 
 # Requirements
-Requirements are listed in `requirements.txt`
+SLOP uses Python >=3.11. Requirements are listed in `requirements.txt`
 - Predictions use `flavio` to go from FFs and WCs to amplitudes and observables
 - Internally also uses common libraries (`numpy`, `matplotlib`, `scipy`), and `pypmc` for MCMC sampling
 

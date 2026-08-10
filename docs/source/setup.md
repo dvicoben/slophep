@@ -1,6 +1,6 @@
 # Set-up
 
-SLOP is python-based. There is currently no `pyPI` installation, but SLOP can be easily installed after cloning the repository.
+SLOP is python-based and uses Python >=3.11. There is currently no `pyPI` installation, but SLOP can be easily installed after cloning the repository.
 
 
 ## Requirements
