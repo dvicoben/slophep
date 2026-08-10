@@ -35,7 +35,7 @@ jobs:
         # version of particle is forced until https://github.com/flav-io/flavio/issues/296 is resloved
         run: |
           pip install --upgrade setuptools
-          pip install sphinx sphinx_rtd_theme myst-parser
+          pip install sphinx sphinx_rtd_theme myst-parser autoclasstoc
           pip install particle==0.26.2
           pip install -e .
           cd docs
