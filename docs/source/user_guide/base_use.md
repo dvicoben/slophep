@@ -8,4 +8,5 @@ The following sections provide some simple examples for using SLOP. You may also
 
 base_pred.md
 base_errorband.md
+base_mcgen.md
 ```

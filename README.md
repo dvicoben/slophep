@@ -22,17 +22,23 @@ Requirements are listed in `requirements.txt`
 - Internally also uses common libraries (`numpy`, `matplotlib`, `scipy`), and `pypmc` for MCMC sampling
 
 # Set-up
+
 ## Quick
-Ensure you are in a python environment with all requirements in `requirements.txt`, then
+Ensure you are in a python environment with all the requirements in [`requirements.txt`](https://github.com/dvicoben/slophep/blob/master/requirements.txt)
 ```
 git clone https://github.com/dvicoben/slophep.git
 cd slophep
-source ./setup.sh
 ```
-The script `setup.sh` simply appends `src/` to the `PYTHONPATH` so that contents therein will be found when running scripts. You will need to `source ./setup.sh` whenever you start a new terminal session.
+Then append the `src` directory to the `PYTHONPATH`
+```
+export PYTHONPATH="${PYTHONPATH}:/path/to/slophep/src"
+```
+such that contents therein will be found when running scripts.
+
+The script `setup.sh` performs this assuming it is run from the root directory of the repository. You will need to `source ./setup.sh` whenever you start a new terminal session.
 
 ## Using pip
-In the python environment of your choice, 
+There is no `PyPI` release yet, but you can use `pip` to install the package from its source. In the python environment of your choice, 
 ```
 git clone https://github.com/dvicoben/slophep.git
 cd slophep
@@ -54,5 +60,5 @@ For user guide and API docs, see the online documentation at [https://dvicoben.g
 # About the Predictions
 Information about the predictions, as well as available form-factor schemes and decay modes, can be found in the online documentation [here](https://dvicoben.github.io/slophep/form-factors.html), or in its source [here](https://github.com/dvicoben/slophep/blob/master/docs/source/form-factors.md).
 
-Note that there can be caveats for different decay modes and form-factors and it is strongly encouraged that users ensure that predictions they are using/plotting work as intended as I cannot cross-check/cover every use-case. There is a separate repository with some cross-checks that can be used as an example, https://github.com/dvicoben/slophep-checks.
+Note that there can be caveats for different decay modes and form-factors, and it is strongly encouraged that users ensure that predictions they are using/plotting work as intended as I cannot cross-check/cover every use-case. There is a separate repository with some cross-checks that can be used as an example, https://github.com/dvicoben/slophep-checks, and some tests under `tests/check_ffs/`.
 

@@ -1,4 +1,4 @@
-2026-08-XX --- Version 2.0.0
+2026-08-10 --- Version 2.0.0
     Incorporation of general parameter management structure implied an almost complete refactoring of the code, resulting in changes that are not backwards-compatible. In general changes to API are somewhat minor, but package structure has also been changed, so import paths are no longer the same.
     Additions:
      - Generalised ParameterManager and ParameterUser interface
