@@ -19,20 +19,26 @@ Any usage of EvtGen correction weightings should cite the work of Florian Herren
 # Requirements
 Requirements are listed in `requirements.txt`
 - Predictions use `flavio` to go from FFs and WCs to amplitudes and observables
-- Internally also uses standard libraries (`numpy`, `matplotlib`), and `iminuit` for the (currently very limited) fitting functionality
+- Internally also uses common libraries (`numpy`, `matplotlib`, `scipy`), and `pypmc` for MCMC sampling
 
 # Set-up
+
 ## Quick
-Ensure you are in a python environment with all requirements in `requirements.txt`, then
+Ensure you are in a python environment with all the requirements in [`requirements.txt`](https://github.com/dvicoben/slophep/blob/master/requirements.txt)
 ```
 git clone https://github.com/dvicoben/slophep.git
 cd slophep
-source ./setup.sh
 ```
-The script `setup.sh` simply appends `src/` to the `PYTHONPATH` so that contents therein will be found when running scripts. You will need to `source ./setup.sh` whenever you start a new terminal session.
+Then append the `src` directory to the `PYTHONPATH`
+```
+export PYTHONPATH="${PYTHONPATH}:/path/to/slophep/src"
+```
+such that contents therein will be found when running scripts.
+
+The script `setup.sh` performs this assuming it is run from the root directory of the repository. You will need to `source ./setup.sh` whenever you start a new terminal session.
 
 ## Using pip
-In the python environment of your choice, 
+There is no `PyPI` release yet, but you can use `pip` to install the package from its source. In the python environment of your choice, 
 ```
 git clone https://github.com/dvicoben/slophep.git
 cd slophep
@@ -42,34 +48,17 @@ which should install the package (`slophep`) and the required dependencies.
 
 
 # Usage
+For user guide and API docs, see the online documentation at [https://dvicoben.github.io/slophep/](https://dvicoben.github.io/slophep/).
 
-- Some example scripts are in the `python` directory.
-- Generation of predictions with varying FFs and WCs is shown in the minimal example `python/example_simple.py`. You can find a comparison of FF schemes in `python/compare_FFschemes.py`.
-- Examples for generating error bands can be found in `python/example_fluctuations_obs.py` and `python/example_fluctuations_BR.py`.
-- Additional FF schemes can be implemented - they need to inherit from the base `FormFactor` class and implement the `get_ff(q2)` method. See the [example](https://dvicoben.github.io/slophep/advanced.html#making-a-ff-scheme) in the documentation.
-- There is a small example for comparisons with binned experimental results of the observables (`python/example_FLtau_comparison.py`)
-
-There is some very limited fitting functionality that is in development. It should not be regarded as stable. For usage in fits, it is strongly encouraged that you do not rely on SLOP's fitting utilities at the moment. You may take the predictions and use them to build a fit model as best works for you.
+- Some example scripts are in the `examples` directory.
+- Generation of predictions with varying FFs and WCs is shown in the minimal example `example_simple.py`. You can find a comparison of FF schemes in `example_compare_FFschemes.py`.
+- Examples for generating error bands can be found in `example_errorsampler_obs.py` and `example_errorsampler_BR.py`.
+- Additional FF schemes can be implemented - they need to inherit from the base `FormFactor` class and implement the `get_ff(q2)` method. See the [documentation](https://dvicoben.github.io/slophep/user_guide/adv_ffscheme.html).
+- There is a small example for comparisons with binned experimental results of the observables (`example_FLtau_comparison.py`)
 
 
 # About the Predictions
 Information about the predictions, as well as available form-factor schemes and decay modes, can be found in the online documentation [here](https://dvicoben.github.io/slophep/form-factors.html), or in its source [here](https://github.com/dvicoben/slophep/blob/master/docs/source/form-factors.md).
 
-Note that there can be caveats for different decay modes and form-factors and it is strongly encouraged that users ensure that predictions they are using/plotting work as intended as I cannot cross-check/cover every use-case. There is a separate repository with some cross-checks that can be used as an example, https://github.com/dvicoben/slophep-checks.
+Note that there can be caveats for different decay modes and form-factors, and it is strongly encouraged that users ensure that predictions they are using/plotting work as intended as I cannot cross-check/cover every use-case. There is a separate repository with some cross-checks that can be used as an example, https://github.com/dvicoben/slophep-checks, and some tests under `tests/check_ffs/`.
 
-
-# TO DO
-### Priority:
-- [ ] Work on `PyPI` release
-- [ ] Homogenise nomenclature of FF parameters for parameterisations with polynomial expansions
-- [ ] Add ability to get $\langle J_i \rangle$ for a given binning scheme (as in the PDF methods) rather than need to get each individual bin
-- [ ] Maybe move FF param defaults to some `.json` files? In particular for HPQCD this is a lot of parameters - largely a cosmetic thing and would like to keep everything readable from the class so maybe not
-
-### Others
-- [ ] Add some `cite` attirbute to return bib entries for each FF scheme - make bookkeeping easier for end-user
-- [ ] Consider moving error handling to `gvar` rather than sampling of Gaussian? 
-    - Moving to `gvar` could be problematic for non-gaussian errors - would need to consider how to deal with this.
-    - In some tests for $B_s \to D_s^*$, obtained larger contours for the low $q^2$ in form factors compared to [arXiv:2304.03137v2](https://arxiv.org/abs/2304.03137v2) and what is obtained with LOAD_FIT.py. 
-    - Even sampling directly from `gvar` (loading the `pydat` and using `gvar.sample`) produces errors different to those resulting from `gvar` arithmetic
-    - The issues does not seem to be computation of the FFs since central values seem fine - need to cross-check directly by calculating similar fluctuations using functions in `LOAD_FIT.py`.
-- [ ] Add ability to switch angular conventions

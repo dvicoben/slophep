@@ -1,3 +1,23 @@
+2026-08-10 --- Version 2.0.0
+    Incorporation of general parameter management structure implied an almost complete refactoring of the code, resulting in changes that are not backwards-compatible. In general changes to API are somewhat minor, but package structure has also been changed, so import paths are no longer the same.
+    Additions:
+     - Generalised ParameterManager and ParameterUser interface
+     - MCMC generator using pypmc
+     - Bc->Jpsi form-factors from https://arxiv.org/pdf/2007.06957
+     - Generalised B->V BGL with tensor FFs following https://arxiv.org/pdf/2606.23410
+    Changes:
+     - General changes to package structure, affecting import paths
+     - Removed fitting utilities
+     - Refactor of existing code to fit new parameter interface
+     - Default BGL switched to an implementation of https://arxiv.org/pdf/2606.23410
+     - Change nomenclature of BGL coefficients (from ai/bi/ci/di to a_g_i/a_f_i/a_F1_i/a_F2_i)
+     - Sampler for errorbands changed to `ErrorSampler`, and re-designed to interact with `ParameterManager` instead, moved to `Tools` sub-package
+     - Angular parts of predictions split into Mixins in order to allow selective availability of angular coefficients on a per-decay-mode basis
+    Fixes:
+     - Bugfix B->P BLPRXP incorrect internal computation of zBC
+     - Minor change to BLPR calculations: parameters `a` and `rD` have been set to hammer source, where a=1.509/sqrt2 and rD=1867./5280. rather than from Sec. III-A in https://arxiv.org/pdf/1703.05330
+     - Remove implicit factor in interpolated functions of evtgen correction
+
 2026-07-22 --- Version 1.6.1
     Fixes:
      - Bugfix get_ff_R_basis in FormFactorBToV

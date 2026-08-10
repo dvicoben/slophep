@@ -1,5 +1,6 @@
 import numpy as np
 import flavio
+from slophep.Core.Parameter import ParameterManager
 
 # gammainfo = {
 #     "D0*+" : 221.0e-3,
@@ -56,16 +57,16 @@ def threeBody_LS2(M: float,
                   L: float, 
                   width: float,
                   daughters: list[str], 
-                  par: dict[str, float]) -> tuple[float, float]:
+                  par: ParameterManager) -> tuple[float, float]:
     """
     Assumes 3 body is of form D** -> D pi pi
     """
     M2 = M*M
     gam = width
-    masses = [par[f"m_{ip}"] for ip in daughters]
+    masses = [par.get_val(f"m_{ip}") for ip in daughters]
     m_D = np.max(masses)
     # Masses of non-D children
-    m_other = [par[f"m_{ip}"] for ip in daughters if "D" not in ip]
+    m_other = [par.get_val(f"m_{ip}") for ip in daughters if "D" not in ip]
     m = np.min(m_other)
 
     p  = threeBodyPS(M2, m_D, m)
@@ -80,7 +81,7 @@ def threeBody_LS2(M: float,
 
 
 def decrate_int(mres: float, obs) -> float:
-    mB = obs.par['m_'+obs.B]
+    mB = obs.get_param('m_'+obs.B)
     q2min = obs.q2min
     q2max = (mB - mres)**2
     def integrand(qsq):
