@@ -189,25 +189,25 @@ class HPQCD2023(FFBToV.FFBToV_HPQCD):
         return pars
 
     def _get_ff_h(self, q2: float, A: str) -> float:
-            value = 0
-            w = self.w(q2)
-            mK = self.get_userparam("Mk")
-            mPI = self.get_userparam("MPi")
-            LambdaChi = self.get_userparam("LambdaChi")
-            chi_mult = ((mK/LambdaChi)**2-(mPI/LambdaChi)**2)
-            for order in range(int(self.get_userparam("maxorder")+1)):
-                param_name = 'a^'+str(order)+'_'+A
-                if f"{self.name}:{param_name}" not in self.pm.params:
-                    logger.info(f"{self.name} FF parameter {param_name} not found, not contributing")
-                    continue
-    
-                cumulator = self.get_userparam(param_name)
-                chicumulator = self.get_userparam(f"s_{param_name}_Mpi^2/Lambda")*chi_mult
-                if order==0:
-                    value += cumulator*(1+chicumulator)
-                else:
-                    value += cumulator*((w-1)**order)*(1+chicumulator)
-            return value
+        value = 0
+        w = self.w(q2)
+        mK = self.get_userparam("Mk")
+        mPI = self.get_userparam("MPi")
+        LambdaChi = self.get_userparam("LambdaChi")
+        chi_mult = ((mK/LambdaChi)**2-(mPI/LambdaChi)**2)
+        for order in range(int(self.get_userparam("maxorder")+1)):
+            param_name = 'a^'+str(order)+'_'+A
+            if f"{self.name}:{param_name}" not in self.pm.params:
+                logger.info(f"{self.name} FF parameter {param_name} not found, not contributing")
+                continue
+
+            cumulator = self.get_userparam(param_name)
+            chicumulator = self.get_userparam(f"s_{param_name}_Mpi^2/Lambda")*chi_mult
+            if order==0:
+                value += cumulator*(1+chicumulator)
+            else:
+                value += cumulator*((w-1)**order)*(1+chicumulator)
+        return value
 
 
 
@@ -248,7 +248,7 @@ class BGL_Hammer(FFBToV.FFBToV_BGLGeneric):
         return pars
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict:
+    def calc_ff(self, q2: float) -> dict:
         """Calculates BGL form factors (SM only) as in hammer https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBGL.cc?ref_type=tags
         
         Note that there is an additional 1./(etaEW*Vcb) factor applied to FFs as in Hammer.
@@ -263,7 +263,7 @@ class BGL_Hammer(FFBToV.FFBToV_BGLGeneric):
             FF dictionary
         """
         etaEWVcb = self.get_userparam("etaEW")*self.get_userparam("Vcb")
-        ff = super().get_ff(q2)
+        ff = super().calc_ff(q2)
         return {k : ff[k]/etaEWVcb for k in ff}
 
 

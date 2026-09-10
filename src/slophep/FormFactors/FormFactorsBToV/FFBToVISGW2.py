@@ -69,7 +69,7 @@ class FFBToV_ISGW2(FormFactorBToV):
         return value
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[str, float]:
+    def calc_ff(self, q2: float) -> dict[str, float]:
         """ISGW2 FFs
 
         Parameters

@@ -21,7 +21,6 @@
 # - EOS (https://eoshep.org/), which is distributed under version 2 of the GPL, 
 # and without any warranty, see <https://www.gnu.org/licenses/>
 
-from math import sqrt
 from slophep.FormFactors.FormFactorBase import FormFactor
 from slophep.Tools.errfluct_tools import fluctsettings, FluctType
 
@@ -63,7 +62,7 @@ class FormFactorBToD0st(FormFactor):
         }
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[str, float]:
+    def calc_ff(self, q2: float) -> dict[str, float]:
         """Calculate form factors at particular q2. To implement in derived class.
         Must return in basis f+, f0, fT
 
@@ -122,7 +121,7 @@ class FormFactorBToD1st(FormFactor):
         }
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[str, float]:
+    def calc_ff(self, q2: float) -> dict[str, float]:
         """Calculate form factors at particular q2. To implement in derived class.
         Must return in basis f+, f0, fT
 
@@ -181,7 +180,7 @@ class FormFactorBToD1(FormFactor):
         }
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[str, float]:
+    def calc_ff(self, q2: float) -> dict[str, float]:
         """Calculate form factors at particular q2. To implement in derived class.
         Must return in basis f+, f0, fT
 
@@ -240,7 +239,7 @@ class FormFactorBToD2st(FormFactor):
         }
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[str, float]:
+    def calc_ff(self, q2: float) -> dict[str, float]:
         """Calculate form factors at particular q2. To implement in derived class.
         Must return in basis f+, f0, fT
 

@@ -78,7 +78,7 @@ class HPQCD2020(FormFactorBToV):
         return tm
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[str, float]:
+    def calc_ff(self, q2: float) -> dict[str, float]:
         """Calculate form-factors following BGL-like continuum fit in https://arxiv.org/pdf/2007.06957, Eq. (38). 
         Computation follows supplementary material `load_fit.py`.
 

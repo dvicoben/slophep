@@ -197,7 +197,7 @@ class BGL_Hammer(FFBToV.FFBToV_BGLGeneric):
         return pars
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict:
+    def calc_ff(self, q2: float) -> dict:
         """Calculates BGL form factors (SM only) as in hammer https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDstarBGL.cc?ref_type=tags
         
         Note that there is an additional 1./(etaEW*Vcb) factor applied to FFs as in Hammer.
@@ -212,7 +212,7 @@ class BGL_Hammer(FFBToV.FFBToV_BGLGeneric):
             FF dictionary
         """
         etaEWVcb = self.get_userparam("etaEW")*self.get_userparam("Vcb")
-        ff = super().get_ff(q2)
+        ff = super().calc_ff(q2)
         return {k : ff[k]/etaEWVcb for k in ff}
 
 

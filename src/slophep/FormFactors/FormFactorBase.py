@@ -33,8 +33,24 @@ class FormFactor(ParameterUser):
             self.set_userparam(ipar, ival)
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[str, float]:
+    def calc_ff(self, q2: float) -> None:
         """Calculate form factors at particular q2. To implement in derived class.
+        
+        Parameters
+        ----------
+        q2 : float
+
+        Returns
+        -------
+        dict
+            dictionary with FFs 
+        """
+        raise NotImplementedError("get_ff must be implemented in derived class")
+
+
+    @fluctsettings(FluctType.DICTNUMERIC)
+    def get_ff(self, q2: float) -> dict[str, float]:
+        """Calculate form factors at particular q2. Should delegate to calc_ff.
 
         Parameters
         ----------
@@ -45,4 +61,4 @@ class FormFactor(ParameterUser):
         dict
             dictionary with FFs 
         """
-        raise Exception("get_ff must be implemented in derived class")
+        return self.calc_ff(q2)

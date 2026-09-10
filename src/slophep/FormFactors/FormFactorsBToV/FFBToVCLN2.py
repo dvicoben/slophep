@@ -93,7 +93,7 @@ class FFBToV_CLN2(FormFactorBToV):
         return ff
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[str, float]:
+    def calc_ff(self, q2: float) -> dict[str, float]:
         """Central value of $B\to V$ form factors in the lattice convention
         CLN parametrization. See eqs. (B4)-(B7) of arXiv:1203.2654.
 

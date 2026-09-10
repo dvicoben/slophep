@@ -333,7 +333,7 @@ class FFBToV_BLPRXP(FormFactorBToV):
         return h
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[str, float]:
+    def calc_ff(self, q2: float) -> dict[str, float]:
         """FF in BLPRXP parameterisation from https://arxiv.org/abs/2206.11281 as in HAMMER v1.4.1
 
         Parameters

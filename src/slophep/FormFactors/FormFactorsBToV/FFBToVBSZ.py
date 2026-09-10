@@ -98,7 +98,7 @@ class FFBToV_BSZ(FormFactorBToV):
         return 1/(1-q2/(mres**2))
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[str, float]:
+    def calc_ff(self, q2: float) -> dict[str, float]:
         """Calculates BSZ form factors, following https://arxiv.org/pdf/1503.05534 and https://arxiv.org/pdf/1811.00983.
         Implementation lifted from flavio https://github.com/flav-io/flavio/blob/master/flavio/physics/bdecays/formfactors/b_v/bsz.py, 
         and should be in line with EOS https://github.com/eos/eos/blob/master/eos/form-factors/parametric-bsz2015-impl.hh

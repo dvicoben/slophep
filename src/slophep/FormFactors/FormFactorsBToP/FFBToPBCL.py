@@ -62,7 +62,7 @@ class FFBToP_BCLGeneric(FormFactorBToP):
         return np.array([self.get_userparam(f"a_{ffstr}_{iord}") for iord in range(self.n[ffstr])])
     
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict:
+    def calc_ff(self, q2: float) -> dict:
         """Calculates BCL FFs.
         Implementation lifted from Hammer https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDBCL.cc, 
 

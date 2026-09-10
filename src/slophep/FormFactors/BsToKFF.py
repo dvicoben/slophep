@@ -55,8 +55,8 @@ class BCL(FFBToP.FFBToP_BCLGeneric):
         return ffpar
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[str, float]:
-        ff =  super().get_ff(q2)
+    def calc_ff(self, q2: float) -> dict[str, float]:
+        ff =  super().calc_ff(q2)
         m0p = self.get_userparam("m0p")
         P0p = (1. - q2/(m0p*m0p))
         ffs = {
