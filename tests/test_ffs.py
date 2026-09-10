@@ -66,6 +66,17 @@ def test_ff_compute(ff_instances: dict[str, FormFactor]):
         assert any([k != 0.0 for k in iffvals.values()])
 
 
+def test_ff_calc_is_get(ff_instances: dict[str, FormFactor]):
+    for iffobj in ff_instances.values():
+        # print(iffobj.name)
+        iffcalc = iffobj.calc_ff(5.0)
+        iffvals = iffobj.get_ff(5.0)
+        # Test that proper output type
+        assert type(iffcalc) is dict
+        for ik in iffcalc:
+            assert iffcalc[ik] == iffvals[ik]
+
+
 # Might move this test to errorsampler test file
 def test_ff_has_flucttype(ff_instances: dict[str, FormFactor]):
     for iffobj in ff_instances.values():
