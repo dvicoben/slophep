@@ -22,9 +22,9 @@
 # and without any warranty, see <https://www.gnu.org/licenses/>
 
 import slophep.Core as Core
+import slophep.Tools as Tools
 import slophep.FormFactors as FormFactors
 import slophep.Observables as Observables
-import slophep.Tools as Tools
 
 
 # Setup logging

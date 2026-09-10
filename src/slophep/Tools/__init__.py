@@ -23,8 +23,10 @@
 
 from slophep.Tools.mcgen import MCGenerator
 from slophep.Tools.errfluct_sampler import ErrorSampler
+from slophep.Tools.ff_factory import FormFactorFactory
 
 __all__ = [
     "MCGenerator",
-    "ErrorSampler"
+    "ErrorSampler",
+    "FormFactorFactory"
 ]
