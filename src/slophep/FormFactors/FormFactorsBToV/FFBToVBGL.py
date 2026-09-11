@@ -59,13 +59,14 @@ class FFBToV_BGLGeneric(FormFactorBToV):
     """
     _name = "FFBToV@BGLGen"
     def __init__(self, B: str, V: str,
-                 N_g   : int = 3, 
-                 N_f   : int = 3, 
-                 N_F1  : int = 3, 
-                 N_F2  : int = 3,
-                 N_T1  : int = 0, 
-                 N_T2  : int = 0, 
-                 N_T23 : int = 0):
+                 N_g   : int, 
+                 N_f   : int, 
+                 N_F1  : int, 
+                 N_F2  : int,
+                 N_T1  : int, 
+                 N_T2  : int, 
+                 N_T23 : int,
+                 coefs : dict[str, float] = None):
         """Generalised B->V BGL form factor computation, following https://arxiv.org/pdf/2606.23410
 
         Parameters
@@ -75,19 +76,21 @@ class FFBToV_BGLGeneric(FormFactorBToV):
         V : str
             Vector meson
         N_g : int, optional
-            Number of coefficients in g, by default 3
+            Number of coefficients in g (including 0th order), by default 3
         N_f : int, optional
-            Number of coefficients in f, by default 3
+            Number of coefficients in f (including 0th order), by default 3
         N_F1 : int, optional
-            Number of coefficients in F1, by default 3
+            Number of coefficients in F1 (including 0th order), by default 3
         N_F2 : int, optional
-            Number of coefficients in F2, by default 2
+            Number of coefficients in F2 (including 0th order), by default 2
         N_T1 : int, optional
-            Number of coefficients in T1, by default 0
+            Number of coefficients in T1 (including 0th order), by default 0
         N_T2 : int, optional
-            Number of coefficients in T2, by default 0
+            Number of coefficients in T2 (including 0th order), by default 0
         N_T23 : int, optional
-            Number of coefficients in T23, by default 0
+            Number of coefficients in T23 (including 0th order), by default 0
+        coefs: dict[str, float]
+            Default values to set expansion coefficient to, otherwise all zeroes
         """
         self._n = {
             "g"    : N_g  ,
@@ -99,6 +102,7 @@ class FFBToV_BGLGeneric(FormFactorBToV):
             "T23"  : N_T23,
             "nmax" : max(N_g, N_f, N_F1, N_F2, N_T1, N_T2, N_T23)
         }
+        self._initcoefs = {} if coefs is None else coefs
         super().__init__(B, V)
 
     @property
@@ -121,13 +125,13 @@ class FFBToV_BGLGeneric(FormFactorBToV):
             "BcStates0m"       : np.array([6.275, 6.871, 7.250]),
             "withF1Constraint" : True 
         }
-        ffpar.update({f"a_g_{iord}"   : 0.0 for iord in range(self.n["g"])})
-        ffpar.update({f"a_f_{iord}"   : 0.0 for iord in range(self.n["f"])})
-        ffpar.update({f"a_F1_{iord}"  : 0.0 for iord in range(self.n["F1"])})
-        ffpar.update({f"a_F2_{iord}"  : 0.0 for iord in range(self.n["F2"])})
-        ffpar.update({f"a_T1_{iord}"  : 0.0 for iord in range(self.n["T1"])})
-        ffpar.update({f"a_T2_{iord}"  : 0.0 for iord in range(self.n["T2"])})
-        ffpar.update({f"a_T23_{iord}" : 0.0 for iord in range(self.n["T23"])})
+        ffpar.update({f"a_g_{iord}"   : self._initcoefs.get(f"a_g_{iord}"  , 0.0) for iord in range(self.n["g"])})
+        ffpar.update({f"a_f_{iord}"   : self._initcoefs.get(f"a_f_{iord}"  , 0.0) for iord in range(self.n["f"])})
+        ffpar.update({f"a_F1_{iord}"  : self._initcoefs.get(f"a_F1_{iord}" , 0.0) for iord in range(self.n["F1"])})
+        ffpar.update({f"a_F2_{iord}"  : self._initcoefs.get(f"a_F2_{iord}" , 0.0) for iord in range(self.n["F2"])})
+        ffpar.update({f"a_T1_{iord}"  : self._initcoefs.get(f"a_T1_{iord}" , 0.0) for iord in range(self.n["T1"])})
+        ffpar.update({f"a_T2_{iord}"  : self._initcoefs.get(f"a_T2_{iord}" , 0.0) for iord in range(self.n["T2"])})
+        ffpar.update({f"a_T23_{iord}" : self._initcoefs.get(f"a_T23_{iord}", 0.0) for iord in range(self.n["T23"])})
         return ffpar
 
     def blaschke(self, BcStates: list, z: float, Mb: float, Mc: float) -> float:
@@ -282,11 +286,7 @@ class FFBToV_BGL(FFBToV_BGLGeneric):
         """B->V BGL 2nd order in all FFs. Defualts are set from Type-A Baysian
         combined fit in https://arxiv.org/pdf/2606.23410 (Table 1 + Table 5 for tensor FFs)
         """
-        super().__init__(B, V, 3, 3, 3, 3, 3, 3, 3)
-
-    def define_userparams(self) -> dict[str, Any]:
-        ffpar = super().define_userparams()
-        ffpar.update({
+        coefs = {
             "a_f_0"   : 0.01221 ,
             "a_f_1"   : 0.0135  , 
             "a_f_2"   : -0.16   ,
@@ -308,7 +308,7 @@ class FFBToV_BGL(FFBToV_BGLGeneric):
             "a_T23_0" : 0.01055 , 
             "a_T23_1" : 0.000   , 
             "a_T23_2" : 0.13
-        })
-        return ffpar
-
+        }
+        super().__init__(B, V, 3, 3, 3, 3, 3, 3, 3, coefs)
+    
 

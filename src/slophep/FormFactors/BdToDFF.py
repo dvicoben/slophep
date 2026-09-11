@@ -101,19 +101,21 @@ class CLN_Hammer(FFBToP.FFBToP_CLN):
 class BGL_Hammer(FFBToP.FFBToP_BGLGeneric):
     _name = "FFBdToD@BGL_Hammer"
     def __init__(self):
-        super().__init__("B0", "D+", 4, 4)
+        coefs = {
+            "a_f+_0" : 0.01565,
+            "a_f+_1" : -0.0353,
+            "a_f+_2" : -0.043 ,
+            "a_f+_3" : 0.194  ,
+            "a_f0_0" : 0.07932,
+            "a_f0_1" : -0.214 ,
+            "a_f0_2" : 0.17   ,
+            "a_f0_3" : -0.958 ,
+        }
+        super().__init__("B0", "D+", 4, 4, coefs=coefs)
 
     def define_userparams(self):
         ffpar = super().define_userparams()
         ffpar.update({
-            "a_f+_0" : 0.01565,
-            "a_f+_1" : -0.0353,
-            "a_f+_2" : -0.043,
-            "a_f+_3" : 0.194,
-            "a_f0_0" : 0.07932,
-            "a_f0_1" : -0.214,
-            "a_f0_2" : 0.17,
-            "a_f0_3" : -0.958,
             #internalparams
             "BcStatesp" : np.array([6.329, 6.920, 7.020]),
             "BcStates0" : np.array([6.716, 7.121]),

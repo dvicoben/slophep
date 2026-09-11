@@ -92,13 +92,7 @@ class HPQCD2023(FFBToV.FFBToV_HPQCD):
 class BGL_FNALMILC2021(FFBToV.FFBToV_BGLGeneric):
     _name = "FFBdToDst@BGL_FNAL/MILC2021"
     def __init__(self):
-        super().__init__("B0", "D*+", 3, 3, 3, 3, 0, 0, 0)
-
-    def define_userparams(self) -> dict[str, Any]:
-        # Meant to reproduce https://arxiv.org/pdf/2105.14019
-        # NOTE: c0 is fixed by kinematical constraint in Eq. (72)
-        pars = super().define_userparams()
-        ffpar = {
+        coefs = {
             "a_g_0"      : 0.03303572420791651   ,
             "a_g_1"      : -0.15617843109815369  ,
             "a_g_2"      : -0.12035867559458847  ,
@@ -111,6 +105,14 @@ class BGL_FNALMILC2021(FFBToV.FFBToV_BGLGeneric):
             "a_F2_0"     : 0.05086532458850226   ,
             "a_F2_1"     : -0.3282753381548069   ,
             "a_F2_2"     : -0.023361655819103194 ,
+        }
+        super().__init__("B0", "D*+", 3, 3, 3, 3, 0, 0, 0, coefs=coefs)
+
+    def define_userparams(self) -> dict[str, Any]:
+        # Meant to reproduce https://arxiv.org/pdf/2105.14019
+        # NOTE: c0 is fixed by kinematical constraint in Eq. (72)
+        pars = super().define_userparams()
+        ffpar = {
             "chig"       : 5.131e-4 ,
             "chif"       : 3.894e-4 ,
             "chiF1"      : 3.894e-4 ,
@@ -128,13 +130,7 @@ class BGL_FNALMILC2021(FFBToV.FFBToV_BGLGeneric):
 class BGL_JLQCD2023(FFBToV.FFBToV_BGLGeneric):
     _name = "FFBdToDst@BGL_JLQCD2023"
     def __init__(self):
-        super().__init__("B0", "D*+", 3, 3, 3, 3, 0, 0, 0)
-
-    def define_userparams(self) -> dict[str, Any]:
-        # Meant to reproduce https://arxiv.org/pdf/2105.14019
-        # NOTE: c0 is fixed by kinematical constraint in Eq. (72)
-        pars = super().define_userparams()
-        ffpar = {
+        coefs = {
             "a_g_0"      : 0.0291   ,
             "a_g_1"      : -0.045   ,
             "a_g_2"      : -1.0     ,
@@ -147,6 +143,14 @@ class BGL_JLQCD2023(FFBToV.FFBToV_BGLGeneric):
             "a_F2_0"     : 0.0484   ,
             "a_F2_1"     : -0.059   ,
             "a_F2_2"     : -0.9     ,
+        }
+        super().__init__("B0", "D*+", 3, 3, 3, 3, 0, 0, 0, coefs=coefs)
+
+    def define_userparams(self) -> dict[str, Any]:
+        # Meant to reproduce https://arxiv.org/pdf/2105.14019
+        # NOTE: c0 is fixed by kinematical constraint in Eq. (72)
+        pars = super().define_userparams()
+        ffpar = {
             "chig"       : 5.131e-4 ,
             "chif"       : 3.894e-4 ,
             "chiF1"      : 3.894e-4 ,
@@ -164,13 +168,7 @@ class BGL_JLQCD2023(FFBToV.FFBToV_BGLGeneric):
 class BGL_Hammer(FFBToV.FFBToV_BGLGeneric):
     _name = "FFBdToDst@BGL_Hammer"
     def __init__(self):
-        super().__init__("B0", "D*+", 3, 3, 3, 2, 0, 0, 0)
-
-    def define_userparams(self) -> dict[str, Any]:
-        # Meant to reproduce https://arxiv.org/pdf/2105.14019
-        # NOTE: c0 is fixed by kinematical constraint in Eq. (72)
-        pars = super().define_userparams()
-        ffpar = {
+        coefs = {
             "a_g_0"  : 0.00038   ,
             "a_g_1"  : 0.026905  ,
             "a_g_2"  : 0.        ,
@@ -181,6 +179,14 @@ class BGL_Hammer(FFBToV.FFBToV_BGLGeneric):
             "a_F1_2" : 0.005353  ,
             "a_F2_0" : 0.007     ,
             "a_F2_1" : -0.036    ,
+        }
+        super().__init__("B0", "D*+", 3, 3, 3, 2, 0, 0, 0, coefs=coefs)
+
+    def define_userparams(self) -> dict[str, Any]:
+        # Meant to reproduce https://arxiv.org/pdf/2105.14019
+        # NOTE: c0 is fixed by kinematical constraint in Eq. (72)
+        pars = super().define_userparams()
+        ffpar = {
             # internalparams
             "Vcb"        : 41.5e-3 ,                       
             "chiF1"      : 3.068e-4, # GeV^-2

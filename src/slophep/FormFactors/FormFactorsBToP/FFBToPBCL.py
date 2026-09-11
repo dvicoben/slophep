@@ -34,13 +34,15 @@ class FFBToP_BCLGeneric(FormFactorBToP):
     """
     _name = "FFBToP@BCLGen"
     def __init__(self, B: str, P: str,
-                 N_fp : int, N_f0 : int):
+                 N_fp : int, N_f0 : int, 
+                 coefs: dict[str, float] = None):
         logger.info(f"{self.name} tensor FFs are zero.")
         self._n = {
             "f+"   : N_fp,
             "f0"   : N_f0,
             "nmax" : max(N_fp, N_f0)
         }
+        self._initcoefs = {} if coefs is None else coefs
         super().__init__(B, P)
 
     @property
@@ -53,9 +55,9 @@ class FFBToP_BCLGeneric(FormFactorBToP):
             "q2cons" : False,   # impose f_+(q^2=0) = f_0(q^2=0)
             "tp"     : None
         }
-        ffpar.update({f"a_f+_{iord}" : 0.0 for iord in range(self.n["f+"])})
-        ffpar.update({f"a_f0_{iord}" : 0.0 for iord in range(self.n["f0"])})
-        # ffpar.update({f"a_fT_{iord}" : 0.0 for iord in range(self.n["fT"])})
+        ffpar.update({f"a_f+_{iord}" : self._initcoefs.get( f"a_f+_{iord}", 0.0) for iord in range(self.n["f+"])})
+        ffpar.update({f"a_f0_{iord}" : self._initcoefs.get( f"a_f0_{iord}", 0.0) for iord in range(self.n["f0"])})
+        # ffpar.update({f"a_fT_{iord}" : self._initcoefs.get( f"a_fT_{iord}", 0.0) for iord in range(self.n["fT"])})
         return ffpar
 
     def get_coef_arr(self, ffstr: str) -> list[float]:
@@ -121,11 +123,7 @@ class FFBToP_BCLGeneric(FormFactorBToP):
 class FFBToP_BCL(FFBToP_BCLGeneric):
     _name = "FFBToP@BCL"
     def __init__(self, B: str, P: str):
-        super().__init__(B, P, 4, 4)
-
-    def define_userparams(self):
-        ffpar = super().define_userparams()
-        ffpar.update({
+        coefs = {
             "a_f+_0" : 0.419 ,
             "a_f+_1" : -0.495,
             "a_f+_2" : -0.43 ,
@@ -134,6 +132,12 @@ class FFBToP_BCL(FFBToP_BCLGeneric):
             "a_f0_1" : -1.700,
             "a_f0_2" : 1.53  ,
             "a_f0_3" : 4.52  ,
+        }
+        super().__init__(B, P, 4, 4, coefs=coefs)
+
+    def define_userparams(self):
+        ffpar = super().define_userparams()
+        ffpar.update({
             #internalparams
             "m1m"    : 5.325  ,
             "q2cons" : False   # impose f_+(q^2=0) = f_0(q^2=0)
