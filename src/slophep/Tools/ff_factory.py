@@ -22,6 +22,7 @@
 # and without any warranty, see <https://www.gnu.org/licenses/>
 
 from typing import Any, Callable
+import copy
 from slophep.FormFactors.FormFactorBase import FormFactor
 
 class FormFactorFactory:
@@ -48,10 +49,11 @@ class FormFactorFactory:
         type[FormFactor]
             The new FF scheme.
         """
+        paramd = copy.deepcopy(params) if params is not None else {}
         class newFF(base):
             _name = name
             def define_userparams(self):
-                return params
+                return paramd
             def calc_ff(self, *args, **kwargs):
                 return ffcalc(self, *args, **kwargs)
 
