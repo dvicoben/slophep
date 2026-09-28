@@ -34,11 +34,7 @@ from slophep.Core.user_registry import FFregistry
 class BCL(FFBToP.FFBToP_BCLGeneric):
     _name = "FFBsToK@BCL"
     def __init__(self):
-        super().__init__("Bs", "K+", 4, 3)
-
-    def define_userparams(self):
-        ffpar = super().define_userparams()
-        ffpar.update({
+        coefs = {
             "a_f+_0" : 0.374 , 
             "a_f+_1" : -0.672, 
             "a_f+_2" : 0.07  , 
@@ -46,6 +42,12 @@ class BCL(FFBToP.FFBToP_BCLGeneric):
             "a_f0_0" : 0.2203, 
             "a_f0_1" : 0.089 , 
             "a_f0_2" : 0.24  ,
+        }
+        super().__init__("Bs", "K+", 4, 3, coefs=coefs)
+
+    def define_userparams(self):
+        ffpar = super().define_userparams()
+        ffpar.update({
             #internalparams
             "m1m"    : 5.325,
             "m0p"    : 5.68 ,
@@ -55,8 +57,8 @@ class BCL(FFBToP.FFBToP_BCLGeneric):
         return ffpar
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[str, float]:
-        ff =  super().get_ff(q2)
+    def _calc_ff(self, q2: float) -> dict[str, float]:
+        ff =  super()._calc_ff(q2)
         m0p = self.get_userparam("m0p")
         P0p = (1. - q2/(m0p*m0p))
         ffs = {

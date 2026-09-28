@@ -47,7 +47,7 @@ class FFBToP_CLN(FormFactorBToP):
         return ffpar
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[str, float]:
+    def _calc_ff(self, q2: float) -> dict[str, float]:
         """Calculates CLN FFs.
         Implementation lifted from Hammer https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDCLN.cc, 
 

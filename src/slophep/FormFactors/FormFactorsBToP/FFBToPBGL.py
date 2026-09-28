@@ -33,13 +33,30 @@ class FFBToP_BGLGeneric(FormFactorBToP):
     _name = "FFBToP@BGLGen"
     def __init__(self, B: str, P: str,
                  N_fp : int = 3,
-                 N_f0 : int = 3):
+                 N_f0 : int = 3,
+                 coefs: dict[str, float] = None):
+        """Generalised B->P BGL, does not have fT.
+
+        Parameters
+        ----------
+        B : str
+            B meson
+        P : str
+            P meson
+        N_fp : int, optional
+            Number of coefficients in fp (including 0th order), by default 3
+        N_f0 : int, optional
+            Number of coefficients in fp (including 0th order), by default 3
+        coefs: dict[str, float]
+            Default values to set expansion coefficient to, otherwise all zeroes
+        """
         logger.info(f"{self.name} tensor FFs are zero.")
         self._n = {
             "f+"   : N_fp,
             "f0"   : N_f0,
             "nmax" : max(N_fp, N_f0)
         }
+        self._initcoefs = {} if coefs is None else coefs
         super().__init__(B, P)
 
     @property
@@ -55,9 +72,9 @@ class FFBToP_BGLGeneric(FormFactorBToP):
             "nmax"      : 4,
             "nc"        : 2.6
         }
-        ffpar.update({f"a_f+_{iord}" : 0.0 for iord in range(self.n["f+"])})
-        ffpar.update({f"a_f0_{iord}" : 0.0 for iord in range(self.n["f0"])})
-        # ffpar.update({f"a_fT_{iord}" : 0.0 for iord in range(self.n["fT"])})
+        ffpar.update({f"a_f+_{iord}" : self._initcoefs.get( f"a_f+_{iord}", 0.0) for iord in range(self.n["f+"])})
+        ffpar.update({f"a_f0_{iord}" : self._initcoefs.get( f"a_f0_{iord}", 0.0) for iord in range(self.n["f0"])})
+        # ffpar.update({f"a_fT_{iord}" : self._initcoefs.get( f"a_fT_{iord}", 0.0) for iord in range(self.n["fT"])})
         return ffpar
 
     def get_coef_arr(self, ffstr: str) -> list[float]:
@@ -74,7 +91,7 @@ class FFBToP_BGLGeneric(FormFactorBToP):
         return np.prod(parr)
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict:
+    def _calc_ff(self, q2: float) -> dict:
         """Calculates BGL FFs.
         Implementation lifted from Hammer https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDBGL.cc, 
 
@@ -127,11 +144,7 @@ class FFBToP_BGLGeneric(FormFactorBToP):
 class FFBToP_BGL(FFBToP_BGLGeneric):
     _name = "FFBToP@BGL"
     def __init__(self, B: str, P: str):
-        super().__init__(B, P, 4, 4)
-
-    def define_userparams(self):
-        ffpar = super().define_userparams()
-        ffpar.update({
+        coefs = {
             "a_f+_0" : 0.01565,
             "a_f+_1" : -0.0353,
             "a_f+_2" : -0.043,
@@ -140,6 +153,12 @@ class FFBToP_BGL(FFBToP_BGLGeneric):
             "a_f0_1" : -0.214,
             "a_f0_2" : 0.17,
             "a_f0_3" : -0.958,
+        }
+        super().__init__(B, P, 4, 4, coefs=coefs)
+
+    def define_userparams(self):
+        ffpar = super().define_userparams()
+        ffpar.update({
             #internalparams
             "BcStatesp" : np.array([6.329, 6.920, 7.020]),
             "BcStates0" : np.array([6.716, 7.121]),

@@ -21,44 +21,40 @@
 # - EOS (https://eoshep.org/), which is distributed under version 2 of the GPL, 
 # and without any warranty, see <https://www.gnu.org/licenses/>
 
-from typing import Any
-from slophep.Core.Parameter import ParameterUser, ParameterManager
-from slophep.Tools.errfluct_tools import fluctsettings, FluctType
+from typing import Any, Callable
+import copy
+from slophep.FormFactors.FormFactorBase import FormFactor
 
-class FormFactor(ParameterUser):
-    _name = "FFBase"
-
-    def set_ff(self, ffpar: dict[str, Any]) -> None:
-        for ipar, ival in ffpar.items():
-            self.set_userparam(ipar, ival)
-
-    @fluctsettings(FluctType.DICTNUMERIC)
-    def _calc_ff(self, q2: float) -> None:
-        """Calculate form factors at particular q2. To implement in derived class.
-        
-        Parameters
-        ----------
-        q2 : float
-
-        Returns
-        -------
-        dict
-            dictionary with FFs 
-        """
-        raise NotImplementedError("get_ff must be implemented in derived class")
-
-
-    @fluctsettings(FluctType.DICTNUMERIC)
-    def get_ff(self, q2: float) -> dict[str, float]:
-        """Calculate form factors at particular q2. Should delegate to calc ff.
+class FormFactorFactory:
+    @classmethod
+    def create(cls, name: str, 
+               params: dict[str, Any], 
+               ffcalc: Callable[[FormFactor, float], dict[str, float]], 
+               base: type[FormFactor] = FormFactor) -> type[FormFactor]:
+        """Creates a new FF class, binding params to .define_userparams method, and ffcalc to .calc_ff method.
 
         Parameters
         ----------
-        q2 : float
+        name : str
+            Name of FF scheme
+        params : dict[str, Any]
+            Dictionary of FF parameters
+        ffcalc : Callable[[FormFactor, float], dict[str, float]]
+            Callable implementing FF calculation, in manner analogous to calc_ff.
+        base : type[FormFactor], optional
+            Base class to use for new FF scheme, by default FormFactor
 
         Returns
         -------
-        dict
-            dictionary with FFs 
+        type[FormFactor]
+            The new FF scheme.
         """
-        return self._calc_ff(q2)
+        paramd = copy.deepcopy(params) if params is not None else {}
+        class newFF(base):
+            _name = name
+            def define_userparams(self):
+                return paramd
+            def _calc_ff(self, *args, **kwargs):
+                return ffcalc(self, *args, **kwargs)
+
+        return newFF

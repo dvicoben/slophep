@@ -1,6 +1,6 @@
 import sys
 import os
-sys.path.insert(0, os.path.abspath('../../src/'))
+sys.path.insert(0, os.path.abspath("../../src/"))
 
 # Configuration file for the Sphinx documentation builder.
 #
@@ -10,10 +10,11 @@ sys.path.insert(0, os.path.abspath('../../src/'))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project   = 'SLOP'
-copyright = '%Y, dvicoben'
-author    = 'dvicoben'
-release   = 'v2.0.0'
+_projversion = "v2.1.0"
+project   = "SLOP"+ f"  {_projversion}"
+copyright = "%Y, dvicoben"
+author    = "dvicoben"
+release   = _projversion
 
 
 # -- General configuration ---------------------------------------------------
@@ -23,11 +24,11 @@ extensions = [
     "sphinx_rtd_theme"      ,
     "myst_parser"           ,
     "autoclasstoc"          ,
-    'sphinx.ext.autodoc'    , # To generate autodocs
-    'sphinx.ext.autosummary', 
-    'sphinx.ext.mathjax'    , # autodoc with maths
-    'sphinx.ext.napoleon'   , # For auto-doc configuration
-    'sphinx.ext.viewcode'
+    "sphinx.ext.autodoc"    , # To generate autodocs
+    "sphinx.ext.autosummary", 
+    "sphinx.ext.mathjax"    , # autodoc with maths
+    "sphinx.ext.napoleon"   , # For auto-doc configuration
+    "sphinx.ext.viewcode"
 ]
 
 myst_enable_extensions = [
@@ -36,12 +37,12 @@ myst_enable_extensions = [
 ]
 
 source_suffix = {
-    '.rst': 'restructuredtext',
-    '.txt': 'markdown',
-    '.md' : 'markdown',
+    ".rst": "restructuredtext",
+    ".txt": "markdown",
+    ".md" : "markdown",
 }
 
-templates_path       = ['_templates']
+templates_path       = ["_templates"]
 exclude_patterns     = []
 autosummary_generate = True
 # If true, the current module name will be prepended to all description unit titles (such as .. function::).
@@ -52,8 +53,9 @@ autosummary_ignore_module_all = False
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinx_rtd_theme'
-html_static_path = ['_static']
+html_theme = "sphinx_rtd_theme"
+html_static_path = ["_static"]
+html_logo = "_static/slop_w.png"
 html_css_files = [
     'css/custom.css',
 ]
