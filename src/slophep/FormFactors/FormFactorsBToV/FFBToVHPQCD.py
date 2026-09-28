@@ -147,7 +147,7 @@ class FFBToV_HPQCD(FormFactorBToV):
         return value
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def calc_ff(self, q2: float) -> dict[str, float]:
+    def _calc_ff(self, q2: float) -> dict[str, float]:
         """Implements FF caclculation according to https://arxiv.org/abs/2304.03137.
         Reproduced from the ancillary files (LOAD_FIT.py)
 

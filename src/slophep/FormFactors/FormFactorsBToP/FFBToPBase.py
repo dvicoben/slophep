@@ -47,7 +47,7 @@ class FormFactorBToP(FormFactor):
         return (mB**2 + mP**2 - q2) / (2 * mB * mP)
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def calc_ff(self, q2: float) -> dict[str, float]:
+    def _calc_ff(self, q2: float) -> dict[str, float]:
         """Calculate form factors at particular q2. To implement in derived class.
         Must return in basis f+, f0, fT
 

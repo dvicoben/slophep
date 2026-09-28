@@ -33,7 +33,7 @@ class FormFactor(ParameterUser):
             self.set_userparam(ipar, ival)
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def calc_ff(self, q2: float) -> None:
+    def _calc_ff(self, q2: float) -> None:
         """Calculate form factors at particular q2. To implement in derived class.
         
         Parameters
@@ -50,7 +50,7 @@ class FormFactor(ParameterUser):
 
     @fluctsettings(FluctType.DICTNUMERIC)
     def get_ff(self, q2: float) -> dict[str, float]:
-        """Calculate form factors at particular q2. Should delegate to calc_ff.
+        """Calculate form factors at particular q2. Should delegate to calc ff.
 
         Parameters
         ----------
@@ -61,4 +61,4 @@ class FormFactor(ParameterUser):
         dict
             dictionary with FFs 
         """
-        return self.calc_ff(q2)
+        return self._calc_ff(q2)

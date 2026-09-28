@@ -89,10 +89,10 @@ class CLN_Hammer(FFBToP.FFBToP_CLN):
         return ffpar
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def calc_ff(self, q2: float):
+    def _calc_ff(self, q2: float):
         """B->P Hammer basis differs in fT from standard SLOP basis, use with care for predictions - SM only so shouldn't matter"""
         scale = self.get_param(f"m_{self.B}") + self.get_param(f"m_{self.P}")
-        ffs = super().calc_ff(q2)
+        ffs = super()._calc_ff(q2)
         ffs["fT"] *= 1./scale
         return ffs
 
@@ -127,10 +127,10 @@ class BGL_Hammer(FFBToP.FFBToP_BGLGeneric):
         return ffpar
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def calc_ff(self, q2: float):
+    def _calc_ff(self, q2: float):
         """B->P Hammer basis differs in fT from standard SLOP basis, use with care for predictions - SM only so shouldn't matter"""
         scale = self.get_param(f"m_{self.B}") + self.get_param(f"m_{self.P}")
-        ffs = super().calc_ff(q2)
+        ffs = super()._calc_ff(q2)
         ffs["fT"] *= 1./scale
         return ffs
     
@@ -165,9 +165,9 @@ class BLPR_Hammer(FFBToP.FFBToP_BLPR):
         return ffpar
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def calc_ff(self, q2: float):
+    def _calc_ff(self, q2: float):
         """B->P Hammer basis differs in fT from standard SLOP basis, use with care for predictions - SM only so shouldn't matter"""
         scale = self.get_param(f"m_{self.B}") + self.get_param(f"m_{self.P}")
-        ffs = super().calc_ff(q2)
+        ffs = super()._calc_ff(q2)
         ffs["fT"] *= 1./scale
         return ffs

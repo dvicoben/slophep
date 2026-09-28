@@ -48,7 +48,7 @@ class FormFactorOneHalfpToOneHalfp(FormFactor):
         mP = self.get_param(f"m_{self.P}")
         return (mB**2 + mP**2 - q2) / (2 * mB * mP)
     
-    def calc_ff(self, q2: float) -> dict:
+    def _calc_ff(self, q2: float) -> dict:
         """Calculate form factors at particular q2.
 
         Parameters

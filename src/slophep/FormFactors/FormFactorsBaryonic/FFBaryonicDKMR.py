@@ -78,7 +78,7 @@ class FFBaryonic_DKMR(FormFactorOneHalfpToOneHalfp):
         return (sq2-st0)/(sq2+st0)
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def calc_ff(self, q2: float) -> dict[str, float]:
+    def _calc_ff(self, q2: float) -> dict[str, float]:
         """DKMR form factors, https://arxiv.org/abs/1702.02243
         Implementation reproduces EOS https://github.com/eos/eos/blob/v1.0.13/eos/form-factors/parametric-dkmr2017-impl.hh
 

@@ -91,7 +91,7 @@ class FFBToP_BGLGeneric(FormFactorBToP):
         return np.prod(parr)
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def calc_ff(self, q2: float) -> dict:
+    def _calc_ff(self, q2: float) -> dict:
         """Calculates BGL FFs.
         Implementation lifted from Hammer https://gitlab.com/mpapucci/Hammer/-/blob/v1.2.1/src/FormFactors/FFBtoDBGL.cc, 
 

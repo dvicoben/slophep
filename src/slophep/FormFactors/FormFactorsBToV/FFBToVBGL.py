@@ -196,7 +196,7 @@ class FFBToV_BGLGeneric(FormFactorBToV):
         return np.array([self.get_userparam(f"a_{ffstr}_{iord}") for iord in range(self.n[ffstr])])
 
     @fluctsettings(FluctType.DICTNUMERIC)
-    def calc_ff(self, q2: float) -> dict[str, float]:
+    def _calc_ff(self, q2: float) -> dict[str, float]:
         """Calculates BGL form factors following https://arxiv.org/pdf/2606.23410
 
         The choice is made for t0 = t- such that w=1 means z=0.

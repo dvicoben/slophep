@@ -54,7 +54,7 @@ class FormFactorFactory:
             _name = name
             def define_userparams(self):
                 return paramd
-            def calc_ff(self, *args, **kwargs):
+            def _calc_ff(self, *args, **kwargs):
                 return ffcalc(self, *args, **kwargs)
 
         return newFF
