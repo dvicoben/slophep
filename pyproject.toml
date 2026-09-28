@@ -1,6 +1,6 @@
 [project]
 name = "slophep"
-version = "2.0.0"
+version = "2.1.0"
 authors = [
     {name="David Vico Benet", email="david.vico.benet@cern.ch"}
 ]
